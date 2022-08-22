@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+@font-face {
+    font-family: 'Sukhumvit Set';
+    src: url('/src/assets/fonts/SukhumvitSet-Bold.ttf') format('ttf'),
+        url('/src/assets/fonts/SukhumvitSet-Light.ttf') format('ttf'),
+        url('/src/assets/fonts/SukhumvitSet-Medium.ttf') format('ttf'),
+        url('/src/assets/fonts/SukhumvitSet-SemiBold.ttf') format('ttf'),
+        url('/src/assets/fonts/SukhumvitSet-Text.ttf') format('ttf'),
+        url('/src/assets/fonts/SukhumvitSet-Thin.ttf') format('ttf'),;
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

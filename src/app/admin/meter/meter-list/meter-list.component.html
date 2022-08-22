@@ -1,0 +1,137 @@
+<!-- start page title -->
+<div class="row mb-3">
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item active">มิเตอร์</li>
+        </ol>
+    </div>
+</div>
+
+<!-- end page title -->
+
+<!-- Start row -->
+<div class="row">
+    <div class="">
+        <div class="card card-green-style">
+            <div class="p-3 px-4 bg-success">
+                <div class="d-flex align-items-start">
+                    <!-- <div class="align-self-center me-3">
+                    <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
+                  </div> -->
+                    <div class="flex-1 align-self-center">
+                        <h5 class="title-card font-size-16 mb-0">
+                            <a href="#" class="text-reset">มิเตอร์</a>
+                        </h5>
+                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+                    </div>
+
+                    <div class="button-items">
+                        <button routerLink="/meter-add" routerLinkActive="active"
+                            class="btn btn-outline-success btn-rounded float-right">
+                            <i class="bx bx-user-plus"></i> เพิ่มมิเตอร์
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>เลขมิเตอร์</th>
+                                                <th>ช่องข้อมูล</th>
+                                                <th>แรงดัน (V)</th>
+                                                <th>ความถี่ (Hz)</th>
+                                                <th>หน่วยไฟสะสม (kWh)</th>
+                                                <th>สถานะมิเตอร์</th>
+                                                <th>แอคชั่น</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr routerLink="/meter-view" routerLinkActive="active">
+                                                <th scope="row">SN10000001</th>
+                                                <td>A0001</td>
+                                                <td>225</td>
+                                                <td>50</td>
+                                                <td>234.33</td>
+                                                <td>
+                                                    <span
+                                                        class="badge rounded-pill bg-success ms-1">ปกติ</span>
+                                                </td>
+                                                <td>
+                                                    <div class="button-items">
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            routerLink="/meter-view"
+                                                            routerLinkActive="active">
+                                                            <i class="bx bxs-show"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            routerLink="/meter-edit"
+                                                            routerLinkActive="active">
+                                                            <i class="bx bxs-pencil"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            id="sa-warning">
+                                                            <i class="bx bxs-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr routerLink="/meter-view" routerLinkActive="active">
+                                                <th scope="row">SN10000002</th>
+                                                <td>A0002</td>
+                                                <td>225</td>
+                                                <td>50</td>
+                                                <td>234.33</td>
+                                                <td>
+                                                    <span
+                                                        class="badge rounded-pill bg-danger ms-1">ผิดปกติ</span>
+                                                </td>
+                                                <td>
+                                                    <div class="button-items">
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            routerLink="/meter-view"
+                                                            routerLinkActive="active">
+                                                            <i class="bx bxs-show"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            routerLink="/meter-edit"
+                                                            routerLinkActive="active">
+                                                            <i class="bx bxs-pencil"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="btn btn-action"
+                                                            id="sa-warning">
+                                                            <i class="bx bxs-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--   
+  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
+  <div class="preview-action" [class.show]="show_preview">
+    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
+  </div> -->

@@ -1,0 +1,230 @@
+<!-- start page title -->
+<app-pagetitle title="Dashboard" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<!-- end page title -->
+
+<div class="row">
+
+
+    <div class="col-md-6 col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <div class="avatar-sm mx-auto mb-4">
+                        <span class="avatar-title rounded-circle bg-light font-size-24">
+                            <i class="bx bx-user text-success"></i>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-muted text-uppercase fw-semibold">ผู้ใช้งาน</p>
+                    <h4 class="mb-1 mt-1"><span [CountTo]="312" class="counter-value" [from]="0" [duration]="1"></span>
+                        Users</h4>
+                </div>
+                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-danger me-1"><i
+                            class="mdi mdi-arrow-down-bold me-1"></i>4.58%</span> since last week
+                </p> -->
+            </div>
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-md-6 col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <div class="avatar-sm mx-auto mb-4">
+                        <span class="avatar-title rounded-circle bg-light font-size-24">
+                            <i class="bx bx-store text-primary"></i>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-muted text-uppercase fw-semibold">ร้านค้า</p>
+                    <h4 class="mb-1 mt-1"><span class="counter-value" [CountTo]="233" [from]="0" [duration]="1"></span>
+                        ร้านค้า</h4>
+                </div>
+                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-success me-1"><i
+                            class="mdi mdi-arrow-up-bold me-1"></i>14.33%</span> since last week
+                </p> -->
+            </div>
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-md-6 col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <div class="avatar-sm mx-auto mb-4">
+                        <span class="avatar-title rounded-circle bg-light font-size-24">
+                            <i class="bx bx-bulb text-danger"></i>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-muted text-uppercase fw-semibold">มิเตอร์ไฟฟ้า</p>
+                    <h4 class="mb-1 mt-1"><span class="counter-value" [CountTo]="420" [from]="0" [duration]="1"></span>
+                        มิเตอร์</h4>
+                </div>
+                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-warning me-1"><i
+                            class="mdi mdi-arrow-up-bold me-1"></i>0.55%</span> since last week
+                </p> -->
+            </div>
+        </div>
+    </div> <!-- end col-->
+
+</div> <!-- end row-->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ผู้ใช้งาน</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ประเภทผู้ใช้</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <th>อีเมล</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>ร้านค้า</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>ศรีวงศ์</td>
+                                <td>info@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>ร้านค้า</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>ศรีวงศ์</td>
+                                <td>info@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>ร้านค้า</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>ศรีวงศ์</td>
+                                <td>info@gmail.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ร้านค้า</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ชื่อร้าน</th>
+                                <th>ผู้ติดต่อ</th>
+                                <th>เลขแผง</th>
+                                <th>เบอร์โทร</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>ก๊วยเตี๋ยว1</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>A0001</td>
+                                <td>0888888888</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>ก๊วยเตี๋ยว2</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>A0002</td>
+                                <td>0888888888</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>ก๊วยเตี๋ยว3</td>
+                                <td>เพชรฤทธิ์</td>
+                                <td>A0003</td>
+                                <td>0888888888</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!-- <div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">มิเตอร์ไฟฟ้า</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>เลขมิเตอร์</th>
+                                <th>ช่องข้อมูล</th>
+                                <th>แรงดัน (V)</th>
+                                <th>ความถี่ (Hz)</th>
+                                <th>หน่วยไฟฟ้าสะสม (kHz)</th>
+                                <th>สถานะมิเตอร์</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>SN1000000001</td>
+                                <td>AZ0001</td>
+                                <td>256</td>
+                                <td>50</td>
+                                <td>189.332</td>
+                                <td>
+                                    <input type="checkbox" id="switch1" switch="warning" (click)="cancel()" checked />
+                                    <label class="me-1" for="switch1"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>SN2000000002</td>
+                                <td>AZ0002</td>
+                                <td>245</td>
+                                <td>48</td>
+                                <td>145.232</td>
+                                <td>
+                                    <input type="checkbox" id="switch2" switch="warning" (click)="cancel()" checked />
+                                    <label class="me-1" for="switch2"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>SN3000000003</td>
+                                <td>AZ0003</td>
+                                <td>258</td>
+                                <td>56</td>
+                                <td>198.152</td>
+                                <td>
+                                    <input type="checkbox" id="switch3" switch="warning" (click)="cancel()" checked />
+                                    <label class="me-1" for="switch3"></label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+

@@ -1,0 +1,85 @@
+<!-- start page title -->
+<div class="row mb-3">
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item active">ประวัติการใช้ไฟฟ้า (รายวัน)</li>
+        </ol>
+    </div>
+</div>
+
+<!-- end page title -->
+
+<!-- Start row -->
+<div class="row">
+    <div class="">
+        <div class="card card-green-style">
+            <div class="p-3 px-4 bg-success">
+                <div class="d-flex align-items-start">
+                    <!-- <div class="align-self-center me-3">
+                    <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
+                  </div> -->
+                    <div class="flex-1 align-self-center">
+                        <h5 class="title-card font-size-16 mb-0">
+                            <a href="#" class="text-reset">ประวัติการใช้ไฟฟ้า (รายวัน)</a>
+                        </h5>
+                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+                    </div>
+
+                    <div class="button-items">
+                        <button routerLink="/mobile/history-list" routerLinkActive="active"
+                            class="btn btn-outline-success btn-rounded float-right">
+                            <i class="bx bx-user-plus"></i> ย้อนกลับ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>วัน</th>
+                                                <th>จำนวนหน่วย (kWh)</th>
+                                                <th>จำนวนเงิน</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr routerLink="/mobile/history-view" routerLinkActive="active">
+                                                <th scope="row">31/08/22</th>
+                                                <td>23</td>
+                                                <td>161 บาท</td>
+                                            </tr>
+                                            <tr routerLink="/mobile/history-view" routerLinkActive="active">
+                                                <th scope="row">30/08/22</th>
+                                                <td>23</td>
+                                                <td>161 บาท</td>
+                                            </tr>
+                                            <tr routerLink="/mobile/history-view" routerLinkActive="active">
+                                                <th scope="row">29/08/22</th>
+                                                <td>23</td>
+                                                <td>161 บาท</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--   
+  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
+  <div class="preview-action" [class.show]="show_preview">
+    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
+  </div> -->

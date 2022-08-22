@@ -1,0 +1,451 @@
+<!-- start page title -->
+<!-- <app-pagetitle title="Profile" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+<!-- end page title -->
+
+<div class="row mb-4">
+    <div class="col-xl-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="">
+                    <div class="dropdown float-end" ngbDropdown>
+                        <a class="text-body dropdown-toggle font-size-18" href="javascript: void(0);" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" ngbDropdownToggle>
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                            <a class="dropdown-item" href="javascript: void(0);">แก้ไข</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center bg-pattern">
+                        <div class="col-sm-12">
+                            <img src="assets/images/users/avatar-4.jpg" alt=""
+                                class="avatar-xl img-thumbnail rounded-circle mb-3">
+                            <a class="dropdown-item"><i
+                                    class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i> <span
+                                    class="align-middle" key="t-balance">เงินคงเหลือ :
+                                    <b>201 บาท</b></span></a>
+                            <div class="row">
+                                <h6 class="text-danger">กรุณาชำระค่าไฟก่อนถูกระงับมิเตอร์</h6>
+                            </div>
+                        </div>
+
+                        <h4 class="text-primary mb-2">เพชรฤทธิ์ ศรีวงศ์</h4>
+                        <div class="text-center mb-2">
+                            <a class="btn btn-warning me-2 waves-effect waves-light btn-sm"
+                                (click)="topupModal(topup)"><i class="mdi mdi-email-outline me-1"></i>เติมเงิน</a>
+                            <!-- <a class="btn btn-danger waves-effect waves-light btn-sm" (click)="repairModal(repair)"><i
+                                    class="mdi mdi-phone-outline me-1"></i>แจ้งไฟฟ้าขัดข้อง</a> -->
+                        </div>
+
+                    </div>
+                </div>
+                <hr class="my-4">
+                <h4 class="card-title mb-4">ประวัติการใช้ไฟฟ้า</h4>
+                <div class="mt-3">
+                    <apx-chart dir="ltr" class="apex-charts" [chart]="emailSentBarChart.chart"
+                        [series]="emailSentBarChart.series" [legend]="emailSentBarChart.legend"
+                        [stroke]="emailSentBarChart.stroke" [colors]="emailSentBarChart.colors"
+                        [fill]="emailSentBarChart.fill" [dataLabels]="emailSentBarChart.dataLabels"
+                        [xaxis]="emailSentBarChart.xaxis" [markers]="emailSentBarChart.markers"
+                        [plotOptions]="emailSentBarChart.plotOptions" [yaxis]="emailSentBarChart.yaxis"
+                        [tooltip]="emailSentBarChart.tooltip" [grid]="emailSentBarChart.grid"
+                        [labels]="emailSentBarChart.labels">
+                    </apx-chart>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8">
+        <div class="card mb-0">
+            <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs nav-tabs-custom nav-justified">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>
+                        <i class="bx bx-money font-size-20"></i>
+                        <span class="d-none d-sm-block">เติมเงิน</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div>
+                            <div>
+                                <h5 class="font-size-16 mb-4">รายการเติมเงิน</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">วันที่</th>
+                                                <th scope="col">จำนวน</th>
+                                                <th scope="col">สถานะ</th>
+                                                <th scope="col">ใบเสร็จ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    18/7/22
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">1,000 บ</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">รอชำระ</span>
+                                                </td>
+                                                <td>
+                                                    <a href=""
+                                                        class="btn btn-secondary me-2 waves-effect waves-light btn-sm" href="javascript:window.print()"><i
+                                                            class="bx bx-dollar-circle"></i> พิมพ์</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    10/7/22
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">500 บ</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-success font-size-12">ชำระแล้ว</span>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-secondary me-2 waves-effect waves-light btn-sm" href="javascript:window.print()"><i
+                                                            class="bx bx-dollar-circle"></i> พิมพ์</a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>
+                        <i class="bx bx-bar-chart-alt-2 font-size-20"></i>
+                        <span class="d-none d-sm-block">ประวัติการใช้ไฟฟ้า</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div>
+                            <div>
+                                <h5 class="font-size-16 mb-4">ประวัติการใช้ไฟฟ้า</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap table-hover mb-0 text-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">รอบวัน</th>
+                                                <th scope="col">จำนวนหน่วย (kWh)</th>
+                                                <th scope="col">จำนวนเงิน</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">31 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">30 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">29 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">28 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">27 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">26 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">25 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">24 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">23 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">22 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript: void(0);" class="text-dark">21 July 2022</a></td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">122</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-soft-primary font-size-12">894 บาท</span>
+                                                </td>
+                                            </tr>
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+
+                <li [ngbNavItem]="3">
+                    <a ngbNavLink>
+                        <i class="bx bx-bulb font-size-20"></i>
+                        <span class="d-none d-sm-block">มิเตอร์</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div>
+                            <div>
+                                <h5 class="font-size-16 mb-4">รายการมิเตอร์</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">สถานะ</th>
+                                                <th scope="col">เลขเครื่อง</th>
+                                                <th scope="col">เลขแผง</th>
+                                                <th scope="col">ร้านค้า</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" id="switch1" switch="warning"
+                                                        (click)="cancel()" checked />
+                                                    <label class="me-1" for="switch1"></label>
+                                                </td>
+                                                <td>
+                                                    SN1000001
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">A001</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">ร้านก๊วยเตี๋ยว1</a></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" id="switch1" switch="warning"
+                                                        (click)="cancel()" checked />
+                                                    <label class="me-1" for="switch1"></label>
+                                                </td>
+                                                <td>
+                                                    SN1000002
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">A002</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">ร้านก๊วยเตี๋ยว1</a></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" id="switch1" switch="warning"
+                                                        (click)="cancel()" checked />
+                                                    <label class="me-1" for="switch1"></label>
+                                                </td>
+                                                <td>
+                                                    SN1000003
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">A003</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">ร้านก๊วยเตี๋ยว2</a></td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="4">
+                    <a ngbNavLink>
+                        <i class="bx bxs-store font-size-20"></i>
+                        <span class="d-none d-sm-block">ร้านค้า</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div>
+                            <div>
+                                <h5 class="font-size-16 mb-4">รายการร้านค้า</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">รหัสร้าน</th>
+                                                <th scope="col">ชื่อร้าน</th>
+                                                <th scope="col">เลขสัญญา</th>
+                                                <th scope="col">โซน</th>
+                                                <th scope="col">วันสิ้นสุดสัญญา</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    FV0001
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">ร้านก๊วยเตี๋ยว1</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">0011001</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">โซน D</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">01/08/2023</a></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    FV0002
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-dark">ร้านก๊วยเตี๋ยว2</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">0011001</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">โซน D</a></td>
+                                                <td><a href="javascript: void(0);" class="text-dark">01/08/2023</a></td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="p-4"></div>
+        </div>
+    </div>
+
+    <!-- Repair Modal -->
+    <ng-template #repair let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">แจ้งเหตุขัดข้อง</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputValue" placeholder="ไฟดับ">
+                                <label for="floatingInputValue">หัวข้อ</label>
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect"
+                                    aria-label="Floating label select example">
+                                    <option selected>เลือกรายการ</option>
+                                    <option value="1">ไฟดับ</option>
+                                    <option value="2">ไฟรั่ว</option>
+                                    <option value="3">ไฟตัด</option>
+                                </select>
+                                <label for="floatingSelect">กลุ่มเหตุขัดข้อง</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-floating mb-3 mb-lg-0">
+                                <textarea class="form-control" placeholder="รายละเอียด" id="floatingTextarea"
+                                    rows="10"></textarea>
+                                <label for="floatingTextarea">รายละเอียด</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">ปิด</button>
+            <button type="button" class="btn btn-primary">ส่งข้อมูล</button>
+        </div>
+    </ng-template>
+
+    <!-- Topup Modal -->
+    <ng-template #topup let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">เติมเงิน</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="card-title-desc">ชำระเงินตามยอดได้ที่ จุดรับชำระเงินค่าไฟของโครงการ
+                            </p>
+                            <form class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputValue"
+                                    placeholder="ระบุจำนวนเงิน">
+                                <!-- <label for="floatingInputValue">หัวข้อ</label> -->
+                            </form>
+                        </div>
+                        <div class="button-items text-center mb-1">
+                            <button type="button" class="btn btn-primary btn-lg">300</button>
+                            <button type="button" class="btn btn-primary btn-lg">500</button>
+                            <button type="button" class="btn btn-primary btn-lg">1,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">3,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">5,000</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">ยกเลิก</button>
+            <button type="button" class="btn btn-primary">เติมเงิน</button>
+        </div>
+    </ng-template>
+</div>
+<!-- end row -->
