@@ -38,7 +38,7 @@ import { TopupEditComponent } from './topup/topup-edit/topup-edit.component';
 import { TopupViewComponent } from './topup/topup-view/topup-view.component';
 import { UserViewComponent } from './user/user-view/user-view.component';
 import { ProductComponent } from './product/product.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -73,6 +73,8 @@ import { ProductComponent } from './product/product.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     ScrollToModule.forRoot(),
     NgApexchartsModule,
     NgbDropdownModule,
@@ -87,7 +89,7 @@ import { ProductComponent } from './product/product.component';
     SharedModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE'
-    }),
+    })
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

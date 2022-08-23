@@ -19,6 +19,10 @@ import { PagesModule } from './pages/pages.module';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 
+
+// firebase
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
 } else {
@@ -52,12 +56,14 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     TranslateModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),//add++
     provideAuth(() => getAuth())
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    
   ],
   bootstrap: [AppComponent]
 })

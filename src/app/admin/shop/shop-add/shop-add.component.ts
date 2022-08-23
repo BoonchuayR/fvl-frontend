@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ShopService } from 'src/app/service/shop.service';
 
 @Component({
   selector: 'app-shop-add',
@@ -7,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopAddComponent implements OnInit {
 
-  constructor() { }
+  // Form submition
+  submit!: boolean;
+  validationform!: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private shopService: ShopService) { }
 
   ngOnInit(): void {
+    this.validationform = this.formBuilder.group({
+      shopName : ['',[Validators.required]],
+      storeNumber : ['',[Validators.required]],
+      contractNumber : ['',[Validators.required]],
+      meterNumber : ['',[Validators.required]],
+      contractOwner : ['',[Validators.required]],
+    });
+  }
+
+  formSubmit(){
+    console.log(this.validationform.value);
+    this.shopService.create(this.validationform.value)
+      .then((shop) => { console.log("shop") })
+      .catch(error => { console.log(error) });
+  }
+
+    /**
+   * Bootsrap validation form submit method
+   */
+  validSubmit() {
+    this.submit = true;
   }
 
 }

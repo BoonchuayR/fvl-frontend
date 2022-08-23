@@ -55,12 +55,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">ร้านก๊วยเตี๋ยว</th>
-                                                <td>A001</td>
-                                                <td>001001010</td>
-                                                <td>เพชรฤทธิ์ ศรีวงศ์</td>
-                                                <td>23339</td>
+                                            <tr *ngFor="let shop of shops">
+                                                <th scope="row">{{shop.shopName}}</th>
+                                                <td>{{shop.storeNumber}}</td>
+                                                <td>{{shop.contractNumber}}</td>
+                                                <td>{{shop.contractOwner}}</td>
+                                                <td>{{shop.meterNumber}}</td>
                                                 <td>01/08/23</td>
                                                 <td>
                                                     <span
@@ -70,15 +70,16 @@
                                                     <div class="button-items">
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/shop-edit"
+                                                            routerLink="/shop-edit/{{shop.id}}"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
                                                             id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
+                                                            <i class="bx bxs-trash" (click)="confirm(shop.id)"></i>
                                                         </button>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>

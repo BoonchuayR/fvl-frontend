@@ -107,7 +107,7 @@ const routes: Routes = [
     component: ShopListComponent
   },
   {
-    path: 'shop-edit',
+    path: 'shop-edit/:id',
     component: ShopEditComponent
   },
   {
