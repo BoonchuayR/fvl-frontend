@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/core/models/auth.models';
 
 @Component({
   selector: 'app-user-add',
