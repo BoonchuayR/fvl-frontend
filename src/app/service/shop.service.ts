@@ -9,9 +9,7 @@ interface Shop {
   contractNumber : string,
   meterNumber : string,
   contractOwner : string,
-
 }
-
 
 @Injectable({
   providedIn: 'root'
@@ -40,15 +38,13 @@ export class ShopService {
   }
 
   update(shop: Shop) {
-    const shopDocumentReference = doc(
-      this.firestore,`shop/${shop.id}`
-    );
+
+    const shopDocumentReference = doc(this.firestore,`shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
   }
 
   delete(id: string) {
     const shopDocumentReference = doc(this.firestore, `shop/${id}`);
-
     return deleteDoc(shopDocumentReference);
   }
 
