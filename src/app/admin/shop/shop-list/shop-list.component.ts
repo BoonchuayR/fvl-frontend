@@ -37,7 +37,13 @@ export class ShopListComponent implements OnInit {
       if (result.value) {
         this.shopService.delete(id).then(deletedShop => {console.log(deletedShop);
         })
-        Swal.fire('คุณดำเนินการ','ลบข้อมูลร้านค้าเรียบร้อย');
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'ลบข้อมูลร้านค้าเรียบร้อย',
+          showConfirmButton: false,
+          timer: 3000
+        })
       }
     });
   }

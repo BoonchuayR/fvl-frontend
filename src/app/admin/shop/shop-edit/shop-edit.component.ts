@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { ShopService } from "src/app/service/shop.service";
 import { isThisTypeNode } from "typescript";
+import Swal from "sweetalert2";
 @Component({
   selector: "app-shop-edit",
   templateUrl: "./shop-edit.component.html",
@@ -52,11 +53,16 @@ export class ShopEditComponent implements OnInit {
   }
 
   formSubmit() {
-    console.log(this.editform.value);
-    this.shopService
-      .update(this.editform.value)
-      .then((shop) => {
-        console.log("shop");
+    this.shopService.update(this.editform.value)
+      .then((shop) => {console.log("shop");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'แก้ไขข้อมูลร้านค้าเรียบร้อย',
+          showConfirmButton: false,
+          timer: 3000
+        });
+        
       })
       .catch((error) => {
         console.log(error);
