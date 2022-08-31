@@ -48,6 +48,7 @@
                                                 <th>ชื่อ</th>
                                                 <th>นามสกุล</th>
                                                 <th>อีเมล</th>
+                                                <th>เบอร์โทรศัพท์</th>
                                                 <th>สถานะ</th>
                                                 <th>Action</th>
                                             </tr>
@@ -58,6 +59,7 @@
                                                 <td>{{user.firstNmae}}</td>
                                                 <td>{{user.lastName}}</td>
                                                 <td>{{user.userEmail}}</td>
+                                                <td>{{user.phoneNumber}}</td>
                                                 <td>
                                                     <span
                                                         class="badge badge-soft-success ms-1">ปกติ</span>
@@ -66,20 +68,20 @@
                                                     <div class="button-items">
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/user-view/{{user.id}}"
+                                                            routerLink="//mobile/profile-view/"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-show"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/user-edit/{{user.id}}"
+                                                            routerLink="/user-edit/{{user.id}}" 
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
                                                             id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
+                                                            <i class="bx bxs-trash"(click)="confirm(user.id)"></i>
                                                         </button>
                                                     </div>
                                                 </td>

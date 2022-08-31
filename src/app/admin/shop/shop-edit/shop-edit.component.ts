@@ -1,13 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators,} from "@angular/forms";
 import { ShopService } from "src/app/service/shop.service";
-import { isThisTypeNode } from "typescript";
+// import { isThisTypeNode } from "typescript";
 import Swal from "sweetalert2";
 @Component({
   selector: "app-shop-edit",
