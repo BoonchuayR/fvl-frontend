@@ -53,11 +53,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">ร้านค้า</th>
-                                                <td>เพชรฤทธิ์</td>
-                                                <td>ศรีวงศ์</td>
-                                                <td>email@gmail.com</td>
+                                            <tr *ngFor="let user of user">
+                                                <th>{{user.typeUser}}</th>
+                                                <td>{{user.firstNmae}}</td>
+                                                <td>{{user.lastName}}</td>
+                                                <td>{{user.userEmail}}</td>
                                                 <td>
                                                     <span
                                                         class="badge badge-soft-success ms-1">ปกติ</span>
@@ -66,75 +66,13 @@
                                                     <div class="button-items">
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/mobile/profile-view"
+                                                            routerLink="/user-view/{{user.id}}"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-show"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/user-edit"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">ซ่อมบำรุง</th>
-                                                <td>พิมพ์พิสถทธิ์</td>
-                                                <td>ศรีวงศ์</td>
-                                                <td>email@gmail.com</td>
-                                                <td>
-                                                    <span
-                                                        class="badge badge-soft-success ms-1">ปกติ</span>
-                                                </td>
-                                                <td>
-                                                    <div class="button-items">
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/mobile/profile-view"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/user-edit"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">บัญชี</th>
-                                                <td>พิมพ์ไสว</td>
-                                                <td>ศรีวงศ์</td>
-                                                <td>email@gmail.com</td>
-                                                <td>
-                                                    <span
-                                                        class="badge badge-soft-success ms-1">ปกติ</span>
-                                                </td>
-                                                <td>
-                                                    <div class="button-items">
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/mobile/profile-view"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/user-edit"
+                                                            routerLink="/user-edit/{{user.id}}"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button>

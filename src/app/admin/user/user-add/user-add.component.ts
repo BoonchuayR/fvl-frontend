@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/core/models/auth.models';
+import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user-add',
@@ -7,10 +9,39 @@ import { User } from 'src/app/core/models/auth.models';
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+  submit!: boolean;
+  validationform!: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
+    this.validationform = this.formBuilder.group({
+      typeUser: ['',[Validators.required]],
+      firstNmae: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
+      userEmail: ['',[Validators.required]],
+      phoneNumber: ['',[Validators.required]],
+      shopName: ['',[Validators.required]],
+      contactNumber: ['',[Validators.required]],
+      expireDate: ['',[Validators.required]],
+      firstMoney: ['',[Validators.required]],
+    });
+  }
+  formSubmit(){
+    console.log(this.validationform.value);
+    this.userService.create(this.validationform.value)
+      .then((users) => { console.log("users") })
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'เพิ่มข้อมูลผู้ใช้งานเรียบร้อย',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      .catch(error => { console.log(error) });
+  }
+  validSubmit() {
+    this.submit = true;
   }
 
 }
