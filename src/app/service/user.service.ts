@@ -6,7 +6,8 @@ import { addDoc, collection, collectionData, CollectionReference, deleteDoc,
 interface Users{
   id: string;
   typeUser: string;
-  firstNmae: string;
+  codeUser: string;
+  firstName: string;
   lastName: string;
   userEmail: string;
   phoneNumber: string;

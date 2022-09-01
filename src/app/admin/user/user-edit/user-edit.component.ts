@@ -14,7 +14,8 @@ export class UserEditComponent implements OnInit {
   editform = new FormGroup({
     id: new FormControl(""),
     typeUser: new FormControl(""),
-    firstNmae: new FormControl(""),
+    codeUser: new FormControl(""),
+    firstName: new FormControl(""),
     lastName: new FormControl(""),
     userEmail: new FormControl(""),
     phoneNumber: new FormControl(""),
@@ -40,7 +41,8 @@ export class UserEditComponent implements OnInit {
     this.editform = this.formBuilder.group({
     id: [''],
     typeUser: [''],
-    firstNmae: [''],
+    codeName: [''],
+    firstName: [''],
     lastName: [''],
     userEmail: [''],
     phoneNumber: [''],

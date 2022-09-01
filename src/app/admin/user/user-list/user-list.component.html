@@ -45,24 +45,24 @@
                                         <thead>
                                             <tr>
                                                 <th>ประเภทผู้ใช้</th>
+                                                <th>รหัสผู้ใช้</th>
                                                 <th>ชื่อ</th>
                                                 <th>นามสกุล</th>
-                                                <th>อีเมล</th>
                                                 <th>เบอร์โทรศัพท์</th>
-                                                <th>สถานะ</th>
+                                                <th>วันหมดสัญญา</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let user of user">
                                                 <th>{{user.typeUser}}</th>
-                                                <td>{{user.firstNmae}}</td>
+                                                <th>{{user.codeUser}}</th>
+                                                <td>{{user.firstName}}</td>
                                                 <td>{{user.lastName}}</td>
-                                                <td>{{user.userEmail}}</td>
                                                 <td>{{user.phoneNumber}}</td>
                                                 <td>
                                                     <span
-                                                        class="badge badge-soft-success ms-1">ปกติ</span>
+                                                        class="badge badge-soft-success ms-1">{{user.expireDate}}</span>
                                                 </td>
                                                 <td>
                                                     <div class="button-items">
