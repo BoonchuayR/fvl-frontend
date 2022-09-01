@@ -46,6 +46,7 @@
                                             <tr>
                                                 <th>ชื่อร้าน</th>
                                                 <th>เลขแผง</th>
+                                                <th>Zone</th>
                                                 <th>เลขที่สัญญา</th>
                                                 <th>เจ้าของสัญญา</th>
                                                 <th>เลขมิเตอร์</th>
@@ -59,6 +60,7 @@
                                             <tr *ngFor="let shop of shops">
                                                 <th>{{shop.shopName}}</th>
                                                 <td>{{shop.storeNumber}}</td>
+                                                <td>{{shop.zoneNumber}}</td>
                                                 <td>{{shop.contractNumber}}</td>
                                                 <td>{{shop.contractOwner}}</td>
                                                 <td>{{shop.meterNumber}}</td>

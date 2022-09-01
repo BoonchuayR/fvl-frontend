@@ -54,66 +54,34 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr routerLink="/meter-view" routerLinkActive="active">
-                                                <th scope="row">SN10000001</th>
-                                                <td>A0001</td>
-                                                <td>225</td>
-                                                <td>50</td>
-                                                <td>234.33</td>
+                                            <tr *ngFor="let meter of meters">
+                                                <th>{{meter.meterNumber}}</th>
+                                                <td>{{meter.zoneNumber}}</td>
+                                                <td>{{meter.voltageNumber}}</td>
+                                                <td>{{meter.voltampNumber}}</td>
+                                                <td>{{meter.meterName}}</td>
                                                 <td>
                                                     <span
-                                                        class="badge rounded-pill bg-success ms-1">ปกติ</span>
+                                                        class="badge rounded-pill bg-success ms-1">{{meter.meterName}}</span>
                                                 </td>
                                                 <td>
                                                     <div class="button-items">
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/meter-view"
+                                                            routerLink="/meter-view/{{meter.id}}"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-show"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
-                                                            routerLink="/meter-edit"
+                                                            routerLink="/meter-edit/{{meter.id}}"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button>
                                                         <button type="button"
                                                             class="btn btn-action"
                                                             id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr routerLink="/meter-view" routerLinkActive="active">
-                                                <th scope="row">SN10000002</th>
-                                                <td>A0002</td>
-                                                <td>225</td>
-                                                <td>50</td>
-                                                <td>234.33</td>
-                                                <td>
-                                                    <span
-                                                        class="badge rounded-pill bg-danger ms-1">ผิดปกติ</span>
-                                                </td>
-                                                <td>
-                                                    <div class="button-items">
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/meter-view"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/meter-edit"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
+                                                            <i class="bx bxs-trash" (click)="confirm(meter.id)"></i>
                                                         </button>
                                                     </div>
                                                 </td>

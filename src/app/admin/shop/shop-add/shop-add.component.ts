@@ -23,6 +23,7 @@ export class ShopAddComponent implements OnInit {
       contractNumber : ['',[Validators.required]],
       meterNumber : ['',[Validators.required]],
       contractOwner : ['',[Validators.required]],
+      zoneNumber : ['',[Validators.required]],
     });
   }
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MeterService } from 'src/app/service/meter.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-meter-add',
@@ -7,9 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeterAddComponent implements OnInit {
 
-  constructor() { }
+  // Form submition
+  submit!: boolean;
+  validationform!: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private meterService: MeterService) { }
 
   ngOnInit(): void {
+    this.validationform = this.formBuilder.group({
+      meterName : ['',[Validators.required]],
+      voltageNumber : ['',[Validators.required]],
+      voltampNumber : ['',[Validators.required]],
+      meterNumber : ['',[Validators.required]],
+      status : ['',[Validators.required]],
+      zoneNumber : ['',[Validators.required]],
+    });
+  }
+
+  formSubmit(){
+    console.log(this.validationform.value);
+    this.meterService.create(this.validationform.value)
+      .then((meter) => { console.log("meter") })
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'เพิ่มข้อมูลมิเตอร์เรียบร้อย',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      .catch(error => { console.log(error) });
+  }
+
+    /**
+   * Bootsrap validation form submit method
+   */
+  validSubmit() {
+    this.submit = true;
   }
 
 }

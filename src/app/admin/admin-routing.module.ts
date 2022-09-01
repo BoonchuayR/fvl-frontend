@@ -75,7 +75,7 @@ const routes: Routes = [
     component: MeterListComponent
   },
   {
-    path: 'meter-edit',
+    path: 'meter-edit/:id',
     component: MeterEditComponent
   },
   {
@@ -83,7 +83,7 @@ const routes: Routes = [
     component: MeterAddComponent
   },
   {
-    path: 'meter-view',
+    path: 'meter-view/:id',
     component: MeterViewComponent
   },
   {

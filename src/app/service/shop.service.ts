@@ -10,6 +10,7 @@ interface Shop {
   contractNumber : string,
   meterNumber : string,
   contractOwner : string,
+  zoneNumber : string,
 }
 
 @Injectable({

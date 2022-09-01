@@ -19,6 +19,7 @@ export class ShopEditComponent implements OnInit {
     contractNumber: new FormControl(""),
     meterNumber: new FormControl(""),
     contractOwner: new FormControl(""),
+    zoneNumber: new FormControl(""),
   });
 
   constructor(
@@ -44,6 +45,7 @@ export class ShopEditComponent implements OnInit {
       contractNumber: [""],
       meterNumber: [""],
       contractOwner: [""],
+      zoneNumber: [""],
     });
   }
 
