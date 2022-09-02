@@ -44,32 +44,23 @@
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
-                                                <th>ชื่อร้าน</th>
                                                 <th>เลขแผง</th>
-                                                <th>Zone</th>
                                                 <th>เลขที่สัญญา</th>
-                                                <th>เจ้าของสัญญา</th>
-                                                <th>เลขมิเตอร์</th>
-                                                <th>วันเริ่มต้นสัญญา</th>
+                                                <th>ชื่อเจ้าของร้าน</th>
+                                                <th>ชื่อร้านค้า</th>
+                                                <th>ประเภทร้านค้า</th>
                                                 <th>วันสิ้นสุดสัญญา</th>
-                                                <th>สถานะ</th>
                                                 <th>แอคชั่น</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let shop of shops">
-                                                <th>{{shop.shopName}}</th>
-                                                <td>{{shop.storeNumber}}</td>
-                                                <td>{{shop.zoneNumber}}</td>
-                                                <td>{{shop.contractNumber}}</td>
-                                                <td>{{shop.contractOwner}}</td>
-                                                <td>{{shop.meterNumber}}</td>
-                                                <td>01/08/23</td>
-                                                <td>01/08/24</td>
-                                                <td>
-                                                    <span
-                                                        class="badge badge-soft-success ms-1">ปกติ</span>
-                                                </td>
+                                                <th>{{shop.BoothCode}}</th>
+                                                <td>{{shop.ContractNo}}</td>
+                                                <td>{{shop.CustName}}</td>
+                                                <td>{{shop.BoothName}}</td>
+                                                <td>{{shop.BoothCateg}}</td>
+                                                <td>{{shop.ContractEndDate}}</td>
                                                 <td>
                                                     <div class="button-items">
                                                         <button type="button"

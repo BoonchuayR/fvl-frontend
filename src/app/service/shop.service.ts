@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { addDoc, collection, collectionData, CollectionReference,
-   deleteDoc, doc, docData, DocumentData, Firestore, updateDoc } from '@angular/fire/firestore';
+   deleteDoc, doc, docData, DocumentData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 
 interface Shop {
   id: string;
-  shopName : string,
-  storeNumber : string,
-  contractNumber : string,
-  meterNumber : string,
-  contractOwner : string,
-  zoneNumber : string,
+  BoothCode : string,
+  ContractNo : string,
+  CustName : string,
+  BoothName : string,
+  BoothZone : string,
+  BoothCateg : string,
+  ContractDate : Timestamp,
+  ContractEndDate : Timestamp,
 }
 
 @Injectable({

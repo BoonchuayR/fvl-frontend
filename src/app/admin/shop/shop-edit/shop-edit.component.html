@@ -56,91 +56,83 @@
 
         <div class="row">
           <div class="position-relative">
-            <div class="card-body card-body-form">
-              <div class="row">
-                <h2 class="text-uppercase mb-5">แก้ไขร้านค้า</h2>
-              </div>
+              <div class="card-body card-body-form">
+                  <div class="row">
+                      <h2 class="text-uppercase mb-5">แก้ไขร้านค้า</h2>
+                  </div>
 
-              <div class="row">
-                <div class="row mb-md-5">
                   <div class="row">
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">ชื่อร้านค้า</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="shopName"
-                          type="text"
-                          placeholder="ระบุชื่อร้านค้า"
-                        />
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">รหัสแผงร้านค้า</label>
+                                      <input class="form-control form-control-lg" formControlName="BoothCode" type="text"
+                                          placeholder="ระบุชื่อร้านค้า" />
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">เลขที่สัญญา</label>
+                                      <input class="form-control form-control-lg" formControlName="ContractNo" type="text"
+                                          placeholder="ระบุเลขแผง" />
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">ชื่อเจ้าของร้าน</label>
+                                      <input class="form-control form-control-lg" formControlName="CustName" type="text"
+                                          placeholder="ระบุเลขที่สัญญา" />
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">ชื่อร้านค้า</label>
+                                      <input class="form-control form-control-lg" formControlName="BoothName" type="text"
+                                          placeholder="ระบุเลขมิเตอร์" />
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">โซนร้านค้า</label>
+                                      <input class="form-control form-control-lg" formControlName="BoothZone" type="text"
+                                          placeholder="ระบุเจ้าของสัญญา" />
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">ประเภทร้านค้า</label>
+                                      <input class="form-control form-control-lg" formControlName="BoothCateg" type="text"
+                                          placeholder="ระบุ Zone" />
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">วันเริ่มต้นสัญญา</label>
+                                      <input class="form-control form-control-lg" formControlName="ContractDate" type="date" value="2023-03-19" id="example-date-input" placeholder="วันเริ่มต้นสัญญา" />
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="font-size-12 mb-3">
+                                      <label class="form-label">วันสิ้นสุดสัญญา</label>
+                                      <input class="form-control form-control-lg" formControlName="ContractEndDate" type="date" value="2023-03-19" id="example-date-input" placeholder="วันเริ่มต้นสัญญา" />
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">เลขแผง</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="storeNumber"
-                          type="text"
-                          placeholder="ระบุเลขแผง"
-                        />
+                      <div class="col-lg-6">
+
                       </div>
-                    </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">เลขที่สัญญา</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="contractNumber"
-                          type="text"
-                          placeholder="ระบุเลขที่สัญญา"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">เลขมิเตอร์</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="meterNumber"
-                          type="text"
-                          placeholder="ระบุเลขมิเตอร์"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">เจ้าของสัญญา</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="contractOwner"
-                          type="text"
-                          placeholder="ระบุเจ้าของสัญญา"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">Zone</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="zoneNumber"
-                          type="text"
-                          placeholder="ระบุ Zone"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-                </div>
               </div>
-            </div>
           </div>
-        </div>
+      </div>
       </form>
     </div>
   </div>

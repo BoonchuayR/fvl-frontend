@@ -14,12 +14,14 @@ export class ShopEditComponent implements OnInit {
   submit!: boolean;
   editform = new FormGroup({
     id: new FormControl(""),
-    shopName: new FormControl(""),
-    storeNumber: new FormControl(""),
-    contractNumber: new FormControl(""),
-    meterNumber: new FormControl(""),
-    contractOwner: new FormControl(""),
-    zoneNumber: new FormControl(""),
+    BoothCode: new FormControl(""),
+    ContractNo: new FormControl(""),
+    CustName: new FormControl(""),
+    BoothName: new FormControl(""),
+    BoothZone: new FormControl(""),
+    BoothCateg: new FormControl(""),
+    ContractDate: new FormControl(""),
+    ContractEndDate: new FormControl(""),
   });
 
   constructor(
@@ -40,12 +42,14 @@ export class ShopEditComponent implements OnInit {
   updateshopData() {
     this.editform = this.formBuilder.group({
       id: [""],
-      shopName: [""],
-      storeNumber: [""],
-      contractNumber: [""],
-      meterNumber: [""],
-      contractOwner: [""],
-      zoneNumber: [""],
+      BoothCode: [""],
+      ContractNo: [""],
+      CustName: [""],
+      BoothName: [""],
+      BoothZone: [""],
+      BoothCateg: [""],
+      ContractDate: [""],
+      ContractEndDate: [""],
     });
   }
 

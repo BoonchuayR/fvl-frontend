@@ -18,12 +18,14 @@ export class ShopAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationform = this.formBuilder.group({
-      shopName : ['',[Validators.required]],
-      storeNumber : ['',[Validators.required]],
-      contractNumber : ['',[Validators.required]],
-      meterNumber : ['',[Validators.required]],
-      contractOwner : ['',[Validators.required]],
-      zoneNumber : ['',[Validators.required]],
+      BoothCode : ['',[Validators.required]],
+      ContractNo : ['',[Validators.required]],
+      CustName : ['',[Validators.required]],
+      BoothName : ['',[Validators.required]],
+      BoothZone : ['',[Validators.required]],
+      BoothCateg : ['',[Validators.required]],
+      ContractDate : ['',[Validators.required]],
+      ContractEndDate : ['',[Validators.required]],
     });
   }
 
