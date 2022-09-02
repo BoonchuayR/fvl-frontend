@@ -39,6 +39,10 @@ import { TopupViewComponent } from './topup/topup-view/topup-view.component';
 import { UserViewComponent } from './user/user-view/user-view.component';
 import { ProductComponent } from './product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomerAddComponent } from './customer/customer-add/customer-add.component';
+import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TopupEditComponent,
     TopupViewComponent,
     UserViewComponent,
-    ProductComponent
+    ProductComponent,
+    CustomerAddComponent,
+    CustomerEditComponent,
+    CustomerListComponent,
+    CustomerViewComponent
   ],
   imports: [
     CommonModule,

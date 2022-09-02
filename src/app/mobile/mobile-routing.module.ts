@@ -37,7 +37,7 @@ const routes: Routes = [
     component: ProfileAddComponent
   },
   {
-    path: 'profile-list',
+    path: 'profile-list/:id',
     component: ProfileListComponent
   },
   {

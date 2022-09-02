@@ -1,0 +1,136 @@
+<!-- start page title -->
+<div class="row mb-3">
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item">ลูกค้า</li>
+            <li class="breadcrumb-item active">แก้ไขข้อมูลลูกค้า</li>
+        </ol>
+    </div>
+</div>
+
+<!-- end page title -->
+
+<!-- Start row -->
+<div class="row">
+    <div class="">
+        <div class="card card-green-style">
+            <form class="needs-validation"  (ngSubmit)="validSubmit()"
+            [formGroup]="editform"
+            novalidate>
+                <div class="p-3 px-4 bg-success">
+                    <div class="d-flex align-items-start">
+                        <!-- <div class="align-self-center me-3">
+                        <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
+                      </div> -->
+                        <div class="flex-1 align-self-center">
+                            <h5 class="title-card font-size-16 mt-1 mb-0">
+                                <a href="#" class="text-reset">แก้ไขข้อมูลลูกค้า</a>
+                            </h5>
+                            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+                        </div>
+                        <div class="button-items">
+                            <button routerLink="/customer-list" routerLinkActive="active"
+                                class="btn btn-outline-default btn-rounded float-right">
+                                <i class="bx bx-x"></i> ยกเลิก
+                            </button>
+                            <button class="btn btn-outline-success btn-rounded float-right" type="submit" (click)="formSubmit()" routerLink="/customer-list" routerLinkActive="active">
+                                <i class="bx bx bx-save"></i> บันทึก
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+    
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card-body card-body-form">
+                            <div class="row">
+                                <h2 class="text-uppercase mb-5">แก้ไขข้อมูลลูกค้า</h2>
+                            </div>
+    
+                            <div class="row">
+                                <div class="row">
+                                    <div class="position-relative">
+                                        <div class="card-body card-body-form">
+                                            <div class="row">
+                                                <h2 class="text-uppercase mb-5">เพิ่มลูกค้า</h2>
+                                            </div>
+                    
+                                            <div class="row">
+                                                <div class="row mb-md-5">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">รหัสสมาชิก</label>
+                                                                        <input class="form-control form-control-lg" formControlName="CustCode" type="text"
+                                                                            placeholder="ระบุรหัสสมาชิก" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">ชื่อลูกค้า</label>
+                                                                        <input class="form-control form-control-lg" formControlName="CustName" type="text"
+                                                                            placeholder="ระบุชื่อ-นามสกุล" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">อีเมล</label>
+                                                                        <input class="form-control form-control-lg" formControlName="CustEmail" type="text"
+                                                                            placeholder="ระบุอีเมล" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">เบอร์โทรศัพท์</label>
+                                                                        <input class="form-control form-control-lg" formControlName="CustPhone" type="text"
+                                                                            placeholder="ระบุเบอร์โทรศัพท์" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                        
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">วันสมัครสมาชิก</label>
+                                                                        <input class="form-control form-control-lg" formControlName="CustStartDate" type="date" value="2023-03-19" id="example-date-input">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="font-size-12 mb-3">
+                                                                        <label class="form-label">จำนวนเงินขั้นต่ำ</label>
+                                                                        <input class="form-control form-control-lg" formControlName="firstMoney" type="number" value="500" placeholder="จำนวนเงินขั้นต่ำ"
+                                                                        id="example-number-input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--   
+  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
+  <div class="preview-action" [class.show]="show_preview">
+    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
+  </div> -->

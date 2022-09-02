@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, Validators,} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, } from "@angular/forms";
 import { UserService } from 'src/app/service/user.service';
 import Swal from "sweetalert2";
 @Component({
@@ -13,49 +13,40 @@ export class UserEditComponent implements OnInit {
   submit!: boolean;
   editform = new FormGroup({
     id: new FormControl(""),
-    typeUser: new FormControl(""),
-    codeUser: new FormControl(""),
-    firstName: new FormControl(""),
-    lastName: new FormControl(""),
-    userEmail: new FormControl(""),
-    phoneNumber: new FormControl(""),
-    shopName: new FormControl(""),
-    contactNumber: new FormControl(""),
-    expireDate: new FormControl(""),
-    firstMoney: new FormControl(""),
+    UserType: new FormControl(""),
+    UserName: new FormControl(""),
+    UserPwd: new FormControl(""),
+    UserEmail: new FormControl(""),
+    UserPhone: new FormControl(""),
   });
   constructor(
-    private route:ActivatedRoute, 
-    private formBuilder: FormBuilder, 
-    private userService:UserService
-    ) {}
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params["id"];
-    this.userService.get(this.userId).subscribe((data) =>{
+    this.userService.get(this.userId).subscribe((data) => {
       this.editform.setValue(data);
     });
   }
 
-  updateuserData(){
+  updateuserData() {
     this.editform = this.formBuilder.group({
-    id: [''],
-    typeUser: [''],
-    codeName: [''],
-    firstName: [''],
-    lastName: [''],
-    userEmail: [''],
-    phoneNumber: [''],
-    shopName: [''],
-    contactNumber: [''],
-    expireDate: [''],
-    firstMoney: [''],
+      id: [''],
+      UserType: [''],
+      UserName: [''],
+      UserPwd: [''],
+      UserEmail: [''],
+      UserPhone: [''],
     });
   }
 
   formSubmit() {
     this.userService.update(this.editform.value)
-      .then((user) => {console.log("user");
+      .then((user) => {
+        console.log("user");
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -63,7 +54,7 @@ export class UserEditComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         });
-        
+
       })
       .catch((error) => {
         console.log(error);

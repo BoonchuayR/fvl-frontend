@@ -28,6 +28,11 @@ import { TopupEditComponent } from './topup/topup-edit/topup-edit.component';
 import { TopupViewComponent } from './topup/topup-view/topup-view.component';
 import { UserViewComponent } from './user/user-view/user-view.component';
 import { ProductComponent } from './product/product.component';
+import { CustomerAddComponent } from './customer/customer-add/customer-add.component';
+import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
+
 
 const routes: Routes = [
   {
@@ -49,6 +54,22 @@ const routes: Routes = [
   {
     path: 'user-view',
     component: UserViewComponent
+  },
+  {
+    path: 'customer-list',
+    component: CustomerListComponent
+  },
+  {
+    path: 'customer-edit/:id',
+    component: CustomerEditComponent
+  },
+  {
+    path: 'customer-add',
+    component: CustomerAddComponent
+  },
+  {
+    path: 'customer-view',
+    component: CustomerViewComponent
   },
   {
     path: 'announce-list',

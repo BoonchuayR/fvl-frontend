@@ -15,9 +15,7 @@
 <div class="row">
     <div class="">
         <div class="card card-green-style">
-            <form class="needs-validation"  (ngSubmit)="validSubmit()"
-            [formGroup]="validationform"
-            novalidate>
+            <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform" novalidate>
                 <div class="p-3 px-4 bg-success">
                     <div class="d-flex align-items-start">
                         <!-- <div class="align-self-center me-3">
@@ -34,129 +32,76 @@
                                 class="btn btn-outline-default btn-rounded float-right">
                                 <i class="bx bx-x"></i> ยกเลิก
                             </button>
-                            <button class="btn btn-outline-success btn-rounded float-right" type="submit" (click)="formSubmit()" routerLink="/user-list" routerLinkActive="active">
+                            <button class="btn btn-outline-success btn-rounded float-right" type="submit"
+                                (click)="formSubmit()" routerLink="/user-list" routerLinkActive="active">
                                 <i class="bx bx bx-save"></i> บันทึก
                             </button>
                         </div>
                     </div>
                 </div>
-    
-    
+
+
                 <div class="row">
                     <div class="position-relative">
                         <div class="card-body card-body-form">
                             <div class="row">
                                 <h2 class="text-uppercase mb-5">เพิ่มผู้ใช้งาน</h2>
                             </div>
-    
+
                             <div class="row">
                                 <div class="row mb-md-5">
-                                    <h5 class="font-size-16 text-uppercase mb-3">
-                                        ประเภทผู้ใช้
-                                    </h5>
-    
-                                    <div class="form-control mb-4 mb-md-3">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" 
-                                                type="radio" 
-                                                value="ร้านค้า"
-                                                name="userCondition"
-                                                formControlName="typeUser"
-                                                id="inlineRadio1" />
-                                            <label class="form-check-label" for="inlineRadio1">
-                                                <h5 class="font-size-12">ร้านค้า</h5>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" 
-                                                type="radio" 
-                                                value="ซ่อมบำรุง"
-                                                name="userCondition"
-                                                formControlName="typeUser"
-                                                id="inlineRadio2" />
-                                            <label class="form-check-label" for="inlineRadio2">
-                                                <h5 class="font-size-12">ซ่อมบำรุง</h5>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" 
-                                                type="radio" 
-                                                value="บัญชี"
-                                                name="userCondition"
-                                                formControlName="typeUser" 
-                                                id="inlineRadio3" />
-                                            <label class="form-check-label" for="inlineRadio3">
-                                                <h5 class="font-size-12">บัญชี</h5>
-                                            </label>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ชื่อ</label>
-                                                <input class="form-control form-control-lg" formControlName="firstNmae" type="text"
-                                                    placeholder="ระบุชื่อ" />
+                                    <div class="col-md-12">
+                                        <div class="mb-4 mb-md-4">
+                                            <h5 class="font-size-14 mb-2">ประเภทผู้ใช้</h5>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="userCondition" formControlName="UserType" id="inlineRadio1"
+                                                    value="ฝ่ายซ่อมบำรุง" checked>
+                                                <label class="form-check-label" for="inlineRadio1">ฝ่ายซ่อมบำรุง</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="userCondition" formControlName="UserType" id="inlineRadio2"
+                                                    value="ฝ่ายบัญชี">
+                                                <label class="form-check-label" for="inlineRadio2">ฝ่ายบัญชี</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">นามสกุล</label>
-                                                <input class="form-control form-control-lg" formControlName="lastName" type="text"
-                                                    placeholder="ระบุนามสกุล" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">อีเมล</label>
-                                                <input class="form-control form-control-lg" formControlName="userEmail" type="text"
-                                                    placeholder="ระบุอีเมล" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">เบอร์โทรศัพท์</label>
-                                                <input class="form-control form-control-lg" formControlName="phoneNumber" type="text"
-                                                    placeholder="ระบุเบอร์โทรศัพท์" />
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">รหัสผู้ใช้</label>
-                                                <input class="form-control form-control-lg" formControlName="codeUser" type="text"
-                                                    placeholder="ระบุรหัสผู้ใช้" />
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">ชื่อเข้าสู่ระบบ</label>
+                                                    <input class="form-control form-control-lg"
+                                                        formControlName="UserName" type="text" placeholder="ระบุชื่อเข้าสู่ระบบ" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">รหัสผู้ใช้</label>
+                                                    <input class="form-control form-control-lg"
+                                                        formControlName="UserPwd" type="text"
+                                                        placeholder="ระบุนามสกุล" />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">เลขที่สัญญา</label>
-                                                <input class="form-control form-control-lg" formControlName="contactNumber" type="text"
-                                                    placeholder="ระบุเลขที่สัญญา" />
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">วันหมดสัญญา</label>
-                                                <input class="form-control form-control-lg" formControlName="expireDate" type="date" value="2023-03-19" id="example-date-input">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">อีเมล</label>
+                                                    <input class="form-control form-control-lg"
+                                                        formControlName="UserEmail" type="text"
+                                                        placeholder="ระบุอีเมล" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">จำนวนเงินขั้นต่ำ</label>
-                                                <input class="form-control form-control-lg" formControlName="firstMoney" type="number" value="500" placeholder="จำนวนเงินขั้นต่ำ"
-                                                id="example-number-input">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">เบอร์โทรศัพท์</label>
+                                                    <input class="form-control form-control-lg"
+                                                        formControlName="UserPhone" type="text"
+                                                        placeholder="ระบุเบอร์โทรศัพท์" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end row -->
                                 </div>
                             </div>
                         </div>

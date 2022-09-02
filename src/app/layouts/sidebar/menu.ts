@@ -20,18 +20,24 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 4,
+        label: 'ลูกค้า',
+        icon: 'bx bx-cool',
+        link: '/customer-list',
+    },
+    {
+        id: 5,
         label: 'ร้านค้า',
         icon: 'bx bxs-store',
         link: '/shop-list',
     },
     {
-        id: 5,
+        id: 6,
         label: 'มิเตอร์ไฟฟ้า',
         icon: 'bx bx-bulb',
         link: '/meter-dashboard',
     },
     {
-        id: 6,
+        id: 7,
         label: 'เติมเงิน',
         icon: 'bx bx-money',
         link: '/topup-list',
