@@ -5,17 +5,11 @@ import { addDoc, collection, collectionData, CollectionReference, deleteDoc,
 
 interface Users{
   id: string;
-  typeUser: string;
-  codeUser: string;
-  firstName: string;
-  lastName: string;
-  userEmail: string;
-  phoneNumber: string;
-  shopName: string;
-  contactNumber: string;
-  expireDate: Timestamp;
-  firstMoney: string;
-
+  UserType: string;
+  UserName: string;
+  UserPwd: string;
+  UserEmail: string;
+  UserPhone: string;
 }
 
 @Injectable({
