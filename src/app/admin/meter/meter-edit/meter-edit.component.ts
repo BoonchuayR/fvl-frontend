@@ -15,12 +15,17 @@ export class MeterEditComponent implements OnInit {
   submit!: boolean;
   editform = new FormGroup({
     id: new FormControl(""),
-    meterName: new FormControl(""),
-    voltageNumber: new FormControl(""),
-    voltampNumber: new FormControl(""),
-    meterNumber: new FormControl(""),
-    status: new FormControl(""),
-    zoneNumber: new FormControl(""),
+    SLAVE_ID: new FormControl(""),
+    SERIAL_NO: new FormControl(""),
+    LINE_VOLTAGE: new FormControl(""),
+    LINE_FREQUENCE: new FormControl(""),
+    LINE_CURRENT: new FormControl(""),
+    ACTIVE_POWER: new FormControl(""),
+    ACTIVE_ENERGY: new FormControl(""),
+    CURRENT_RATING: new FormControl(""),
+    BASIC_CURRENT: new FormControl(""),
+    MAXIMUM_CURRENT: new FormControl(""),
+    METER_ZONE: new FormControl(""),
   });
 
   constructor(
@@ -42,12 +47,17 @@ export class MeterEditComponent implements OnInit {
   updatemeterData() {
     this.editform = this.formBuilder.group({
       id: [""],
-      meterName: [""],
-      voltageNumber: [""],
-      voltampNumber: [""],
-      meterNumber: [""],
-      status: [""],
-      zoneNumber: [""],
+      SLAVE_ID: [""],
+      SERIAL_NO: [""],
+      LINE_VOLTAGE: [""],
+      LINE_FREQUENCE: [""],
+      LINE_CURRENT: [""],
+      ACTIVE_POWER: [""],
+      ACTIVE_ENERGY: [""],
+      CURRENT_RATING: [""],
+      BASIC_CURRENT: [""],
+      MAXIMUM_CURRENT: [""],
+      METER_ZONE: [""],
     });
   }
 

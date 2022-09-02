@@ -18,12 +18,17 @@ export class MeterAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationform = this.formBuilder.group({
-      meterName : ['',[Validators.required]],
-      voltageNumber : ['',[Validators.required]],
-      voltampNumber : ['',[Validators.required]],
-      meterNumber : ['',[Validators.required]],
-      status : ['',[Validators.required]],
-      zoneNumber : ['',[Validators.required]],
+      SLAVE_ID : ['',[Validators.required]],
+      SERIAL_NO : ['',[Validators.required]],
+      LINE_VOLTAGE : ['',[Validators.required]],
+      LINE_FREQUENCE : ['',[Validators.required]],
+      LINE_CURRENT : ['',[Validators.required]],
+      ACTIVE_POWER : ['',[Validators.required]],
+      ACTIVE_ENERGY : ['',[Validators.required]],
+      CURRENT_RATING : ['',[Validators.required]],
+      BASIC_CURRENT : ['',[Validators.required]],
+      MAXIMUM_CURRENT : ['',[Validators.required]],
+      METER_ZONE : ['',[Validators.required]],
     });
   }
 

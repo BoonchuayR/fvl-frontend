@@ -5,12 +5,17 @@ import { addDoc, collection, collectionData, CollectionReference,
 
 interface Meter {
   id: string;
-  meterName : string,
-  voltageNumber : string,
-  voltampNumber : string,
-  meterNumber : string,
-  status : string,
-  zoneNumber : string,
+  SLAVE_ID : string,
+  SERIAL_NO : string,
+  LINE_VOLTAGE : string,
+  LINE_FREQUENCE : string,
+  LINE_CURRENT : string,
+  ACTIVE_POWER : string,
+  ACTIVE_ENERGY : string,
+  CURRENT_RATING : string,
+  BASIC_CURRENT : string,
+  MAXIMUM_CURRENT : string,
+  METER_ZONE : string,
 }
 
 @Injectable({

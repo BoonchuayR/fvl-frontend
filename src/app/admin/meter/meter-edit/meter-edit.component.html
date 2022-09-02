@@ -53,16 +53,16 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
-                                                <label class="form-label">เลขมิเตอร์</label>
-                                                <input class="form-control form-control-lg" formControlName="meterName"
-                                                    type="text" placeholder="ระบุเลขมิเตอร์" />
+                                                <label class="form-label">ช่องสัญญาณ</label>
+                                                <input class="form-control form-control-lg" formControlName="SLAVE_ID" type="text"
+                                                    placeholder="ระบุเลขมิเตอร์" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
-                                                <label class="form-label">ช่องข้อมูล</label>
-                                                <input class="form-control form-control-lg" formControlName="zoneNumber"
-                                                    type="text" placeholder="ระบุช่องข้อมูล" />
+                                                <label class="form-label">เลขมิเตอร์</label>
+                                                <input class="form-control form-control-lg" formControlName="SERIAL_NO" type="text"
+                                                    placeholder="ระบุช่องข้อมูล" />
                                             </div>
                                         </div>
                                     </div>
@@ -70,16 +70,14 @@
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
                                                 <label class="form-label">แรงดัน (V)</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="voltageNumber" type="text"
+                                                <input class="form-control form-control-lg" formControlName="LINE_VOLTAGE" type="text"
                                                     placeholder="ระบุแรงดัน (V)" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
                                                 <label class="form-label">ความถี่ (kWH)</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="voltampNumber" type="text"
+                                                <input class="form-control form-control-lg" formControlName="LINE_FREQUENCE" type="text"
                                                     placeholder="ระบุเลขมิเตอร์" />
                                             </div>
                                         </div>
@@ -87,13 +85,33 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
-                                                <label class="form-label">สถานะมิเตอร์</label>
-                                                <input class="form-control form-control-lg" formControlName="status"
-                                                    type="text" placeholder="ระบุสถานะมิเตอร์" />
+                                                <label class="form-label">หน่วยไฟสะสม</label>
+                                                <input class="form-control form-control-lg" formControlName="LINE_CURRENT" type="text"
+                                                    placeholder="ระบุสถานะมิเตอร์" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">ACTIVE_POWER</label>
+                                                <input class="form-control form-control-lg" formControlName="ACTIVE_POWER" type="text"
+                                                    placeholder="ระบุสถานะมิเตอร์" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">ACTIVE_ENERGY</label>
+                                                <input class="form-control form-control-lg" formControlName="ACTIVE_ENERGY" type="text"
+                                                    placeholder="ACTIVE_ENERGY" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">METER_ZONE</label>
+                                                <input class="form-control form-control-lg" formControlName="METER_ZONE" type="text"
+                                                    placeholder="METER_ZONE" />
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- end row -->
