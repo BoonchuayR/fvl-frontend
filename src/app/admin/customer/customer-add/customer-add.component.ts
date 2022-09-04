@@ -9,6 +9,8 @@ import {
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
 @Component({
   selector: "app-customer-add",
   templateUrl: "./customer-add.component.html",
