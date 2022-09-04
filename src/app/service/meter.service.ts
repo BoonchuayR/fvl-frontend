@@ -7,15 +7,16 @@ interface Meter {
   id: string;
   SLAVE_ID : string,
   SERIAL_NO : string,
-  LINE_VOLTAGE : string,
-  LINE_FREQUENCE : string,
-  LINE_CURRENT : string,
-  ACTIVE_POWER : string,
-  ACTIVE_ENERGY : string,
-  CURRENT_RATING : string,
-  BASIC_CURRENT : string,
-  MAXIMUM_CURRENT : string,
+  LINE_VOLTAGE : number,
+  LINE_FREQUENCE : number,
+  LINE_CURRENT : number,
+  ACTIVE_POWER : number,
+  ACTIVE_ENERGY : number,
+  CURRENT_RATING : number,
+  BASIC_CURRENT : number,
+  MAXIMUM_CURRENT : number,
   METER_ZONE : string,
+  METER_STATE : string,
 }
 
 @Injectable({

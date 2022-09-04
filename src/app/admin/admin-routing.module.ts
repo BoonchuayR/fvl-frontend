@@ -68,7 +68,7 @@ const routes: Routes = [
     component: CustomerAddComponent
   },
   {
-    path: 'customer-view',
+    path: 'customer-view/:id',
     component: CustomerViewComponent
   },
   {

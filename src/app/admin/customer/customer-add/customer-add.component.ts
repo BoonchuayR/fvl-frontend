@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArrayName, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CustomerService } from 'src/app/service/customer.service';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-add',
@@ -12,7 +14,18 @@ export class CustomerAddComponent implements OnInit {
   submit!: boolean;
   validationform!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
+  @ViewChild('content') content: any;
+
+  public itemCardMessageForm: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
+    private customerService: CustomerService) {
+    this.itemCardMessageForm = this.formBuilder.group({
+      items: this.formBuilder.array([]),
+    });
+  }
 
   ngOnInit(): void {
     this.validationform = this.formBuilder.group({
@@ -41,6 +54,21 @@ export class CustomerAddComponent implements OnInit {
   }
   validSubmit() {
     this.submit = true;
+  }
+
+  /***
+ * Subscribe Model open
+ */
+  openModal() {
+    this.modalService.open(this.content, { centered: true });
+  }
+
+  /**
+* Open scroll modal
+* @param staticDataModal scroll modal data
+*/
+  shopModal(shop: any) {
+    this.modalService.open(shop, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
   }
 
 }

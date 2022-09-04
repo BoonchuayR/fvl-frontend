@@ -1,4 +1,7 @@
 <!-- start page title -->
+<!-- <app-pagetitle title="Profile" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+<!-- end page title -->
+<!-- start page title -->
 <div class="row mb-3">
     <div class="d-flex align-items-start">
         <ol class="breadcrumb m-0">
@@ -15,9 +18,7 @@
 <div class="row">
     <div class="">
         <div class="card card-green-style">
-            <form class="needs-validation"  (ngSubmit)="validSubmit()"
-            [formGroup]="validationform"
-            novalidate>
+            <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform" novalidate>
                 <div class="p-3 px-4 bg-success">
                     <div class="d-flex align-items-start">
                         <!-- <div class="align-self-center me-3">
@@ -34,81 +35,350 @@
                                 class="btn btn-outline-default btn-rounded float-right">
                                 <i class="bx bx-x"></i> ยกเลิก
                             </button>
-                            <button class="btn btn-outline-success btn-rounded float-right" type="submit" (click)="formSubmit()" routerLink="/customer-list" routerLinkActive="active">
+                            <button class="btn btn-outline-success btn-rounded float-right" type="submit"
+                                (click)="formSubmit()" routerLink="/customer-list" routerLinkActive="active">
                                 <i class="bx bx bx-save"></i> บันทึก
                             </button>
                         </div>
                     </div>
                 </div>
-    
-    
+
+
                 <div class="row">
                     <div class="position-relative">
                         <div class="card-body card-body-form">
-                            <div class="row">
-                                <h2 class="text-uppercase mb-5">เพิ่มลูกค้า</h2>
-                            </div>
-    
-                            <div class="row">
-                                <div class="row mb-md-5">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">รหัสสมาชิก</label>
-                                                        <input class="form-control form-control-lg" formControlName="CustCode" type="text"
-                                                            placeholder="ระบุรหัสสมาชิก" />
-                                                    </div>
+                            <div class="row mb-4">
+                                <div class="col-xl-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="">
+                                                <div class="dropdown float-end" ngbDropdown>
+                                                    <!-- <a class="text-body dropdown-toggle font-size-18" href="javascript: void(0);" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true" ngbDropdownToggle>
+                                                        <i class="mdi mdi-dots-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                                        <a class="dropdown-item" href="javascript: void(0);">แก้ไข</a>
+                                                    </div> -->
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">ชื่อลูกค้า</label>
-                                                        <input class="form-control form-control-lg" formControlName="CustName" type="text"
-                                                            placeholder="ระบุชื่อ-นามสกุล" />
+                                                <div class="clearfix"></div>
+                                                <div class="bg-pattern">
+                                                    <div class="col-sm-12">
+                                                        <h5>ข้อมูลสมาชิก</h5>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">รหัสสมาชิก
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustCode" type="text"
+                                                                        placeholder="ระบุรหัสสมาชิก" /></b></span></a>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">ชื่อลูกค้า
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustName" type="text"
+                                                                        placeholder="ระบุชื่อ-นามสกุล" /></b></span></a>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">อีเมล
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustEmail" type="text"
+                                                                        placeholder="ระบุอีเมล" /></b></span></a>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">เบอร์โทร
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustPhone" type="text"
+                                                                        placeholder="ระบุเบอร์โทรศัพท์" /></b></span></a>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">วันที่สมัครสมาชิก
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustStartDate" type="date"
+                                                                        value="2023-03-19"
+                                                                        id="example-date-input"></b></span></a>
+                                                        <a class="dropdown-item"><i
+                                                                class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>
+                                                            <span class="align-middle" key="t-balance">ยอดเงินขั้นต่ำ
+                                                                <b><input class="form-control"
+                                                                        formControlName="CustMoney" type="number"
+                                                                        value="500" placeholder="จำนวนเงินขั้นต่ำ"
+                                                                        id="example-number-input"></b></span></a>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">อีเมล</label>
-                                                        <input class="form-control form-control-lg" formControlName="CustEmail" type="text"
-                                                            placeholder="ระบุอีเมล" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">เบอร์โทรศัพท์</label>
-                                                        <input class="form-control form-control-lg" formControlName="CustPhone" type="text"
-                                                            placeholder="ระบุเบอร์โทรศัพท์" />
-                                                    </div>
-                                                </div>
-                                            </div>
-        
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">วันสมัครสมาชิก</label>
-                                                        <input class="form-control form-control-lg" formControlName="CustStartDate" type="date" value="2023-03-19" id="example-date-input">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="font-size-12 mb-3">
-                                                        <label class="form-label">จำนวนเงินขั้นต่ำ</label>
-                                                        <input class="form-control form-control-lg" formControlName="firstMoney" type="number" value="500" placeholder="จำนวนเงินขั้นต่ำ"
-                                                        id="example-number-input">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-        
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xl-8">
+                                    <div class="card mb-0">
+                                        <ul ngbNav #nav="ngbNav" [activeId]="1"
+                                            class="nav nav-tabs nav-tabs-custom nav-justified">
+
+                                            <li [ngbNavItem]="1">
+                                                <a ngbNavLink>
+                                                    <i class="bx bxs-store font-size-20"></i>
+                                                    <span class="d-none d-sm-block">ร้านค้า</span>
+                                                </a>
+                                                <ng-template ngbNavContent>
+                                                    <div>
+                                                        <div>
+                                                            <div class="dropdown float-end" ngbDropdown>
+                                                                <a class="btn btn-warning me-2 waves-effect waves-light btn-sm"
+                                                                    (click)="shopModal(shop)"><i
+                                                                        class="bx bxs-store  me-1"></i>เพิ่มร้านค้า</a>
+                                                            </div>
+                                                            <h5 class="font-size-16 mb-4">รายการร้านค้า</h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-nowrap table-hover mb-0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">รหัสร้าน</th>
+                                                                            <th scope="col">ชื่อร้าน</th>
+                                                                            <th scope="col">เลขสัญญา</th>
+                                                                            <th scope="col">โซน</th>
+                                                                            <th scope="col">วันสิ้นสุดสัญญา</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                FV0001
+                                                                            </td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">ร้านก๊วยเตี๋ยว1</a>
+                                                                            </td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">0011001</a></td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">โซน D</a></td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">01/08/2023</a>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                FV0002
+                                                                            </td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">ร้านก๊วยเตี๋ยว2</a>
+                                                                            </td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">0011001</a></td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">โซน D</a></td>
+                                                                            <td><a href="javascript: void(0);"
+                                                                                    class="text-dark">01/08/2023</a>
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </li>
+
+                                            <li [ngbNavItem]="2">
+                                                <a ngbNavLink>
+                                                    <i class="bx bx-bulb font-size-20"></i>
+                                                    <span class="d-none d-sm-block">มิเตอร์</span>
+                                                </a>
+                                                <ng-template ngbNavContent>
+                                                    <div>
+                                                        <div>
+                                                            <!-- <div class="dropdown float-end" ngbDropdown>
+                                                                <a
+                                                                    class="btn btn-warning me-2 waves-effect waves-light btn-sm"><i
+                                                                        class="bx bx-bulb me-1"></i>เพิ่มมิเตอร์</a>
+                                                            </div> -->
+
+                                                            <h5 class="font-size-16 mb-4">รายการมิเตอร์</h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-nowrap table-hover mb-0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">สถานะ</th>
+                                                                            <th scope="col">เลขเครื่อง</th>
+                                                                            <th scope="col">เลขแผง</th>
+                                                                            <th scope="col">ร้านค้า</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </li>
+
+                                        </ul>
+                                        <div [ngbNavOutlet]="nav" class="p-4"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Repair Modal -->
+                                <ng-template #repair let-modal>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">แจ้งเหตุขัดข้อง</h5>
+                                        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"
+                                            aria-hidden="true"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <form class="form-floating mb-3">
+                                                            <input type="text" class="form-control"
+                                                                id="floatingInputValue" placeholder="ไฟดับ">
+                                                            <label for="floatingInputValue">หัวข้อ</label>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-floating mb-3">
+                                                            <select class="form-select" id="floatingSelect"
+                                                                aria-label="Floating label select example">
+                                                                <option selected>เลือกรายการ</option>
+                                                                <option value="1">ไฟดับ</option>
+                                                                <option value="2">ไฟรั่ว</option>
+                                                                <option value="3">ไฟตัด</option>
+                                                            </select>
+                                                            <label for="floatingSelect">กลุ่มเหตุขัดข้อง</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-floating mb-3 mb-lg-0">
+                                                            <textarea class="form-control" placeholder="รายละเอียด"
+                                                                id="floatingTextarea" rows="10"></textarea>
+                                                            <label for="floatingTextarea">รายละเอียด</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light"
+                                            (click)="modal.close('Close click')">ปิด</button>
+                                        <button type="button" class="btn btn-primary">ส่งข้อมูล</button>
+                                    </div>
+                                </ng-template>
+
+                                <!-- Topup Modal -->
+                                <ng-template #shop let-modal>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">เพิ่มร้านค้า</h5>
+                                        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"
+                                            aria-hidden="true"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">รหัสแผงร้านค้า</label>
+                                                                <input class="form-control"
+                                                                    formControlName="BoothCode" type="text"
+                                                                    placeholder="ระบุชื่อร้านค้า" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">เลขที่สัญญา</label>
+                                                                <input class="form-control"
+                                                                    formControlName="ContractNo" type="text"
+                                                                    placeholder="ระบุเลขแผง" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">ชื่อเจ้าของร้าน</label>
+                                                                <input class="form-control"
+                                                                    formControlName="CustName" type="text"
+                                                                    placeholder="ระบุเลขที่สัญญา" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">ชื่อร้านค้า</label>
+                                                                <input class="form-control"
+                                                                    formControlName="BoothName" type="text"
+                                                                    placeholder="ระบุเลขมิเตอร์" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">โซนร้านค้า</label>
+                                                                <input class="form-control"
+                                                                    formControlName="BoothZone" type="text"
+                                                                    placeholder="ระบุเจ้าของสัญญา" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">ประเภทร้านค้า</label>
+                                                                <input class="form-control form-control-lg"
+                                                                    formControlName="BoothCateg" type="text"
+                                                                    placeholder="ระบุ Zone" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">วันเริ่มต้นสัญญา</label>
+                                                                <input class="form-control"
+                                                                    formControlName="ContractDate" type="date"
+                                                                    value="2023-03-19" id="example-date-input"
+                                                                    placeholder="วันเริ่มต้นสัญญา" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">วันสิ้นสุดสัญญา</label>
+                                                                <input class="form-control"
+                                                                    formControlName="ContractEndDate" type="date"
+                                                                    value="2023-03-19" id="example-date-input"
+                                                                    placeholder="วันเริ่มต้นสัญญา" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="font-size-12 mb-3">
+                                                                <label class="form-label">มิเตอร์ไฟฟ้า</label>
+                                                                <input class="form-control"
+                                                                    formControlName="BoothZone" type="text"
+                                                                    placeholder="ระบุเลขมิเตอร์ไฟฟ้า" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light"
+                                            (click)="modal.close('Close click')">ยกเลิก</button>
+                                        <button type="button" class="btn btn-primary">เติมเงิน</button>
+                                    </div>
+                                </ng-template>
                             </div>
+
                         </div>
                     </div>
                 </div>
