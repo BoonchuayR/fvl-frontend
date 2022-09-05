@@ -85,6 +85,7 @@ export class CustomerAddComponent implements OnInit {
       boothCate: ["", [Validators.required]],
       contractDate: ["", [Validators.required]],
       contractEndDate: ["", [Validators.required]],
+      SLAVE_ID: ["", [Validators.required]],
     });
   }
 
