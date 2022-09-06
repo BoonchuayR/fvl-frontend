@@ -29,6 +29,8 @@ export class MeterAddComponent implements OnInit {
       BASIC_CURRENT : ['',[Validators.required]],
       MAXIMUM_CURRENT : ['',[Validators.required]],
       METER_ZONE : ['',[Validators.required]],
+      METER_STATE : ['',[Validators.required]],
+      METER_SHOP : ['',[Validators.required]],
     });
   }
 

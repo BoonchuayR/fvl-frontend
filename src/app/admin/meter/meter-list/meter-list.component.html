@@ -44,6 +44,8 @@
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
+                                                <th>เลขแผง</th>
+                                                <th>ร้านค้า</th>
                                                 <th>ช่องสัญญาณ</th>
                                                 <th>เลขมิเตอร์</th>
                                                 <th>แรงดัน (V)</th>
@@ -55,6 +57,8 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let meter of meters">
+                                                <th>{{meter.METER_ZONE}}</th>
+                                                <th>{{meter.METER_SHOP}}</th>
                                                 <th>{{meter.SLAVE_ID}}</th>
                                                 <td>{{meter.SERIAL_NO}}</td>
                                                 <td>{{meter.LINE_VOLTAGE}}</td>
@@ -62,7 +66,7 @@
                                                 <td>{{meter.LINE_CURRENT}}</td>
                                                 <td>
                                                     <span
-                                                        class="badge rounded-pill bg-success ms-1">ปกติ</span>
+                                                        class="badge rounded-pill bg-success ms-1">{{meter.METER_STATE}}</span>
                                                 </td>
                                                 <td>
                                                     <div class="button-items">

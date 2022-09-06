@@ -17,6 +17,7 @@ interface Meter {
   MAXIMUM_CURRENT : number,
   METER_ZONE : string,
   METER_STATE : string,
+  METER_SHOP : string,
 }
 
 @Injectable({

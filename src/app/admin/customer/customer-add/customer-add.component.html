@@ -160,9 +160,9 @@
                                   "
                                 >
                                   {{
-                                    getValueItemShopForm(i, "boothCode")
-                                      ? getValueItemShopForm(i, "boothCode")
-                                      : "รหัสแผง"
+                                    getValueItemShopForm(i, "boothName")
+                                      ? getValueItemShopForm(i, "boothName")
+                                      : "ชื่อร้านค้า"
                                   }}
 
                                   <i
@@ -182,16 +182,17 @@
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
-                                          >รหัสแผงร้านค้า</label
+                                          >ชื่อร้านค้า</label
                                         >
                                         <input
                                           class="form-control"
-                                          formControlName="boothCode"
+                                          formControlName="boothName"
                                           type="text"
-                                          placeholder="ระบุรหัสแผง"
+                                          placeholder="ระบุชื่อร้านค้า"
                                         />
                                       </div>
                                     </div>
+                                    
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
@@ -210,13 +211,13 @@
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
-                                          >ชื่อร้านค้า</label
+                                          >โซนร้านค้า</label
                                         >
                                         <input
                                           class="form-control"
-                                          formControlName="boothName"
+                                          formControlName="boothZone"
                                           type="text"
-                                          placeholder="ระบุชื่อร้านค้า"
+                                          placeholder="ระบุโซนร้านค้า"
                                         />
                                       </div>
                                     </div>
@@ -270,16 +271,17 @@
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
-                                          >โซนร้านค้า</label
+                                          >รหัสแผงร้านค้า</label
                                         >
                                         <input
                                           class="form-control"
-                                          formControlName="boothZone"
+                                          formControlName="boothCode"
                                           type="text"
-                                          placeholder="ระบุโซนร้านค้า"
+                                          placeholder="ระบุรหัสแผง"
                                         />
                                       </div>
                                     </div>
+                                    
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"

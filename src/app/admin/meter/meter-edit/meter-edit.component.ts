@@ -26,6 +26,8 @@ export class MeterEditComponent implements OnInit {
     BASIC_CURRENT: new FormControl(""),
     MAXIMUM_CURRENT: new FormControl(""),
     METER_ZONE: new FormControl(""),
+    METER_STATE: new FormControl(""),
+    METER_SHOP: new FormControl(""),
   });
 
   constructor(
@@ -58,6 +60,8 @@ export class MeterEditComponent implements OnInit {
       BASIC_CURRENT: [""],
       MAXIMUM_CURRENT: [""],
       METER_ZONE: [""],
+      METER_STATE: [""],
+      METER_SHOP: [""],
     });
   }
 
