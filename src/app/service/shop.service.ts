@@ -5,14 +5,15 @@ import { addDoc, collection, collectionData, CollectionReference,
 
 interface Shop {
   id: string;
-  BoothCode : string,
-  ContractNo : string,
-  CustName : string,
-  BoothName : string,
-  BoothZone : string,
-  BoothCateg : string,
-  ContractDate : Timestamp,
-  ContractEndDate : Timestamp,
+  boothCode: string,
+  contractNo: string,
+  custName: string,
+  boothName: string,
+  boothZone: string,
+  boothCate: string,
+  contractDate: string,
+  contractEndDate: string,
+  SLAVE_ID: string,
 }
 
 @Injectable({
