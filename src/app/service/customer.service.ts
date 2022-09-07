@@ -7,15 +7,14 @@ import {
 
 interface Customers {
   id: string;
-  CustCode: string;
-  CustName: string;
-  CustEmail: string;
-  CustPhone: string;
-  CustMoney: string;
-  CustUser: string;
-  CustPwd: string;
-  CustStartDate: Timestamp;
-
+  custCode: string,
+  custName: string,
+  custEmail: string,
+  custPhone: string,
+  custMoney: string,
+  custPwd: string,
+  custStartDate: Timestamp,
+  firstMoney: string,
 }
 
 @Injectable({
