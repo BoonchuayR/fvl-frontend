@@ -1,16 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormArray,
-  FormArrayName,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import {FormArray,FormArrayName,FormBuilder,FormGroup,Validators,} from "@angular/forms";
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
-
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Select2OptionData } from 'ng-select2';
+import { Options } from 'select2';
 
 @Component({
   selector: "app-customer-add",
@@ -23,6 +17,12 @@ export class CustomerAddComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
+  
+  // select multi options start
+  public exampleData!: Array<Select2OptionData>;
+  public options!: Options;
+  public _value!:any[];
+  // select multi options End
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +47,32 @@ export class CustomerAddComponent implements OnInit {
     });
 
     this.addItem();
+
+    // select multi options start
+    this.exampleData = [
+      {id:'meter1',text:'MT0001'},
+      {id:'meter2',text:'MT0002'},
+      {id:'meter3',text:'MT0003'},
+      {id:'meter4',text:'MT0004'},
+    ];
+    
+    this._value = ['meter2','meter4'];
+
+    this.options = {
+      width:'300',
+      multiple:true,
+      tags:true,
+    };
   }
+
+  get value(): string[] {
+    return this._value;
+  }
+  set value(value: string[]) {
+    console.log('Set value: ' + value);
+    this._value = value;
+  }
+  // select multi options End
 
   formSubmit() {
     console.log(this.validationform.value);
@@ -159,6 +184,10 @@ export class CustomerAddComponent implements OnInit {
     count = value ? value.length : 0;
     return count;
   }
+
+
+
+
 
   // buildFormContents() {
   //   const control = <FormArray>this.itemShopForm.controls["items"];
