@@ -19,7 +19,7 @@ import { PagesModule } from './pages/pages.module';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgSelect2Module } from 'ng-select2';
+import { Select2Module } from 'ng-select2-component';
 
 
 // firebase
@@ -56,8 +56,9 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbPopoverModule,
     NgbNavModule,
     LayoutsModule,
-    NgSelect2Module,
     TranslateModule,
+    BrowserAnimationsModule,
+    Select2Module,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),//add++
     provideAuth(() => getAuth())

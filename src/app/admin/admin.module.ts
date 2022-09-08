@@ -14,6 +14,7 @@ import {
   NgbCollapseModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
+import { Select2Module } from 'ng-select2-component';
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -101,6 +102,7 @@ import { CustomerViewComponent } from "./customer/customer-view/customer-view.co
     NgbTooltipModule,
     NgbPopoverModule,
     CountToModule,
+    Select2Module,
     IconsModule,
     SharedModule,
     AgmCoreModule.forRoot({

@@ -3,8 +3,8 @@ import {FormArray,FormArrayName,FormBuilder,FormGroup,Validators,} from "@angula
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
-import { Select2OptionData } from 'ng-select2';
-import { Options } from 'select2';
+import { Select2Data } from 'ng-select2-component';
+
 
 @Component({
   selector: "app-customer-add",
@@ -19,11 +19,61 @@ export class CustomerAddComponent implements OnInit {
   public keyActionItemCard: number = 0;
   
   // select multi options start
-  public exampleData!: Array<Select2OptionData>;
-  public options!: Options;
-  public _value!:any[];
+  data: Select2Data = [
+    {
+      label: 'Meter Zone A',
+      data: {name: 'Meter Zone A',},
+      options: [
+        { value: 'A001',
+          label: 'A001',
+          data: {name: 'A001',},
+          templateId: 'template1',
+          id: 'option-A001',
+        },
+        { value: 'A002',
+          label: 'A002',
+          data: { name: 'A002',},
+          templateId: 'template2',
+          id: 'option-A002',
+        },
+      ]
+    },
+    { label: 'Meter Zone B',
+      data: { name: 'Meter Zone B',},
+      options: [{
+          value: 'B001',
+          label: 'B001',
+          data: {name: 'B001',},
+          templateId: 'template1',
+          id: 'option-B001',
+        },
+        {
+          value: 'B002',
+          label: 'B002',
+          data: {name: 'B002',},
+          templateId: 'template2',
+          id: 'option-B002',
+        },
+        {
+          value: 'B003',
+          label: 'B003',
+          data: {name: 'B003',},
+          templateId: 'template3',
+          id: 'option-B003',
+        },
+        {
+          value: 'B004',
+          label: 'B004',
+          data: { name: 'B004',},
+          templateId: 'template4',
+          id: 'option-B004',
+        },
+      ],
+    },
+  ];
+  
   // select multi options End
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
@@ -48,31 +98,8 @@ export class CustomerAddComponent implements OnInit {
 
     this.addItem();
 
-    // select multi options start
-    this.exampleData = [
-      {id:'meter1',text:'MT0001'},
-      {id:'meter2',text:'MT0002'},
-      {id:'meter3',text:'MT0003'},
-      {id:'meter4',text:'MT0004'},
-    ];
+  }
     
-    this._value = ['meter2','meter4'];
-
-    this.options = {
-      width:'300',
-      multiple:true,
-      tags:true,
-    };
-  }
-
-  get value(): string[] {
-    return this._value;
-  }
-  set value(value: string[]) {
-    console.log('Set value: ' + value);
-    this._value = value;
-  }
-  // select multi options End
 
   formSubmit() {
     console.log(this.validationform.value);

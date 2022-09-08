@@ -268,7 +268,7 @@
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-lg-6">
+                                    <!-- <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
                                           >รหัสแผงร้านค้า</label
@@ -280,18 +280,16 @@
                                           placeholder="ระบุรหัสแผง"
                                         />
                                       </div>
-                                    </div>
+                                    </div> -->
                                     
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label">เลขมิเตอร์</label>
-                                        <ng-select2
-                                          class="form-control"
-                                          formControlName="SLAVE_ID"
-                                          [data]="exampleData"
-                                          [width]="500"
-                                          [options]="options">
-                                        </ng-select2>
+                                        <select2
+                                          [data]="data"
+                                          [multiple]="true" 
+                                          >
+                                        </select2>
                                         <!-- <input
                                           class="form-control"
                                           formControlName="SLAVE_ID"
