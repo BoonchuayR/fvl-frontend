@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CountToModule } from "angular-count-to";
+import { ToastrService } from 'ngx-toastr';
 
 import { ScrollToModule } from "@nicky-lenaers/ngx-scroll-to";
 import { NgApexchartsModule } from "ng-apexcharts";

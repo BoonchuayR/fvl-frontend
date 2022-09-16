@@ -53,10 +53,10 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let user of user">
-                                                <th>{{user.UserType}}</th>
-                                                <th>{{user.UserName}}</th>
-                                                <td>{{user.UserEmail}}</td>
-                                                <td>{{user.UserPhone}}</td>
+                                                <th>{{user.typeUser}}</th>
+                                                <th>{{user.name}}</th>
+                                                <td>{{user.email}}</td>
+                                                <td>{{user.phone}}</td>
                                                 <td>
                                                     <div class="button-items">
                                                         <button type="button"
@@ -74,7 +74,7 @@
                                                         <button type="button"
                                                             class="btn btn-action"
                                                             id="sa-warning">
-                                                            <i class="bx bxs-trash" (click)="confirm(user.id)"></i>
+                                                            <i class="bx bxs-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>

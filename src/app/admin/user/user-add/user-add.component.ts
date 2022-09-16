@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/service/user.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { user } from '@angular/fire/auth';
+import Swal from 'sweetalert2';
+import { icons } from 'src/app/pages/icons/materialdesign/data';
+
 
 @Component({
   selector: 'app-user-add',
@@ -10,34 +16,80 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserAddComponent implements OnInit {
   submit!: boolean;
-  validationform!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  validationform = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      phone: ['', Validators.required],
+      typeUser: ['', Validators.required],
+  });
 
-  ngOnInit(): void {
-    this.validationform = this.formBuilder.group({
-      UserType: ['',[Validators.required]],
-      UserName: ['',[Validators.required]],
-      UserPwd: ['',[Validators.required]],
-      UserEmail: ['',[Validators.required]],
-      UserPhone: ['',[Validators.required]],
-    });
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    ) {}
+
+  ngOnInit(): void {}
+
+  get name() {
+    return this.validationform.get('name');
   }
+  getemail() {
+    return this.validationform.get('email');
+  }
+  get password() {
+    return this.validationform.get('password');
+  }
+  get phone() {
+    return this.validationform.get('phone');
+  }
+  get typeUser() {
+    return this.validationform.get('typeUser');
+  }
+  
+
+  
   formSubmit(){
-    console.log(this.validationform.value);
-    this.userService.create(this.validationform.value)
-      .then((users) => { console.log("users") })
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'เพิ่มข้อมูลผู้ใช้งานเรียบร้อย',
-        showConfirmButton: false,
-        timer: 3000
+    const { name,email,password,phone,typeUser} = this.validationform.value;
+
+    if (!this.validationform.valid ||!name ||!email ||!password ||!phone ||!typeUser){
+      return;
+    }
+
+    this.authService
+      .register(email,password)
+      .pipe(
+        switchMap(({ user:{ uid }})=>
+          this.userService.addUser({ uid,email,displayName:name,phone:phone,typeUser:typeUser})
+          )
+          
+      )
+
+      .subscribe(()=> {
+        this.router.navigate(['/user-list']);
       })
-      .catch(error => { console.log(error) });
+
+
+    
+  // this.userService.create(this.validationform.value)
+  //     .then((users) => { console.log("users") })
+  //     Swal.fire({
+  //       position: 'top-end',
+  //       icon: 'success',
+  //       title: 'เพิ่มข้อมูลผู้ใช้งานเรียบร้อย',
+  //       showConfirmButton: false,
+  //       timer: 3000
+  //     })
+  //     .catch(error => { console.log(error) });
+  // }
+  // validSubmit() {
+  //   this.submit = true;
   }
   validSubmit() {
     this.submit = true;
   }
-
 }

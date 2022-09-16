@@ -26,10 +26,10 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params["id"];
-    this.userService.get(this.userId).subscribe((data) => {
-      this.editform.setValue(data);
-    });
+    // this.userId = this.route.snapshot.params["id"];
+    // this.userService.get(this.userId).subscribe((data) => {
+    //   this.editform.setValue(data);
+    // });
   }
 
   updateuserData() {
@@ -43,29 +43,29 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  formSubmit() {
-    this.userService.update(this.editform.value)
-      .then((user) => {
-        console.log("user");
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'แก้ไขข้อมูลผู้ใช้งานเรียบร้อย',
-          showConfirmButton: false,
-          timer: 3000
-        });
+  // formSubmit() {
+  //   this.userService.update(this.editform.value)
+  //     .then((user) => {
+  //       console.log("user");
+  //       Swal.fire({
+  //         position: 'top-end',
+  //         icon: 'success',
+  //         title: 'แก้ไขข้อมูลผู้ใช้งานเรียบร้อย',
+  //         showConfirmButton: false,
+  //         timer: 3000
+  //       });
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
-  /**
-   * Bootsrap validation form submit method
-   */
-  validSubmit() {
-    this.submit = true;
-  }
+  // /**
+  //  * Bootsrap validation form submit method
+  //  */
+  // validSubmit() {
+  //   this.submit = true;
+  // }
 
 }
