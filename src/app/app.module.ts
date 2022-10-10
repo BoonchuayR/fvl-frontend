@@ -20,7 +20,6 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Select2Module } from 'ng-select2-component';
-import { HotToastModule } from '@ngneat/hot-toast';
 
 // firebase
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -47,7 +46,6 @@ export function createTranslateLoader(http: HttpClient): any {
         deps: [HttpClient]
       }
     }),
-    [HotToastModule.forRoot()],
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
