@@ -15,14 +15,24 @@ import {
 } from "@angular/fire/firestore";
 import { AuthService } from "./auth.service";
 import { switchMap } from "rxjs/operators";
-import { ProfileUser } from "../model/user";
 import { User } from "../core/models/user.models";
 import { user } from "@angular/fire/auth";
+
+interface ProfileUser {
+  uid: string;
+  email?: string;
+  displayName?: string;
+  phone?: string;
+  typeUser?: string;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
+  get(userId: string) {
+    throw new Error('Method not implemented.');
+  }
   private userCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore, private authService: AuthService) {
