@@ -1,94 +1,103 @@
 <!-- start page title -->
 <div class="row mb-3">
-    <div class="d-flex align-items-start">
-        <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item">หน้าหลัก</li>
-            <li class="breadcrumb-item active">ผู้ใช้งาน</li>
-        </ol>
-    </div>
+  <div class="d-flex align-items-start">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item">หน้าหลัก</li>
+      <li class="breadcrumb-item active">ผู้ใช้งาน</li>
+    </ol>
+  </div>
 </div>
 
 <!-- end page title -->
 
 <!-- Start row -->
 <div class="row">
-    <div class="">
-        <div class="card card-green-style">
-            <div class="p-3 px-4 bg-success">
-                <div class="d-flex align-items-start">
-                    <!-- <div class="align-self-center me-3">
+  <div class="">
+    <div class="card card-green-style">
+      <div class="p-3 px-4 bg-success">
+        <div class="d-flex align-items-start">
+          <!-- <div class="align-self-center me-3">
                     <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
                   </div> -->
-                    <div class="flex-1 align-self-center">
-                        <h5 class="title-card font-size-16 mt-1 mb-0">
-                            <a href="#" class="text-reset">ผู้ใช้งาน</a>
-                        </h5>
-                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
-                    </div>
+          <div class="flex-1 align-self-center">
+            <h5 class="title-card font-size-16 mt-1 mb-0">
+              <a href="#" class="text-reset">ผู้ใช้งาน</a>
+            </h5>
+            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+          </div>
 
-                    <div class="button-items">
-                        <button routerLink="/user-add" routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded float-right">
-                            <i class="bx bx-user-plus"></i> เพิ่มผู้ใช้งาน
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-content">
-                <div class="row">
-                    <div class="position-relative">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table align-middle mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>ประเภทผู้ใช้</th>
-                                                <th>ชื่อเข้าสู่ระบบ</th>
-                                                <th>อีเมล</th>
-                                                <th>เบอร์โทรศัพท์</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let user of user">
-                                                <th>{{user.typeUser}}</th>
-                                                <th>{{user.name}}</th>
-                                                <td>{{user.email}}</td>
-                                                <td>{{user.phone}}</td>
-                                                <td>
-                                                    <div class="button-items">
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="//mobile/profile-view/"
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/user-edit/{{user.id}}" 
-                                                            routerLinkActive="active">
-                                                            <i class="bx bxs-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-action"
-                                                            id="sa-warning">
-                                                            <i class="bx bxs-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="button-items">
+            <button
+              routerLink="/user-add"
+              routerLinkActive="active"
+              class="btn btn-outline-success btn-rounded float-right"
+            >
+              <i class="bx bx-user-plus"></i> เพิ่มผู้ใช้งาน
+            </button>
+          </div>
         </div>
+      </div>
+
+      <div class="card-content">
+        <div class="row">
+          <div class="position-relative">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
+                    <thead>
+                      <tr>
+                        <th>ประเภทผู้ใช้</th>
+                        <th>ชื่อเข้าสู่ระบบ</th>
+                        <th>อีเมล</th>
+                        <th>เบอร์โทรศัพท์</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let user of user">
+                        <th>{{ user.typeUser }}</th>
+                        <th>{{ user.displayName }}</th>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>
+                          <div class="button-items">
+                            <button
+                              type="button"
+                              class="btn btn-action"
+                              routerLink="//mobile/profile-view/"
+                              routerLinkActive="active"
+                            >
+                              <i class="bx bxs-show"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-action"
+                              routerLink="/user-edit/{{ user.id }}"
+                              routerLinkActive="active"
+                            >
+                              <i class="bx bxs-pencil"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-action"
+                              id="sa-warning"
+                            >
+                              <i class="bx bxs-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- end row -->
 <!--   
