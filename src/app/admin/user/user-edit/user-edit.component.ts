@@ -17,7 +17,7 @@ export class UserEditComponent implements OnInit {
   userId!: string;
   submit!: boolean;
   editform = new FormGroup({
-    // uid: new FormControl(""),
+    uid: new FormControl(""),
     displayName: new FormControl(""),
     email: new FormControl(""),
     typeUser: new FormControl(""),
@@ -30,7 +30,7 @@ export class UserEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.userId = this.route.snapshot.params["id"];
+    this.userId = this.route.snapshot.params["id"];
     this.userService.getUser(this.userId).subscribe((data) => {
       this.editform.setValue(data);
     });
