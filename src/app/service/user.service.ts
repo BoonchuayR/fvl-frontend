@@ -16,7 +16,7 @@ import {
 import { AuthService } from "./auth.service";
 import { switchMap } from "rxjs/operators";
 import { User } from "../core/models/user.models";
-import { user } from "@angular/fire/auth";
+import { user, UserProfile } from "@angular/fire/auth";
 
 interface ProfileUser {
   uid: string;
@@ -69,7 +69,12 @@ export class UserService {
   }
   getUser(id: string) {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
-    return docData(userDocumentReference, { idField: 'id' });
+    return docData(userDocumentReference, { idField: 'uid' });
+  }
+  
+  update(user: ProfileUser) {
+    const userDocumentReference = doc(this.firestore,`user/${user.uid}`);
+    return updateDoc(userDocumentReference, { ...user });
   }
   
 }
