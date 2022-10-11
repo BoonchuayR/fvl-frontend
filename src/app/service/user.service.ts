@@ -76,5 +76,10 @@ export class UserService {
     const userDocumentReference = doc(this.firestore,`user/${user.uid}`);
     return updateDoc(userDocumentReference, { ...user });
   }
+
+  delete(id: string) {
+    const userDocumentReference = doc(this.firestore, `user/${id}`);
+    return deleteDoc(userDocumentReference);
+  }
   
 }
