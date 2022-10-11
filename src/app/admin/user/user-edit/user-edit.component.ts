@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, FormControl, FormGroup, Validators, } from "@angular/forms";
-import { UserService } from 'src/app/service/user.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: "app-user-edit",
+  templateUrl: "./user-edit.component.html",
+  styleUrls: ["./user-edit.component.scss"],
 })
 export class UserEditComponent implements OnInit {
   userId!: string;
   submit!: boolean;
   editform = new FormGroup({
-    uid: new FormControl(""),
+    // uid: new FormControl(""),
     displayName: new FormControl(""),
     email: new FormControl(""),
     typeUser: new FormControl(""),
@@ -22,10 +27,10 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params["id"];
+    // this.userId = this.route.snapshot.params["id"];
     this.userService.getUser(this.userId).subscribe((data) => {
       this.editform.setValue(data);
     });
@@ -33,10 +38,10 @@ export class UserEditComponent implements OnInit {
 
   updateuserData() {
     this.editform = this.formBuilder.group({
-      displayName: [''],
-      email: [''],
-      typeuser: [''],
-      phone: [''],
+      displayName: [""],
+      email: [""],
+      typeuser: [""],
+      phone: [""],
     });
   }
 
@@ -64,5 +69,4 @@ export class UserEditComponent implements OnInit {
   // validSubmit() {
   //   this.submit = true;
   // }
-
 }
