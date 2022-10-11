@@ -109,7 +109,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   async formSubmit() {
-    console.log(this.validationform.value);
+    // Add customer
     const customerId = await this.customerService
       .create(this.validationform.value)
       .then((customer) => {
@@ -127,11 +127,11 @@ export class CustomerAddComponent implements OnInit {
         console.log("error: ", err);
       });
 
+    // Add shop(s)
     console.log("customerId: ", customerId);
-
-    // this.shopService.create(this.itemShopForm.value).then((shop) => {
-    //   console.log("shop");
-    // });
+    this.shopService.create(this.itemShopForm.value).then((shop) => {
+      console.log("shop");
+    });
   }
   validSubmit() {
     this.submit = true;
