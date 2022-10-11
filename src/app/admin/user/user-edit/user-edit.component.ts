@@ -12,12 +12,11 @@ export class UserEditComponent implements OnInit {
   userId!: string;
   submit!: boolean;
   editform = new FormGroup({
-    id: new FormControl(""),
-    UserType: new FormControl(""),
-    UserName: new FormControl(""),
-    UserPwd: new FormControl(""),
-    UserEmail: new FormControl(""),
-    UserPhone: new FormControl(""),
+    uid: new FormControl(""),
+    displayName: new FormControl(""),
+    email: new FormControl(""),
+    typeUser: new FormControl(""),
+    phone: new FormControl(""),
   });
   constructor(
     private route: ActivatedRoute,
@@ -26,20 +25,18 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.userId = this.route.snapshot.params["id"];
-    // this.userService.get(this.userId).subscribe((data) => {
-    //   this.editform.setValue(data);
-    // });
+    this.userId = this.route.snapshot.params["id"];
+    this.userService.getUser(this.userId).subscribe((data) => {
+      this.editform.setValue(data);
+    });
   }
 
   updateuserData() {
     this.editform = this.formBuilder.group({
-      id: [''],
-      UserType: [''],
-      UserName: [''],
-      UserPwd: [''],
-      UserEmail: [''],
-      UserPhone: [''],
+      displayName: [''],
+      email: [''],
+      typeuser: [''],
+      phone: [''],
     });
   }
 
