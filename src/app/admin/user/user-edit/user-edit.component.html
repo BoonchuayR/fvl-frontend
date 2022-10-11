@@ -15,7 +15,12 @@
 <div class="row">
   <div class="">
     <div class="card card-green-style">
-      <form class="needs-validation" [formGroup]="editform" novalidate>
+      <form
+        class="needs-validation"
+        [formGroup]="editform"
+        novalidate
+        (ngSubmit)="validSubmit()"
+      >
         <!-- <input type="hidden" name="uid" formControlName="uid" /> -->
         <div class="p-3 px-4 bg-success">
           <div class="d-flex align-items-start">
@@ -41,6 +46,7 @@
                 type="submit"
                 routerLink="/user-list"
                 routerLinkActive="active"
+                (click)="formSubmit()"
               >
                 <i class="bx bx bx-save"></i> บันทึก
               </button>
