@@ -52,7 +52,7 @@ export class UserAddComponent implements OnInit {
   }
   
 
-  
+
   formSubmit(){
     const { name,email,password,phone,typeUser} = this.validationform.value;
 
@@ -65,31 +65,23 @@ export class UserAddComponent implements OnInit {
       .pipe(
         switchMap(({ user:{ uid }})=>
           this.userService.addUser({ uid,email,displayName:name,phone:phone,typeUser:typeUser})
-          )
-          
-      )
-
+          ))
       .subscribe(()=> {
         this.router.navigate(['/user-list']);
-      })
+      });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "เพิ่มข้อมูลผู้ใช้งานเรียบร้อย",
+        showConfirmButton: false,
+        timer: 3500,
+      }).catch((error) => {
+        console.log(error);
+      });
 
-
-    
-  // this.userService.create(this.validationform.value)
-  //     .then((users) => { console.log("users") })
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       icon: 'success',
-  //       title: 'เพิ่มข้อมูลผู้ใช้งานเรียบร้อย',
-  //       showConfirmButton: false,
-  //       timer: 3000
-  //     })
-  //     .catch(error => { console.log(error) });
-  // }
-  // validSubmit() {
-  //   this.submit = true;
   }
+  
   validSubmit() {
     this.submit = true;
-  }
+    }
 }

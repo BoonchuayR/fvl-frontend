@@ -9,15 +9,14 @@ import Swal from "sweetalert2";
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  userId!: string;
+  id!:string;
   submit!: boolean;
-  editform = new FormGroup({
-    id: new FormControl(""),
-    UserType: new FormControl(""),
-    UserName: new FormControl(""),
-    UserPwd: new FormControl(""),
-    UserEmail: new FormControl(""),
-    UserPhone: new FormControl(""),
+
+    editform = new FormGroup({
+    displayName: new FormControl(""),
+    email: new FormControl(""),
+    phone: new FormControl(""),
+    typeUser: new FormControl(""),
   });
   constructor(
     private route: ActivatedRoute,
@@ -26,20 +25,20 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.userId = this.route.snapshot.params["id"];
-    // this.userService.get(this.userId).subscribe((data) => {
-    //   this.editform.setValue(data);
-    // });
+
+    this.id = this.route.snapshot.params["id"];
+    this.userService.get(this.id).subscribe((data) => {
+      this.editform.setValue(data);
+    });
   }
 
   updateuserData() {
     this.editform = this.formBuilder.group({
-      id: [''],
-      UserType: [''],
-      UserName: [''],
-      UserPwd: [''],
-      UserEmail: [''],
-      UserPhone: [''],
+      name: [''],
+      email: [''],
+      password: [''],
+      phone: [''],
+      typeUser: [''],
     });
   }
 
@@ -69,3 +68,6 @@ export class UserEditComponent implements OnInit {
   // }
 
 }
+
+
+

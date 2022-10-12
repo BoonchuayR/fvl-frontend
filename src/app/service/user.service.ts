@@ -57,4 +57,9 @@ export class UserService {
       idField: "id",
     }) as Observable<User[]>;
   }
+
+  get(id: string) {
+    const userDocumentReference = doc(this.firestore, `user/${id}`);
+    return docData(userDocumentReference, { idField: 'id' });
+  }
 }
