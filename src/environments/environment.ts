@@ -17,10 +17,11 @@ export const environment = {
     projectId: "foodvilla-8ba82",
     storageBucket: "foodvilla-8ba82.appspot.com",
     messagingSenderId: "897296523307",
-    appId: "1:897296523307:web:23386d0deb9da438eb8a6e"
+    appId: "1:897296523307:web:23386d0deb9da438eb8a6e",
   },
   production: false,
-  defaultauth: "fakebackend",
+  // defaultauth: "fakebackend",
+  defaultauth: "firebase",
   firebaseConfig: {
     apiKey: "",
     authDomain: "",

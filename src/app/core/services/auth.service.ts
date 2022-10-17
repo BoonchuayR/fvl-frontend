@@ -1,6 +1,11 @@
 import { Injectable } from "@angular/core";
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+} from "@angular/fire/auth";
+import { from, Observable } from "rxjs";
 import { getFirebaseBackend } from "../../authUtils";
-import { Auth } from "../models/auth.models";
 
 @Injectable({ providedIn: "root" })
 
@@ -8,10 +13,10 @@ import { Auth } from "../models/auth.models";
  * Auth-service Component
  */
 export class AuthenticationService {
-  user!: Auth;
+  // user!: Auth;
   currentUserValue: any;
 
-  constructor() {}
+  constructor(private auth: Auth) {}
 
   /**
    * Performs the register
@@ -25,6 +30,11 @@ export class AuthenticationService {
         const user = response;
         return user;
       });
+  }
+
+  // TODO: Check Again
+  register2(email: string, password: string): Observable<UserCredential> {
+    return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
   /**
