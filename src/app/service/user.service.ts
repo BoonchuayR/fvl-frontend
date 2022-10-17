@@ -31,7 +31,7 @@ interface ProfileUser {
 })
 export class UserService {
   get(userId: string) {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
   private userCollection: CollectionReference<DocumentData>;
 
@@ -67,13 +67,19 @@ export class UserService {
       idField: "id",
     }) as Observable<User[]>;
   }
+
   getUser(id: string) {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
-    return docData(userDocumentReference, { idField: 'uid' });
+    return docData(userDocumentReference, { idField: "uid" });
   }
-  
+
+  // getUserByEmail(email: string) {
+  //   const userDocumentReference = doc(this.firestore, `user/${id}`);
+  //   return docData(userDocumentReference, { idField: "uid" });
+  // }
+
   update(user: ProfileUser) {
-    const userDocumentReference = doc(this.firestore,`user/${user.uid}`);
+    const userDocumentReference = doc(this.firestore, `user/${user.uid}`);
     return updateDoc(userDocumentReference, { ...user });
   }
 
@@ -81,5 +87,4 @@ export class UserService {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
     return deleteDoc(userDocumentReference);
   }
-  
 }
