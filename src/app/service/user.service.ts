@@ -15,14 +15,24 @@ import {
 } from "@angular/fire/firestore";
 import { AuthService } from "./auth.service";
 import { switchMap } from "rxjs/operators";
-import { ProfileUser } from "../model/user";
 import { User } from "../core/models/user.models";
-import { user } from "@angular/fire/auth";
+import { user, UserProfile } from "@angular/fire/auth";
+
+interface ProfileUser {
+  uid: string;
+  email?: string;
+  displayName?: string;
+  phone?: string;
+  typeUser?: string;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
+  get(userId: string) {
+    throw new Error('Method not implemented.');
+  }
   private userCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore, private authService: AuthService) {
@@ -57,9 +67,19 @@ export class UserService {
       idField: "id",
     }) as Observable<User[]>;
   }
-
-  get(id: string) {
+  getUser(id: string) {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
-    return docData(userDocumentReference, { idField: 'id' });
+    return docData(userDocumentReference, { idField: 'uid' });
   }
+  
+  update(user: ProfileUser) {
+    const userDocumentReference = doc(this.firestore,`user/${user.uid}`);
+    return updateDoc(userDocumentReference, { ...user });
+  }
+
+  delete(id: string) {
+    const userDocumentReference = doc(this.firestore, `user/${id}`);
+    return deleteDoc(userDocumentReference);
+  }
+  
 }

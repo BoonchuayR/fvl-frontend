@@ -6,6 +6,7 @@ import {Auth,signInWithEmailAndPassword,authState,createUserWithEmailAndPassword
   providedIn: 'root'
 })
 export class AuthService {
+  [x: string]: any;
   currentUser$ = authState(this.auth);
   
   constructor(private auth: Auth) { }
