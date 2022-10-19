@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
+import { ShopService } from "src/app/service/shop.service";
 
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -25,7 +26,8 @@ export class CustomerAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private shopService: ShopService
   ) {
     this.itemShopForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -52,6 +54,11 @@ export class CustomerAddComponent implements OnInit {
     this.customerService.create(this.validationform.value).then((customers) => {
       console.log("customers");
     });
+
+    this.shopService.create(this.itemShopForm.value).then((shop) => {
+      console.log("shop")
+    });
+    
     Swal.fire({
       position: "top-end",
       icon: "success",
