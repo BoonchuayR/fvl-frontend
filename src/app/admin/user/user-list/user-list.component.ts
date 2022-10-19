@@ -1,27 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "src/app/service/user.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  selector: "app-user-list",
+  templateUrl: "./user-list.component.html",
+  styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit {
-  user!:any
+  user!: any;
 
-  constructor(private userService:UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getAll().subscribe(users => {
-      this.user = users;
-    })
+    this.userService.getAllUser().subscribe((user) => {
+      this.user = user;
+      console.log("user: ", user);
+    });
   }
 
   /**
    * Confirm sweet alert
-   * @param confirm modal content
-   */
+  //  * @param confirm modal content
+  //  */
    confirm(id:string) {
     Swal.fire({
       title: 'ลบข้อมูลผู้ใช้งาน',
@@ -47,5 +48,4 @@ export class UserListComponent implements OnInit {
       }
     });
   }
-
 }

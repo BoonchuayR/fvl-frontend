@@ -268,7 +268,7 @@
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-lg-6">
+                                    <!-- <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label"
                                           >รหัสแผงร้านค้า</label
@@ -280,19 +280,26 @@
                                           placeholder="ระบุรหัสแผง"
                                         />
                                       </div>
-                                    </div>
+                                    </div> -->
                                     
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >เลขมิเตอร์</label
-                                        >
-                                        <input
+                                        <label class="form-label">เลขมิเตอร์</label>
+                                        <select2
+                                          class=""
+                                          formControlName="SLAVE_ID"
+                                          placeholder="เลือกมิเตอร์"
+                                          type="text"
+                                          [data]="data"
+                                          [multiple]="true" 
+                                          >
+                                        </select2>
+                                        <!-- <input
                                           class="form-control"
                                           formControlName="SLAVE_ID"
                                           type="text"
                                           placeholder="เลือกมิเตอร์"
-                                        />
+                                        /> -->
                                       </div>
                                     </div>
                                   </div>

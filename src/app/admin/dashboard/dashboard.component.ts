@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { emailSentBarChart, monthlyEarningChart, transactions, orders, users } from '../dashboard/data';
 import { ChartType } from '../dashboard/dashboard.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from "src/app/service/user.service";
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,17 +23,27 @@ export class DashboardComponent implements OnInit {
   monthlyEarningChart!: ChartType;
   transactions: any;
   orders: any;
-  users: any;
+  user!: any;
   @ViewChild('content') content: any;
 
-  constructor(private modalService: NgbModal) { }
-
+  constructor(private modalService: NgbModal,private userService: UserService) { }
+    
   ngOnInit(): void {
-    //BreadCrumb 
-    this.breadCrumbItems = [
+
+     //BreadCrumb 
+     this.breadCrumbItems = [
       { label: 'หน้าหลัก' },
       { label: 'Dashboard', active: true }
     ];
+
+     //get user show in dashboard
+    this.userService.getAllUser().subscribe((user) => {
+      this.user = user;
+      console.log("user: ", user);
+    });
+
+
+   
 
     /**
  * Fetches the data
@@ -54,7 +65,7 @@ export class DashboardComponent implements OnInit {
     this.monthlyEarningChart = monthlyEarningChart;
     this.transactions = transactions;
     this.orders = orders;
-    this.users = users;
+    this.user = users;
   }
 
   /***

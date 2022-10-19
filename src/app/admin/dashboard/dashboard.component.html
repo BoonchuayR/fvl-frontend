@@ -83,36 +83,20 @@
                     <table class="table table-striped mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>ประเภทผู้ใช้</th>
-                                <th>ชื่อ</th>
-                                <th>นามสกุล</th>
+                                <th>ชื่อ-นามสกุล</th>
                                 <th>อีเมล</th>
+                                <th>เบอร์โทรศัพท์</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>ร้านค้า</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>ศรีวงศ์</td>
-                                <td>info@gmail.com</td>
+                            <tr *ngFor="let user of user">
+                              <th>{{ user.typeUser }}</th>
+                              <th>{{ user.displayName }}</th>
+                              <td>{{ user.email }}</td>
+                              <td>{{ user.phone }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>ร้านค้า</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>ศรีวงศ์</td>
-                                <td>info@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>ร้านค้า</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>ศรีวงศ์</td>
-                                <td>info@gmail.com</td>
-                            </tr>
-                        </tbody>
+                          </tbody>
                     </table>
                 </div>
             </div>

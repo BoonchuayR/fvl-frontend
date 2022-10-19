@@ -9,8 +9,7 @@ import {
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
-
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Select2Data } from "ng-select2-component";
 
 @Component({
   selector: "app-customer-add",
@@ -23,6 +22,66 @@ export class CustomerAddComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
+
+  // select multi options start
+  data: Select2Data = [
+    {
+      label: "Meter Zone A",
+      data: { name: "Meter Zone A" },
+      options: [
+        {
+          value: "A001",
+          label: "A001",
+          data: { name: "A001" },
+          templateId: "template1",
+          id: "option-A001",
+        },
+        {
+          value: "A002",
+          label: "A002",
+          data: { name: "A002" },
+          templateId: "template2",
+          id: "option-A002",
+        },
+      ],
+    },
+    {
+      label: "Meter Zone B",
+      data: { name: "Meter Zone B" },
+      options: [
+        {
+          value: "B001",
+          label: "B001",
+          data: { name: "B001" },
+          templateId: "template1",
+          id: "option-B001",
+        },
+        {
+          value: "B002",
+          label: "B002",
+          data: { name: "B002" },
+          templateId: "template2",
+          id: "option-B002",
+        },
+        {
+          value: "B003",
+          label: "B003",
+          data: { name: "B003" },
+          templateId: "template3",
+          id: "option-B003",
+        },
+        {
+          value: "B004",
+          label: "B004",
+          data: { name: "B004" },
+          templateId: "template4",
+          id: "option-B004",
+        },
+      ],
+    },
+  ];
+
+  // select multi options End
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,24 +108,29 @@ export class CustomerAddComponent implements OnInit {
     this.addItem();
   }
 
-  formSubmit() {
-    console.log(this.validationform.value);
-    this.customerService.create(this.validationform.value).then((customers) => {
-      console.log("customers");
-    });
+  async formSubmit() {
+    // Add customer
+    const customerId = await this.customerService
+      .create(this.validationform.value)
+      .then((customer) => {
+        // console.log(`customers: ${customers}`);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        return customer.id;
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
 
+    // Add shop(s)
+    console.log("customerId: ", customerId);
     this.shopService.create(this.itemShopForm.value).then((shop) => {
-      console.log("shop")
-    });
-    
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-      showConfirmButton: false,
-      timer: 3000,
-    }).catch((error) => {
-      console.log(error);
+      console.log("shop");
     });
   }
   validSubmit() {

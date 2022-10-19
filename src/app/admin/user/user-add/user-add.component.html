@@ -33,7 +33,7 @@
                                 <i class="bx bx-x"></i> ยกเลิก
                             </button>
                             <button class="btn btn-outline-success btn-rounded float-right" type="submit"
-                                (click)="formSubmit()" routerLink="/user-list" routerLinkActive="active">
+                                (click)="formSubmit()" routerLinkActive="active">
                                 <i class="bx bx bx-save"></i> บันทึก
                             </button>
                         </div>
@@ -54,17 +54,17 @@
                                         <div class="mb-4 mb-md-4">
                                             <h5 class="font-size-14 mb-2">ประเภทผู้ใช้</h5>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="userCondition" formControlName="UserType" id="inlineRadio1"
+                                                <input class="form-check-input" type="radio" name="typeUser" formControlName="typeUser" id="inlineRadio1"
                                                     value="ฝ่ายซ่อมบำรุง" checked>
                                                 <label class="form-check-label" for="inlineRadio1">ฝ่ายซ่อมบำรุง</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="userCondition" formControlName="UserType" id="inlineRadio2"
+                                                <input class="form-check-input" type="radio" name="typeUser" formControlName="typeUser" id="inlineRadio2"
                                                     value="ฝ่ายบัญชี">
                                                 <label class="form-check-label" for="inlineRadio2">ฝ่ายบัญชี</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="userCondition" formControlName="UserType" id="inlineRadio3"
+                                                <input class="form-check-input" type="radio" name="typeUser" formControlName="typeUser" id="inlineRadio3"
                                                     value="ฝ่ายขาย">
                                                 <label class="form-check-label" for="inlineRadio3">ฝ่ายขาย</label>
                                             </div>
@@ -74,16 +74,23 @@
                                             <div class="col-lg-6">
                                                 <div class="font-size-12 mb-3">
                                                     <label class="form-label">ชื่อเข้าสู่ระบบ</label>
-                                                    <input class="form-control form-control-lg"
-                                                        formControlName="UserName" type="text" placeholder="ระบุชื่อเข้าสู่ระบบ" />
+                                                    <input 
+                                                        class="form-control form-control-lg"
+                                                        formControlName="name"
+                                                        type="text" 
+                                                        placeholder="ระบุชื่อเข้าสู่ระบบ" 
+                                                        />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="font-size-12 mb-3">
                                                     <label class="form-label">รหัสผู้ใช้</label>
-                                                    <input class="form-control form-control-lg"
-                                                        formControlName="UserPwd" type="text"
-                                                        placeholder="ระบุนามสกุล" />
+                                                    <input 
+                                                        class="form-control form-control-lg"
+                                                        formControlName="password" 
+                                                        type="password"
+                                                        placeholder="ระบุรหัสผ่าน" 
+                                                        />
                                                 </div>
                                             </div>
                                         </div>
@@ -92,17 +99,23 @@
                                             <div class="col-lg-6">
                                                 <div class="font-size-12 mb-3">
                                                     <label class="form-label">อีเมล</label>
-                                                    <input class="form-control form-control-lg"
-                                                        formControlName="UserEmail" type="text"
-                                                        placeholder="ระบุอีเมล" />
+                                                    <input 
+                                                        class="form-control form-control-lg"
+                                                        formControlName="email" 
+                                                        type="email"
+                                                        placeholder="ระบุอีเมล" 
+                                                        />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="font-size-12 mb-3">
                                                     <label class="form-label">เบอร์โทรศัพท์</label>
-                                                    <input class="form-control form-control-lg"
-                                                        formControlName="UserPhone" type="text"
-                                                        placeholder="ระบุเบอร์โทรศัพท์" />
+                                                    <input 
+                                                        class="form-control form-control-lg"
+                                                        formControlName="phone" 
+                                                        type="text"
+                                                        placeholder="ระบุเบอร์โทรศัพท์"
+                                                        />
                                                 </div>
                                             </div>
                                         </div>

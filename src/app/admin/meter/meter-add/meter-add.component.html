@@ -29,7 +29,7 @@
                             <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
                         </div>
                         <div class="button-items">
-                            <button routerLink="/meter-list" routerLinkActive="active"
+                            <button routerLink="/meter-dashboard" routerLinkActive="active"
                                 class="btn btn-outline-default btn-rounded float-right">
                                 <i class="bx bx-x"></i> ยกเลิก
                             </button>
@@ -49,8 +49,37 @@
                                 <h2 class="text-uppercase mb-5">เพิ่มมิเตอร์</h2>
                             </div>
 
+
                             <div class="row">
                                 <div class="row mb-md-5">
+                                    <div class="mb-4 mb-md-4">
+                                        <h5 class="font-size-14 mb-2">โซนมิเตอร์</h5>
+                                        <div class="form-check form-check-inline mt-3 me-5">
+                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio1"
+                                                value="ฝ่ายซ่อมบำรุง" checked>
+                                            <label class="form-check-label" for="inlineRadio1">โซน A</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-3 me-5">
+                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio2"
+                                                value="ฝ่ายบัญชี">
+                                            <label class="form-check-label" for="inlineRadio2">โซน B</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-3 me-5">
+                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
+                                                value="ฝ่ายขาย">
+                                            <label class="form-check-label" for="inlineRadio3">โซน C</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-3 me-5">
+                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
+                                                value="ฝ่ายขาย">
+                                            <label class="form-check-label" for="inlineRadio3">โซน D</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-3 me-5">
+                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
+                                                value="ฝ่ายขาย">
+                                            <label class="form-check-label" for="inlineRadio3">โซน E</label>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
@@ -63,7 +92,7 @@
                                             <div class="font-size-12 mb-3">
                                                 <label class="form-label">เลขมิเตอร์</label>
                                                 <input class="form-control form-control-lg" formControlName="SERIAL_NO"
-                                                    type="text" placeholder="ระบุช่องข้อมูล" />
+                                                    type="text" placeholder="ระบุเลขมิเตอร์" />
                                             </div>
                                         </div>
                                     </div>
@@ -72,14 +101,14 @@
                                             <div class="font-size-12 mb-3">
                                                 <label class="form-label">ร้านค้า</label>
                                                 <input class="form-control form-control-lg" formControlName="METER_SHOP"
-                                                    type="text" placeholder="ระบุเลขมิเตอร์" />
+                                                    type="text" placeholder="ระบุร้านค้า" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="font-size-12 mb-3">
                                                 <label class="form-label">เลขแผง</label>
                                                 <input class="form-control form-control-lg" formControlName="METER_ZONE"
-                                                    type="text" placeholder="ระบุช่องข้อมูล" />
+                                                    type="text" placeholder="ระบุเลขแผง" />
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +126,7 @@
                                                 <label class="form-label">ความถี่ (kWH)</label>
                                                 <input class="form-control form-control-lg"
                                                     formControlName="LINE_FREQUENCE" type="text"
-                                                    placeholder="ระบุเลขมิเตอร์" />
+                                                    placeholder="ระบุความถี่ (kWH)" />
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +136,7 @@
                                                 <label class="form-label">หน่วยไฟสะสม</label>
                                                 <input class="form-control form-control-lg"
                                                     formControlName="LINE_CURRENT" type="text"
-                                                    placeholder="ระบุสถานะมิเตอร์" />
+                                                    placeholder="ระบุหน่วยไฟสะสม" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

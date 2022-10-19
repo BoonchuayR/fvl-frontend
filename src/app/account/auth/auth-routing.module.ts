@@ -1,56 +1,56 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { LoginComponent } from './login/login.component';
-import { Login1Component } from './login1/login1.component';
-import { RegisterComponent } from './register/register.component';
-import { Register1Component } from './register1/register1.component';
-import { RecoverpwdComponent } from './recoverpwd/recoverpwd.component';
-import { Recoverpwd1Component } from './recoverpwd1/recoverpwd1.component';
-import { LockscreenComponent } from './lockscreen/lockscreen.component';
-import { ConfirmmailComponent } from './confirmmail/confirmmail.component';
-import { EmailverificationComponent } from './emailverification/emailverification.component';
-import { SteptwoverificationComponent } from './steptwoverification/steptwoverification.component';
+import { LoginComponent } from "./login/login.component";
+import { Login1Component } from "./login1/login1.component";
+import { RegisterComponent } from "./register/register.component";
+import { Register1Component } from "./register1/register1.component";
+import { RecoverpwdComponent } from "./recoverpwd/recoverpwd.component";
+import { Recoverpwd1Component } from "./recoverpwd1/recoverpwd1.component";
+import { LockscreenComponent } from "./lockscreen/lockscreen.component";
+import { ConfirmmailComponent } from "./confirmmail/confirmmail.component";
+import { EmailverificationComponent } from "./emailverification/emailverification.component";
+import { SteptwoverificationComponent } from "./steptwoverification/steptwoverification.component";
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
   },
   {
-    path: 'login1',
+    path: "login1",
     component: Login1Component,
   },
   {
-    path: 'register',
+    path: "register",
     component: RegisterComponent,
   },
   {
-    path: 'register1',
+    path: "register1",
     component: Register1Component,
   },
   {
-    path: 'recoverpwd',
+    path: "recoverpwd",
     component: RecoverpwdComponent,
   },
   {
-    path: 'recoverpwd1',
+    path: "recoverpwd1",
     component: Recoverpwd1Component,
   },
   {
-    path: 'lockscreen',
+    path: "lockscreen",
     component: LockscreenComponent,
   },
   {
-    path: 'confirm-mail',
+    path: "confirm-mail",
     component: ConfirmmailComponent,
   },
   {
-    path: 'email-verification',
+    path: "email-verification",
     component: EmailverificationComponent,
   },
   {
-    path: 'two-step-verification',
+    path: "two-step-verification",
     component: SteptwoverificationComponent,
   },
 ];
@@ -59,4 +59,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

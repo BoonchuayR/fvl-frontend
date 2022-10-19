@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CountToModule } from "angular-count-to";
+import { ToastrService } from 'ngx-toastr';
 
 import { ScrollToModule } from "@nicky-lenaers/ngx-scroll-to";
 import { NgApexchartsModule } from "ng-apexcharts";
@@ -14,6 +15,7 @@ import {
   NgbCollapseModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
+import { Select2Module } from 'ng-select2-component';
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -99,6 +101,7 @@ import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component'
     NgbTooltipModule,
     NgbPopoverModule,
     CountToModule,
+    Select2Module,
     IconsModule,
     SharedModule,
     AgmCoreModule.forRoot({
