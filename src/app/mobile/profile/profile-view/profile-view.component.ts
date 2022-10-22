@@ -5,6 +5,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import Swal from "sweetalert2";
 import { AuthenticationService } from "src/app/core/services/auth.service";
 import { UserService } from "src/app/service/user.service";
+import { TopupService } from "src/app/service/topup.service";
 
 @Component({
   selector: "app-profile-view",
@@ -25,7 +26,8 @@ export class ProfileViewComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private authService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    private topupService:TopupService,
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class ProfileViewComponent implements OnInit {
     });
 
     console.log("currentUser: ", currentUser);
+
 
     //BreadCrumb
     this.breadCrumbItems = [

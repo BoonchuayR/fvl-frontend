@@ -34,9 +34,10 @@ export class TopupService {
     }) as Observable<Topup[]>;
   }
 
+
   get(id: string) {
     const topupDocumentReference = doc(this.firestore, `topup/${id}`);
-    return docData(topupDocumentReference, { idField: 'id' });
+    return docData(topupDocumentReference, { idField: 'uid' });
   }
 
   update(topup: Topup) {
