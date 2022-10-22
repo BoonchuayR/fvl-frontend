@@ -34,10 +34,6 @@ import { MeterListComponent } from "./meter/meter-list/meter-list.component";
 import { MeterAddComponent } from "./meter/meter-add/meter-add.component";
 import { MeterEditComponent } from "./meter/meter-edit/meter-edit.component";
 import { MeterViewComponent } from "./meter/meter-view/meter-view.component";
-import { RepairListComponent } from "./repair/repair-list/repair-list.component";
-import { RepairEditComponent } from "./repair/repair-edit/repair-edit.component";
-import { RepairAddComponent } from "./repair/repair-add/repair-add.component";
-import { RepairViewComponent } from "./repair/repair-view/repair-view.component";
 import { ShopListComponent } from "./shop/shop-list/shop-list.component";
 import { ShopAddComponent } from "./shop/shop-add/shop-add.component";
 import { ShopEditComponent } from "./shop/shop-edit/shop-edit.component";
@@ -47,12 +43,15 @@ import { TopupAddComponent } from "./topup/topup-add/topup-add.component";
 import { TopupEditComponent } from "./topup/topup-edit/topup-edit.component";
 import { TopupViewComponent } from "./topup/topup-view/topup-view.component";
 import { UserViewComponent } from "./user/user-view/user-view.component";
-import { ProductComponent } from "./product/product.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CustomerAddComponent } from "./customer/customer-add/customer-add.component";
 import { CustomerEditComponent } from "./customer/customer-edit/customer-edit.component";
 import { CustomerListComponent } from "./customer/customer-list/customer-list.component";
 import { CustomerViewComponent } from "./customer/customer-view/customer-view.component";
+import { TicketAddComponent } from './ticket/ticket-add/ticket-add.component';
+import { TicketEditComponent } from './ticket/ticket-edit/ticket-edit.component';
+import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
+import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component';
 
 @NgModule({
   declarations: [
@@ -69,10 +68,6 @@ import { CustomerViewComponent } from "./customer/customer-view/customer-view.co
     MeterAddComponent,
     MeterEditComponent,
     MeterViewComponent,
-    RepairListComponent,
-    RepairEditComponent,
-    RepairAddComponent,
-    RepairViewComponent,
     ShopListComponent,
     ShopAddComponent,
     ShopEditComponent,
@@ -82,11 +77,14 @@ import { CustomerViewComponent } from "./customer/customer-view/customer-view.co
     TopupEditComponent,
     TopupViewComponent,
     UserViewComponent,
-    ProductComponent,
     CustomerAddComponent,
     CustomerEditComponent,
     CustomerListComponent,
     CustomerViewComponent,
+    TicketAddComponent,
+    TicketEditComponent,
+    TicketListComponent,
+    TicketViewComponent,
   ],
   imports: [
     CommonModule,

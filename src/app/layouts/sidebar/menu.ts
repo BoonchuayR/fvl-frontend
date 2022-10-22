@@ -42,12 +42,12 @@ export const MENU: MenuItem[] = [
         icon: 'bx bx-money',
         link: '/topup-list',
     },
-    // {
-    //     id: 7,
-    //     label: 'แจ้งเหตุขัดข้อง',
-    //     icon: 'bx bx-wrench',
-    //     link: '/repair-list',
-    // },
+    {
+        id: 8,
+        label: 'แจ้งซ่อม',
+        icon: 'bx bx-wrench',
+        link: '/ticket-list',
+    },
     // {
     //     id: 8,
     //     label: 'แจ้งเตือน',
