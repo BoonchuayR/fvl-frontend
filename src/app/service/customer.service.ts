@@ -18,15 +18,13 @@ import {
 
 interface Customers {
   uid: string;
-  CustCode: string;
-  CustName: string;
-  CustEmail: string;
-  CustUser: string;
-  CustPwd: string;
-  CustPhone: string;
-  CustStartDate: Timestamp;
-  minimumMoney:number;
-  currentMoney:number;
+  email?: string;
+  custCode?: string;
+  custName?: string;
+  custPhone?: string;
+  custStartDate?: Timestamp;
+  minimumMoney?:number;
+  currentMoney?:number;
 }
 
 @Injectable({
@@ -44,7 +42,7 @@ export class CustomerService {
   }
 
   addCustomer(customers: Customers): Observable<void> {
-    const ref = doc(this.firestore, "user", customers.uid);
+    const ref = doc(this.firestore, "customers", customers.uid);
     return from(setDoc(ref,customers));
   }
 

@@ -46,6 +46,7 @@
                                             <tr>
                                                 <th>รหัสสมาชิก</th>
                                                 <th>ชื่อลูกค้า</th>
+                                                <th>อีเมล</th>
                                                 <th>เบอร์โทรศัพท์</th>
                                                 <th>วันที่สมัคร</th>
                                                 <th>สถานะ</th>
@@ -56,6 +57,7 @@
                                             <tr *ngFor="let customer of customer">
                                                 <th>{{customer.custCode}}</th>
                                                 <th>{{customer.custName}}</th>
+                                                <th>{{customer.email}}</th>
                                                 <th>{{customer.custPhone}}</th>
                                                 <th>{{customer.custStartDate}}</th>
                                                 <td>

@@ -47,7 +47,6 @@
                 class="btn btn-outline-success btn-rounded float-right"
                 type="submit"
                 (click)="formSubmit()"
-                routerLink="/customer-list"
                 routerLinkActive="active"
               >
                 <i class="bx bx bx-save"></i> บันทึก
@@ -91,9 +90,18 @@
                             <label class="form-label">อีเมล</label>
                             <input
                               class="form-control"
-                              formControlName="custEmail"
+                              formControlName="email"
                               type="text"
                               placeholder="ระบุอีเมล"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">พาสเวิร์ด</label>
+                            <input
+                              class="form-control"
+                              formControlName="password"
+                              type="password"
+                              placeholder="ระบุพาสเวิร์ด"
                             />
                           </div>
                           <div class="font-size-12 mb-3">

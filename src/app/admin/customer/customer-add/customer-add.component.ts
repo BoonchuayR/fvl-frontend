@@ -11,6 +11,8 @@ import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
 import { Select2Data } from "ng-select2-component";
 import { AuthService } from "src/app/service/auth.service";
+import { switchMap } from "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-customer-add",
@@ -20,11 +22,10 @@ import { AuthService } from "src/app/service/auth.service";
 export class CustomerAddComponent implements OnInit {
   submit!: boolean;
   validationform = this.formBuilder.group({
+    email: ["", [Validators.required]],
+    password: ['', Validators.required],
     custCode: ["", [Validators.required]],
     custName: ["", [Validators.required]],
-    custEmail: ["", [Validators.required]],
-    custUser: ["", [Validators.required]],
-    custPwd: ["", [Validators.required]],
     custPhone: ["", [Validators.required]],
     custStartDate: ["", [Validators.required]],
     minimumMoney: ["", [Validators.required]],
@@ -102,7 +103,9 @@ export class CustomerAddComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private customerService: CustomerService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private router: Router,
+
   ) {
     this.itemShopForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -110,32 +113,71 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-
     this.addItem();
   }
 
+  get email() {
+    return this.validationform.get('email');
+  }
+  get password() {
+    return this.validationform.get('password');
+  }
+  get custCode() {
+    return this.validationform.get('custCode');
+  }
+  get custName() {
+    return this.validationform.get('custName');
+  }
+  get custPhone() {
+    return this.validationform.get('custPhone');
+  }
+  get custStartDate() {
+    return this.validationform.get('custStartDate');
+  }
+  get minimumMoney() {
+    return this.validationform.get('minimumMoney');
+  }
+  get currentMoney() {
+    return this.validationform.get('currentMoney');
+  }
+
+
   async formSubmit() {
     // Add customer
-    const customerId = await this.customerService
-      .create(this.validationform.value)
-      .then((customer) => {
-        // console.log(`customers: ${customers}`);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        return customer.id;
-      })
-      .catch((err) => {
-        console.log("error: ", err);
+    const { email,password,custCode,custName,custPhone,custStartDate,minimumMoney,currentMoney} = this.validationform.value;
+    // const customerId = await 
+    this.authService
+    .register(email,password)
+    .pipe(
+      switchMap(({ user:{ uid }})=>
+        this.customerService.addCustomer({ 
+          uid,email,custCode:custCode,custName:custName,
+          custPhone:custPhone,custStartDate:custStartDate,
+          minimumMoney:minimumMoney,currentMoney:currentMoney,
+        })))
+    .subscribe(()=> {
+      this.router.navigate(['/customer-list']);
+    });
+
+      // this.customerService
+      // .create(this.validationform.value)
+      // .then((customer) => {
+      //   // console.log(`customers: ${customers}`);
+     Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+        showConfirmButton: false,
+        timer: 3000,
       });
+      //   return customer.id;
+      // })
+      // .catch((err) => {
+      //   console.log("error: ", err);
+      // });
 
     // Add shop(s)
-    console.log("customerId: ", customerId);
+    // console.log("customerId: ", customerId);
     this.shopService.create(this.itemShopForm.value).then((shop) => {
       console.log("shop");
     });

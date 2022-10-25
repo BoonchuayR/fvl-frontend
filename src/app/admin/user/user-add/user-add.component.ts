@@ -75,7 +75,7 @@ export class UserAddComponent implements OnInit {
         title: "เพิ่มข้อมูลผู้ใช้งานเรียบร้อย",
         showConfirmButton: false,
         timer: 3500,
-      })
+      });
 
   }
   
