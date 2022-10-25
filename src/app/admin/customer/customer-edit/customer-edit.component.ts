@@ -18,7 +18,6 @@ export class CustomerEditComponent implements OnInit {
     CustName: new FormControl(""),
     CustEmail: new FormControl(""),
     CustPhone: new FormControl(""),
-    CustMoney: new FormControl(""),
     CustPwd: new FormControl(""),
     CustStartDate: new FormControl(""),
   });
@@ -33,6 +32,8 @@ export class CustomerEditComponent implements OnInit {
     this.customerId = this.route.snapshot.params["id"];
     this.customerService.get(this.customerId).subscribe((data) => {
       this.editform.setValue(data);
+
+      console.log(data);
     });
   }
 
@@ -43,7 +44,6 @@ export class CustomerEditComponent implements OnInit {
       CustName: [''],
       CustEmail: [''],
       CustPhone: [''],
-      CustMoney: [''],
       CustPwd: [''],
       CustStartDate: [''],
     });

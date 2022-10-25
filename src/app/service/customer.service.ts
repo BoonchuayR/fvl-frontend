@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
 import {
   addDoc,
   collection,
@@ -10,20 +10,23 @@ import {
   docData,
   DocumentData,
   Firestore,
+  setDoc,
   Timestamp,
   updateDoc,
 } from "@angular/fire/firestore";
 
+
 interface Customers {
-  id: string;
+  uid: string;
   CustCode: string;
   CustName: string;
   CustEmail: string;
-  CustPhone: string;
-  CustMoney: string;
   CustUser: string;
   CustPwd: string;
+  CustPhone: string;
   CustStartDate: Timestamp;
+  minimumMoney:number;
+  currentMoney:number;
 }
 
 @Injectable({
@@ -40,6 +43,11 @@ export class CustomerService {
     return addDoc(this.customerCollection, customers);
   }
 
+  addCustomer(customers: Customers): Observable<void> {
+    const ref = doc(this.firestore, "user", customers.uid);
+    return from(setDoc(ref,customers));
+  }
+
   getAll() {
     return collectionData(this.customerCollection, {
       idField: "id",
@@ -47,14 +55,21 @@ export class CustomerService {
   }
 
   get(id: string) {
+    console.log("id: ", id);
     const customerDocumentReference = doc(this.firestore, `customers/${id}`);
     return docData(customerDocumentReference, { idField: "id" });
+  }
+
+  getCustomer(id: string) {
+    console.log("id: ", id);
+    const customerDocumentReference = doc(this.firestore, `customers/${id}`);
+    return docData(customerDocumentReference, { idField: "uid" });
   }
 
   update(customers: Customers) {
     const customerDocumentReference = doc(
       this.firestore,
-      `customers/${customers.id}`
+      `customers/${customers.uid}`
     );
     return updateDoc(customerDocumentReference, { ...customers });
   }

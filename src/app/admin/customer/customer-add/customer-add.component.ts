@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
 import { Select2Data } from "ng-select2-component";
+import { AuthService } from "src/app/service/auth.service";
 
 @Component({
   selector: "app-customer-add",
@@ -18,10 +19,24 @@ import { Select2Data } from "ng-select2-component";
 })
 export class CustomerAddComponent implements OnInit {
   submit!: boolean;
-  validationform!: FormGroup;
+  validationform = this.formBuilder.group({
+    custCode: ["", [Validators.required]],
+    custName: ["", [Validators.required]],
+    custEmail: ["", [Validators.required]],
+    custUser: ["", [Validators.required]],
+    custPwd: ["", [Validators.required]],
+    custPhone: ["", [Validators.required]],
+    custStartDate: ["", [Validators.required]],
+    minimumMoney: ["", [Validators.required]],
+    currentMoney: ["", [Validators.required]],
+  });
+  
+  
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
+
+
 
   // select multi options start
   data: Select2Data = [
@@ -85,6 +100,7 @@ export class CustomerAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private customerService: CustomerService,
     private shopService: ShopService
   ) {
@@ -94,16 +110,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.validationform = this.formBuilder.group({
-      custCode: ["", [Validators.required]],
-      custName: ["", [Validators.required]],
-      custEmail: ["", [Validators.required]],
-      custPhone: ["", [Validators.required]],
-      custMoney: ["", [Validators.required]],
-      custPwd: ["", [Validators.required]],
-      custStartDate: ["", [Validators.required]],
-      firstMoney: ["", [Validators.required]],
-    });
+    
 
     this.addItem();
   }

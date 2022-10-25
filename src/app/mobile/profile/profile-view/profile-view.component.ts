@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { AuthenticationService } from "src/app/core/services/auth.service";
 import { UserService } from "src/app/service/user.service";
 import { TopupService } from "src/app/service/topup.service";
+import { CustomerService } from "src/app/service/customer.service";
 
 @Component({
   selector: "app-profile-view",
@@ -13,11 +14,12 @@ import { TopupService } from "src/app/service/topup.service";
   styleUrls: ["./profile-view.component.scss"],
 })
 export class ProfileViewComponent implements OnInit {
+  customerId!:string;
   email!: string;
   userFullName!: string;
+  CurrentMoney!:number;
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
 
@@ -28,19 +30,32 @@ export class ProfileViewComponent implements OnInit {
     private authService: AuthenticationService,
     private userService: UserService,
     private topupService:TopupService,
+    private customerService:CustomerService,
   ) {}
 
   ngOnInit(): void {
     const currentUser = this.authService.currentUser();
 
-    this.email = currentUser.email;
+    // this.email = currentUser.email;
 
     // Get user data
     this.userService.getUser(currentUser.uid).subscribe((user) => {
       this.userFullName = user.displayName;
+      console.log(user);
     });
 
     console.log("currentUser: ", currentUser);
+
+    // Get Balance Money
+    this.customerService.getCustomer("tNKBoEPXtGPnzOrEKBaG").subscribe((Customers) => {
+      // this.CurrentMoney = customers.currentMoney;
+
+      console.log(Customers);
+    });
+
+    
+
+
 
 
     //BreadCrumb

@@ -56,9 +56,9 @@ export class UserAddComponent implements OnInit {
   formSubmit(){
     const { name,email,password,phone,typeUser} = this.validationform.value;
 
-    if (!this.validationform.valid ||!name ||!email ||!password ||!phone ||!typeUser){
-      return;
-    }
+    // if (!this.validationform.valid ||!name ||!email ||!password ||!phone ||!typeUser){
+    //   return;
+    // }
 
     this.authService
       .register(email,password)
