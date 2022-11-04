@@ -12,7 +12,7 @@ import { ShopService } from "src/app/service/shop.service";
 import { Select2Data } from "ng-select2-component";
 import { AuthService } from "src/app/service/auth.service";
 import { switchMap } from "rxjs/operators";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-customer-add",
@@ -23,7 +23,7 @@ export class CustomerAddComponent implements OnInit {
   submit!: boolean;
   validationform = this.formBuilder.group({
     email: ["", [Validators.required]],
-    password: ['', Validators.required],
+    password: ["", Validators.required],
     custCode: ["", [Validators.required]],
     custName: ["", [Validators.required]],
     custPhone: ["", [Validators.required]],
@@ -31,13 +31,10 @@ export class CustomerAddComponent implements OnInit {
     minimumMoney: ["", [Validators.required]],
     currentMoney: ["", [Validators.required]],
   });
-  
-  
+
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
-
-
 
   // select multi options start
   data: Select2Data = [
@@ -104,8 +101,7 @@ export class CustomerAddComponent implements OnInit {
     private authService: AuthService,
     private customerService: CustomerService,
     private shopService: ShopService,
-    private router: Router,
-
+    private router: Router
   ) {
     this.itemShopForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -117,71 +113,125 @@ export class CustomerAddComponent implements OnInit {
   }
 
   get email() {
-    return this.validationform.get('email');
+    return this.validationform.get("email");
   }
   get password() {
-    return this.validationform.get('password');
+    return this.validationform.get("password");
   }
   get custCode() {
-    return this.validationform.get('custCode');
+    return this.validationform.get("custCode");
   }
   get custName() {
-    return this.validationform.get('custName');
+    return this.validationform.get("custName");
   }
   get custPhone() {
-    return this.validationform.get('custPhone');
+    return this.validationform.get("custPhone");
   }
   get custStartDate() {
-    return this.validationform.get('custStartDate');
+    return this.validationform.get("custStartDate");
   }
   get minimumMoney() {
-    return this.validationform.get('minimumMoney');
+    return this.validationform.get("minimumMoney");
   }
   get currentMoney() {
-    return this.validationform.get('currentMoney');
+    return this.validationform.get("currentMoney");
   }
 
-
-  async formSubmit() {
+  formSubmit() {
     // Add customer
-    const { email,password,custCode,custName,custPhone,custStartDate,minimumMoney,currentMoney} = this.validationform.value;
-    // const customerId = await 
-    this.authService
-    .register(email,password)
-    .pipe(
-      switchMap(({ user:{ uid }})=>
-        this.customerService.addCustomer({ 
-          uid,email,custCode:custCode,custName:custName,
-          custPhone:custPhone,custStartDate:custStartDate,
-          minimumMoney:minimumMoney,currentMoney:currentMoney,
-        })))
-    .subscribe(()=> {
-      this.router.navigate(['/customer-list']);
-    });
+    const {
+      email,
+      password,
+      custCode,
+      custName,
+      custPhone,
+      custStartDate,
+      minimumMoney,
+      currentMoney,
+    } = this.validationform.value;
 
-      // this.customerService
-      // .create(this.validationform.value)
-      // .then((customer) => {
-      //   // console.log(`customers: ${customers}`);
-     Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      //   return customer.id;
-      // })
-      // .catch((err) => {
-      //   console.log("error: ", err);
-      // });
+    this.authService.register(email, password).subscribe(
+      (creden) => {
+        const customer = {
+          uid: creden.user.uid,
+          email: creden.user.email,
+          custCode: custCode,
+          custName: custName,
+          custPhone: custPhone,
+          custStartDate: custStartDate,
+          minimumMoney: minimumMoney,
+          currentMoney: currentMoney,
+        };
+
+        // Add customer
+        this.addCustomer(customer).subscribe((cust) => {
+          // Add shops
+          const shopItems: FormArray = this.itemShopForm.get(
+            "items"
+          ) as FormArray;
+          shopItems.value.forEach((shop: any) => {
+            this.shopService.create(shop);
+          });
+        });
+      },
+      (error) => {
+        console.log("error: ", error);
+      }
+    );
+    // console.log("registeredUser: ", registeredUser);
+    // this.authService
+    //   .register(email, password)
+    //   .pipe(
+    //     switchMap(({ user: { uid } }) =>
+    //       this.customerService.addCustomer({
+    //         uid,
+    //         email,
+    //         custCode: custCode,
+    //         custName: custName,
+    //         custPhone: custPhone,
+    //         custStartDate: custStartDate,
+    //         minimumMoney: minimumMoney,
+    //         currentMoney: currentMoney,
+    //       })
+    //     )
+    //   )
+    //   .subscribe((user) => {
+    //     console.log("user: ", user);
+    //     this.router.navigate(["/customer-list"]);
+    //   });
+
+    // this.customerService
+    // .create(this.validationform.value)
+    // .then((customer) => {
+    //   // console.log(`customers: ${customers}`);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    //   return customer.id;
+    // })
+    // .catch((err) => {
+    //   console.log("error: ", err);
+    // });
 
     // Add shop(s)
     // console.log("customerId: ", customerId);
-    this.shopService.create(this.itemShopForm.value).then((shop) => {
-      console.log("shop");
-    });
+    // this.shopService.create(this.itemShopForm.value).then((shop) => {
+    //   console.log("shop");
+    // });
   }
+
+  addShops() {
+    throw new Error("Method not implemented.");
+  }
+
+  addCustomer(customer: any) {
+    return this.customerService.addCustomer(customer);
+  }
+
   validSubmit() {
     this.submit = true;
   }
