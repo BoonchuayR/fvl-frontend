@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
       { label: 'Dashboard', active: true }
     ];
 
-     //get user show in dashboard
+     //getall user show in dashboard
     this.userService.getAllUser().subscribe((user) => {
       this.user = user;
       console.log("user: ", user);

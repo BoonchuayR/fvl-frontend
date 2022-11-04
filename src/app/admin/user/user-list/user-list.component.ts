@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { getAuth } from "@angular/fire/auth";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
 
@@ -47,5 +48,6 @@ export class UserListComponent implements OnInit {
         })
       }
     });
+    
   }
 }
