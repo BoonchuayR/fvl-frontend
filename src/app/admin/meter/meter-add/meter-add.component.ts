@@ -18,6 +18,7 @@ export class MeterAddComponent implements OnInit {
   // Form submition
   submit!: boolean;
   validationform!: FormGroup;
+  meter!: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,27 +30,21 @@ export class MeterAddComponent implements OnInit {
     this.validationform = this.formBuilder.group({
       zone: ["A", [Validators.required]],
       meterSlaveId: ["", [Validators.required]],
-      deviceId: [{ value: "", disabled: true }, [Validators.required]],
-      constractId: [{ value: "", disabled: true }, [Validators.required]],
-      deviceZone: [{ value: "", disabled: true }, [Validators.required]],
-      serialNo: [{ value: "", disabled: true }, [Validators.required]],
-      lineVoltage: [{ value: "", disabled: true }, [Validators.required]],
-      lineFrequency: [{ value: "", disabled: true }, [Validators.required]],
-      lineCurrent: [{ value: "", disabled: true }, [Validators.required]],
-      activePower: [{ value: "", disabled: true }, [Validators.required]],
-      activeEnergy: [{ value: "", disabled: true }, [Validators.required]],
-      modelSpec: [{ value: "", disabled: true }, [Validators.required]],
-      updateDatetime: [{ value: "", disabled: true }, [Validators.required]],
-      meterState: [{ value: "", disabled: true }, [Validators.required]],
-      updateStateDatetime: [
-        { value: "", disabled: true },
-        [Validators.required],
-      ],
-      meterStateAdmin: [{ value: "", disabled: true }, [Validators.required]],
-      updateStateAdminDatetime: [
-        { value: "", disabled: true },
-        [Validators.required],
-      ],
+      deviceId: ["", [Validators.required]],
+      constractId: ["", [Validators.required]],
+      deviceZone: ["", [Validators.required]],
+      serialNo: ["", [Validators.required]],
+      lineVoltage: ["", [Validators.required]],
+      lineFrequency: ["", [Validators.required]],
+      lineCurrent: ["", [Validators.required]],
+      activePower: ["", [Validators.required]],
+      activeEnergy: ["", [Validators.required]],
+      modelSpec: ["", [Validators.required]],
+      updateDatetime: ["", [Validators.required]],
+      meterState: ["", [Validators.required]],
+      updateStateDatetime: ["", [Validators.required]],
+      meterStateAdmin: ["", [Validators.required]],
+      updateStateAdminDatetime: ["", [Validators.required]],
     });
 
     this.validationform.get("meterSlaveId")?.valueChanges.subscribe((value) => {
@@ -109,9 +104,8 @@ export class MeterAddComponent implements OnInit {
   }
 
   formSubmit() {
-    console.log(this.validationform.value);
     this.meterService.create(this.validationform.value).then((meter) => {
-      console.log("meter");
+      console.log("savedMeter: ", meter);
     });
     Swal.fire({
       position: "top-end",
@@ -119,8 +113,6 @@ export class MeterAddComponent implements OnInit {
       title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
       showConfirmButton: false,
       timer: 3000,
-    }).catch((error) => {
-      console.log(error);
     });
   }
 
@@ -129,5 +121,16 @@ export class MeterAddComponent implements OnInit {
    */
   validSubmit() {
     this.submit = true;
+    console.log(this.validationform.value);
+    this.meterService.create(this.validationform.value).then((meter) => {
+      console.log("savedMeter: ", meter);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    });
   }
 }

@@ -60,13 +60,13 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let meter of meters">
-                        <th>{{ meter.METER_ZONE }}</th>
-                        <th>{{ meter.METER_SHOP }}</th>
-                        <th>{{ meter.SLAVE_ID }}</th>
-                        <td>{{ meter.SERIAL_NO }}</td>
-                        <td>{{ meter.LINE_VOLTAGE }}</td>
-                        <td>{{ meter.LINE_FREQUENCE }}</td>
-                        <td>{{ meter.LINE_CURRENT }}</td>
+                        <th>{{ meter.zone }}</th>
+                        <td>{{ meter.meterSlaveId }}</td>
+                        <th>{{ meter.deviceId }}</th>
+                        <th>{{ meter.contractId }}</th>
+                        <td>{{ meter.deviceZone }}</td>
+                        <td>{{ meter.serialNo }}</td>
+                        <td>{{ meter.lineVoltage }}</td>
                         <td>
                           <span class="badge rounded-pill bg-success ms-1">{{
                             meter.METER_STATE
