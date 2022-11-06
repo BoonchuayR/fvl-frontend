@@ -1,180 +1,333 @@
 <!-- start page title -->
 <div class="row mb-3">
-    <div class="d-flex align-items-start">
-        <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item">หน้าหลัก</li>
-            <li class="breadcrumb-item">มิเตอร์</li>
-            <li class="breadcrumb-item active">เพิ่มมิเตอร์</li>
-        </ol>
-    </div>
+  <div class="d-flex align-items-start">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item">หน้าหลัก</li>
+      <li class="breadcrumb-item">มิเตอร์</li>
+      <li class="breadcrumb-item active">เพิ่มมิเตอร์</li>
+    </ol>
+  </div>
 </div>
 
 <!-- end page title -->
 
 <!-- Start row -->
 <div class="row">
-    <div class="">
-        <div class="card card-green-style">
-            <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform" novalidate>
-
-                <div class="p-3 px-4 bg-success">
-                    <div class="d-flex align-items-start">
-                        <!-- <div class="align-self-center me-3">
+  <div class="">
+    <div class="card card-green-style">
+      <form
+        class="needs-validation"
+        (ngSubmit)="validSubmit()"
+        [formGroup]="validationform"
+        novalidate
+      >
+        <div class="p-3 px-4 bg-success">
+          <div class="d-flex align-items-start">
+            <!-- <div class="align-self-center me-3">
                     <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
                   </div> -->
-                        <div class="flex-1 align-self-center">
-                            <h5 class="title-card font-size-16 mt-1 mb-0">
-                                <a href="#" class="text-reset">เพิ่มมิเตอร์</a>
-                            </h5>
-                            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
-                        </div>
-                        <div class="button-items">
-                            <button routerLink="/meter-dashboard" routerLinkActive="active"
-                                class="btn btn-outline-default btn-rounded float-right">
-                                <i class="bx bx-x"></i> ยกเลิก
-                            </button>
-                            <button class="btn btn-outline-success btn-rounded float-right" type="submit"
-                                (click)="formSubmit()" routerLink="/meter-list" routerLinkActive="active">
-                                <i class="bx bx bx-save"></i> บันทึก
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="position-relative">
-                        <div class="card-body card-body-form">
-                            <div class="row">
-                                <h2 class="text-uppercase mb-5">เพิ่มมิเตอร์</h2>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="row mb-md-5">
-                                    <div class="mb-4 mb-md-4">
-                                        <h5 class="font-size-14 mb-2">โซนมิเตอร์</h5>
-                                        <div class="form-check form-check-inline mt-3 me-5">
-                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio1"
-                                                value="ฝ่ายซ่อมบำรุง" checked>
-                                            <label class="form-check-label" for="inlineRadio1">โซน A</label>
-                                        </div>
-                                        <div class="form-check form-check-inline mt-3 me-5">
-                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio2"
-                                                value="ฝ่ายบัญชี">
-                                            <label class="form-check-label" for="inlineRadio2">โซน B</label>
-                                        </div>
-                                        <div class="form-check form-check-inline mt-3 me-5">
-                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
-                                                value="ฝ่ายขาย">
-                                            <label class="form-check-label" for="inlineRadio3">โซน C</label>
-                                        </div>
-                                        <div class="form-check form-check-inline mt-3 me-5">
-                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
-                                                value="ฝ่ายขาย">
-                                            <label class="form-check-label" for="inlineRadio3">โซน D</label>
-                                        </div>
-                                        <div class="form-check form-check-inline mt-3 me-5">
-                                            <input class="form-check-input" type="radio" name="meterZone" formControlName="meterZone" id="inlineRadio3"
-                                                value="ฝ่ายขาย">
-                                            <label class="form-check-label" for="inlineRadio3">โซน E</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ช่องสัญญาณ</label>
-                                                <input class="form-control form-control-lg" formControlName="SLAVE_ID"
-                                                    type="text" placeholder="ระบุเลขมิเตอร์" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">เลขมิเตอร์</label>
-                                                <input class="form-control form-control-lg" formControlName="SERIAL_NO"
-                                                    type="text" placeholder="ระบุเลขมิเตอร์" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ร้านค้า</label>
-                                                <input class="form-control form-control-lg" formControlName="METER_SHOP"
-                                                    type="text" placeholder="ระบุร้านค้า" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">เลขแผง</label>
-                                                <input class="form-control form-control-lg" formControlName="METER_ZONE"
-                                                    type="text" placeholder="ระบุเลขแผง" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">แรงดัน (V)</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="LINE_VOLTAGE" type="text"
-                                                    placeholder="ระบุแรงดัน (V)" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ความถี่ (kWH)</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="LINE_FREQUENCE" type="text"
-                                                    placeholder="ระบุความถี่ (kWH)" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">หน่วยไฟสะสม</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="LINE_CURRENT" type="text"
-                                                    placeholder="ระบุหน่วยไฟสะสม" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ACTIVE_POWER</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="ACTIVE_POWER" type="text"
-                                                    placeholder="ACTIVE_POWER" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">ACTIVE_ENERGY</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="ACTIVE_ENERGY" type="text"
-                                                    placeholder="ACTIVE_ENERGY" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="font-size-12 mb-3">
-                                                <label class="form-label">สถานะการทำงาน</label>
-                                                <input class="form-control form-control-lg"
-                                                    formControlName="METER_STATE" type="text"
-                                                    placeholder="METER_ZONE" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end row -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <div class="flex-1 align-self-center">
+              <h5 class="title-card font-size-16 mt-1 mb-0">
+                <a href="#" class="text-reset">เพิ่มมิเตอร์</a>
+              </h5>
+              <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+            </div>
+            <div class="button-items">
+              <button
+                routerLink="/meter-dashboard"
+                routerLinkActive="active"
+                class="btn btn-outline-default btn-rounded float-right"
+              >
+                <i class="bx bx-x"></i> ยกเลิก
+              </button>
+              <button
+                class="btn btn-outline-success btn-rounded float-right"
+                type="submit"
+                (click)="formSubmit()"
+                routerLink="/meter-list"
+                routerLinkActive="active"
+              >
+                <i class="bx bx bx-save"></i> บันทึก
+              </button>
+            </div>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="position-relative">
+            <div class="card-body card-body-form">
+              <div class="row">
+                <h2 class="text-uppercase mb-5">เพิ่มมิเตอร์</h2>
+              </div>
+
+              <div class="row">
+                <div class="row mb-md-5">
+                  <div class="mb-4 mb-md-4">
+                    <h5 class="font-size-14 mb-2">โซนมิเตอร์</h5>
+                    <div class="form-check form-check-inline mt-3 me-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="zone"
+                        id="inlineRadio1"
+                        value="A"
+                      />
+                      <label class="form-check-label" for="inlineRadio1"
+                        >โซน A</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline mt-3 me-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="zone"
+                        id="inlineRadio2"
+                        value="B"
+                      />
+                      <label class="form-check-label" for="inlineRadio2"
+                        >โซน B</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline mt-3 me-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="zone"
+                        id="inlineRadio3"
+                        value="C"
+                      />
+                      <label class="form-check-label" for="inlineRadio3"
+                        >โซน C</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline mt-3 me-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="zone"
+                        id="inlineRadio3"
+                        value="D"
+                      />
+                      <label class="form-check-label" for="inlineRadio3"
+                        >โซน D</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline mt-3 me-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="zone"
+                        id="inlineRadio3"
+                        value="E"
+                      />
+                      <label class="form-check-label" for="inlineRadio3"
+                        >โซน E</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">METER_SLAVE_ID</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="meterSlaveId"
+                          type="text"
+                          placeholder="METER_SLAVE_ID"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">DEVICE_ID</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="deviceId"
+                          type="text"
+                          placeholder="DEVICE_ID"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">CONTRACT_ID</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="constractId"
+                          type="text"
+                          placeholder="CONTRACT_ID"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">DEVICE_ZONE</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="deviceZone"
+                          type="text"
+                          placeholder="DEVICE_ZONE"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">SERIAL_NO</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="serialNo"
+                          type="text"
+                          placeholder="SERIAL_NO"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">LINE_VOLTAGE</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="lineVoltage"
+                          type="text"
+                          placeholder="LINE_VOLTAGE"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">LINE_FREQUENCY</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="lineFrequency"
+                          type="text"
+                          placeholder="LINE_FREQUENCY"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">LINE_CURRENT</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="lineCurrent"
+                          type="text"
+                          placeholder="LINE_CURRENT"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">ACTIVE_POWER</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="activePower"
+                          type="text"
+                          placeholder="ACTIVE_POWER"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">ACTIVE_ENERGY</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="activeEnergy"
+                          type="text"
+                          placeholder="ACTIVE_ENERGY"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">MODEL_SPEC</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="modelSpec"
+                          type="text"
+                          placeholder="MODEL_SPEC"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">UPDATE_DATETIME</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="updateDatetime"
+                          type="text"
+                          placeholder="UPDATE_DATETIME"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">METER_STATE</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="meterState"
+                          type="text"
+                          placeholder="METER_STATE"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">UPDATE_STATE_DATETIME</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="updateStateDatetime"
+                          type="text"
+                          placeholder="UPDATE_STATE_DATETIME"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label">METER_STATE_ADMIN</label>
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="meterStateAdmin"
+                          type="text"
+                          placeholder="METER_STATE_ADMIN"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="font-size-12 mb-3">
+                        <label class="form-label"
+                          >UPDATE_STATE_ADMIN_DATETIME</label
+                        >
+                        <input
+                          class="form-control form-control-lg"
+                          formControlName="updateStateAdminDatetime"
+                          type="text"
+                          placeholder="UPDATE_STATE_ADMIN_DATETIME"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end row -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 <!-- end row -->
 <!--   
