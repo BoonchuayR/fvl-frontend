@@ -1,19 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { emailSentBarChart, monthlyEarningChart, transactions, orders, users } from './data';
-import { ChartType } from './dashboard.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  emailSentBarChart,
+  monthlyEarningChart,
+  transactions,
+  orders,
+  users,
+} from "./data";
+import { ChartType } from "./dashboard.model";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { UserService } from "src/app/service/user.service";
+import { user } from "@angular/fire/auth";
 
 @Component({
-  selector: 'app-dashboards',
-  templateUrl: './dashboards.component.html',
-  styleUrls: ['./dashboards.component.scss']
+  selector: "app-dashboards",
+  templateUrl: "./dashboards.component.html",
+  styleUrls: ["./dashboards.component.scss"],
 })
 
 /**
  * Dashboard Component
  */
 export class DashboardsComponent implements OnInit {
-
   // bread crumb items
   breadCrumbItems!: Array<{}>;
 
@@ -22,29 +29,38 @@ export class DashboardsComponent implements OnInit {
   transactions: any;
   orders: any;
   users: any;
-  @ViewChild('content') content: any;
+  numberOfUsers!: any;
+  @ViewChild("content") content: any;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-
-    //BreadCrumb 
+    //BreadCrumb
     this.breadCrumbItems = [
-      { label: 'Dashboard' },
-      { label: 'Dashboard', active: true }
+      { label: "Dashboard" },
+      { label: "Dashboard", active: true },
     ];
+
+    // Users
+    this.userService.getAllUser().subscribe((users) => {
+      this.users = users;
+      // this.numberOfUsers = users.length;
+    });
 
     /**
      * Fetches the data
      */
-    this.fetchData();
+    // this.fetchData();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.openModal();
-    }, 2000);
-  }
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     this.openModal();
+  //   }, 2000);
+  // }
 
   /**
    * Fetches the data
@@ -54,7 +70,6 @@ export class DashboardsComponent implements OnInit {
     this.monthlyEarningChart = monthlyEarningChart;
     this.transactions = transactions;
     this.orders = orders;
-    this.users = users;
   }
 
   /***

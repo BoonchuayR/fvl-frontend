@@ -1,21 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { emailSentBarChart, monthlyEarningChart, transactions, orders, users } from '../dashboard/data';
-import { ChartType } from '../dashboard/dashboard.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  emailSentBarChart,
+  monthlyEarningChart,
+  transactions,
+  orders,
+  users,
+} from "../dashboard/data";
+import { ChartType } from "../dashboard/dashboard.model";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "src/app/service/user.service";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import { user } from "@angular/fire/auth";
+import { CustomerService } from "src/app/service/customer.service";
+import { ShopService } from "src/app/service/shop.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
 })
 
 /**
  * Dashboard Component
  */
 export class DashboardComponent implements OnInit {
-
   // bread crumb items
   breadCrumbItems!: Array<{}>;
 
@@ -23,32 +31,45 @@ export class DashboardComponent implements OnInit {
   monthlyEarningChart!: ChartType;
   transactions: any;
   orders: any;
-  user!: any;
-  @ViewChild('content') content: any;
+  users!: any;
+  customers!: any;
+  shops!: any;
+  numberOfusers!: number;
+  numberOfShops!: number;
+  @ViewChild("content") content: any;
 
-  constructor(private modalService: NgbModal,private userService: UserService) { }
-    
+  constructor(
+    private modalService: NgbModal,
+    private userService: UserService,
+    private customerService: CustomerService,
+    private shopService: ShopService
+  ) {}
+
   ngOnInit(): void {
-
-     //BreadCrumb 
-     this.breadCrumbItems = [
-      { label: 'หน้าหลัก' },
-      { label: 'Dashboard', active: true }
+    //BreadCrumb
+    this.breadCrumbItems = [
+      { label: "หน้าหลัก" },
+      { label: "Dashboard", active: true },
     ];
 
-     //getall user show in dashboard
-    this.userService.getAllUser().subscribe((user) => {
-      this.user = user;
-      console.log("user: ", user);
+    // Get all users show in dashboard
+    this.userService.getAllUser().subscribe((users) => {
+      this.users = users;
+
+      // Get all customer show in dashboard
+      this.customerService.getAll().subscribe((customers) => {
+        console.log("customers: ", customers);
+        this.users.push(...customers);
+        this.customers = customers;
+        this.numberOfusers = users.length + customers.length;
+      });
     });
 
-
-   
-
-    /**
- * Fetches the data
- */
-    this.fetchData();
+    // Get all shops
+    this.shopService.getAll().subscribe((shops) => {
+      this.shops = shops;
+      this.numberOfShops = shops.length;
+    });
   }
 
   // ngAfterViewInit() {
@@ -56,17 +77,6 @@ export class DashboardComponent implements OnInit {
   //     this.openModal();
   //   }, 2000);
   // }
-
-  /**
-   * Fetches the data
-   */
-  private fetchData() {
-    this.emailSentBarChart = emailSentBarChart;
-    this.monthlyEarningChart = monthlyEarningChart;
-    this.transactions = transactions;
-    this.orders = orders;
-    this.user = users;
-  }
 
   /***
    * Subscribe Model open
@@ -79,42 +89,41 @@ export class DashboardComponent implements OnInit {
    * cancel sweet alert
    * @param cancel modal content
    */
-   cancel() {
+  cancel() {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger ms-2',
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger ms-2",
       },
       buttonsStyling: false,
     });
 
     swalWithBootstrapButtons
       .fire({
-        title: 'กดสวิตช์มิเตอร์',
+        title: "กดสวิตช์มิเตอร์",
         text: "คุณต้องการที่กดสวิตช์มิเตอร์?",
-        icon: 'warning',
-        confirmButtonText: 'ต้องการ',
-        cancelButtonText: 'ไม่ต้องการ',
+        icon: "warning",
+        confirmButtonText: "ต้องการ",
+        cancelButtonText: "ไม่ต้องการ",
         showCancelButton: true,
       })
       .then((result) => {
         if (result.value) {
           swalWithBootstrapButtons.fire(
-            'สำเร็จ!',
-            'ได้ทำการกดสวิตช์มิเตอร์เรียบร้อยแล้ว.',
-            'success'
+            "สำเร็จ!",
+            "ได้ทำการกดสวิตช์มิเตอร์เรียบร้อยแล้ว.",
+            "success"
           );
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            'ยกเลิก',
-            'ยกเลิกการกดสวิตช์มิเตอร์ :)',
-            'error'
+            "ยกเลิก",
+            "ยกเลิกการกดสวิตช์มิเตอร์ :)",
+            "error"
           );
         }
       });
   }
-
 }

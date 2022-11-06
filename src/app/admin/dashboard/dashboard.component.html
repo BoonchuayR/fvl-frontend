@@ -1,151 +1,164 @@
 <!-- start page title -->
-<app-pagetitle title="Dashboard" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<app-pagetitle
+  title="Dashboard"
+  [breadcrumbItems]="breadCrumbItems"
+></app-pagetitle>
 <!-- end page title -->
 
 <div class="row">
-
-
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="float-end">
-                    <div class="avatar-sm mx-auto mb-4">
-                        <span class="avatar-title rounded-circle bg-light font-size-24">
-                            <i class="bx bx-user text-success"></i>
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-muted text-uppercase fw-semibold">ผู้ใช้งาน</p>
-                    <h4 class="mb-1 mt-1"><span [CountTo]="312" class="counter-value" [from]="0" [duration]="1"></span>
-                        Users</h4>
-                </div>
-                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-danger me-1"><i
+  <div class="col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end">
+          <div class="avatar-sm mx-auto mb-4">
+            <span class="avatar-title rounded-circle bg-light font-size-24">
+              <i class="bx bx-user text-success"></i>
+            </span>
+          </div>
+        </div>
+        <div>
+          <p class="text-muted text-uppercase fw-semibold">ผู้ใช้งาน</p>
+          <h4 class="mb-1 mt-1">
+            <span
+              [CountTo]="numberOfusers"
+              class="counter-value"
+              [from]="0"
+              [duration]="1"
+              >{{ numberOfusers }}</span
+            >
+            Users
+          </h4>
+        </div>
+        <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-danger me-1"><i
                             class="mdi mdi-arrow-down-bold me-1"></i>4.58%</span> since last week
                 </p> -->
-            </div>
-        </div>
-    </div> <!-- end col-->
+      </div>
+    </div>
+  </div>
+  <!-- end col-->
 
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="float-end">
-                    <div class="avatar-sm mx-auto mb-4">
-                        <span class="avatar-title rounded-circle bg-light font-size-24">
-                            <i class="bx bx-store text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-muted text-uppercase fw-semibold">ร้านค้า</p>
-                    <h4 class="mb-1 mt-1"><span class="counter-value" [CountTo]="233" [from]="0" [duration]="1"></span>
-                        ร้านค้า</h4>
-                </div>
-                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-success me-1"><i
+  <div class="col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end">
+          <div class="avatar-sm mx-auto mb-4">
+            <span class="avatar-title rounded-circle bg-light font-size-24">
+              <i class="bx bx-store text-primary"></i>
+            </span>
+          </div>
+        </div>
+        <div>
+          <p class="text-muted text-uppercase fw-semibold">ร้านค้า</p>
+          <h4 class="mb-1 mt-1">
+            <span
+              class="counter-value"
+              [CountTo]="numberOfShops"
+              [from]="0"
+              [duration]="1"
+              >{{ numberOfShops }}</span
+            >
+            ร้านค้า
+          </h4>
+        </div>
+        <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-success me-1"><i
                             class="mdi mdi-arrow-up-bold me-1"></i>14.33%</span> since last week
                 </p> -->
-            </div>
-        </div>
-    </div> <!-- end col-->
+      </div>
+    </div>
+  </div>
+  <!-- end col-->
 
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="float-end">
-                    <div class="avatar-sm mx-auto mb-4">
-                        <span class="avatar-title rounded-circle bg-light font-size-24">
-                            <i class="bx bx-bulb text-danger"></i>
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-muted text-uppercase fw-semibold">มิเตอร์ไฟฟ้า</p>
-                    <h4 class="mb-1 mt-1"><span class="counter-value" [CountTo]="420" [from]="0" [duration]="1"></span>
-                        มิเตอร์</h4>
-                </div>
-                <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-warning me-1"><i
+  <div class="col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end">
+          <div class="avatar-sm mx-auto mb-4">
+            <span class="avatar-title rounded-circle bg-light font-size-24">
+              <i class="bx bx-bulb text-danger"></i>
+            </span>
+          </div>
+        </div>
+        <div>
+          <p class="text-muted text-uppercase fw-semibold">มิเตอร์ไฟฟ้า</p>
+          <h4 class="mb-1 mt-1">
+            <span
+              class="counter-value"
+              [CountTo]="420"
+              [from]="0"
+              [duration]="1"
+            ></span>
+            มิเตอร์
+          </h4>
+        </div>
+        <!-- <p class="text-muted mt-3 mb-0"><span class="badge badge-soft-warning me-1"><i
                             class="mdi mdi-arrow-up-bold me-1"></i>0.55%</span> since last week
                 </p> -->
-            </div>
-        </div>
-    </div> <!-- end col-->
-
-</div> <!-- end row-->
+      </div>
+    </div>
+  </div>
+  <!-- end col-->
+</div>
+<!-- end row-->
 
 <div class="row">
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">ผู้ใช้งาน</h4>
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">ผู้ใช้งาน</h4>
 
-                <div class="table-responsive">
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th>ประเภทผู้ใช้</th>
-                                <th>ชื่อ-นามสกุล</th>
-                                <th>อีเมล</th>
-                                <th>เบอร์โทรศัพท์</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let user of user">
-                              <th>{{ user.typeUser }}</th>
-                              <th>{{ user.displayName }}</th>
-                              <td>{{ user.email }}</td>
-                              <td>{{ user.phone }}</td>
-                            </tr>
-                          </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <thead>
+              <tr>
+                <th>ประเภทผู้ใช้</th>
+                <th>ชื่อ-นามสกุล</th>
+                <th>อีเมล</th>
+                <th>เบอร์โทรศัพท์</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <th>{{ user.typeUser || "ลูกค้า" }}</th>
+                <th>{{ user.displayName || user.custName }}</th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">ร้านค้า</h4>
+  </div>
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">ร้านค้า</h4>
 
-                <div class="table-responsive">
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ชื่อร้าน</th>
-                                <th>ผู้ติดต่อ</th>
-                                <th>เลขแผง</th>
-                                <th>เบอร์โทร</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>ก๊วยเตี๋ยว1</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>A0001</td>
-                                <td>0888888888</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>ก๊วยเตี๋ยว2</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>A0002</td>
-                                <td>0888888888</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>ก๊วยเตี๋ยว3</td>
-                                <td>เพชรฤทธิ์</td>
-                                <td>A0003</td>
-                                <td>0888888888</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ชื่อร้าน</th>
+                <th>ผู้ติดต่อ</th>
+                <th>เลขแผง</th>
+                <th>เบอร์โทร</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let shop of shops">
+                <th scope="row">2</th>
+                <td>{{ shop.boothName }}</td>
+                <td>เพชรฤทธิ์</td>
+                <td>A0001</td>
+                <td>0888888888</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- end row -->
 <!-- <div class="row">
@@ -211,4 +224,3 @@
         </div>
     </div>
 </div> -->
-
