@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { user } from "@angular/fire/auth";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
+import { MeterService } from "src/app/service/meter.service";
 
 @Component({
   selector: "app-dashboard",
@@ -34,15 +35,18 @@ export class DashboardComponent implements OnInit {
   users!: any;
   customers!: any;
   shops!: any;
+  meters!: any;
   numberOfusers!: number;
   numberOfShops!: number;
+  numberOfMeters!: number;
   @ViewChild("content") content: any;
 
   constructor(
     private modalService: NgbModal,
     private userService: UserService,
     private customerService: CustomerService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private meterService: MeterService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +73,12 @@ export class DashboardComponent implements OnInit {
     this.shopService.getAll().subscribe((shops) => {
       this.shops = shops;
       this.numberOfShops = shops.length;
+    });
+
+    // Get all meters
+    this.meterService.getAll().subscribe((meters) => {
+      this.meters = meters;
+      this.numberOfMeters = meters.length;
     });
   }
 
