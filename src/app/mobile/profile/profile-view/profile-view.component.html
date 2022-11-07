@@ -35,10 +35,13 @@
                   class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"
                 ></i>
                 <span class="align-middle" key="t-balance"
-                  >เงินคงเหลือ : <b>201 บาท</b></span
+                  >เงินคงเหลือ : <b>{{ customer.currentMoney }}</b></span
                 ></a
               >
-              <div class="row">
+              <div
+                class="row"
+                *ngIf="customer.currentMoney <= customer.minimumMoney"
+              >
                 <h6 class="text-danger">กรุณาชำระค่าไฟก่อนถูกระงับมิเตอร์</h6>
               </div>
             </div>
@@ -111,41 +114,21 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>18/7/22</td>
+                      <tr *ngFor="let topup of topups">
+                        <td>{{ topup.createdAt }}</td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >1,000 บ</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            topup.topupMoney
+                          }}</a>
                         </td>
                         <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >รอชำระ</span
-                          >
+                          <span class="badge badge-soft-primary font-size-12">{{
+                            topup.statusName
+                          }}</span>
                         </td>
                         <td>
                           <a
                             href=""
-                            class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
-                            href="javascript:window.print()"
-                            ><i class="bx bx-dollar-circle"></i> พิมพ์</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>10/7/22</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >500 บ</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-success font-size-12"
-                            >ชำระแล้ว</span
-                          >
-                        </td>
-                        <td>
-                          <a
                             class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
                             href="javascript:window.print()"
                             ><i class="bx bx-dollar-circle"></i> พิมพ์</a
@@ -645,21 +628,46 @@
                   type="text"
                   class="form-control"
                   id="floatingInputValue"
-                  placeholder="ระบุจำนวนเงิน"
+                  name="topupMoney"
+                  [(ngModel)]="topupMoney"
                 />
                 <!-- <label for="floatingInputValue">หัวข้อ</label> -->
               </form>
             </div>
             <div class="button-items text-center mb-1">
-              <button type="button" class="btn btn-primary btn-lg">300</button>
-              <button type="button" class="btn btn-primary btn-lg">500</button>
-              <button type="button" class="btn btn-primary btn-lg">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="setTopupMoney(300)"
+              >
+                300
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="setTopupMoney(500)"
+              >
+                500
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="setTopupMoney(1000)"
+              >
                 1,000
               </button>
-              <button type="button" class="btn btn-primary btn-lg">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="setTopupMoney(3000)"
+              >
                 3,000
               </button>
-              <button type="button" class="btn btn-primary btn-lg">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="setTopupMoney(5000)"
+              >
                 5,000
               </button>
             </div>
@@ -675,7 +683,9 @@
       >
         ยกเลิก
       </button>
-      <button type="button" class="btn btn-primary">เติมเงิน</button>
+      <button type="button" class="btn btn-primary" (click)="submitTopup()">
+        เติมเงิน
+      </button>
     </div>
   </ng-template>
 </div>

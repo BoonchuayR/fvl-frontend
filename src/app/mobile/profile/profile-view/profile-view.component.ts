@@ -7,6 +7,9 @@ import { AuthenticationService } from "src/app/core/services/auth.service";
 import { UserService } from "src/app/service/user.service";
 import { TopupService } from "src/app/service/topup.service";
 import { CustomerService } from "src/app/service/customer.service";
+import { Timestamp } from "@angular/fire/firestore/firebase";
+import { Topup } from "src/app/core/models/topup.model";
+import * as moment from "moment";
 
 @Component({
   selector: "app-profile-view",
@@ -14,14 +17,20 @@ import { CustomerService } from "src/app/service/customer.service";
   styleUrls: ["./profile-view.component.scss"],
 })
 export class ProfileViewComponent implements OnInit {
-  customerId!:string;
+  currentUser!: any;
+  customer!: any;
+  customerId!: string;
   email!: string;
   userFullName!: string;
-  CurrentMoney!:number;
+  CurrentMoney!: number;
   // bread crumb items
   breadCrumbItems!: Array<{}>;
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
+
+  topupMoney!: any;
+  topup: Topup = new Topup();
+  topups!: any;
 
   @ViewChild("content") content: any;
 
@@ -29,34 +38,38 @@ export class ProfileViewComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthenticationService,
     private userService: UserService,
-    private topupService:TopupService,
-    private customerService:CustomerService,
+    private topupService: TopupService,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.currentUser();
+    this.customer = {
+      currentMoney: 0,
+    };
 
-    // this.email = currentUser.email;
+    this.topupMoney = 300;
+
+    this.currentUser = this.authService.currentUser();
 
     // Get user data
-    this.userService.getUser(currentUser.uid).subscribe((user) => {
-      this.userFullName = user.displayName;
+    this.userService.getUser(this.currentUser.uid).subscribe((user) => {
+      // this.userFullName = user.displayName;
       console.log(user);
     });
 
-    console.log("currentUser: ", currentUser);
-
     // Get Balance Money
-    this.customerService.getCustomer("tNKBoEPXtGPnzOrEKBaG").subscribe((Customers) => {
-      // this.CurrentMoney = customers.currentMoney;
+    this.customerService
+      .getCustomer(this.currentUser.uid)
+      .subscribe((customer) => {
+        console.log("customer: ", customer);
+        this.customer = customer;
+      });
 
-      console.log(Customers);
+    // Get topup transactions
+    this.topupService.getAll().subscribe((res) => {
+      this.topups = res;
+      // console.log("this.topups: ", this.topups);
     });
-
-    
-
-
-
 
     //BreadCrumb
     this.breadCrumbItems = [
@@ -115,6 +128,24 @@ export class ProfileViewComponent implements OnInit {
       centered: true,
       windowClass: "modal-holder",
     });
+  }
+
+  setTopupMoney(money: any) {
+    this.topupMoney = money;
+  }
+
+  submitTopup() {
+    this.topup.status = "W";
+    this.topup.statusName = "รอชำระ";
+    this.topup.topupMoney = this.topupMoney;
+    this.topup.createdAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    this.topupService.create({ ...this.topup }).then((res) => {
+      // Update customer's current money
+      this.customer.currentMoney =
+        this.customer.currentMoney + +this.topupMoney;
+      this.customerService.update(this.customer).then((res) => {});
+    });
+    this.modalService.dismissAll();
   }
 
   /**

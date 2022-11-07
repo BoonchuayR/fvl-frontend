@@ -15,7 +15,6 @@ import {
   updateDoc,
 } from "@angular/fire/firestore";
 
-
 interface Customers {
   uid: string;
   email?: string;
@@ -23,8 +22,8 @@ interface Customers {
   custName?: string;
   custPhone?: string;
   custStartDate?: Timestamp;
-  minimumMoney?:number;
-  currentMoney?:number;
+  minimumMoney?: number;
+  currentMoney?: number;
 }
 
 @Injectable({
@@ -43,7 +42,7 @@ export class CustomerService {
 
   addCustomer(customers: Customers): Observable<void> {
     const ref = doc(this.firestore, "customers", customers.uid);
-    return from(setDoc(ref,customers));
+    return from(setDoc(ref, customers));
   }
 
   getAll() {
@@ -53,15 +52,13 @@ export class CustomerService {
   }
 
   get(id: string) {
-    console.log("id: ", id);
     const customerDocumentReference = doc(this.firestore, `customers/${id}`);
     return docData(customerDocumentReference, { idField: "id" });
   }
 
   getCustomer(id: string) {
-    console.log("id: ", id);
     const customerDocumentReference = doc(this.firestore, `customers/${id}`);
-    return docData(customerDocumentReference, { idField: "uid" });
+    return docData(customerDocumentReference, { idField: "id" });
   }
 
   update(customers: Customers) {
