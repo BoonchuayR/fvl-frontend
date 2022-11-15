@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import {
   FormArray,
-  FormArrayName,
   FormBuilder,
   FormGroup,
   Validators,
@@ -161,6 +160,7 @@ export class CustomerAddComponent implements OnInit {
           custStartDate: custStartDate,
           minimumMoney: minimumMoney,
           currentMoney: currentMoney,
+          
         };
 
         // Add customer
@@ -170,12 +170,13 @@ export class CustomerAddComponent implements OnInit {
             "items"
           ) as FormArray;
           shopItems.value.forEach((shop: any) => {
-            this.shopService.create(shop);
+            this.shopService.create({...shop, uid: customer.uid});
           });
         });
       },
       (error) => {
         console.log("error: ", error);
+        this.router.navigate(["/customer-list"]);
       }
     );
     // console.log("registeredUser: ", registeredUser);

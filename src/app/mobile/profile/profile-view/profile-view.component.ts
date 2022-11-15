@@ -10,6 +10,7 @@ import { CustomerService } from "src/app/service/customer.service";
 import { Timestamp } from "@angular/fire/firestore/firebase";
 import { Topup } from "src/app/core/models/topup.model";
 import * as moment from "moment";
+import { ShopService } from "src/app/service/shop.service";
 
 @Component({
   selector: "app-profile-view",
@@ -39,7 +40,9 @@ export class ProfileViewComponent implements OnInit {
     private authService: AuthenticationService,
     private userService: UserService,
     private topupService: TopupService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private shopService: ShopService,
+
   ) {}
 
   ngOnInit(): void {
