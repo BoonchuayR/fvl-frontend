@@ -170,7 +170,7 @@ export class CustomerAddComponent implements OnInit {
             "items"
           ) as FormArray;
           shopItems.value.forEach((shop: any) => {
-            this.shopService.create({...shop, uid: customer.uid});
+            this.shopService.create({...shop, uid: customer.uid, custPhone: customer.custPhone, custName: customer.custName});
           });
         });
       },
@@ -250,7 +250,6 @@ export class CustomerAddComponent implements OnInit {
     return this.formBuilder.group({
       boothCode: ["", [Validators.required]],
       contractNo: ["", [Validators.required]],
-      custName: ["", [Validators.required]],
       boothName: ["", [Validators.required]],
       boothZone: ["", [Validators.required]],
       boothCate: ["", [Validators.required]],

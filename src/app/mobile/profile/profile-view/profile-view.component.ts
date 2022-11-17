@@ -73,6 +73,7 @@ export class ProfileViewComponent implements OnInit {
       this.topups = res;
       // console.log("this.topups: ", this.topups);
     });
+    
 
     //BreadCrumb
     this.breadCrumbItems = [
