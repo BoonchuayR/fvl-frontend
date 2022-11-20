@@ -133,9 +133,6 @@ export class CustomerAddComponent implements OnInit {
   get minimumMoney() {
     return this.validationform.get("minimumMoney");
   }
-  get currentMoney() {
-    return this.validationform.get("currentMoney");
-  }
 
   formSubmit() {
     // Add customer
@@ -147,7 +144,6 @@ export class CustomerAddComponent implements OnInit {
       custPhone,
       custStartDate,
       minimumMoney,
-      currentMoney,
     } = this.validationform.value;
 
     this.authService.register(email, password).subscribe(
@@ -160,7 +156,7 @@ export class CustomerAddComponent implements OnInit {
           custPhone: custPhone,
           custStartDate: custStartDate,
           minimumMoney: minimumMoney,
-          currentMoney: currentMoney,
+          currentMoney: 0,
         };
 
         // Add customer

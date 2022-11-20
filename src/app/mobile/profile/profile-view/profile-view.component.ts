@@ -142,7 +142,7 @@ export class ProfileViewComponent implements OnInit {
     this.topupService.create({ ...this.topup }).then((res) => {
       // Update customer's current money
       this.customer.currentMoney =
-        this.customer.currentMoney + +this.topupMoney;
+        +this.customer.currentMoney + +this.topupMoney;
       this.customerService.update(this.customer).then((res) => {});
     });
     this.modalService.dismissAll();

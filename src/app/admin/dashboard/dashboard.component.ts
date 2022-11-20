@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.numberOfusers = 0;
     //BreadCrumb
     this.breadCrumbItems = [
       { label: "หน้าหลัก" },
@@ -59,13 +60,13 @@ export class DashboardComponent implements OnInit {
     // Get all users show in dashboard
     this.userService.getAllUser().subscribe((users) => {
       this.users = users;
-
+      this.numberOfusers = users.length;
       // Get all customer show in dashboard
       this.customerService.getAll().subscribe((customers) => {
-        console.log("customers: ", customers);
+        // console.log("customers: ", customers);
         this.users.push(...customers);
         this.customers = customers;
-        this.numberOfusers = users.length + customers.length;
+        // this.numberOfusers = users.length + customers.length;
       });
     });
 
