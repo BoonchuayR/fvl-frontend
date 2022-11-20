@@ -25,6 +25,7 @@ import { MeterService } from "src/app/service/meter.service";
  * Dashboard Component
  */
 export class DashboardComponent implements OnInit {
+  
   // bread crumb items
   breadCrumbItems!: Array<{}>;
 
