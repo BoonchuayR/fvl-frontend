@@ -137,23 +137,27 @@ export class CustomerEditComponent implements OnInit {
     this.shopService.getAll().subscribe((shops) => {
       const control = <FormArray>this.itemShopForm.controls["items"];
       control.removeAt(0);
-      shops.forEach((shop) => {
-        if (control.controls.length < 20) {
-          const shopForm = this.createItem();
-          shopForm.get("boothCode")?.setValue(shop.boothCode);
-          shopForm.get("boothCate")?.setValue(shop.boothCate);
-          shopForm.get("boothName")?.setValue(shop.boothName);
-          shopForm.get("boothZone")?.setValue(shop.boothZone);
-          shopForm.get("contractDate")?.setValue(shop.contractDate);
-          shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
-          shopForm.get("contractNo")?.setValue(shop.contractNo);
-          shopForm.get("custName")?.setValue(shop.custName);
-          shopForm.get("SLAVE_ID")?.setValue(shop.SLAVE_ID);
-          control.push(shopForm);
-          this.item_collapsed.push(true);
-          // this.buildFormContents();
-        }
-      });
+      shops
+        .filter((shop) => {
+          return shop.uid === this.uId;
+        })
+        .forEach((shop) => {
+          if (control.controls.length < 20) {
+            const shopForm = this.createItem();
+            shopForm.get("boothCode")?.setValue(shop.boothCode);
+            shopForm.get("boothCate")?.setValue(shop.boothCate);
+            shopForm.get("boothName")?.setValue(shop.boothName);
+            shopForm.get("boothZone")?.setValue(shop.boothZone);
+            shopForm.get("contractDate")?.setValue(shop.contractDate);
+            shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
+            shopForm.get("contractNo")?.setValue(shop.contractNo);
+            shopForm.get("custName")?.setValue(shop.custName);
+            shopForm.get("SLAVE_ID")?.setValue(shop.SLAVE_ID);
+            control.push(shopForm);
+            this.item_collapsed.push(true);
+            // this.buildFormContents();
+          }
+        });
     });
   }
 
