@@ -1,136 +1,376 @@
 <!-- start page title -->
+<!-- <app-pagetitle title="Profile" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+<!-- end page title -->
+<!-- start page title -->
 <div class="row mb-3">
-    <div class="d-flex align-items-start">
-        <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item">หน้าหลัก</li>
-            <li class="breadcrumb-item">ลูกค้า</li>
-            <li class="breadcrumb-item active">แก้ไขข้อมูลลูกค้า</li>
-        </ol>
-    </div>
+  <div class="d-flex align-items-start">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item">หน้าหลัก</li>
+      <li class="breadcrumb-item">ลูกค้า</li>
+      <li class="breadcrumb-item active">เพิ่มลูกค้า</li>
+    </ol>
+  </div>
 </div>
 
 <!-- end page title -->
 
 <!-- Start row -->
 <div class="row">
-    <div class="">
-        <div class="card card-green-style">
-            <form class="needs-validation"  (ngSubmit)="validSubmit()"
-            [formGroup]="editform"
-            novalidate>
-                <div class="p-3 px-4 bg-success">
-                    <div class="d-flex align-items-start">
-                        <!-- <div class="align-self-center me-3">
-                        <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
-                      </div> -->
-                        <div class="flex-1 align-self-center">
-                            <h5 class="title-card font-size-16 mt-1 mb-0">
-                                <a href="#" class="text-reset">แก้ไขข้อมูลลูกค้า</a>
-                            </h5>
-                            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
-                        </div>
-                        <div class="button-items">
-                            <button routerLink="/customer-list" routerLinkActive="active"
-                                class="btn btn-outline-default btn-rounded float-right">
-                                <i class="bx bx-x"></i> ยกเลิก
-                            </button>
-                            <button class="btn btn-outline-success btn-rounded float-right" type="submit" (click)="formSubmit()" routerLink="/customer-list" routerLinkActive="active">
-                                <i class="bx bx bx-save"></i> บันทึก
-                            </button>
-                        </div>
-                    </div>
-                </div>
-    
-    
-                <div class="row">
-                    <div class="position-relative">
-                        <div class="card-body card-body-form">
-                            <div class="row">
-                                <h2 class="text-uppercase mb-5">แก้ไขข้อมูลลูกค้า</h2>
-                            </div>
-    
-                            <div class="row">
-                                <div class="row">
-                                    <div class="position-relative">
-                                        <div class="card-body card-body-form">
-                                            <div class="row">
-                                                <h2 class="text-uppercase mb-5">เพิ่มลูกค้า</h2>
-                                            </div>
-                    
-                                            <div class="row">
-                                                <div class="row mb-md-5">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">รหัสสมาชิก</label>
-                                                                        <input class="form-control form-control-lg" formControlName="CustCode" type="text"
-                                                                            placeholder="ระบุรหัสสมาชิก" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">ชื่อลูกค้า</label>
-                                                                        <input class="form-control form-control-lg" formControlName="CustName" type="text"
-                                                                            placeholder="ระบุชื่อ-นามสกุล" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">อีเมล</label>
-                                                                        <input class="form-control form-control-lg" formControlName="CustEmail" type="text"
-                                                                            placeholder="ระบุอีเมล" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">เบอร์โทรศัพท์</label>
-                                                                        <input class="form-control form-control-lg" formControlName="CustPhone" type="text"
-                                                                            placeholder="ระบุเบอร์โทรศัพท์" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                        
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">วันสมัครสมาชิก</label>
-                                                                        <input class="form-control form-control-lg" formControlName="CustStartDate" type="date" value="2023-03-19" id="example-date-input">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="font-size-12 mb-3">
-                                                                        <label class="form-label">จำนวนเงินขั้นต่ำ</label>
-                                                                        <input class="form-control form-control-lg" formControlName="firstMoney" type="number" value="500" placeholder="จำนวนเงินขั้นต่ำ"
-                                                                        id="example-number-input">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                        
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+  <div class="">
+    <div class="card card-green-style">
+      <form
+        class="needs-validation"
+        (ngSubmit)="validSubmit()"
+        [formGroup]="validationform"
+        novalidate
+      >
+        <div class="p-3 px-4 bg-success">
+          <div class="d-flex align-items-start">
+            <!-- <div class="align-self-center me-3">
+                          <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
+                        </div> -->
+            <div class="flex-1 align-self-center">
+              <h5 class="title-card font-size-16 mt-1 mb-0">
+                <a href="#" class="text-reset">แก้ไขข้อมูลลูกค้า</a>
+              </h5>
+              <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+            </div>
+            <div class="button-items">
+              <button
+                routerLink="/customer-list"
+                routerLinkActive="active"
+                class="btn btn-outline-default btn-rounded float-right"
+              >
+                <i class="bx bx-x"></i> ยกเลิก
+              </button>
+              <button
+                class="btn btn-outline-success btn-rounded float-right"
+                type="submit"
+                (click)="formSubmit()"
+                routerLinkActive="active"
+              >
+                <i class="bx bx bx-save"></i> บันทึก
+              </button>
+            </div>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="position-relative">
+            <div class="card-body card-body-form">
+              <div class="row">
+                <h2 class="text-uppercase mb-5">แก้ไขข้อมูลลูกค้า</h2>
+              </div>
+
+              <div class="row">
+                <div class="row mb-md-5">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">รหัสสมาชิก</label>
+                            <input
+                              class="form-control"
+                              formControlName="custCode"
+                              type="text"
+                              placeholder="ระบุรหัสสมาชิก"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">ชื่อลูกค้า</label>
+                            <input
+                              class="form-control"
+                              formControlName="custName"
+                              type="text"
+                              placeholder="ระบุชื่อ-นามสกุล"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">อีเมล</label>
+                            <input
+                              class="form-control"
+                              formControlName="email"
+                              type="text"
+                              placeholder="ระบุอีเมล"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">พาสเวิร์ด</label>
+                            <input
+                              class="form-control"
+                              formControlName="password"
+                              type="password"
+                              placeholder="ระบุพาสเวิร์ด"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">เบอร์โทรศัพท์</label>
+                            <input
+                              class="form-control"
+                              formControlName="custPhone"
+                              type="text"
+                              placeholder="ระบุเบอร์โทรศัพท์"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">วันสมัครสมาชิก</label>
+                            <input
+                              class="form-control"
+                              formControlName="custStartDate"
+                              type="date"
+                              value="2023-03-19"
+                              id="example-date-input"
+                            />
+                          </div>
+                          <div class="font-size-12 mb-3">
+                            <label class="form-label">จำนวนเงินขั้นต่ำ</label>
+                            <input
+                              class="form-control"
+                              formControlName="minimumMoney"
+                              type="number"
+                              value="500"
+                              placeholder="จำนวนเงินขั้นต่ำ"
+                              id="example-number-input"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="row">
+                        <div
+                          class="card-message mt-3"
+                          [formGroup]="itemShopForm"
+                          *ngIf="itemShopForm"
+                        >
+                          <div class="list-card-message" formArrayName="items">
+                            <div
+                              class="card"
+                              *ngFor="
+                                let item of getItemShopForm().controls;
+                                let i = index
+                              "
+                              (click)="onclickItem(i)"
+                              [class.active]="
+                                keyActionItemCard === i ? true : false
+                              "
+                              [formGroupName]="i"
+                            >
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  (click)="
+                                    item_collapsed[i] = !item_collapsed[i]
+                                  "
+                                >
+                                  {{
+                                    getValueItemShopForm(i, "boothName")
+                                      ? getValueItemShopForm(i, "boothName")
+                                      : "ชื่อร้านค้า"
+                                  }}
+
+                                  <i
+                                    class="mdi"
+                                    [class.mdi-chevron-down]="
+                                      !item_collapsed[i]
+                                    "
+                                    [class.mdi-chevron-up]="item_collapsed[i]"
+                                  ></i>
+                                </h4>
+
+                                <div
+                                  class="collapse-block"
+                                  [ngbCollapse]="!item_collapsed[i]"
+                                >
+                                  <div class="row">
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >ชื่อร้านค้า</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="boothName"
+                                          type="text"
+                                          placeholder="ระบุชื่อร้านค้า"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >เลขที่สัญญา</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="contractNo"
+                                          type="text"
+                                          placeholder="ระบุเลขที่สัญญา"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >โซนร้านค้า</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="boothZone"
+                                          type="text"
+                                          placeholder="ระบุโซนร้านค้า"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >ประเภทร้านค้า</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="boothCate"
+                                          type="text"
+                                          placeholder="ระบุประเภทร้านค้า"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >วันเริ่มต้นสัญญา</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="contractDate"
+                                          type="date"
+                                          value="2023-03-19"
+                                          id="example-date-input"
+                                          placeholder="วันเริ่มต้นสัญญา"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >วันสิ้นสุดสัญญา</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="contractEndDate"
+                                          type="date"
+                                          value="2023-03-19"
+                                          id="example-date-input"
+                                          placeholder="วันสิ้นสุดสัญญา"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >รหัสแผงร้านค้า</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          formControlName="boothCode"
+                                          type="text"
+                                          placeholder="ระบุรหัสแผง"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label"
+                                          >เลขมิเตอร์</label
+                                        >
+                                        <select2
+                                          class=""
+                                          formControlName="SLAVE_ID"
+                                          placeholder="เลือกมิเตอร์"
+                                          type="text"
+                                          [data]="data"
+                                          [multiple]="true"
+                                        >
+                                        </select2>
+                                        <!-- <input
+                                            class="form-control"
+                                            formControlName="SLAVE_ID"
+                                            type="text"
+                                            placeholder="เลือกมิเตอร์"
+                                          /> -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="action-sidebar">
+                            <div class="action-buttons">
+                              <button
+                                type="button"
+                                class="btn button-action btn-rounded mb-2"
+                                [disabled]="checkCountItemDisabledButton()"
+                                (click)="sortItemCardMessage('up')"
+                              >
+                                <i class="mdi mdi-arrow-up"></i>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn button-action btn-rounded mb-2"
+                                [disabled]="checkCountItemDisabledButton()"
+                                (click)="sortItemCardMessage('down')"
+                              >
+                                <i class="mdi mdi-arrow-down"></i>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn button-action btn-rounded mb-2"
+                                [disabled]="checkCountItemDisabledButton()"
+                                (click)="removeformCardMessage()"
+                              >
+                                <i class="mdi mdi-trash-can-outline"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                          <div class="text-end">
+                            <button
+                              type="button"
+                              class="btn button-add-card-message btn-rounded"
+                              (click)="formShopMessage(true)"
+                            >
+                              <i class="mdi mdi-plus-circle-outline"></i>
+                              เพิ่มแผงร้านค้า
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 <!-- end row -->
 <!--   
-  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
-  <div class="preview-action" [class.show]="show_preview">
-    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
-  </div> -->
+    <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
+    <div class="preview-action" [class.show]="show_preview">
+      <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
+    </div> -->

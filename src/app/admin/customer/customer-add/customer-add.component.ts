@@ -109,6 +109,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validationform.get("email")?.setValue("");
     this.addItem();
   }
 
