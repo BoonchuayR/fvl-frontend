@@ -53,11 +53,13 @@ export class ProfileViewComponent implements OnInit {
     this.topupMoney = 300;
 
     this.currentUser = this.authService.currentUser();
+    
+    console.log("currentUser: ", this.currentUser);
 
     // Get user data
     this.userService.getUser(this.currentUser.uid).subscribe((user) => {
       // this.userFullName = user.displayName;
-      console.log(user);
+      console.log("user: ", user);
     });
 
     // Get Balance Money
