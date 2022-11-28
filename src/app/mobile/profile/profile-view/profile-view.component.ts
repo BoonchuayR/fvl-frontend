@@ -11,6 +11,10 @@ import { Timestamp } from "@angular/fire/firestore/firebase";
 import { Topup } from "src/app/core/models/topup.model";
 import * as moment from "moment";
 import { ShopService } from "src/app/service/shop.service";
+import { MeterService } from "src/app/service/meter.service";
+import { IotService } from "src/app/service/iot.service";
+import { Meter } from "src/app/core/models/meter.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-profile-view",
@@ -33,6 +37,11 @@ export class ProfileViewComponent implements OnInit {
   topup: Topup = new Topup();
   topups!: any;
 
+  meters: any = [];
+  allMeter!: any;
+
+  shops: any = [];
+
   @ViewChild("content") content: any;
 
   constructor(
@@ -42,7 +51,9 @@ export class ProfileViewComponent implements OnInit {
     private topupService: TopupService,
     private customerService: CustomerService,
     private shopService: ShopService,
-
+    private meterService: MeterService,
+    private iotService: IotService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,8 +64,6 @@ export class ProfileViewComponent implements OnInit {
     this.topupMoney = 300;
 
     this.currentUser = this.authService.currentUser();
-    
-    console.log("currentUser: ", this.currentUser);
 
     // Get user data
     this.userService.getUser(this.currentUser.uid).subscribe((user) => {
@@ -75,7 +84,36 @@ export class ProfileViewComponent implements OnInit {
       this.topups = res;
       // console.log("this.topups: ", this.topups);
     });
-    
+
+    // Get shops of customer
+    this.shopService.getAll().subscribe((shops) => {
+      this.meterService.getAll().subscribe((allMeters) => {
+        // const shopMeters = shops
+        //   .filter((s: any) => {
+        //     return s.uid === this.currentUser.uid;
+        //   })
+        //   .map((s) => {
+        //     return s.SLAVE_ID;
+        //   });
+
+        this.shops = shops.filter((s: any) => {
+          return s.uid === this.currentUser.uid;
+        });
+
+        const shopMeters = this.shops.map((s: any) => {
+          return s.SLAVE_ID;
+        });
+
+        for (let i = 0; i < shopMeters.length; i++) {
+          for (let j = 0; j < shopMeters[i].length; j++) {
+            const filteredMeters = allMeters.filter((am) => {
+              return am.meterSlaveId === shopMeters[i][j];
+            });
+            this.meters.push(...filteredMeters);
+          }
+        }
+      });
+    });
 
     //BreadCrumb
     this.breadCrumbItems = [
@@ -194,5 +232,20 @@ export class ProfileViewComponent implements OnInit {
           );
         }
       });
+  }
+
+  changMeterState(event: any, serialNo: any, id: string) {
+    const isChecked = event.target.checked;
+    const state = isChecked ? 1 : 0;
+    this.iotService.meterUpdateState(serialNo, state).subscribe((res) => {
+      console.log("res: ", res);
+    });
+
+    // this.meterService.get(id).subscribe((meter: Meter) => {
+    //   meter.meterState = state + "";
+    //   this.meterService.update(meter).then((res) => {
+    //     this.repairModal("");
+    //   });
+    // });
   }
 }

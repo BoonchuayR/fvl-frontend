@@ -379,73 +379,37 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr *ngFor="let meter of meters">
                         <td>
-                          <input
-                            type="checkbox"
-                            id="switch1"
-                            switch="warning"
-                            (click)="cancel()"
-                            checked
-                          />
-                          <label class="me-1" for="switch1"></label>
-                        </td>
-                        <td>SN1000001</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >A001</a
+                          <div
+                            class="form-check form-switch form-switch-lg mb-lg-3"
+                            dir="ltr"
                           >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="SwitchCheckSizelg"
+                              [checked]="meter.meterState === '1'"
+                              (change)="
+                                changMeterState(
+                                  $event,
+                                  meter.serialNo,
+                                  meter.id
+                                )
+                              "
+                            />
+                          </div>
+                        </td>
+                        <td>{{ meter.meterSlaveId }}</td>
+                        <td>
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            meter.serialNo
+                          }}</a>
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >ร้านก๊วยเตี๋ยว1</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <input
-                            type="checkbox"
-                            id="switch1"
-                            switch="warning"
-                            (click)="cancel()"
-                            checked
-                          />
-                          <label class="me-1" for="switch1"></label>
-                        </td>
-                        <td>SN1000002</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >A002</a
-                          >
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >ร้านก๊วยเตี๋ยว1</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <input
-                            type="checkbox"
-                            id="switch1"
-                            switch="warning"
-                            (click)="cancel()"
-                            checked
-                          />
-                          <label class="me-1" for="switch1"></label>
-                        </td>
-                        <td>SN1000003</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >A003</a
-                          >
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >ร้านก๊วยเตี๋ยว2</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            meter.deviceZone
+                          }}</a>
                         </td>
                       </tr>
                     </tbody>
@@ -476,50 +440,27 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>FV0001</td>
+                      <tr *ngFor="let shop of shops">
+                        <td>{{ shop.boothCode }}</td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >ร้านก๊วยเตี๋ยว1</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.boothName
+                          }}</a>
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >0011001</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.contractNo
+                          }}</a>
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >โซน D</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.boothZone
+                          }}</a>
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >01/08/2023</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>FV0002</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >ร้านก๊วยเตี๋ยว2</a
-                          >
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >0011001</a
-                          >
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >โซน D</a
-                          >
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >01/08/2023</a
-                          >
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.contractEndDate
+                          }}</a>
                         </td>
                       </tr>
                     </tbody>

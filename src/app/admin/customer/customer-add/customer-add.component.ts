@@ -215,12 +215,17 @@ export class CustomerAddComponent implements OnInit {
             "items"
           ) as FormArray;
           shopItems.value.forEach((shop: any) => {
-            this.shopService.create({
-              ...shop,
-              uid: customer.uid,
-              custName: customer.custName,
-              custPhone: customer.custPhone,
-            });
+            this.shopService
+              .create({
+                ...shop,
+                uid: customer.uid,
+                custName: customer.custName,
+                custPhone: customer.custPhone,
+              })
+              .then((res) => {
+                console.log("res: ", res);
+                this.router.navigate(["/customer-list"]);
+              });
           });
         });
       },

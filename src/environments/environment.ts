@@ -17,7 +17,7 @@ export const environment = {
     projectId: "fvl-app",
     storageBucket: "fvl-app.appspot.com",
     messagingSenderId: "384786685934",
-    appId: "1:384786685934:web:00b416e2fd8b6ece3d38ff"
+    appId: "1:384786685934:web:00b416e2fd8b6ece3d38ff",
   },
   production: false,
   // defaultauth: "fakebackend",

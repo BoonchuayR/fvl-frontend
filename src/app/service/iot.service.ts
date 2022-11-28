@@ -28,4 +28,17 @@ export class IotService {
 
     return this.http.post(BASE_API, bodyReq);
   }
+
+  meterUpdateState(serialNo: string, state: number) {
+    console.log("serialNo: ", serialNo);
+    console.log("state: ", state);
+    const bodyReq = {
+      CMD_TYPE: "METER_UPDATE_STATE",
+      USER_ID: "1",
+      USER_TOKEN: "ff15d1de48d17581834cd05f5c1b9caf",
+      SERIAL_NO: serialNo,
+      METER_STATE_VALUE: state,
+    };
+    return this.http.post(BASE_API, bodyReq);
+  }
 }
