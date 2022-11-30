@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getAllUser().subscribe((user) => {
+    this.userService.getAll().subscribe((user) => {
       this.user = user;
       console.log("user: ", user);
     });
@@ -24,30 +24,30 @@ export class UserListComponent implements OnInit {
    * Confirm sweet alert
   //  * @param confirm modal content
   //  */
-   confirm(id:string) {
+  confirm(id: string) {
     Swal.fire({
-      title: 'ลบข้อมูลผู้ใช้งาน',
+      title: "ลบข้อมูลผู้ใช้งาน",
       text: "คุณต้องการลบข้อมูลผู้ใช้งานนี้ใช่หรือไม่?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'ใช่, ต้องการ!',
-      cancelButtonText:'ไม่, ยกเลิก!',
+      confirmButtonColor: "#34c38f",
+      cancelButtonColor: "#f46a6a",
+      confirmButtonText: "ใช่, ต้องการ!",
+      cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
-      console.log(id)
+      console.log(id);
       if (result.value) {
-        this.userService.delete(id).then(deleteduser => {console.log(deleteduser);
-        })
+        this.userService.delete(id).then((deleteduser) => {
+          console.log(deleteduser);
+        });
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'ลบข้อมูลผู้ใช้งานเรียบร้อย',
+          position: "top-end",
+          icon: "success",
+          title: "ลบข้อมูลผู้ใช้งานเรียบร้อย",
           showConfirmButton: false,
-          timer: 3000
-        })
+          timer: 3000,
+        });
       }
     });
-    
   }
 }

@@ -62,7 +62,7 @@ export class UserService {
     return from(updateDoc(ref, { ...user }));
   }
 
-  getAllUser() {
+  getAll() {
     return collectionData(this.userCollection, {
       idField: "id",
     }) as Observable<User[]>;

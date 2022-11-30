@@ -41,6 +41,7 @@ export class ProfileViewComponent implements OnInit {
   allMeter!: any;
 
   shops: any = [];
+  meterState: any;
 
   @ViewChild("content") content: any;
 
@@ -57,6 +58,9 @@ export class ProfileViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.meterState = localStorage.getItem("meterState");
+    // meterState?.split(":");
+    console.log("this.meterState: ", this.meterState);
     this.customer = {
       currentMoney: 0,
     };
@@ -240,12 +244,9 @@ export class ProfileViewComponent implements OnInit {
     this.iotService.meterUpdateState(serialNo, state).subscribe((res) => {
       console.log("res: ", res);
     });
-
-    // this.meterService.get(id).subscribe((meter: Meter) => {
-    //   meter.meterState = state + "";
-    //   this.meterService.update(meter).then((res) => {
-    //     this.repairModal("");
-    //   });
-    // });
+    // const meterState = [{ id: id, state: state }];
+    localStorage.clear();
+    localStorage.setItem("meterState", `${state}`);
+    console.log("meterState:", localStorage.getItem("meterState"));
   }
 }

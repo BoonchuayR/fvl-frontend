@@ -48,4 +48,9 @@ export class MeterService {
     const meterDocumentReference = doc(this.firestore, `meter/${id}`);
     return deleteDoc(meterDocumentReference);
   }
+
+  modifyState(id: string, state: string) {
+    const meterDocRef = doc(this.firestore, `meter/${id}`);
+    return updateDoc(meterDocRef, { meterState: state });
+  }
 }
