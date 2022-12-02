@@ -45,6 +45,8 @@ export class ProfileViewComponent implements OnInit {
   shops: any = [];
   meterState: any;
 
+  printTopup: any;
+
   @ViewChild("content") content: any;
 
   constructor(
@@ -84,6 +86,8 @@ export class ProfileViewComponent implements OnInit {
         console.log("customer: ", customer);
         this.customer = customer;
       });
+
+    this.topUpAndChargeBarChart = emailSentBarChart;
 
     // Get topup transactions
     this.topupService.getAll().subscribe((res) => {
@@ -432,4 +436,63 @@ export class ProfileViewComponent implements OnInit {
     localStorage.setItem("meterState", `${state}`);
     console.log("meterState:", localStorage.getItem("meterState"));
   }
+
+  printReceipt(topup: any) {
+    this.printTopup = topup;
+    let printContents, popupWin;
+  
+    // console.log(printContents);
+    popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
+    popupWin?.document.open();
+    popupWin?.document.write(`
+      <html>
+        <head>
+          <title>Report</title>
+          <meta name="viewport" content="width=10000, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+          <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <style>
+            .salto_pagina_despues{
+              page-break-after:always;
+            }
+            
+            .salto_pagina_anterior{
+              page-break-before:always;
+            }
+
+            .content {
+              height: 100vh;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+            }
+
+            .img-content {
+              flex: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .observation {
+              height: 150px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+          </style>
+        </head>
+        <body onload="window.print();">
+          <div>
+            ใบเสร็จรับเงิน
+          </div>
+          <div>
+            จำนวนเงิน ${topup.topupMoney}
+          </div>
+        </body>
+      </html>`);
+    /* window.close(); */
+    popupWin?.document.close();
+  }
+  
 }

@@ -29,6 +29,7 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { provideAuth, getAuth } from "@angular/fire/auth";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Select2Module } from "ng-select2-component";
+import {NgxPrintModule} from 'ngx-print';
 
 // firebase
 import { provideFirestore, getFirestore } from "@angular/fire/firestore";
@@ -68,6 +69,7 @@ export function createTranslateLoader(http: HttpClient): any {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()), //add++
     provideAuth(() => getAuth()),
+    NgxPrintModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -128,11 +128,18 @@
                         </td>
                         <td>
                           <a
+                            (click)="printReceipt(topup)"
+                            href=""
+                            class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
+                            ><i class="bx bx-dollar-circle"></i> พิมพ์</a
+                          >
+                          <!-- <a
+                            (click)="printReceipt()"
                             href=""
                             class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
                             href="javascript:window.print()"
                             ><i class="bx bx-dollar-circle"></i> พิมพ์</a
-                          >
+                          > -->
                         </td>
                       </tr>
                     </tbody>
@@ -631,4 +638,5 @@
     </div>
   </ng-template>
 </div>
+
 <!-- end row -->
