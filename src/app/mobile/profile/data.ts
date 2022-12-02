@@ -46,11 +46,11 @@ const emailSentBarChart: ChartType = {
     },
 
     xaxis: {
-        type: 'datetime'
+        type: "datetime"
     },
     yaxis: {
         title: {
-            text: 'Points',
+            text: 'จำนวนเงิน',
         },
     },
     tooltip: {

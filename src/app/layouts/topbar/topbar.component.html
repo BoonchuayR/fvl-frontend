@@ -29,6 +29,7 @@
       </div>
 
       <button
+        *ngIf="isShowToggleButton"
         type="button"
         class="btn btn-sm px-3 font-size-16 vertinav-toggle header-item waves-effect"
         id="vertical-menu-btn"
@@ -38,6 +39,7 @@
       </button>
 
       <button
+        *ngIf="isShowToggleButton"
         type="button"
         class="btn btn-sm px-3 font-size-16 horinav-toggle header-item waves-effect waves-light"
         data-bs-toggle="collapse"
@@ -73,7 +75,7 @@
             alt="Header Avatar"
           />
           <span class="d-none d-xl-inline-block ms-1">{{
-            customer.custName
+            displayName
           }}</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>

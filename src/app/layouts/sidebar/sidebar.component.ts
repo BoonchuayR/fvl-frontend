@@ -4,9 +4,12 @@ import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { MENU } from './menu';
+import { CUST_MENU } from './menu.cust';
 import { MenuItem } from './menu.model';
 
 import { SIDEBAR_COLOR } from '../layouts.model';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { CustomerService } from 'src/app/service/customer.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,9 +26,16 @@ export class SidebarComponent implements OnInit {
   menu: any;
   menuItems: MenuItem[] = [];
 
+  currentUser: any;
+
   isSidebar: any;
 
-  constructor(private router: Router, public translate: TranslateService) {
+  constructor(
+    private router: Router, 
+    public translate: TranslateService, 
+    private authService: AuthenticationService,
+    private customerService: CustomerService) {
+    
     translate.setDefaultLang('en');
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -35,7 +45,15 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menuItems = MENU;
+    this.currentUser = this.authService.currentUser();
+    
+    this.customerService.getCustomer(this.currentUser.uid).subscribe(cust => {
+      if (cust) {
+        this.menuItems = CUST_MENU
+      } else {
+        this.menuItems = MENU
+      }
+    })
     
     this.isSidebar = SIDEBAR_COLOR;
     if(this.isSidebar === 'dark') {

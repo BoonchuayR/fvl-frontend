@@ -14,6 +14,8 @@ import { user } from "@angular/fire/auth";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
 import { MeterService } from "src/app/service/meter.service";
+import { AuthenticationService } from "src/app/core/services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-dashboard",
@@ -47,7 +49,10 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private customerService: CustomerService,
     private shopService: ShopService,
-    private meterService: MeterService
+    private meterService: MeterService,
+    private authenService: AuthenticationService,
+    private router: Router
+
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +62,8 @@ export class DashboardComponent implements OnInit {
       { label: "หน้าหลัก" },
       { label: "Dashboard", active: true },
     ];
+
+    const currentUser = this.authenService.currentUser();
 
     // Get all users show in dashboard
     this.userService.getAll().subscribe((allUsers) => {

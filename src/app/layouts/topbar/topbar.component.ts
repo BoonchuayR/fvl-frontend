@@ -8,6 +8,7 @@ import { environment } from "../../../environments/environment";
 import { AuthenticationService } from "../../core/services/auth.service";
 import { AuthfakeauthenticationService } from "../../core/services/authfake.service";
 import { CustomerService } from "src/app/service/customer.service";
+import { UserService } from "src/app/service/user.service";
 
 @Component({
   selector: "app-topbar",
@@ -26,6 +27,8 @@ export class TopbarComponent implements OnInit {
 
   currentUser: any;
   customer: any = { custName: "" };
+  displayName!: string;
+  isShowToggleButton = true;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -34,7 +37,8 @@ export class TopbarComponent implements OnInit {
     public languageService: LanguageService,
     public _cookiesService: CookieService,
     private authFackservice: AuthfakeauthenticationService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private userService: UserService
   ) {}
 
   /***
@@ -54,8 +58,22 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.authService.currentUser();
 
-    this.customerService.get(this.currentUser.uid).subscribe((c) => {
-      this.customer = c;
+    this.customerService.getCustomer(this.currentUser.uid).subscribe((cust) => {
+      if (cust) {
+        this.customer = cust;
+        this.displayName = cust.custName
+        this.isShowToggleButton = false
+      } else {
+        this.isShowToggleButton = true
+        this.userService.getUser(this.currentUser.uid).subscribe(user => {
+          if (user) {
+            this.displayName = user.firstName + user.lastName
+          } else {
+            this.displayName = this.currentUser.email
+          }
+        })
+      }
+      
     });
 
     this.element = document.documentElement;

@@ -33,6 +33,8 @@ export class ProfileViewComponent implements OnInit {
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
 
+  topUpAndChargeBarChart!: ChartType;
+
   topupMoney!: any;
   topup: Topup = new Topup();
   topups!: any;
@@ -86,6 +88,7 @@ export class ProfileViewComponent implements OnInit {
     // Get topup transactions
     this.topupService.getAll().subscribe((res) => {
       this.topups = res;
+      this.buildBarChart();
       // console.log("this.topups: ", this.topups);
     });
 
@@ -131,6 +134,186 @@ export class ProfileViewComponent implements OnInit {
     this.fetchData();
   }
 
+  buildBarChart() {
+
+    const topUpMonths = [
+      {
+        month: "JAN", 
+        topUp: 0
+      },
+      {
+        month: "FEB",
+        topUp: 0
+      },
+      {
+        month: "MAR",
+        topUp: 0
+      },
+      {
+        month: "APR",
+        topUp: 0
+      },
+      {
+        month: "MAY",
+        topUp: 0
+      },
+      {
+        month: "JUN",
+        topUp: 0
+      },
+      {
+        month: "JUL",
+        topUp: 0
+      }, 
+      {
+        month: "AUG",
+        topUp: 0
+      },
+      {
+        month: "SEP",
+        topUp: 0
+      },
+      {
+        month: "OCT",
+        topUp: 0
+      },
+      {
+        month: "NOV",
+        topUp: 0
+      },
+      {
+        month: "DEC",
+        topUp: 0
+      }
+    ]
+      
+    for (let i = 0 ; i < this.topups.length ; i++) {
+      const createdAt = this.topups[i].createdAt;
+      if (moment(createdAt, "YYYY-MM-DD").month() === 0) {
+        topUpMonths[0].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 1) {
+        topUpMonths[1].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 2) {
+        topUpMonths[2].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 3) {
+        topUpMonths[3].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[4].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[5].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[6].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[7].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[8].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[9].topUp += +this.topups[i].topupMoney
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+        topUpMonths[10].topUp += +this.topups[i].topupMoney
+      } else{
+        topUpMonths[11].topUp += +this.topups[i].topupMoney
+      }
+    }
+    
+    const filteredTopUpMonth = topUpMonths.filter(topUp => {return topUp.topUp > 0})
+    console.log("filteredTopUpMonth: ", filteredTopUpMonth)
+
+    const series = [
+      {
+          name: 'เติมเงิน',
+          type: 'column',
+          data: filteredTopUpMonth.map(t => {return t.topUp})
+          // data: [10,20]
+      },
+      {
+        name: 'เติมเงิน',
+        type: 'column',
+        data: filteredTopUpMonth.map(t => {return t.topUp})
+    }
+    ]
+
+    // const series = [
+    //   {
+    //     name: 'ค่าไฟ',
+    //     type: 'column',
+    //     data: [23, 11, 22, 27, 13, 22]
+    //   } , 
+    //   {
+    //     name: 'เติมเงิน',
+    //     type: 'column',
+    //     data: [19, 8, 26, 21, 18, 36]
+    //   }
+    // ]
+
+    const labels = filteredTopUpMonth.map(t => {return t.month})
+    // const labels = ['jan', 'feb']
+    this.topUpAndChargeBarChart  = {
+      chart: {
+          height: 338,
+          type: 'line',
+          stacked: false,
+          offsetY: -5,
+          toolbar: {
+              show: false
+          }
+      },
+      stroke: {
+          width: [0, 0, 0, 1],
+          curve: 'smooth'
+      },
+      plotOptions: {
+          bar: {
+              columnWidth: '40%'
+          }
+      },
+      colors: ['#2cb57e', '#f1b44c'],
+      series: series,
+      fill: {
+          opacity: [0.85, 1, 0.25, 1],
+          gradient: {
+              inverseColors: false,
+              shade: 'light',
+              type: "vertical",
+              opacityFrom: 0.85,
+              opacityTo: 0.55,
+              stops: [0, 100, 100, 100]
+          }
+      },
+      labels: labels,
+      markers: {
+          size: 0
+      },
+  
+      xaxis: {
+          type: "string"
+      },
+      yaxis: {
+          title: {
+              text: 'จำนวนเงิน',
+          },
+      },
+      tooltip: {
+          shared: true,
+          intersect: false,
+          y: {
+              formatter: function (y: any) {
+                  if (typeof y !== "undefined") {
+                      return y.toFixed(0) + " points";
+                  }
+                  return y;
+  
+              }
+          }
+      },
+      grid: {
+          borderColor: '#f1f1f1',
+          padding: {
+              bottom: 15
+          }
+      }
+  };
+  }
   // ngAfterViewInit() {
   //   setTimeout(() => {
   //     this.openModal();
