@@ -13,14 +13,7 @@ import {
   Timestamp,
   updateDoc,
 } from "@angular/fire/firestore";
-
-interface Topup {
-  id?: string;
-  topupMoney?: number;
-  status?: string;
-  statusName?: string;
-  createdAt?: string;
-}
+import { Topup } from "../core/models/topup.model";
 
 @Injectable({
   providedIn: "root",

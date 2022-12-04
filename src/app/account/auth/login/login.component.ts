@@ -6,6 +6,7 @@ import { LAYOUT_MODE } from "../../../layouts/layouts.model";
 import { environment } from "../../../../environments/environment";
 import { AuthService } from "src/app/service/auth.service";
 import { AuthenticationService } from "src/app/core/services/auth.service";
+import { CustomerService } from "src/app/service/customer.service";
 
 @Component({
   selector: "app-login",
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {}
@@ -46,7 +48,14 @@ export class LoginComponent implements OnInit {
       .then((user) => {
         console.log("user: ", user);
 
-        this.router.navigate(["/"]);
+        // Switch route role 
+        this.customerService.get(user.uid).subscribe(cust => {
+          if (cust) {
+            this.router.navigate(["/mobile/profile-view"])
+          } else {
+            this.router.navigate(["/"]);
+          }
+        })  
       })
       .catch((err) => {
         console.log("err: ", err);

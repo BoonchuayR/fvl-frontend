@@ -51,7 +51,6 @@ export class DashboardComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private authenService: AuthenticationService,
-    private router: Router
 
   ) {}
 

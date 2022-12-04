@@ -3,5 +3,6 @@ export class Topup {
   topupMoney?: number;
   status?: string;
   statusName?: string;
+  uid?: string;
   createdAt?: string;
 }

@@ -58,13 +58,10 @@ export class ProfileViewComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private iotService: IotService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.meterState = localStorage.getItem("meterState");
-    // meterState?.split(":");
-    console.log("this.meterState: ", this.meterState);
     this.customer = {
       currentMoney: 0,
     };
@@ -91,7 +88,7 @@ export class ProfileViewComponent implements OnInit {
 
     // Get topup transactions
     this.topupService.getAll().subscribe((res) => {
-      this.topups = res;
+      this.topups = res.filter(r => {return r.uid === this.currentUser.uid});
       this.buildBarChart();
       // console.log("this.topups: ", this.topups);
     });
@@ -370,6 +367,7 @@ export class ProfileViewComponent implements OnInit {
   }
 
   submitTopup() {
+    this.topup.uid = this.currentUser.uid;
     this.topup.status = "W";
     this.topup.statusName = "รอชำระ";
     this.topup.topupMoney = this.topupMoney;
