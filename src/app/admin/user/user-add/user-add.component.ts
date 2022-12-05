@@ -17,7 +17,7 @@ import { icons } from 'src/app/pages/icons/materialdesign/data';
 export class UserAddComponent implements OnInit {
   submit!: boolean;
 
-  validationform = this.formBuilder.group({
+  validationform = this.formBuilder.group({ 
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],

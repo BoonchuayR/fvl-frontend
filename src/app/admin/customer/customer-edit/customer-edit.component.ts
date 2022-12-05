@@ -13,6 +13,7 @@ import { Select2Data } from "ng-select2-component";
 import { AuthService } from "src/app/service/auth.service";
 import { switchMap } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MeterService } from "src/app/service/meter.service";
 
 @Component({
   selector: "app-customer-edit",
@@ -37,6 +38,9 @@ export class CustomerEditComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
+
+  meters: any = [];
+  meterOptions: Select2Data = [];
 
   // select multi options start
   data: Select2Data = [
@@ -103,7 +107,7 @@ export class CustomerEditComponent implements OnInit {
     private authService: AuthService,
     private customerService: CustomerService,
     private shopService: ShopService,
-    private router: Router,
+    private meterService: MeterService,
     private route: ActivatedRoute
   ) {
     this.itemShopForm = this.formBuilder.group({
@@ -114,6 +118,12 @@ export class CustomerEditComponent implements OnInit {
   ngOnInit(): void {
     this.uId = this.route.snapshot.paramMap.get("id");
 
+    // Get meters
+    this.meterService.getAll().subscribe((meters) => {
+      this.meters = meters;
+      this.createMeterOptions();
+    });
+    
     this.customerService.get(this.uId).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
@@ -121,6 +131,44 @@ export class CustomerEditComponent implements OnInit {
     });
 
     this.addItem();
+  }
+
+  createMeterOptions() {
+    const sortedMeters = this.meters.sort((a: any, b: any) => {
+      if (a.zone < b.zone) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    for (let i = 0; i < sortedMeters.length; i++) {
+      if (
+        sortedMeters[i + 1] &&
+        sortedMeters[i].zone === sortedMeters[i + 1].zone
+      ) {
+        continue;
+      }
+      const data = {
+        label: "โซน " + sortedMeters[i].zone,
+        data: { name: sortedMeters[i].zone },
+        options: sortedMeters
+          .filter((m: any) => {
+            return m.zone === sortedMeters[i].zone;
+          })
+          .map((m: any) => {
+            return {
+              value: m.meterSlaveId,
+              label: m.meterSlaveId,
+              data: { name: m.meterSlaveId },
+              templateId: "template1",
+              id: m.meterSlaveId,
+            };
+          }),
+      };
+      this.meterOptions.push(data);
+    }
+    console.log("this.meterOptions: ", this.meterOptions);
   }
 
   setCustomerForm() {
