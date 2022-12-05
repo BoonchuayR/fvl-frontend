@@ -22,7 +22,7 @@ export class UserAddComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phone: ['', Validators.required],
-      typeUser: ['', Validators.required],
+      typeUser: ['ฝ่ายซ่อมบำรุง', Validators.required],
   });
 
 

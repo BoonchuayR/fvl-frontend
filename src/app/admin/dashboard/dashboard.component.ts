@@ -56,6 +56,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.displayUsers = [];
     this.numberOfUsers = 0;
     //BreadCrumb
     this.breadCrumbItems = [

@@ -7,6 +7,7 @@ import { environment } from "../../../../environments/environment";
 import { AuthService } from "src/app/service/auth.service";
 import { AuthenticationService } from "src/app/core/services/auth.service";
 import { CustomerService } from "src/app/service/customer.service";
+import { UserService } from "src/app/service/user.service";
 
 @Component({
   selector: "app-login",
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {}
@@ -53,7 +55,17 @@ export class LoginComponent implements OnInit {
           if (cust) {
             this.router.navigate(["/mobile/profile-view"])
           } else {
-            this.router.navigate(["/"]);
+            this.userService.getUser(user.uid).subscribe(u => {
+              if (u && u.typeUser === 'ฝ่ายขาย') {
+                this.router.navigate(["/ticket-list"]);
+              } else if (u && u.typeUser === 'ฝ่ายบัญชี') {
+                this.router.navigate(["/"]);
+              } else if (u && u.typeUser === 'ฝ่ายซ่อมบำรุง') {
+                this.router.navigate(["/ticket-list"]);
+              } else {
+                this.router.navigate(["/"]);
+              }
+            })
           }
         })  
       })

@@ -67,7 +67,7 @@ export class TopbarComponent implements OnInit {
         this.isShowToggleButton = true
         this.userService.getUser(this.currentUser.uid).subscribe(user => {
           if (user) {
-            this.displayName = user.firstName + user.lastName
+            this.displayName = user.displayName
           } else {
             this.displayName = this.currentUser.email
           }
