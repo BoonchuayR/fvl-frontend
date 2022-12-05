@@ -41,6 +41,7 @@ import { RepairEditComponent } from "./repair/repair-edit/repair-edit.component"
 import { RepairViewComponent } from "./repair/repair-view/repair-view.component";
 import { HistoryListComponent } from "./history/history-list/history-list.component";
 import { HistoryViewComponent } from "./history/history-view/history-view.component";
+import { PrintPageComponent } from './profile/print-page/print-page.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { HistoryViewComponent } from "./history/history-view/history-view.compon
     ProfileAddComponent,
     HistoryListComponent,
     HistoryViewComponent,
+    PrintPageComponent
   ],
   imports: [
     CommonModule,

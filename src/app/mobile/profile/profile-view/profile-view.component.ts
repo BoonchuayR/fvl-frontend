@@ -45,7 +45,7 @@ export class ProfileViewComponent implements OnInit {
   shops: any = [];
   meterState: any;
 
-  printTopup: any;
+  printTopup = {};
 
   @ViewChild("content") content: any;
 
@@ -72,15 +72,12 @@ export class ProfileViewComponent implements OnInit {
 
     // Get user data
     this.userService.getUser(this.currentUser.uid).subscribe((user) => {
-      // this.userFullName = user.displayName;
-      console.log("user: ", user);
     });
 
     // Get Balance Money
     this.customerService
       .getCustomer(this.currentUser.uid)
       .subscribe((customer) => {
-        console.log("customer: ", customer);
         this.customer = customer;
       });
 
@@ -90,7 +87,6 @@ export class ProfileViewComponent implements OnInit {
     this.topupService.getAll().subscribe((res) => {
       this.topups = res.filter(r => {return r.uid === this.currentUser.uid});
       this.buildBarChart();
-      // console.log("this.topups: ", this.topups);
     });
 
     // Get shops of customer
@@ -218,7 +214,6 @@ export class ProfileViewComponent implements OnInit {
     }
     
     const filteredTopUpMonth = topUpMonths.filter(topUp => {return topUp.topUp > 0})
-    console.log("filteredTopUpMonth: ", filteredTopUpMonth)
 
     const series = [
       {
@@ -427,70 +422,37 @@ export class ProfileViewComponent implements OnInit {
     const isChecked = event.target.checked;
     const state = isChecked ? 1 : 0;
     this.iotService.meterUpdateState(serialNo, state).subscribe((res) => {
-      console.log("res: ", res);
     });
     // const meterState = [{ id: id, state: state }];
     localStorage.clear();
     localStorage.setItem("meterState", `${state}`);
-    console.log("meterState:", localStorage.getItem("meterState"));
   }
 
-  printReceipt(topup: any) {
-    this.printTopup = topup;
-    let printContents, popupWin;
-  
-    // console.log(printContents);
-    popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
-    popupWin?.document.open();
-    popupWin?.document.write(`
-      <html>
-        <head>
-          <title>Report</title>
-          <meta name="viewport" content="width=10000, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-          <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-          <style>
-            .salto_pagina_despues{
-              page-break-after:always;
-            }
-            
-            .salto_pagina_anterior{
-              page-break-before:always;
-            }
+  setPrintTopup(topup: any) {
+    this.printTopup = topup
+  }
 
-            .content {
-              height: 100vh;
-              width: 100%;
-              display: flex;
-              flex-direction: column;
-            }
+  printPage() {
+    window.print();
+  }
 
-            .img-content {
-              flex: 1;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-
-            .observation {
-              height: 150px;
-              overflow: hidden;
-              overflow-y: auto;
-            }
-          </style>
-        </head>
-        <body onload="window.print();">
-          <div>
-            ใบเสร็จรับเงิน
-          </div>
-          <div>
-            จำนวนเงิน ${topup.topupMoney}
-          </div>
-        </body>
-      </html>`);
-    /* window.close(); */
-    popupWin?.document.close();
+  /**
+   * Confirm sweet alert
+   * @param confirm modal content
+   */
+  confirmPrint(topup: any) {
+    this.printTopup = topup
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      this.printPage()
+    });
   }
   
 }

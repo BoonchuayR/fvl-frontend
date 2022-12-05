@@ -2,7 +2,7 @@
 <!-- <app-pagetitle title="Profile" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
 <!-- end page title -->
 
-<div class="row mb-4">
+<div class="row mb-4" id="profile-view">
   <div class="col-xl-4">
     <div class="card h-100">
       <div class="card-body">
@@ -118,7 +118,7 @@
                         <td>{{ topup.createdAt }}</td>
                         <td>
                           <a href="javascript: void(0);" class="text-dark">{{
-                            topup.topupMoney
+                            topup.topupMoney | number
                           }}</a>
                         </td>
                         <td>
@@ -127,19 +127,7 @@
                           }}</span>
                         </td>
                         <td>
-                          <a
-                            (click)="printReceipt(topup)"
-                            href=""
-                            class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
-                            ><i class="bx bx-dollar-circle"></i> พิมพ์</a
-                          >
-                          <!-- <a
-                            (click)="printReceipt()"
-                            href=""
-                            class="btn btn-secondary me-2 waves-effect waves-light btn-sm"
-                            href="javascript:window.print()"
-                            ><i class="bx bx-dollar-circle"></i> พิมพ์</a
-                          > -->
+                          <button (focus)="setPrintTopup(topup)" (click)="printPage()" class="btn btn-secondary me-2 waves-effect waves-light btn-sm"><i class="bx bx-dollar-circle"></i> พิมพ์</button>
                         </td>
                       </tr>
                     </tbody>
@@ -639,4 +627,5 @@
   </ng-template>
 </div>
 
+<app-print-page [printTopup]="printTopup"></app-print-page>
 <!-- end row -->

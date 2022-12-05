@@ -128,7 +128,6 @@ const routes: Routes = [
     path: 'history-view',
     component: HistoryViewComponent
   }
-
 ];
 
 @NgModule({

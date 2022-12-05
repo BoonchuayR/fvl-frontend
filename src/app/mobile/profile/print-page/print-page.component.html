@@ -1,0 +1,58 @@
+<div class="container-fluid text-center">
+   
+    <img
+        width="50"
+        src="assets/images/logo_fvl.jpg"
+        alt="logotipo">
+    <br />
+    <br />
+    <div class="row no-gutters">
+      <div class="col">
+        <h2>{{receiptInfo.companyName}}</h2>
+        <p>{{receiptInfo.branchName}}</p>    
+        <div class="address">
+          <p>{{receiptInfo.address1}}</p>
+          <p>{{receiptInfo.address2}}</p>
+          <p>{{receiptInfo.subDistrict + " " + receiptInfo.district}}</p>
+          <p>{{receiptInfo.province +  " " + receiptInfo.postCode}}</p>
+          <p>เลขผู้เสียภาษี {{receiptInfo.taxId}}</p>
+          <p>โทร. {{receiptInfo.telNo}}</p>
+          <p>เว็บไซต์ {{receiptInfo.webSite}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters items-group">
+        <div class="col">
+            <p>{{receiptInfo.formName}}</p>    
+            <p>{{receiptInfo.docNo}}</p>
+        </div>
+    </div>
+    <div class="row no-gutters items-group">
+        <div class="col">
+            <p>พนักงานขาย {{receiptInfo.saleName}}</p>    
+            <p>วันที่ {{receiptInfo.date}}</p>
+        </div>
+    </div>
+    <div class="row no-gutters items-group">
+        <table>
+            <tr *ngFor="let item of receiptInfo.detail">
+                <td>{{item.qty}}</td>
+                <td>{{item.product}}</td>
+                <td>{{item.price}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="row no-gutters items-group">
+        <div class="col">
+            <p>จำนวนรวม {{receiptInfo.totalQty}}</p>
+            <p>รวมเป็นเงิน {{receiptInfo.amt}}</p>
+            <p>ส่วนลด {{receiptInfo.discount}}</p>
+            <p>จำนวนเงินหลังหักส่วนลด {{receiptInfo.totalAmt}}</p>
+            <p>ภาษีมูลค่าเพิ่ม 7% {{receiptInfo.vatAmt}}</p>
+            <p>ราคาไม่รวมภาษีมูลค่าเพิ่ม {{receiptInfo.notIncluedVatAmt}}</p>
+            <p><b>รวมทั้งสิ้น {{receiptInfo.notIncluedVatAmt}}</b></p>
+        </div>
+    </div>
+    <div class="row no-gutters items-group">
+    </div>
+  </div>
