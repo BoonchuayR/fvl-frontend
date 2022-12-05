@@ -39,10 +39,13 @@ export class PrintPageComponent implements OnInit {
     grandTotalAmt: 10000
   }
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
-    
+    // this.receiptInfo.totalAmt = this.printTopup.topupMoney;
+    // this.receiptInfo.totalAmt = this.printTopup.topupMoney
   }
 
 }

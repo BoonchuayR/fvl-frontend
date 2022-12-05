@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   orders: any;
   users!: any;
   customers!: any;
+  displayUsers: any = [];
   shops!: any;
   meters!: any;
   numberOfUsers!: number;
@@ -68,16 +69,38 @@ export class DashboardComponent implements OnInit {
     this.userService.getAll().subscribe((allUsers) => {
       this.users = allUsers;
       this.numberOfUsers += allUsers.length;
+
+      const tempUsers = allUsers.map(u => {
+        return {
+          typeUser: u.typeUser,
+          displayName: u.displayName,
+          email: u.email,
+          phone: u.phone
+        }
+      })
+
+      this.displayUsers.push(...tempUsers)
+
+      // Get all customer show in dashboard
+      this.customerService.getAll().subscribe((allCustomer) => {
+        this.customers = allCustomer;
+        this.numberOfUsers += allCustomer.length;
+  
+        const userCustomers = allCustomer.map(cust => {
+          return {
+            typeUser: "ลูกค้า",
+            displayName: cust.custName,
+            email: cust.email,
+            phone: cust.custPhone
+          }
+        })
+
+        this.displayUsers.push(...userCustomers)
+      });
     });
 
-    // Get all customer show in dashboard
-    this.customerService.getAll().subscribe((allCustomer) => {
-      this.customers = allCustomer;
-      this.numberOfUsers += allCustomer.length;
-    });
-
-    // Get all shops
-    this.shopService.getAll().subscribe((shops) => {
+     // Get all shops
+     this.shopService.getAll().subscribe((shops) => {
       this.shops = shops;
       this.numberOfShops = shops.length;
     });

@@ -10,6 +10,9 @@ import { MenuItem } from './menu.model';
 import { SIDEBAR_COLOR } from '../layouts.model';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { CustomerService } from 'src/app/service/customer.service';
+import { UserService } from 'src/app/service/user.service';
+import { MENU_SERVICE } from './menu.service';
+import { MENU_SALE } from './menu.sale';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,7 +37,8 @@ export class SidebarComponent implements OnInit {
     private router: Router, 
     public translate: TranslateService, 
     private authService: AuthenticationService,
-    private customerService: CustomerService) {
+    private customerService: CustomerService,
+    private userService: UserService) {
     
     translate.setDefaultLang('en');
     router.events.forEach((event) => {
@@ -51,7 +55,18 @@ export class SidebarComponent implements OnInit {
       if (cust) {
         this.menuItems = CUST_MENU
       } else {
-        this.menuItems = MENU
+        this.userService.getUser(this.currentUser.uid).subscribe(user => {
+          console.log("user xxx: ", user)
+          if (user && user.typeUser === 'ฝ่ายซ่อมบำรุง') {
+            this.menuItems = MENU_SERVICE
+          } else if (user && user.typeUser === 'ฝ่ายขาย') {
+            this.menuItems = MENU_SALE
+          } else if (user && user.typeUser === 'ฝ่ายบัญชี') {
+            this.menuItems = MENU
+          } else {
+            this.menuItems = MENU
+          }
+        })
       }
     })
     

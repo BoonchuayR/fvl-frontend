@@ -109,7 +109,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let user of displayUsers">
                 <th>{{ user.typeUser || "ลูกค้า" }}</th>
                 <th>{{ user.displayName || user.custName }}</th>
                 <td>{{ user.email }}</td>
@@ -130,7 +130,6 @@
           <table class="table table-striped mb-0">
             <thead>
               <tr>
-                <th>#</th>
                 <th>ชื่อร้าน</th>
                 <th>ผู้ติดต่อ</th>
                 <th>เลขแผง</th>
@@ -139,7 +138,6 @@
             </thead>
             <tbody>
               <tr *ngFor="let shop of shops">
-                <th scope="row">2</th>
                 <td>{{ shop.boothName }}</td>
                 <td>{{ shop.custName }}</td>
                 <td>{{ shop.boothCode }}</td>

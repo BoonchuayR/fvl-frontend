@@ -92,13 +92,6 @@ export class ProfileViewComponent implements OnInit {
     // Get shops of customer
     this.shopService.getAll().subscribe((shops) => {
       this.meterService.getAll().subscribe((allMeters) => {
-        // const shopMeters = shops
-        //   .filter((s: any) => {
-        //     return s.uid === this.currentUser.uid;
-        //   })
-        //   .map((s) => {
-        //     return s.SLAVE_ID;
-        //   });
 
         this.shops = shops.filter((s: any) => {
           return s.uid === this.currentUser.uid;
@@ -217,10 +210,10 @@ export class ProfileViewComponent implements OnInit {
 
     const series = [
       {
-          name: 'เติมเงิน',
-          type: 'column',
-          data: filteredTopUpMonth.map(t => {return t.topUp})
-          // data: [10,20]
+        name: 'เติมเงิน',
+        type: 'column',
+        data: filteredTopUpMonth.map(t => {return t.topUp})
+        // data: [10,20]
       },
       {
         name: 'เติมเงิน',
@@ -229,21 +222,7 @@ export class ProfileViewComponent implements OnInit {
     }
     ]
 
-    // const series = [
-    //   {
-    //     name: 'ค่าไฟ',
-    //     type: 'column',
-    //     data: [23, 11, 22, 27, 13, 22]
-    //   } , 
-    //   {
-    //     name: 'เติมเงิน',
-    //     type: 'column',
-    //     data: [19, 8, 26, 21, 18, 36]
-    //   }
-    // ]
-
     const labels = filteredTopUpMonth.map(t => {return t.month})
-    // const labels = ['jan', 'feb']
     this.topUpAndChargeBarChart  = {
       chart: {
           height: 338,
@@ -266,47 +245,47 @@ export class ProfileViewComponent implements OnInit {
       colors: ['#2cb57e', '#f1b44c'],
       series: series,
       fill: {
-          opacity: [0.85, 1, 0.25, 1],
-          gradient: {
-              inverseColors: false,
-              shade: 'light',
-              type: "vertical",
-              opacityFrom: 0.85,
-              opacityTo: 0.55,
-              stops: [0, 100, 100, 100]
-          }
+        opacity: [0.85, 1, 0.25, 1],
+        gradient: {
+            inverseColors: false,
+            shade: 'light',
+            type: "vertical",
+            opacityFrom: 0.85,
+            opacityTo: 0.55,
+            stops: [0, 100, 100, 100]
+        }
       },
       labels: labels,
       markers: {
-          size: 0
+        size: 0
       },
   
       xaxis: {
-          type: "string"
+        type: "string"
       },
       yaxis: {
-          title: {
-              text: 'จำนวนเงิน',
-          },
+        title: {
+          text: 'จำนวนเงิน',
+        },
       },
       tooltip: {
-          shared: true,
-          intersect: false,
-          y: {
-              formatter: function (y: any) {
-                  if (typeof y !== "undefined") {
-                      return y.toFixed(0) + " points";
-                  }
-                  return y;
-  
-              }
-          }
+        shared: true,
+        intersect: false,
+        y: {
+            formatter: function (y: any) {
+                if (typeof y !== "undefined") {
+                    return y.toFixed(0) + " points";
+                }
+                return y;
+
+            }
+        }
       },
       grid: {
-          borderColor: '#f1f1f1',
-          padding: {
-              bottom: 15
-          }
+        borderColor: '#f1f1f1',
+        padding: {
+            bottom: 15
+        }
       }
   };
   }
@@ -434,25 +413,6 @@ export class ProfileViewComponent implements OnInit {
 
   printPage() {
     window.print();
-  }
-
-  /**
-   * Confirm sweet alert
-   * @param confirm modal content
-   */
-  confirmPrint(topup: any) {
-    this.printTopup = topup
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      this.printPage()
-    });
   }
   
 }
