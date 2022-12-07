@@ -4,5 +4,6 @@ export class Topup {
   status?: string;
   statusName?: string;
   uid?: string;
+  custName?: string;
   createdAt?: string;
 }

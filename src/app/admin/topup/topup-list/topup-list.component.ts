@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Topup } from 'src/app/core/models/topup.model';
 import { TopupService } from 'src/app/service/topup.service';
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,7 @@ export class TopupListComponent implements OnInit {
   ngOnInit(): void {
     this.topupService.getAll().subscribe(topups => {
       this.topups = topups;
+      console.log("topups: ", this.topups)
     })
   }
 
@@ -64,7 +66,29 @@ export class TopupListComponent implements OnInit {
 * Open scroll modal
 * @param staticDataModal scroll modal data
 */
-printModal(print: any) {
-  this.modalService.open(print, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
-}
+  printModal(print: any) {
+    this.modalService.open(print, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
+  }
+
+  dowloadCsv() {
+    console.log("download csv...")
+    // const rows = [
+    //   ["name1", "city1", "some other info"],
+    //   ["name2", "city2", "more info"]
+    // ];
+
+    const rows = this.topups.map((tu: Topup) => {
+      return [tu.createdAt, tu.custName || " ", tu.topupMoney, tu.statusName]
+    })
+  
+    let csvContent = "data:text/csv;charset=utf-8,";
+    
+    rows.forEach(function(rowArray: any) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+  }
 }

@@ -346,6 +346,7 @@ export class ProfileViewComponent implements OnInit {
     this.topup.statusName = "รอชำระ";
     this.topup.topupMoney = this.topupMoney;
     this.topup.createdAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    this.topup.custName = this.customer.custName;
     this.topupService.create({ ...this.topup }).then((res) => {
       // Update customer's current money
       this.customer.currentMoney =
