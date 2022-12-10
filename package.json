@@ -43,6 +43,7 @@
     "apexcharts": "^3.26.2",
     "bootstrap": "^5.1.1",
     "firebase": "^8.10.1",
+    "firebase-functions": "^4.1.0",
     "firebase-tools": "^11.16.1",
     "flatpickr": "^4.6.9",
     "i": "^0.3.7",

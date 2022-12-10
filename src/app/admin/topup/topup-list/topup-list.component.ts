@@ -71,11 +71,6 @@ export class TopupListComponent implements OnInit {
   }
 
   dowloadCsv() {
-    console.log("download csv...")
-    // const rows = [
-    //   ["name1", "city1", "some other info"],
-    //   ["name2", "city2", "more info"]
-    // ];
 
     const rows = this.topups.map((tu: Topup) => {
       return [tu.createdAt, tu.custName || " ", tu.topupMoney, tu.statusName]
