@@ -130,6 +130,11 @@ export class CustomerAddComponent implements OnInit {
       } else {
         return 1;
       }
+    }).filter((m:any) => {
+      if (m.storeId) {
+        return true;
+      }
+      return false
     });
 
     for (let i = 0; i < sortedMeters.length; i++) {
@@ -148,11 +153,11 @@ export class CustomerAddComponent implements OnInit {
           })
           .map((m: any) => {
             return {
-              value: m.meterSlaveId,
-              label: m.meterSlaveId,
-              data: { name: m.meterSlaveId },
+              value: m.storeId,
+              label: m.storeId,
+              data: { name: m.storeId },
               templateId: "template1",
-              id: m.meterSlaveId,
+              id: m.storeId,
             };
           }),
       };
@@ -310,7 +315,7 @@ export class CustomerAddComponent implements OnInit {
       boothCate: ["", [Validators.required]],
       contractDate: ["", [Validators.required]],
       contractEndDate: ["", [Validators.required]],
-      SLAVE_ID: ["", [Validators.required]],
+      storeId: ["", [Validators.required]],
     });
   }
 
@@ -377,59 +382,5 @@ export class CustomerAddComponent implements OnInit {
     count = value ? value.length : 0;
     return count;
   }
-
-  // buildFormContents() {
-  //   const control = <FormArray>this.itemShopForm.controls["items"];
-  //   let contetns_key = 1;
-  //   if (this.qna.cardMessageTemplate == "C2") contetns_key = 2;
-  //   let contacs_array = Array.from(new Array(contetns_key), (x, i) => i + 1);
-  //   control.controls.forEach(async (i, k) => {
-  //     let content = i.get("contents") as FormArray;
-  //     //remove all
-  //     if (content.controls.length != contetns_key) {
-  //       content.clear();
-  //     }
-
-  //     //new push
-  //     if (content.controls.length != contetns_key) {
-  //       await Promise.all(
-  //         contacs_array.map((e) => {
-  //           content.push(this.createItemContent());
-  //           return e;
-  //         })
-  //       );
-  //     }
-
-  //     //reset validation
-  //     if (this.qna.cardMessageTemplate == "C3") {
-  //       let field = [
-  //         {
-  //           slug: "title",
-  //           type: "clear",
-  //           reset: true,
-  //         },
-  //         {
-  //           slug: "desc",
-  //           type: "clear",
-  //           reset: true,
-  //         },
-  //       ];
-  //       this.upsertValidate(field, i as FormArray);
-  //     } else {
-  //       let field = [
-  //         {
-  //           slug: "title",
-  //           type: "add",
-  //           reset: false,
-  //         },
-  //         {
-  //           slug: "desc",
-  //           type: "add",
-  //           reset: false,
-  //         },
-  //       ];
-  //       this.upsertValidate(field, i as FormArray);
-  //     }
-  //   });
-  // }
+  
 }
