@@ -1,19 +1,21 @@
 export class Meter {
   id?: string;
   zone?: string;
-  deviceId?: string;
-  constractId?: string;
+  storeId?: string;
   deviceZone?: string;
-  meterSlaveId?: string;
+  deviceId?: string;
   serialNo?: string;
+  slaveId?: string;
+  modelSpec?: string; 
   lineVoltage?: string;
   lineFrequency?: string;
   lineCurrent?: string;
   activePower?: string;
   activeEnergy?: string;
-  modelSpec?: string;
-  updateDatetime?: string;
+  contractId?: string;
+  lastActiveEnergy?: string;
   meterState?: string;
+  updateDatetime?: string;
   updateStateDatetime?: string;
   meterStateAdmin?: string;
   updateStateAdminDatetime?: string;

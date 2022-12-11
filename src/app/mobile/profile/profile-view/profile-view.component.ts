@@ -104,7 +104,7 @@ export class ProfileViewComponent implements OnInit {
         for (let i = 0; i < shopMeters.length; i++) {
           for (let j = 0; j < shopMeters[i].length; j++) {
             const filteredMeters = allMeters.filter((am) => {
-              return am.meterSlaveId === shopMeters[i][j];
+              return am.slaveId === shopMeters[i][j];
             });
             this.meters.push(...filteredMeters);
           }
