@@ -87,24 +87,6 @@
                             />
                           </div>
                           <div class="font-size-12 mb-3">
-                            <label class="form-label">อีเมล</label>
-                            <input
-                              class="form-control"
-                              formControlName="email"
-                              type="text"
-                              placeholder="ระบุอีเมล"
-                            />
-                          </div>
-                          <div class="font-size-12 mb-3">
-                            <label class="form-label">พาสเวิร์ด</label>
-                            <input
-                              class="form-control"
-                              formControlName="password"
-                              type="password"
-                              placeholder="ระบุพาสเวิร์ด"
-                            />
-                          </div>
-                          <div class="font-size-12 mb-3">
                             <label class="form-label">เบอร์โทรศัพท์</label>
                             <input
                               class="form-control"
@@ -294,7 +276,7 @@
                                         >
                                         <select2
                                           class=""
-                                          formControlName="SLAVE_ID"
+                                          formControlName="storeId"
                                           placeholder="เลือกมิเตอร์"
                                           type="text"
                                           [data]="meterOptions"
@@ -368,9 +350,3 @@
     </div>
   </div>
 </div>
-<!-- end row -->
-<!--   
-    <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
-    <div class="preview-action" [class.show]="show_preview">
-      <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
-    </div> -->

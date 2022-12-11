@@ -158,11 +158,11 @@ export class CustomerEditComponent implements OnInit {
           })
           .map((m: any) => {
             return {
-              value: m.meterSlaveId,
-              label: m.meterSlaveId,
-              data: { name: m.meterSlaveId },
+              value: m.storeId,
+              label: m.storeId,
+              data: { name: m.storeId },
               templateId: "template1",
-              id: m.meterSlaveId,
+              id: m.storeId,
             };
           }),
       };
@@ -199,7 +199,7 @@ export class CustomerEditComponent implements OnInit {
             shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
             shopForm.get("contractNo")?.setValue(shop.contractNo);
             shopForm.get("custName")?.setValue(shop.custName);
-            shopForm.get("SLAVE_ID")?.setValue(shop.SLAVE_ID);
+            shopForm.get("storeId")?.setValue(shop.storeId);
             control.push(shopForm);
             this.item_collapsed.push(true);
             // this.buildFormContents();
@@ -231,45 +231,19 @@ export class CustomerEditComponent implements OnInit {
   }
 
   formSubmit() {
+    const customer = this.validationform.value;
+    console.log("customer: ", customer);
+    return;
     // Add customer
-    const {
-      email,
-      password,
-      custCode,
-      custName,
-      custPhone,
-      custStartDate,
-      minimumMoney,
-    } = this.validationform.value;
-
-    this.authService.register(email, password).subscribe(
-      (creden) => {
-        const customer = {
-          uid: creden.user.uid,
-          email: creden.user.email,
-          custCode: custCode,
-          custName: custName,
-          custPhone: custPhone,
-          custStartDate: custStartDate,
-          minimumMoney: minimumMoney,
-          currentMoney: 0,
-        };
-
-        // Add customer
-        this.addCustomer(customer).subscribe((cust) => {
-          // Add shops
-          const shopItems: FormArray = this.itemShopForm.get(
-            "items"
-          ) as FormArray;
-          shopItems.value.forEach((shop: any) => {
-            this.shopService.create(shop);
-          });
-        });
-      },
-      (error) => {
-        console.log("error: ", error);
-      }
-    );
+    this.addCustomer(customer).subscribe((cust) => {
+      // Add shops
+      const shopItems: FormArray = this.itemShopForm.get(
+        "items"
+      ) as FormArray;
+      shopItems.value.forEach((shop: any) => {
+        this.shopService.create(shop);
+      });
+    });
     
     Swal.fire({
       position: "top-end",
@@ -312,7 +286,7 @@ export class CustomerEditComponent implements OnInit {
       boothCate: ["", [Validators.required]],
       contractDate: ["", [Validators.required]],
       contractEndDate: ["", [Validators.required]],
-      SLAVE_ID: ["", [Validators.required]],
+      storeId: ["", [Validators.required]],
     });
   }
 
@@ -379,59 +353,4 @@ export class CustomerEditComponent implements OnInit {
     count = value ? value.length : 0;
     return count;
   }
-
-  // buildFormContents() {
-  //   const control = <FormArray>this.itemShopForm.controls["items"];
-  //   let contetns_key = 1;
-  //   if (this.qna.cardMessageTemplate == "C2") contetns_key = 2;
-  //   let contacs_array = Array.from(new Array(contetns_key), (x, i) => i + 1);
-  //   control.controls.forEach(async (i, k) => {
-  //     let content = i.get("contents") as FormArray;
-  //     //remove all
-  //     if (content.controls.length != contetns_key) {
-  //       content.clear();
-  //     }
-
-  //     //new push
-  //     if (content.controls.length != contetns_key) {
-  //       await Promise.all(
-  //         contacs_array.map((e) => {
-  //           content.push(this.createItemContent());
-  //           return e;
-  //         })
-  //       );
-  //     }
-
-  //     //reset validation
-  //     if (this.qna.cardMessageTemplate == "C3") {
-  //       let field = [
-  //         {
-  //           slug: "title",
-  //           type: "clear",
-  //           reset: true,
-  //         },
-  //         {
-  //           slug: "desc",
-  //           type: "clear",
-  //           reset: true,
-  //         },
-  //       ];
-  //       this.upsertValidate(field, i as FormArray);
-  //     } else {
-  //       let field = [
-  //         {
-  //           slug: "title",
-  //           type: "add",
-  //           reset: false,
-  //         },
-  //         {
-  //           slug: "desc",
-  //           type: "add",
-  //           reset: false,
-  //         },
-  //       ];
-  //       this.upsertValidate(field, i as FormArray);
-  //     }
-  //   });
-  // }
 }

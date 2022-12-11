@@ -24,7 +24,7 @@ interface Shop {
   boothCate: string;
   contractDate: string;
   contractEndDate: string;
-  SLAVE_ID: [string];
+  storeId: [string];
   uid: string;
 }
 
