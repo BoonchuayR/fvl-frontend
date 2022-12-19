@@ -23,10 +23,11 @@ import { MeterService } from "src/app/service/meter.service";
 export class CustomerEditComponent implements OnInit {
   uId: any;
   customer: any;
+  shops: any;
   submit!: boolean;
   validationform = this.formBuilder.group({
     email: ["", [Validators.required]],
-    password: ["", Validators.required],
+    // password: ["", Validators.required],
     custCode: ["", [Validators.required]],
     custName: ["", [Validators.required]],
     custPhone: ["", [Validators.required]],
@@ -174,7 +175,7 @@ export class CustomerEditComponent implements OnInit {
     this.custCode?.setValue(this.customer.custCode);
     this.custName?.setValue(this.customer.custName);
     this.email?.setValue(this.customer.email);
-    this.password?.setValue(this.customer.password);
+    // this.password?.setValue(this.customer.password);
     this.custPhone?.setValue(this.customer.custPhone);
     this.custStartDate?.setValue(this.customer.custStartDate);
     this.minimumMoney?.setValue(this.customer.minimumMoney);
@@ -184,36 +185,41 @@ export class CustomerEditComponent implements OnInit {
     this.shopService.getAll().subscribe((shops) => {
       const control = <FormArray>this.itemShopForm.controls["items"];
       control.removeAt(0);
-      shops
+      
+      this.shops = shops
         .filter((shop) => {
           return shop.uid === this.uId;
-        })
-        .forEach((shop) => {
-          if (control.controls.length < 20) {
-            const shopForm = this.createItem();
-            shopForm.get("boothCode")?.setValue(shop.boothCode);
-            shopForm.get("boothCate")?.setValue(shop.boothCate);
-            shopForm.get("boothName")?.setValue(shop.boothName);
-            shopForm.get("boothZone")?.setValue(shop.boothZone);
-            shopForm.get("contractDate")?.setValue(shop.contractDate);
-            shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
-            shopForm.get("contractNo")?.setValue(shop.contractNo);
-            shopForm.get("custName")?.setValue(shop.custName);
-            shopForm.get("storeId")?.setValue(shop.storeId);
-            control.push(shopForm);
-            this.item_collapsed.push(true);
-            // this.buildFormContents();
-          }
         });
+      
+      this.shops.forEach((shop:any) => {
+        // console.log("shop: ", shop);
+        if (control.controls.length < 20) {
+          const shopForm = this.createItem();
+          shopForm.get("id")?.setValue(shop.id);
+          shopForm.get("uid")?.setValue(shop.uid);
+          shopForm.get("boothCode")?.setValue(shop.boothCode);
+          shopForm.get("boothCate")?.setValue(shop.boothCate);
+          shopForm.get("boothName")?.setValue(shop.boothName);
+          shopForm.get("boothZone")?.setValue(shop.boothZone);
+          shopForm.get("contractDate")?.setValue(shop.contractDate);
+          shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
+          shopForm.get("contractNo")?.setValue(shop.contractNo);
+          shopForm.get("custName")?.setValue(shop.custName);
+          shopForm.get("storeId")?.setValue(shop.storeId);
+          control.push(shopForm);
+          this.item_collapsed.push(true);
+          // this.buildFormContents();
+        }
+      });
     });
   }
 
   get email() {
     return this.validationform.get("email");
   }
-  get password() {
-    return this.validationform.get("password");
-  }
+  // get password() {
+  //   return this.validationform.get("password");
+  // }
   get custCode() {
     return this.validationform.get("custCode");
   }
@@ -231,8 +237,33 @@ export class CustomerEditComponent implements OnInit {
   }
 
   formSubmit() {
-    const customer = this.validationform.value;
-    console.log("customer: ", customer);
+    const customer = {uid: this.customer.uid, ...this.validationform.value};
+    // console.log("customer: ", customer);
+
+    this.customerService.update(customer).then(res => {
+      const shopItems: FormArray = this.itemShopForm.get(
+        "items"
+      ) as FormArray;
+      shopItems.value.forEach((shop: any) => {
+        // console.log("shop: ", shop);
+        this.shopService.update(shop).then(res => {
+          
+        }).catch(err => {
+          console.log("err: ", err)
+        });
+      });
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+
+    }).catch(err => {
+      console.log("err: ", err)
+    })
     return;
     // Add customer
     this.addCustomer(customer).subscribe((cust) => {
@@ -243,14 +274,6 @@ export class CustomerEditComponent implements OnInit {
       shopItems.value.forEach((shop: any) => {
         this.shopService.create(shop);
       });
-    });
-    
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
-      showConfirmButton: false,
-      timer: 3000,
     });
 
   }
@@ -278,6 +301,8 @@ export class CustomerEditComponent implements OnInit {
 
   createItem(item: any = {}) {
     return this.formBuilder.group({
+      id: ["", [Validators.required]],
+      uid: ["", [Validators.required]],
       boothCode: ["", [Validators.required]],
       contractNo: ["", [Validators.required]],
       custName: ["", [Validators.required]],
