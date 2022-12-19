@@ -91,7 +91,7 @@ const routes: Routes = [
     component: MeterDashboardComponent
   },
   {
-    path: 'meter-list',
+    path: 'meter-list/:zone',
     component: MeterListComponent
   },
   {

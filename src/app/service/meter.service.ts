@@ -10,7 +10,9 @@ import {
   docData,
   DocumentData,
   Firestore,
+  query,
   updateDoc,
+  where,
 } from "@angular/fire/firestore";
 import { Meter } from "../core/models/meter.model";
 
@@ -52,5 +54,15 @@ export class MeterService {
   modifyState(id: string, state: string) {
     const meterDocRef = doc(this.firestore, `meter/${id}`);
     return updateDoc(meterDocRef, { meterState: state });
+  }
+
+  findMeterByZone(zone: string) {
+    
+    const q = query(this.meterCollection, where("zone", "==", zone));
+    
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Meter[]>;
+    
   }
 }

@@ -278,7 +278,7 @@ export class ProfileViewComponent implements OnInit {
         y: {
             formatter: function (y: any) {
                 if (typeof y !== "undefined") {
-                    return y.toFixed(0) + " points";
+                    return y.toFixed(0) + " บาท";
                 }
                 return y;
 

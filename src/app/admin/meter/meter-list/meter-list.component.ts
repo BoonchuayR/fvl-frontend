@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MeterService } from 'src/app/service/meter.service';
 import Swal from 'sweetalert2';
 
@@ -10,10 +11,18 @@ import Swal from 'sweetalert2';
 export class MeterListComponent implements OnInit {
   meters!: any
 
-  constructor(private meterService: MeterService) { }
+  constructor(
+    private meterService: MeterService,
+    private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.meterService.getAll().subscribe(meters => {
+    // this.meterService.getAll().subscribe(meters => {
+    //   this.meters = meters;
+    // })
+    
+    const zone = this.route.snapshot.params["zone"];
+
+    this.meterService.findMeterByZone(zone).subscribe(meters => {
       this.meters = meters;
     })
   }
