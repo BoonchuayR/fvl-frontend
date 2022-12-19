@@ -264,18 +264,6 @@ export class CustomerEditComponent implements OnInit {
     }).catch(err => {
       console.log("err: ", err)
     })
-    return;
-    // Add customer
-    this.addCustomer(customer).subscribe((cust) => {
-      // Add shops
-      const shopItems: FormArray = this.itemShopForm.get(
-        "items"
-      ) as FormArray;
-      shopItems.value.forEach((shop: any) => {
-        this.shopService.create(shop);
-      });
-    });
-
   }
 
   addShops() {
