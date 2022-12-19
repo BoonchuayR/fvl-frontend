@@ -12,24 +12,24 @@ export const MENU_ADMIN: MenuItem[] = [
         icon: 'bx bx-home-circle',
         link: '',
     },
-    {
-        id: 3,
-        label: 'ผู้ใชังาน',
-        icon: 'bx bx-user',
-        link: '/user-list',
-    },
-    {
-        id: 4,
-        label: 'ลูกค้า',
-        icon: 'bx bx-cool',
-        link: '/customer-list',
-    },
-    {
-        id: 5,
-        label: 'ร้านค้า',
-        icon: 'bx bxs-store',
-        link: '/shop-list',
-    },
+    // {
+    //     id: 3,
+    //     label: 'ผู้ใชังาน',
+    //     icon: 'bx bx-user',
+    //     link: '/user-list',
+    // },
+    // {
+    //     id: 4,
+    //     label: 'ลูกค้า',
+    //     icon: 'bx bx-cool',
+    //     link: '/customer-list',
+    // },
+    // {
+    //     id: 5,
+    //     label: 'ร้านค้า',
+    //     icon: 'bx bxs-store',
+    //     link: '/shop-list',
+    // },
     {
         id: 6,
         label: 'มิเตอร์ไฟฟ้า',
@@ -42,12 +42,12 @@ export const MENU_ADMIN: MenuItem[] = [
         icon: 'bx bx-money',
         link: '/topup-list',
     },
-    {
-        id: 8,
-        label: 'แจ้งซ่อม',
-        icon: 'bx bx-wrench',
-        link: '/ticket-list',
-    },
+    // {
+    //     id: 8,
+    //     label: 'แจ้งซ่อม',
+    //     icon: 'bx bx-wrench',
+    //     link: '/ticket-list',
+    // },
     // {
     //     id: 8,
     //     label: 'แจ้งเตือน',

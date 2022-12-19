@@ -97,14 +97,18 @@ export class ProfileViewComponent implements OnInit {
           return s.uid === this.currentUser.uid;
         });
 
+        // console.log("shops: ", shops)
+
         const shopMeters = this.shops.map((s: any) => {
-          return s.SLAVE_ID;
+          return s.storeId;
         });
+
+        // console.log("shopMeters: ", shopMeters)
 
         for (let i = 0; i < shopMeters.length; i++) {
           for (let j = 0; j < shopMeters[i].length; j++) {
             const filteredMeters = allMeters.filter((am) => {
-              return am.slaveId === shopMeters[i][j];
+              return am.storeId === shopMeters[i][j];
             });
             this.meters.push(...filteredMeters);
           }
