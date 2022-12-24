@@ -42,16 +42,27 @@ export class IotService {
     return this.http.post(BASE_API, bodyReq);
   }
 
-  meterUpdateState(serialNo: string, state: number) {
-    console.log("serialNo: ", serialNo);
+  meterUpdateState(storeId: string, state: string) {
+    console.log("serialNo: ", storeId);
     console.log("state: ", state);
+    // const bodyReq = {
+    //   CMD_TYPE: "METER_UPDATE_STATE",
+    //   USER_ID: "1",
+    //   USER_TOKEN: "ff15d1de48d17581834cd05f5c1b9caf",
+    //   SERIAL_NO: serialNo,
+    //   METER_STATE_VALUE: state,
+    // };
+
     const bodyReq = {
-      CMD_TYPE: "METER_UPDATE_STATE",
-      USER_ID: "1",
-      USER_TOKEN: "ff15d1de48d17581834cd05f5c1b9caf",
-      SERIAL_NO: serialNo,
-      METER_STATE_VALUE: state,
-    };
+      CMD_TYPE: "METER_UPDATE", 
+      CMD_TOKEN: "KANT_IOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303", 
+      STORE_ID:[storeId],
+      CMD_PARAMS:[
+          {
+              "METER_STATE": state
+          }
+      ]
+    }
     return this.http.post(BASE_API, bodyReq);
   }
 }

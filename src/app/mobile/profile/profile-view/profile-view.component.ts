@@ -15,6 +15,7 @@ import { MeterService } from "src/app/service/meter.service";
 import { IotService } from "src/app/service/iot.service";
 import { Meter } from "src/app/core/models/meter.model";
 import { Router } from "@angular/router";
+import { ElectricityService } from "src/app/service/electricity.service";
 
 @Component({
   selector: "app-profile-view",
@@ -45,6 +46,8 @@ export class ProfileViewComponent implements OnInit {
   shops: any = [];
   meterState: any;
 
+  electricityList: any = [];
+
   printTopup = {};
 
   @ViewChild("content") content: any;
@@ -58,6 +61,7 @@ export class ProfileViewComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private iotService: IotService,
+    private electricityService: ElectricityService
   ) {}
 
   ngOnInit(): void {
@@ -107,10 +111,17 @@ export class ProfileViewComponent implements OnInit {
 
         for (let i = 0; i < shopMeters.length; i++) {
           for (let j = 0; j < shopMeters[i].length; j++) {
-            const filteredMeters = allMeters.filter((am) => {
+            const filteredMeters: any = allMeters.filter((am) => {
               return am.storeId === shopMeters[i][j];
             });
             this.meters.push(...filteredMeters);
+
+            for(let k = 0; k < filteredMeters.length; k++) {
+                this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
+                  this.electricityList.push(...eltList);
+                  console.log("this.electricityList: ", this.electricityList);
+                })
+            }
           }
         }
       });
@@ -402,22 +413,47 @@ export class ProfileViewComponent implements OnInit {
       });
   }
 
-  changMeterState(event: any, serialNo: any, id: string) {
+  changMeterState(event: any, storeId: any, id: any, meter: any) {
     const isChecked = event.target.checked;
-    const state = isChecked ? 1 : 0;
-    this.iotService.meterUpdateState(serialNo, state).subscribe((res) => {
+    Swal.fire({
+      title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
+      text: "คุณต้องการลบข้อมูลมิเตอร์นี้ใช่หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'ใช่, ต้องการ!',
+      cancelButtonText: 'ไม่, ยกเลิก!',
+    }).then((result) => {
+      console.log(id)
+      if (result.value) {
+        this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
+          console.log("meterUpdateState: ", res)
+          meter.meterState = isChecked ? "1" : "2"
+          this.meterService.update(meter).then(res => {
+
+          }).catch(err => {
+            console.log("error: ", id)
+          });
+        })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `${isChecked ? "เปิดมิเตอร์สำเร็จ":"ปิดมิเตอร์สำเร็จ"}`,
+          showConfirmButton: false,
+          timer: 3000
+        })
+        window.location.reload();
+      }
     });
-    // const meterState = [{ id: id, state: state }];
-    localStorage.clear();
-    localStorage.setItem("meterState", `${state}`);
   }
 
   setPrintTopup(topup: any) {
     this.printTopup = topup
   }
 
-  printPage() {
-    window.print();
-  }
+  // printPage() {
+  //   window.print();
+  // }
   
 }

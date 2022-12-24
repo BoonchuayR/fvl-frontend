@@ -10,7 +10,7 @@
           <div class="dropdown float-end" ngbDropdown>
             <a
               class="text-body dropdown-toggle font-size-18"
-              href="javascript: void(0);"
+            
               role="button"
               data-bs-toggle="dropdown"
               aria-haspopup="true"
@@ -19,7 +19,7 @@
               <i class="mdi mdi-dots-vertical"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-              <a class="dropdown-item" href="javascript: void(0);">แก้ไข</a>
+              <a class="dropdown-item">แก้ไข</a>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -127,7 +127,7 @@
                           }}</span>
                         </td>
                         <td *ngIf="0">
-                          <button (focus)="setPrintTopup(topup)" (click)="printPage()" class="btn btn-secondary me-2 waves-effect waves-light btn-sm"><i class="bx bx-dollar-circle"></i> พิมพ์</button>
+                          <button (focus)="setPrintTopup(topup)" class="btn btn-secondary me-2 waves-effect waves-light btn-sm"><i class="bx bx-dollar-circle"></i> พิมพ์</button>
                         </td>
                       </tr>
                     </tbody>
@@ -153,196 +153,32 @@
                   >
                     <thead>
                       <tr>
+                        <th scope="col">Store ID</th>
                         <th scope="col">รอบวัน</th>
                         <th scope="col">จำนวนหน่วย (kWh)</th>
                         <th scope="col">จำนวนเงิน</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr *ngFor="let item of electricityList">
                         <td>
                           <a href="javascript: void(0);" class="text-dark"
-                            >31 July 2022</a
+                            >{{item.storeId}}</a
                           >
                         </td>
                         <td>
                           <span class="badge badge-soft-primary font-size-12"
-                            >122</span
+                            >{{item.date}}</span
                           >
                         </td>
                         <td>
                           <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >30 July 2022</a
+                            >{{item.calculateUnit}}</span
                           >
                         </td>
                         <td>
                           <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >29 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >28 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >27 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >26 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >25 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >24 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >23 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >22 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >21 July 2022</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >122</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >894 บาท</span
+                            >{{item.charge}}</span
                           >
                         </td>
                       </tr>
@@ -367,14 +203,18 @@
                   <table class="table table-nowrap table-hover mb-0">
                     <thead>
                       <tr>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">เลขเครื่อง</th>
-                        <th scope="col">เลขแผง</th>
-                        <th scope="col">ร้านค้า</th>
+                        <th scope="col">Store ID</th>
+                        <th scope="col">Device Zone</th>
+                        <th scope="col">Device ID</th>
+                        <th scope="col">Meter State</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let meter of meters">
+                        
+                        <td>{{ meter.storeId }}</td>
+                        <td>{{ meter.deviceZone }}</td>
+                        <td>{{ meter.deviceId }}</td>
                         <td>
                           <div
                             class="form-check form-switch form-switch-lg mb-lg-3"
@@ -388,24 +228,13 @@
                               (change)="
                                 changMeterState(
                                   $event,
-                                  meter.serialNo,
-                                  meter.id
+                                  meter.storeId,
+                                  meter.id,
+                                  meter
                                 )
                               "
                             />
                           </div>
-                        </td>
-                        <td>{{ meter.meterSlaveId }}</td>
-                        <td>{{ meterState }}</td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark">{{
-                            meter.serialNo
-                          }}</a>
-                        </td>
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark">{{
-                            meter.deviceZone
-                          }}</a>
                         </td>
                       </tr>
                     </tbody>
@@ -627,5 +456,5 @@
   </ng-template>
 </div>
 
-<app-print-page [printTopup]="printTopup"></app-print-page>
+<!-- <app-print-page [printTopup]="printTopup"></app-print-page> -->
 <!-- end row -->

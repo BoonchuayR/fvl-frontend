@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IotService } from 'src/app/service/iot.service';
 import { MeterService } from 'src/app/service/meter.service';
 import Swal from 'sweetalert2';
 
@@ -13,6 +14,7 @@ export class MeterListComponent implements OnInit {
 
   constructor(
     private meterService: MeterService,
+    private iotService: IotService,
     private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -51,6 +53,40 @@ export class MeterListComponent implements OnInit {
           position: 'top-end',
           icon: 'success',
           title: 'ลบข้อมูลมิเตอร์เรียบร้อย',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+  }
+
+  changMeterState(event: any, storeId: any, id: any, meter: any) {
+    const isChecked = event.target.checked;
+    Swal.fire({
+      title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
+      text: "คุณต้องการลบข้อมูลมิเตอร์นี้ใช่หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'ใช่, ต้องการ!',
+      cancelButtonText: 'ไม่, ยกเลิก!',
+    }).then((result) => {
+      console.log(id)
+      if (result.value) {
+        this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
+          console.log("meterUpdateState: ", res)
+          meter.meterState = isChecked ? "1" : "2"
+          this.meterService.update(meter).then(res => {
+
+          }).catch(err => {
+            console.log("error: ", id)
+          });
+        })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `${isChecked ? "เปิดมิเตอร์สำเร็จ":"ปิดมิเตอร์สำเร็จ"}`,
           showConfirmButton: false,
           timer: 3000
         })
