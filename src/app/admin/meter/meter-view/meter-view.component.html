@@ -42,6 +42,13 @@
                         <div class="row text-center mb-2">
                             <h2 class="text-muted">รายละเอียดข้อมูลการทำงาน Meter แบบ Realtime</h2>
                             <h3 class="text-muted">รับค่าที่ส่งจาก API</h3>
+                            <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series"
+                                    [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors"
+                                    [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels"
+                                    [responsive]="linewithDataChart.responsive" [legend]="linewithDataChart.legend"
+                                    [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis"
+                                    [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
+                                </apx-chart>
                         </div>
                         <div class="button-items text-center">
                             <button type="button" class="btn btn-primary btn-lg" (click)="onBtnBackClicked()">ย้อนกลับ</button>

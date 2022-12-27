@@ -52,14 +52,6 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
         body: bodyReq,
         json: true,
       }).then((meters) => {
-        // console.log("meters: ", meters)
-        // console.log("Start...")
-        // db.collection('cities').add({
-        //     name: 'Tokyo',
-        //     country: 'Japan'
-        // }).then(res => {
-        //     console.log("res: ", res)
-        // });
 				const meterData = meters.DATA;
 				console.log("meterData: ", meterData);
         for (let i = 0; i < meterData.length; i++) {

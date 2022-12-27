@@ -65,4 +65,32 @@ export class IotService {
     }
     return this.http.post(BASE_API, bodyReq);
   }
+
+  meterReport(storeId: string): any {
+
+    const bodyReq = {
+      CMD_TYPE: "METER_REPORT",
+      USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
+      STORE_ID: [
+        storeId
+      ],
+      REPORT_TYPE: [
+        "DAILY"
+      ],
+      REPORT_DATATIME: {
+        DATATIME_BEGIN: "2022-01-01 00:00:00",
+        DATATIME_END: "2022-12-31 23:59:59"
+      },
+      CMD_PARAMS: [
+        "LINE_VOLTAGE",
+        "LINE_FREQUENCY",
+        "LINE_CURRENT",
+        "ACTIVE_POWER",
+        "ACTIVE_ENERGY",
+        "TIMESTAMP"
+      ]
+    }
+
+    return this.http.post(BASE_API, bodyReq);
+  }
 }
