@@ -114,12 +114,13 @@ export class ProfileViewComponent implements OnInit {
             const filteredMeters: any = allMeters.filter((am) => {
               return am.storeId === shopMeters[i][j];
             });
+
             this.meters.push(...filteredMeters);
 
             for(let k = 0; k < filteredMeters.length; k++) {
                 this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
                   this.electricityList.push(...eltList);
-                  console.log("this.electricityList: ", this.electricityList);
+                  // console.log("this.electricityList: ", this.electricityList);
                 })
             }
           }
@@ -431,19 +432,18 @@ export class ProfileViewComponent implements OnInit {
           console.log("meterUpdateState: ", res)
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(res => {
-
+            window.location.reload();
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: `${isChecked ? "เปิดมิเตอร์สำเร็จ":"ปิดมิเตอร์สำเร็จ"}`,
+              showConfirmButton: false,
+              timer: 3000
+            })
           }).catch(err => {
             console.log("error: ", id)
           });
         })
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: `${isChecked ? "เปิดมิเตอร์สำเร็จ":"ปิดมิเตอร์สำเร็จ"}`,
-          showConfirmButton: false,
-          timer: 3000
-        })
-        window.location.reload();
       }
     });
   }
