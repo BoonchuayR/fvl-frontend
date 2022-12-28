@@ -9,7 +9,7 @@ initializeApp();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
+exports.scheduledFunction = functions.pubsub.schedule("17 23 * * *")
     .timeZone("Asia/Bangkok")
     .onRun((context) => {
       console.info("This will be run every minute!");
@@ -46,15 +46,15 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
 				STORE_ID: ["*"]
       };
 
-      request({
+      return request({
         method: "POST",
         uri: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
         body: bodyReq,
         json: true,
       }).then((meters) => {
 				const meterData = meters.DATA;
-				console.log("meterData: ", meterData);
-        for (let i = 0; i < meterData.length; i++) {
+				// console.log("meterData: ", meterData);
+        for (let i = 0; i < 100; i++) {
           const electricity = {
             storeId: meterData[i].STORE_ID,
             date: moment().format("YYYY-MM-DD hh:mm:ss"),
@@ -64,7 +64,7 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
           };
 
 					db.collection('electricity').add(electricity).then(res => {
-							console.log("res: ", res)
+							// console.log("res: ", res)
 					});
 					
         }

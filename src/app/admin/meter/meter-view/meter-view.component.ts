@@ -53,13 +53,7 @@ export class MeterViewComponent implements OnInit {
       this.fetchData();
     })
     
-    this.linewithDataChart = linewithDataChart;
-    this.linewithDataChart.series = [
-      {
-        name: 'Line Voltage',
-        data: [220, 220],
-      }
-    ];
+    this.linewithDataChart = linewithDataChart; 
   }
 
   onBtnBackClicked(): void{
