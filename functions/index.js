@@ -9,7 +9,7 @@ initializeApp();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("17 23 * * *")
+exports.scheduledFunction = functions.pubsub.schedule("59 23 * * *")
     .timeZone("Asia/Bangkok")
     .onRun((context) => {
       console.info("This will be run every minute!");

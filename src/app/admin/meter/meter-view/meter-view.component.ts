@@ -83,8 +83,8 @@ export class MeterViewComponent implements OnInit {
       title: {
         text: 'Volt',
       },
-      min: 200,
-      max: 250,
+      min: 190,
+      max: 240,
     }
 
     // this.dashedLineChart = dashedLineChart;

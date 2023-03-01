@@ -10,7 +10,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./topup-list.component.scss']
 })
 export class TopupListComponent implements OnInit {
+  
   topups!: any
+  reportDate!: string
 
   constructor(
     private modalService: NgbModal,
@@ -71,11 +73,28 @@ export class TopupListComponent implements OnInit {
   }
 
   dowloadCsv() {
+    let startDate: string = "";
+    let endDate: string = "";
+    
+    if (this.reportDate) {
+      startDate = this.reportDate.substring(0,10);
+      endDate = this.reportDate.substring(this.reportDate.length - 10)
+    }
+    
+    let rows = this.topups.map((tu: Topup) => {
+      if (tu.createdAt! >= startDate && tu.createdAt! <= endDate) {
+        return [tu.createdAt, tu.custName || " ", tu.topupMoney, tu.statusName]
+      }
+      return;
+    });
 
-    const rows = this.topups.map((tu: Topup) => {
-      return [tu.createdAt, tu.custName || " ", tu.topupMoney, tu.statusName]
-    })
-  
+    rows = rows.filter((r:any) => {
+      if (r) {
+        return true;
+      }
+      return false;
+    });
+
     let csvContent = "data:text/csv;charset=utf-8,";
     
     rows.forEach(function(rowArray: any) {

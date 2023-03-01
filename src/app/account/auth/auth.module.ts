@@ -15,6 +15,7 @@ import { SteptwoverificationComponent } from "./steptwoverification/steptwoverif
 import { Login1Component } from "./login1/login1.component";
 import { Register1Component } from "./register1/register1.component";
 import { Recoverpwd1Component } from "./recoverpwd1/recoverpwd1.component";
+import { NgbAlertModule, NgbCarouselModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,9 @@ import { Recoverpwd1Component } from "./recoverpwd1/recoverpwd1.component";
     ReactiveFormsModule,
     FormsModule,
     NgOtpInputModule,
+    NgbToastModule,
+    NgbAlertModule,
+    NgbCarouselModule
   ],
 })
 export class AuthModule {}

@@ -44,13 +44,10 @@
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
-                                                <th>หมายเลข</th>
                                                 <th>วันที่</th>
-                                                <th>เรื่องแจ้ง</th>
+                                                <th>เรื่องแจ้ง</th>    
                                                 <th>รายละเอียด</th>
                                                 <th>ประเภท</th>
-                                                <th>ผู้รับแจ้ง</th>
-                                                <th>CURRENT_HANDLER</th>
                                                 <th>สถานะ</th>
                                                 <th>กำหนดเสร็จ</th>
                                                 <th>Action</th>
@@ -58,29 +55,26 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let ticket of ticket">
-                                                <th>{{ticket.TICKET_ID}}</th>
                                                 <th>{{ticket.CREATE_DATE}}</th>
                                                 <td>{{ticket.HEADLINE}}</td>
                                                 <td>{{ticket.DETAIL}}</td>
                                                 <th>{{ticket.CATEGORY}}</th>
-                                                <th>{{ticket.OPENER_USER_ID}}</th>
-                                                <td>{{ticket.CURRENT_HANDLER_USER_ID}}</td>
                                                 <td>{{ticket.STATUS}}</td>
                                                 <td>{{ticket.DUE_DATE}}</td>
                                                 <td>
                                                     <div class="button-items">
-                                                        <button type="button"
+                                                        <!-- <button type="button"
                                                             class="btn btn-action"
                                                             routerLink="/ticket/ticket-view/"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
+                                                        </button> -->
+                                                        <!-- <button type="button"
                                                             class="btn btn-action"
                                                             routerLink="/ticket-edit/{{ticket.id}}" 
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
-                                                        </button>
+                                                        </button> -->
                                                         <button type="button"
                                                             class="btn btn-action"
                                                             id="sa-warning">
