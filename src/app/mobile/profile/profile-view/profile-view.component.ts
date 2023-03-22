@@ -107,21 +107,23 @@ export class ProfileViewComponent implements OnInit {
           return s.storeId;
         });
 
-        // console.log("shopMeters: ", shopMeters)
+        console.log("shopMeters: ", shopMeters)
 
-        for (let i = 0; i < shopMeters.length; i++) {
-          for (let j = 0; j < shopMeters[i].length; j++) {
-            const filteredMeters: any = allMeters.filter((am) => {
-              return am.storeId === shopMeters[i][j];
-            });
-
-            this.meters.push(...filteredMeters);
-
-            for(let k = 0; k < filteredMeters.length; k++) {
-                this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
-                  this.electricityList.push(...eltList);
-                  // console.log("this.electricityList: ", this.electricityList);
-                })
+        if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
+          for (let i = 0; i < shopMeters.length; i++) {
+            for (let j = 0; j < shopMeters[i].length; j++) {
+              const filteredMeters: any = allMeters.filter((am) => {
+                return am.storeId === shopMeters[i][j];
+              });
+  
+              this.meters.push(...filteredMeters);
+  
+              for(let k = 0; k < filteredMeters.length; k++) {
+                  this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
+                    this.electricityList.push(...eltList);
+                    // console.log("this.electricityList: ", this.electricityList);
+                  })
+              }
             }
           }
         }

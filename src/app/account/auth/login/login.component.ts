@@ -96,30 +96,32 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid || !email || !password) {
       return;
     }
-    
+
     this.authenticationService
       .login(email, password)
-      .then((user) => {
+      .then(async (user) => {
         this.incorrectEmailOrPass = false;
         // Switch route role 
-        this.customerService.get(user.uid).subscribe(cust => {
-          console.log("cust >>> ", cust);
-          if (cust) {
-            this.router.navigate(["/mobile/profile-view"])
-          } else {
-            this.userService.getUser(user.uid).subscribe(u => {
-              if (u && u.typeUser === 'ฝ่ายขาย') {
-                this.router.navigate(["/ticket-list"]);
-              } else if (u && u.typeUser === 'ฝ่ายบัญชี') {
-                this.router.navigate(["/"]);
-              } else if (u && u.typeUser === 'ฝ่ายซ่อมบำรุง') {
-                this.router.navigate(["/ticket-list"]);
-              } else {
-                this.router.navigate(["/"]);
-              }
-            })
-          }
-        })  
+       
+        const role = await this.userService.getRole(user.uid)
+        .then(res => res.json())
+        .then(function(res) {
+          const role = res.role;
+          return role;
+        });
+
+        if (role === 'customer') {
+          this.router.navigate(["/mobile/profile-view"]) 
+        } else if (role === 'sale') {
+          this.router.navigate(["/ticket-list"]);
+        } else if (role === 'account') {
+          this.router.navigate(["/"]);
+        } else if (role === 'service') {
+          this.router.navigate(["/ticket-list"]);
+        } else {
+          this.router.navigate(["/"]);
+        }
+           
       })
       .catch((err) => {
         console.log("err: ", err);

@@ -9,6 +9,13 @@ import { Router } from "@angular/router";
 import { IotService } from "src/app/service/iot.service";
 import { MeterService } from "src/app/service/meter.service";
 import Swal from "sweetalert2";
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+interface City {
+  country: string,
+  name: string
+};
 
 @Component({
   selector: "app-meter-add",
@@ -16,6 +23,9 @@ import Swal from "sweetalert2";
   styleUrls: ["./meter-add.component.scss"],
 })
 export class MeterAddComponent implements OnInit {
+
+  cities$: Observable<City[] | any>;
+
   // Form submition
   submit!: boolean;
   validationform!: FormGroup;
@@ -26,7 +36,13 @@ export class MeterAddComponent implements OnInit {
     private router: Router,
     private meterService: MeterService,
     private iotService: IotService,
-  ) {}
+    firestore: Firestore
+  ) {
+    const cities = collection(firestore, 'cities');
+    
+    this.cities$ = collectionData(cities);
+    
+  }
 
   ngOnInit(): void {
     this.validationform = this.formBuilder.group({
@@ -106,33 +122,39 @@ export class MeterAddComponent implements OnInit {
     });
   }
 
-  formSubmit() {
-    const meter = {
-      ...this.validationform.value,
-      lastActiveEnergy: this.validationform.get("activeEnergy")
-    }
-    console.log("meter: ", meter)
-    this.meterService.create(meter).then((res) => {
-      console.log("savedMeter: ", res);
-    });
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-  }
+  // formSubmit() {
+  //   const meter = {
+  //     ...this.validationform.value,
+  //     lastActiveEnergy: this.validationform.get("activeEnergy")
+  //   }
+  //   console.log("meter: ", meter)
+  //   this.meterService.create(meter).then((res) => {
+  //     console.log("savedMeter: ", res);
+  //   });
+  //   Swal.fire({
+  //     position: "top-end",
+  //     icon: "success",
+  //     title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+  //     showConfirmButton: false,
+  //     timer: 3000,
+  //   });
+  // }
 
   /**
    * Bootsrap validation form submit method
    */
-  validSubmit() {
+  addMeter() {
     this.submit = true;
     const meter = {
+      id: this.validationform.get("storeId")?.value,
       ...this.validationform.value,
       lastActiveEnergy: this.validationform.get("activeEnergy")?.value
     }
+
+    console.log("addMeter >>> ", meter)
+
+    // Check Duplicate Meter
+    
     this.meterService.create(meter).then((meter) => {
       Swal.fire({
         position: "top-end",
@@ -143,5 +165,14 @@ export class MeterAddComponent implements OnInit {
       });
       this.router.navigate(["/meter-dashboard"]);
     });
+  
   }
+
+    /**
+   * Basic sweet alert
+   * @param basicMessage modal content
+   */
+    dulicateMeterMessage() {
+      Swal.fire('ข้อมูลมิเตอร์ซ้ำ ไม่สามารถบันทึกได้');
+    }
 }

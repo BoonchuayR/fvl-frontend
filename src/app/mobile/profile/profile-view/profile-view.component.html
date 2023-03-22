@@ -49,10 +49,10 @@
             <!-- <h4 class="text-primary mb-2">เพชรฤทธิ์ ศรีวงศ์</h4> -->
             <h4 class="text-primary mb-2">{{ userFullName }}</h4>
             <div class="text-center mb-2">
-              <a
+              <a hidden
                 class="btn btn-warning me-2 waves-effect waves-light btn-sm"
                 (click)="topupModal(topup)"
-                ><i class="mdi mdi-email-outline me-1"></i>เติมเงิน</a
+                ><i class="mdi mdi-email-outline me-1" ></i>เติมเงิน </a
               >
               <!-- <a class="btn btn-danger waves-effect waves-light btn-sm" (click)="repairModal(repair)"><i
                                     class="mdi mdi-phone-outline me-1"></i>แจ้งไฟฟ้าขัดข้อง</a> -->
@@ -96,38 +96,46 @@
       >
         <li [ngbNavItem]="1">
           <a ngbNavLink>
-            <i class="bx bx-money font-size-20"></i>
-            <span class="d-none d-sm-block">เติมเงิน</span>
+            <i class="bx bxs-store font-size-20"></i>
+            <span class="d-none d-sm-block">ร้านค้า</span>
           </a>
           <ng-template ngbNavContent>
             <div>
               <div>
-                <h5 class="font-size-16 mb-4">รายการเติมเงิน</h5>
+                <h5 class="font-size-16 mb-4">รายการร้านค้า</h5>
                 <div class="table-responsive">
                   <table class="table table-nowrap table-hover mb-0">
                     <thead>
                       <tr>
-                        <th scope="col">วันที่</th>
-                        <th scope="col">จำนวน</th>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">ใบเสร็จ</th>
+                        <th scope="col">รหัสร้าน</th>
+                        <th scope="col">ชื่อร้าน</th>
+                        <th scope="col">เลขสัญญา</th>
+                        <th scope="col">โซน</th>
+                        <th scope="col">วันสิ้นสุดสัญญา</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let topup of topups">
-                        <td>{{ topup.createdAt }}</td>
+                      <tr *ngFor="let shop of shops">
+                        <td>{{ shop.boothCode }}</td>
                         <td>
                           <a href="javascript: void(0);" class="text-dark">{{
-                            topup.topupMoney | number
+                            shop.boothName
                           }}</a>
                         </td>
                         <td>
-                          <span class="badge badge-soft-primary font-size-12">{{
-                            topup.statusName
-                          }}</span>
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.contractNo
+                          }}</a>
                         </td>
-                        <td *ngIf="0">
-                          <button (focus)="setPrintTopup(topup)" class="btn btn-secondary me-2 waves-effect waves-light btn-sm"><i class="bx bx-dollar-circle"></i> พิมพ์</button>
+                        <td>
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.boothZone
+                          }}</a>
+                        </td>
+                        <td>
+                          <a href="javascript: void(0);" class="text-dark">{{
+                            shop.contractEndDate
+                          }}</a>
                         </td>
                       </tr>
                     </tbody>
@@ -137,60 +145,8 @@
             </div>
           </ng-template>
         </li>
-
+        
         <li [ngbNavItem]="2">
-          <a ngbNavLink>
-            <i class="bx bx-bar-chart-alt-2 font-size-20"></i>
-            <span class="d-none d-sm-block">ประวัติการใช้ไฟฟ้า</span>
-          </a>
-          <ng-template ngbNavContent>
-            <div>
-              <div>
-                <h5 class="font-size-16 mb-4">ประวัติการใช้ไฟฟ้า</h5>
-                <div class="table-responsive">
-                  <table
-                    class="table table-nowrap table-hover mb-0 text-center"
-                  >
-                    <thead>
-                      <tr>
-                        <th scope="col">Store ID</th>
-                        <th scope="col">รอบวัน</th>
-                        <th scope="col">จำนวนหน่วย (kWh)</th>
-                        <th scope="col">จำนวนเงิน</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of electricityList">
-                        <td>
-                          <a href="javascript: void(0);" class="text-dark"
-                            >{{item.storeId}}</a
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >{{item.date}}</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >{{item.calculateUnit}}</span
-                          >
-                        </td>
-                        <td>
-                          <span class="badge badge-soft-primary font-size-12"
-                            >{{item.charge}}</span
-                          >
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </ng-template>
-        </li>
-
-        <li [ngbNavItem]="3">
           <a ngbNavLink>
             <i class="bx bx-bulb font-size-20"></i>
             <span class="d-none d-sm-block">มิเตอร์</span>
@@ -244,48 +200,92 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="4">
+
+        <li [ngbNavItem]="3">
           <a ngbNavLink>
-            <i class="bx bxs-store font-size-20"></i>
-            <span class="d-none d-sm-block">ร้านค้า</span>
+            <i class="bx bx-money font-size-20"></i>
+            <span class="d-none d-sm-block">ประวัติการเติมเงิน</span>
           </a>
           <ng-template ngbNavContent>
             <div>
               <div>
-                <h5 class="font-size-16 mb-4">รายการร้านค้า</h5>
+                <h5 class="font-size-16 mb-4">รายการเติมเงิน</h5>
                 <div class="table-responsive">
                   <table class="table table-nowrap table-hover mb-0">
                     <thead>
                       <tr>
-                        <th scope="col">รหัสร้าน</th>
-                        <th scope="col">ชื่อร้าน</th>
-                        <th scope="col">เลขสัญญา</th>
-                        <th scope="col">โซน</th>
-                        <th scope="col">วันสิ้นสุดสัญญา</th>
+                        <th scope="col">วันที่</th>
+                        <th scope="col">จำนวน</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">ใบเสร็จ</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let shop of shops">
-                        <td>{{ shop.boothCode }}</td>
+                      <tr *ngFor="let topup of topups">
+                        <td>{{ topup.createdAt }}</td>
                         <td>
                           <a href="javascript: void(0);" class="text-dark">{{
-                            shop.boothName
+                            topup.topupMoney | number
                           }}</a>
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark">{{
-                            shop.contractNo
-                          }}</a>
+                          <span class="badge badge-soft-primary font-size-12">{{
+                            topup.statusName
+                          }}</span>
+                        </td>
+                        <td *ngIf="0">
+                          <button (focus)="setPrintTopup(topup)" class="btn btn-secondary me-2 waves-effect waves-light btn-sm"><i class="bx bx-dollar-circle"></i> พิมพ์</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>
+            <i class="bx bx-bar-chart-alt-2 font-size-20"></i>
+            <span class="d-none d-sm-block">ประวัติการใช้ไฟฟ้า</span>
+          </a>
+          <ng-template ngbNavContent>
+            <div>
+              <div>
+                <h5 class="font-size-16 mb-4">ประวัติการใช้ไฟฟ้า</h5>
+                <div class="table-responsive">
+                  <table
+                    class="table table-nowrap table-hover mb-0 text-center"
+                  >
+                    <thead>
+                      <tr>
+                        <th scope="col">Store ID</th>
+                        <th scope="col">รอบวัน</th>
+                        <th scope="col">จำนวนหน่วย (kWh)</th>
+                        <th scope="col">จำนวนเงิน</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of electricityList">
+                        <td>
+                          <a href="javascript: void(0);" class="text-dark"
+                            >{{item.storeId}}</a
+                          >
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark">{{
-                            shop.boothZone
-                          }}</a>
+                          <span class="badge badge-soft-primary font-size-12"
+                            >{{item.date}}</span
+                          >
                         </td>
                         <td>
-                          <a href="javascript: void(0);" class="text-dark">{{
-                            shop.contractEndDate
-                          }}</a>
+                          <span class="badge badge-soft-primary font-size-12"
+                            >{{item.calculateUnit}}</span
+                          >
+                        </td>
+                        <td>
+                          <span class="badge badge-soft-primary font-size-12"
+                            >{{item.charge}}</span
+                          >
                         </td>
                       </tr>
                     </tbody>

@@ -3,24 +3,50 @@ const {getFirestore} = require("firebase-admin/firestore");
 const functions = require("firebase-functions");
 const request = require("request-promise");
 const moment = require("moment");
-
+const cors = require('cors');
+const express = require('express');
 
 initializeApp();
 
+const app = express();
+
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("59 23 * * *")
+exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
     .timeZone("Asia/Bangkok")
-    .onRun((context) => {
-      console.info("This will be run every minute!");
+    .onRun(async (context) => {
+    //   console.info("This will be run every minute!");
 
-    //   db.collection("customers").get().then((customers) => {
-    //     customers.forEach((doc) => {
-    //       console.log(doc.id, "=>", doc.data());
-    //     });
-    //   });
+    // db.collection("customers").get().then((documentSnapshot) => {
+	// 	let data = documentSnapshot.data;
+  	// 	console.log(`Retrieved data: ${JSON.stringify(data)}`);
+    // });
 
-      const bodyReq = {
+		const customersRef = db.collection('customers');
+		const shopRef = db.collection('shop');
+		
+		const snapshot = await customersRef.get();
+		snapshot.forEach(async doc => {
+			console.info(`Customer ${doc.id} `, '=>', doc.data());
+			customer = doc.data;
+			uid = customer.uid;
+
+			// Get customer's shop
+			const shopSnapshot = await shopRef.where('uid', '==', uid).get();
+			if (shopSnapshot.empty) {
+				console.log('No matching documents.');
+				return;
+			}  
+
+			shopSnapshot.forEach(doc => {
+				const shop = doc.data();
+				console.log(`Customer[${customer.custName}], Shop[${shop.boothName}]`);
+			});
+		});
+
+		// console.info("snapshot >>> ", snapshot);
+
+      	const bodyReq = {
         CMD_TYPE: "METER_SELECT",
 				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
 				CMD_PARAMS: [
@@ -63,9 +89,9 @@ exports.scheduledFunction = functions.pubsub.schedule("59 23 * * *")
             charge: +meterData[i].METER_STATE_CALCULATE_UNIT * 7,
           };
 
-					db.collection('electricity').add(electricity).then(res => {
-							// console.log("res: ", res)
-					});
+			db.collection('electricity').add(electricity).then(res => {
+				// console.log("res: ", res)
+			});
 					
         }
       });
@@ -76,3 +102,55 @@ exports.scheduledFunction = functions.pubsub.schedule("59 23 * * *")
 // 2. Calculate energy charg of each meter
 // ((current "ACTIVE_ENERGY" - last "ACTIVE_ENERGY") * 7)
 // 3. Decrease topup money of meter's
+
+// Automatically allow cross-origin requests
+app.use(cors({ origin: true }));
+app.get("/", async (req, res) => {
+	console.info("test API >>> ");
+	console.info("boby >>> ", req.query)
+
+	const params = req.query
+
+	if (!params.uid) {
+		res.status(200).send("Not found uid");
+	}
+
+	const uid = params.uid;
+    
+	// Check is customer or not
+	const customersRef = db.collection('customers');
+	const snapshot = await customersRef.where("uid", "==", uid).get();
+	const customers = [];
+	snapshot.forEach(async doc => {
+		customers.push(doc.data());
+	});
+
+	if (customers.length > 0) {
+		res.status(200).jsonp({"role": "customer"});
+	}
+
+	// Check other roles
+	const userRef = db.collection('user');
+	const userSnapshot = await userRef.where("uid", "==", uid).get();
+	const users = [];
+	userSnapshot.forEach(async doc => {
+		users.push(doc.data());
+	});
+
+	if (users.length > 0) {
+		if (users[0].typeUser === 'ฝ่ายขาย') {
+			res.status(200).jsonp({"role": "sale"});
+		} else if (users[0].typeUser === 'ฝ่ายบัญชี') {
+			res.status(200).jsonp({"role": "account"});
+		} else if (users[0].typeUser === 'ฝ่ายซ่อมบำรุง') {
+			res.status(200).jsonp({"role": "service"});
+		} else {
+			res.status(200).jsonp({"role": "noRole"});
+		}
+		
+	}
+
+	res.status(200).send({"role": "noRole"});
+})
+
+exports.getRole = functions.https.onRequest(app);

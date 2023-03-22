@@ -12,7 +12,7 @@ import {
   Firestore,
   query,
   updateDoc,
-  where,
+  where
 } from "@angular/fire/firestore";
 import { Meter } from "../core/models/meter.model";
 
@@ -27,13 +27,13 @@ export class MeterService {
   }
 
   create(meter: Meter) {
+    let $metersRef=collection(this.firestore, "meter");
     return addDoc(this.meterCollection, meter);
   }
 
   getAll() {
-    return collectionData(this.meterCollection, {
-      idField: "id",
-    }) as Observable<Meter[]>;
+    let $metersRef = collection(this.firestore, "meter");
+    return collectionData($metersRef, {idField: "id"}) as Observable<Meter[]>;
   }
 
   get(id: string) {
@@ -59,6 +59,16 @@ export class MeterService {
   findMeterByZone(zone: string) {
     
     const q = query(this.meterCollection, where("zone", "==", zone));
+    
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Meter[]>;
+    
+  }
+
+  findMeterByStoreId(storeId: string) {
+    
+    const q = query(this.meterCollection, where("storeId", "==", storeId));
     
     return collectionData(q, {
       idField: "id",

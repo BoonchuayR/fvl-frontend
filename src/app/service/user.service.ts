@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { from, Observable, of } from "rxjs";
 import {
   addDoc,
@@ -26,6 +27,8 @@ interface ProfileUser {
   typeUser?: string;
 }
 
+const GET_ROLE_URL = "https://us-central1-fvl-app.cloudfunctions.net/getRole";
+
 @Injectable({
   providedIn: "root",
 })
@@ -35,7 +38,7 @@ export class UserService {
   }
   private userCollection: CollectionReference<DocumentData>;
 
-  constructor(private firestore: Firestore, private authService: AuthService) {
+  constructor(private firestore: Firestore, private authService: AuthService, private _http: HttpClient) {
     this.userCollection = collection(firestore, "user");
   }
 
@@ -86,5 +89,9 @@ export class UserService {
   delete(id: string) {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
     return deleteDoc(userDocumentReference);
+  }
+
+  getRole(uid: string) {
+    return fetch(`${GET_ROLE_URL}?uid=${uid}`);
   }
 }

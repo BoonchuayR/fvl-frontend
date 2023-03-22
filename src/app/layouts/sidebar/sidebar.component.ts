@@ -56,7 +56,7 @@ export class SidebarComponent implements OnInit {
         this.menuItems = CUST_MENU
       } else {
         this.userService.getUser(this.currentUser.uid).subscribe(user => {
-          console.log("user xxx: ", user)
+          // console.log("user xxx: ", user)
           if (user && user.typeUser === 'ฝ่ายซ่อมบำรุง') {
             this.menuItems = MENU_SERVICE
           } else if (user && user.typeUser === 'ฝ่ายขาย') {

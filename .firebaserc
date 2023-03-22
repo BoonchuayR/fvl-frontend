@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "fvl-app"
+  },
+  "targets": {
+    "fvl-app": {
+      "hosting": {
+        "fvl": [
+          "fvl-app"
+        ]
+      }
+    }
   }
 }

@@ -136,8 +136,8 @@
             "prerender": false,
             "ssr": false,
             "browserTarget": "fvl:build:production",
-            "firebaseProject": "foodvilla-d992a",
-            "firebaseHostingSite": "foodvilla-d992a"
+            "firebaseProject": "fvl-app",
+            "firebaseHostingSite": "fvl-app"
           }
         }
       }

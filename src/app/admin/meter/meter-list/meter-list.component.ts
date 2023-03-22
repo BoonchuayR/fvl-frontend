@@ -25,6 +25,7 @@ export class MeterListComponent implements OnInit {
     const zone = this.route.snapshot.params["zone"];
 
     this.meterService.findMeterByZone(zone).subscribe(meters => {
+      console.log("meters >>> ", meters);
       this.meters = meters;
     })
   }
@@ -48,13 +49,13 @@ export class MeterListComponent implements OnInit {
       if (result.value) {
         this.meterService.delete(id).then(deletedMeter => {
           console.log(deletedMeter);
-        })
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'ลบข้อมูลมิเตอร์เรียบร้อย',
-          showConfirmButton: false,
-          timer: 3000
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'ลบข้อมูลมิเตอร์เรียบร้อย',
+            showConfirmButton: false,
+            timer: 3000
+          })
         })
       }
     });
