@@ -1,21 +1,39 @@
-import { Component, OnInit } from "@angular/core";
+import { DecimalPipe } from "@angular/common";
+import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
 import { getAuth } from "@angular/fire/auth";
+import { Observable } from "rxjs";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
+import { AdvancedService } from "./user-datatable.service";
+import { AdvancedSortableDirective } from "./user-sortable.directive";
+import { User } from "src/app/core/models/user.models";
 
 @Component({
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
+  providers: [AdvancedService, DecimalPipe]
 })
 export class UserListComponent implements OnInit {
+
+  tableData!: User[];
+  hideme: boolean[] = [];
+  tables$: Observable<User[]>;
+  total$: Observable<number>;
+  @ViewChildren(AdvancedSortableDirective)
+  headers!: QueryList<AdvancedSortableDirective>;
+  
   user!: any;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public service: AdvancedService) {
+      this.tables$ = service.tables$;
+      this.total$ = service.total$;
+  }
 
   ngOnInit(): void {
     this.userService.getAll().subscribe((user) => {
       this.user = user;
+      this.tableData = user;
       console.log("user: ", user);
     });
   }

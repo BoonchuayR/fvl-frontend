@@ -27,7 +27,7 @@ interface ProfileUser {
   typeUser?: string;
 }
 
-const GET_ROLE_URL = "https://us-central1-fvl-app.cloudfunctions.net/getRole";
+const GET_ROLE_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/getRole";
 
 @Injectable({
   providedIn: "root",

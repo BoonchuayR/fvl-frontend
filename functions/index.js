@@ -105,10 +105,7 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
-app.get("/", async (req, res) => {
-	console.info("test API >>> ");
-	console.info("boby >>> ", req.query)
-
+app.get("/getRole", async (req, res) => {
 	const params = req.query
 
 	if (!params.uid) {
@@ -153,4 +150,28 @@ app.get("/", async (req, res) => {
 	res.status(200).send({"role": "noRole"});
 })
 
-exports.getRole = functions.https.onRequest(app);
+app.get("/checkDupMeter", async (req, res) => {
+	const params = req.query
+
+	if (!params.storeId) {
+		res.status(200).send("Not found storeId");
+	}
+
+	const storeId = params.storeId;
+
+	const meterRef = db.collection('meter');
+	const meterSnapshot = await meterRef.where("storeId", "==", storeId).get();
+	const meters = [];
+	meterSnapshot.forEach(async doc => {
+		meters.push(doc.data());
+	});
+
+	if (meters.length > 0) {
+		res.status(200).jsonp({"isDup": true});
+	}
+
+	res.status(200).jsonp({"isDup": false});
+});
+
+exports.api = functions.https.onRequest(app);
+

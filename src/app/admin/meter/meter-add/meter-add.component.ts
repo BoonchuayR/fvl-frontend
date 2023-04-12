@@ -143,8 +143,9 @@ export class MeterAddComponent implements OnInit {
   /**
    * Bootsrap validation form submit method
    */
-  addMeter() {
+  async addMeter() {
     this.submit = true;
+    const storeId = this.validationform.get("storeId")?.value;
     const meter = {
       id: this.validationform.get("storeId")?.value,
       ...this.validationform.value,
@@ -154,18 +155,33 @@ export class MeterAddComponent implements OnInit {
     console.log("addMeter >>> ", meter)
 
     // Check Duplicate Meter
+    const isDupMeter = await this.meterService.checkDupMeter(storeId)
+    .then(res => res.json())
+    .then(function(res) {
+      return res.isDup;
+    });
     
-    this.meterService.create(meter).then((meter) => {
+    if (isDupMeter) {
       Swal.fire({
         position: "top-end",
-        icon: "success",
-        title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+        icon: "warning",
+        title: "ข้อมูลมิเตอร์ซ้ำไม่สามารถบันทึก",
         showConfirmButton: false,
         timer: 3000,
       });
-      this.router.navigate(["/meter-dashboard"]);
-    });
-  
+      return;
+    } else {
+      this.meterService.create(meter).then((meter) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        this.router.navigate(["/meter-dashboard"]);
+      });
+    }
   }
 
     /**

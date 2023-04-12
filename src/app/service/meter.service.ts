@@ -16,6 +16,8 @@ import {
 } from "@angular/fire/firestore";
 import { Meter } from "../core/models/meter.model";
 
+const CHECK_DUP_METER_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
+
 @Injectable({
   providedIn: "root",
 })
@@ -75,4 +77,9 @@ export class MeterService {
     }) as Observable<Meter[]>;
     
   }
+
+  checkDupMeter(storeId: string) {
+    return fetch(`${CHECK_DUP_METER_URL}?storeId=${storeId}`);
+  }
+
 }
