@@ -42,7 +42,7 @@
           <div class="position-relative">
             <div class="card">
               <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                   <div class="row mb-md-2">
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_length" id="tickets-table_length">
@@ -75,11 +75,11 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th sortable="custCode" (sort)="onSort($event)">รหัสสมาชิก</th>
-                        <th sortable="custName" (sort)="onSort($event)">ชื่อลูกค้า</th>
-                        <th sortable="email" (sort)="onSort($event)">อีเมล</th>
-                        <th sortable="custPhone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
-                        <th sortable="custStartDate" (sort)="onSort($event)">วันที่สมัคร</th>
+                        <th>รหัสสมาชิก</th>
+                        <th>ชื่อลูกค้า</th>
+                        <th>อีเมล</th>
+                        <th>เบอร์โทรศัพท์</th>
+                        <th>วันที่สมัคร</th>
                         <th>สถานะ</th>
                         <th>Action</th>
                       </tr>
@@ -87,28 +87,27 @@
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
                         <th>
-                          <ngb-highlight [result]="table.custCode | number"
+                          <ngb-highlight [result]="table.custCode"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </th>
-                        <th>
+                        <td>
                           <ngb-highlight [result]="table.custName"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
+                        </td>
                         <th>
                           <ngb-highlight [result]="table.email"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </th>
                         <th>
-                          <ngb-highlight [result]="table.custPhone | number"
+                          <ngb-highlight [result]="table.custPhone"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </th>
                         <th>
-                          <ngb-highlight [result]="table.custStartDate |
-                            number"
+                          <ngb-highlight [result]="table.custStartDate"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </th>
@@ -145,6 +144,28 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="row justify-content-md-between align-items-md-center
+                  mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2"
+                      id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      {{service.startIndex}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end
+                      pagination-rounded">
+                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                        [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -152,9 +173,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- end row -->
-<!--   
+  <!-- end row -->
+  <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

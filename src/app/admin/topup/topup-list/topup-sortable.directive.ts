@@ -5,7 +5,7 @@ export type SortColumn = keyof Topup | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
-export interface SortEvent {
+export interface SortEventTopup {
   column: SortColumn;
   direction: SortDirection;
 }
@@ -21,13 +21,13 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class TopupSortableDirective {
 
   constructor() { }
 
   @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
+  @Output() sort = new EventEmitter<SortEventTopup>();
 
   rotate() {
     this.direction = rotate[this.direction];

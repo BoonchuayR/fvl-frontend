@@ -68,7 +68,7 @@ function matches(table: Shop, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class AdvancedServiceshop {
+export class ShopServiceshop {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name

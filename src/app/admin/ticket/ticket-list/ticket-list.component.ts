@@ -1,28 +1,28 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { TicketService } from 'src/app/service/ticket.service';
 import Swal from 'sweetalert2';
-import { AdvancedServiceticket } from './ticket-datatable.service';
+import { TicketServiceticket as TicketServiceticket } from './ticket-datatable.service';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { Observable } from 'rxjs';
-import { AdvancedSortableDirective } from './ticket-sortable.directive';
+import { SortEventTicket, TicketSortableDirective } from './ticket-sortable.directive';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
   styleUrls: ['./ticket-list.component.scss'],
-  providers: [AdvancedServiceticket, DecimalPipe]
+  providers: [TicketServiceticket, DecimalPipe]
 })
 export class TicketListComponent implements OnInit {
   tableData!: Ticket[];
   hideme: boolean[] = [];
   tables$: Observable<Ticket[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(TicketSortableDirective)
+  headers!: QueryList<TicketSortableDirective>;
   ticket!:any
 
-  constructor(private ticketService:TicketService,public service:AdvancedServiceticket) {
+  constructor(private ticketService:TicketService,public service:TicketServiceticket) {
     this.tables$ = service.tables$;
     this.total$ = service.total$;
    }
@@ -33,7 +33,16 @@ export class TicketListComponent implements OnInit {
       console.log("Ticket >>>>>>>>>>>>>>>.............[]",this.ticket)
     })
   }
-
+  onSort({ column, direction }: SortEventTicket) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
    /**
    * Confirm sweet alert
    * @param confirm modal content

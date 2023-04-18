@@ -73,7 +73,7 @@ function matches(table: Meter, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class AdvancedServicemeter {
+export class MeterServicemeter {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name

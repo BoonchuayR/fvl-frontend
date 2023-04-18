@@ -6,7 +6,7 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
 import { Customer } from 'src/app/core/models/customer.models';
-import { CustomerSortableDirective, SortEvent } from './customer-sortable.directive';
+import { CustomerSortableDirective, SortEventCustomer } from './customer-sortable.directive';
 import { CustomerServicecus } from './customer-datatable.service';
 
 @Component({
@@ -38,10 +38,10 @@ export class CustomerListComponent implements OnInit {
     })
   }
 
-  onSort({ column, direction }: SortEvent) {
+  onSort({ column, direction }: SortEventCustomer) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortable !== column) {
+      if (header.sortableUser !== column) {
         header.direction = '';
       }
     });

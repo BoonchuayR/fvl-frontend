@@ -57,9 +57,13 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
+import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
+import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.directive";
 
 @NgModule({
   declarations: [
+    MeterSortableDirective,
+    ShopSortableDirective,
     UserSortableDirective,
     CustomerSortableDirective,
     DashboardComponent,
@@ -100,10 +104,7 @@ import { CustomerSortableDirective } from "./customer/customer-list/customer-sor
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    CommonModule,
     AdminRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     ScrollToModule.forRoot(),
     NgApexchartsModule,
     NgbDropdownModule,
@@ -116,7 +117,6 @@ import { CustomerSortableDirective } from "./customer/customer-list/customer-sor
     CountToModule,
     Select2Module,
     IconsModule,
-    SharedModule,
     FlatpickrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",

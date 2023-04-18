@@ -75,25 +75,25 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th sortable="typeUser" (sort)="onSort($event)">ประเภทผู้ใช้</th>
-                        <th sortable="displayName" (sort)="onSort($event)">ชื่อ-นามสกุล</th>
-                        <th sortable="email" (sort)="onSort($event)">อีเมล</th>
-                        <th sortable="phone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
-                        <th >Action</th>
+                        <th>ประเภทผู้ใช้</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>อีเมล</th>
+                        <th>เบอร์โทรศัพท์</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
-                        <th> 
+                        <td>
                           <ngb-highlight [result]="table.typeUser"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                           <ngb-highlight [result]="table.displayName"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
+                        </td>
                         <td>
                           <ngb-highlight [result]="table.email"
                             [term]="service.searchTerm">
@@ -133,6 +133,28 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="row justify-content-md-between align-items-md-center
+                  mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2"
+                      id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      {{service.startIndex}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end
+                      pagination-rounded">
+                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                        [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -140,9 +162,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- end row -->
-<!--   
+  <!-- end row -->
+  <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

@@ -1,11 +1,10 @@
 import { DecimalPipe } from "@angular/common";
 import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
-import { getAuth } from "@angular/fire/auth";
 import { Observable } from "rxjs";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
 import { UserAdvancedService } from "./user-datatable.service";
-import { UserSortableDirective, SortEvent } from "./user-sortable.directive";
+import { UserSortableDirective, SortEventUser } from "./user-sortable.directive";
 import { User } from "src/app/core/models/user.models";
 
 @Component({
@@ -38,7 +37,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onSort({ column, direction }: SortEvent) {
+  onSort({ column, direction }: SortEventUser) {
     // resetting other headers
     this.headers.forEach(header => {
       if (header.sortable !== column) {

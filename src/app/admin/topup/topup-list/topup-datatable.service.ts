@@ -60,7 +60,7 @@ function matches(table: Topup, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class AdvancedServicetopup {
+export class TopupServicetopup {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name
