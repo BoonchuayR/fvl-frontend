@@ -22,7 +22,7 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class CustomerSortableDirective {
 
   constructor() { }
 

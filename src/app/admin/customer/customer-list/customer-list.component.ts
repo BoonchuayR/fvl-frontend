@@ -1,20 +1,19 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CustomerService } from 'src/app/service/customer.service';
 import Swal from 'sweetalert2';
-import { AdvancedService } from '../../user/user-list/user-datatable.service';
 import { DecimalPipe } from '@angular/common';
 
 import { Observable } from 'rxjs';
 
 import { Customer } from 'src/app/core/models/customer.models';
-import { AdvancedSortableDirective } from './customer-sortable.directive';
-import { AdvancedServicecus } from './customer-datatable.service';
+import { CustomerSortableDirective, SortEvent } from './customer-sortable.directive';
+import { CustomerServicecus } from './customer-datatable.service';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
-  providers: [AdvancedServicecus, DecimalPipe]
+  providers: [CustomerServicecus, DecimalPipe]
   
 })
 export class CustomerListComponent implements OnInit {
@@ -22,11 +21,11 @@ export class CustomerListComponent implements OnInit {
   hideme: boolean[] = [];
   tables$: Observable<Customer[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(CustomerSortableDirective)
+  headers!: QueryList<CustomerSortableDirective>;
   customer!:any
 
-  constructor(private customerService:CustomerService,public service:AdvancedServicecus) { 
+  constructor(private customerService:CustomerService,public service:CustomerServicecus) { 
     this.tables$ = service.tables$;
       this.total$ = service.total$;
   }
@@ -39,7 +38,16 @@ export class CustomerListComponent implements OnInit {
     })
   }
 
-
+  onSort({ column, direction }: SortEvent) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   /**
    * Confirm sweet alert
    * @param confirm modal content

@@ -21,7 +21,7 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class UserSortableDirective {
 
   constructor() { }
 

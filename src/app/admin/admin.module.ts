@@ -13,6 +13,7 @@ import {
   NgbTooltipModule,
   NgbPopoverModule,
   NgbCollapseModule,
+  NgbModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
 import { Select2Module } from 'ng-select2-component';
@@ -53,9 +54,14 @@ import { TicketEditComponent } from './ticket/ticket-edit/ticket-edit.component'
 import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
 import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
+import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
+import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 
 @NgModule({
   declarations: [
+    UserSortableDirective,
+    CustomerSortableDirective,
     DashboardComponent,
     UserListComponent,
     UserEditComponent,
@@ -88,6 +94,12 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     TicketViewComponent,
   ],
   imports: [
+    CommonModule,
+    SharedModule,
+    TablesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
     CommonModule,
     AdminRoutingModule,
     FormsModule,

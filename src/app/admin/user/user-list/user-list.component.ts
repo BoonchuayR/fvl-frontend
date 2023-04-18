@@ -4,15 +4,15 @@ import { getAuth } from "@angular/fire/auth";
 import { Observable } from "rxjs";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
-import { AdvancedService } from "./user-datatable.service";
-import { AdvancedSortableDirective } from "./user-sortable.directive";
+import { UserAdvancedService } from "./user-datatable.service";
+import { UserSortableDirective, SortEvent } from "./user-sortable.directive";
 import { User } from "src/app/core/models/user.models";
 
 @Component({
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
-  providers: [AdvancedService, DecimalPipe]
+  providers: [UserAdvancedService, DecimalPipe]
 })
 export class UserListComponent implements OnInit {
 
@@ -20,12 +20,12 @@ export class UserListComponent implements OnInit {
   hideme: boolean[] = [];
   tables$: Observable<User[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(UserSortableDirective)
+  headers!: QueryList<UserSortableDirective>;
   
   user!: any;
 
-  constructor(private userService: UserService, public service: AdvancedService) {
+  constructor(private userService: UserService, public service: UserAdvancedService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
   }
@@ -38,6 +38,16 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  onSort({ column, direction }: SortEvent) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   /**
    * Confirm sweet alert
   //  * @param confirm modal content
