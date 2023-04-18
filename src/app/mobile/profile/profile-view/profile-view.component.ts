@@ -16,6 +16,7 @@ import { IotService } from "src/app/service/iot.service";
 import { Meter } from "src/app/core/models/meter.model";
 import { Router } from "@angular/router";
 import { ElectricityService } from "src/app/service/electricity.service";
+import { ticketData } from "src/app/admin/ticket/ticket-list/ticket-data";
 
 @Component({
   selector: "app-profile-view",
@@ -37,7 +38,8 @@ export class ProfileViewComponent implements OnInit {
   topUpAndChargeBarChart!: ChartType;
 
   topupMoney!: any;
-  topup: Topup = new Topup();
+ 
+  topup: any;
   topups!: any;
 
   meters: any = [];

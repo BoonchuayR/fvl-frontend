@@ -21,9 +21,9 @@ interface Customers {
   custCode?: string;
   custName?: string;
   custPhone?: string;
-  custStartDate?: Timestamp;
-  minimumMoney?: number;
-  currentMoney?: number;
+  custStartDate?: string;
+  minimumMoney?: string;
+  currentMoney?: string;
 }
 
 @Injectable({

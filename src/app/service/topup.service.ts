@@ -13,7 +13,17 @@ import {
   Timestamp,
   updateDoc,
 } from "@angular/fire/firestore";
-import { Topup } from "../core/models/topup.model";
+
+
+interface Topup {
+  uid: string,
+  statusName: string,
+  custName: string,
+  status: string,
+  createdAt: string,
+  topupMoney: string,
+  id:string,
+}
 
 @Injectable({
   providedIn: "root",

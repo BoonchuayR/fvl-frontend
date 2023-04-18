@@ -1,21 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IotService } from 'src/app/service/iot.service';
 import { MeterService } from 'src/app/service/meter.service';
 import Swal from 'sweetalert2';
+import { AdvancedServicemeter } from './meter-datatable.service';
+import { DecimalPipe } from '@angular/common';
+import { Meter } from 'src/app/core/models/meter.model';
+import { Observable } from 'rxjs';
+import { AdvancedSortableDirective } from './meter-sortable.directive';
 
 @Component({
   selector: 'app-meter-list',
   templateUrl: './meter-list.component.html',
-  styleUrls: ['./meter-list.component.scss']
+  styleUrls: ['./meter-list.component.scss'],
+  providers: [AdvancedServicemeter, DecimalPipe]
 })
 export class MeterListComponent implements OnInit {
+  tableData!: Meter[];
+  hideme: boolean[] = [];
+  tables$: Observable<Meter[]>;
+  total$: Observable<number>;
+  @ViewChildren(AdvancedSortableDirective)
+  headers!: QueryList<AdvancedSortableDirective>;
   meters!: any
 
   constructor(
     private meterService: MeterService,
     private iotService: IotService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,public service:AdvancedServicemeter) {
+      this.tables$ = service.tables$;
+      this.total$ = service.total$;
+     }
 
   ngOnInit(): void {
     // this.meterService.getAll().subscribe(meters => {
@@ -23,6 +38,7 @@ export class MeterListComponent implements OnInit {
     // })
     
     const zone = this.route.snapshot.params["zone"];
+    console.log("Zone>>>>>>>>>>>>>..........[]",zone);
 
     this.meterService.findMeterByZone(zone).subscribe(meters => {
       console.log("meters >>> ", meters);

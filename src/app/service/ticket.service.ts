@@ -7,17 +7,17 @@ import {
 
 
 interface Tickets {
-  id: string;
-  TICKET_ID: string;
-  CREATE_DATE: Timestamp;
-  HEADLINE: string;
-  DETAIL: string;
   CATEGORY: string;
-  OPENER_USER_ID: string;
-  CURRENT_HANDLER_USER_ID: string;
   STATUS: string;
-  DUE_DATE: Timestamp;
-  LOG: string;
+  DUE_DATE:string;
+  CREATE_DATE:string;
+  LOG:string;
+  HEADLINE: string;
+  CURRENT_HANDLER_USER_ID:string;
+  TICKET_ID: string;
+  DETAIL: string;
+  OPENER_USER_ID: string;
+  id: string;
 }
 
 @Injectable({

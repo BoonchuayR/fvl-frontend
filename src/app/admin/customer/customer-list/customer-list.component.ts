@@ -1,20 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CustomerService } from 'src/app/service/customer.service';
 import Swal from 'sweetalert2';
+import { AdvancedService } from '../../user/user-list/user-datatable.service';
+import { DecimalPipe } from '@angular/common';
+
+import { Observable } from 'rxjs';
+
+import { Customer } from 'src/app/core/models/customer.models';
+import { AdvancedSortableDirective } from './customer-sortable.directive';
+import { AdvancedServicecus } from './customer-datatable.service';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss']
+  styleUrls: ['./customer-list.component.scss'],
+  providers: [AdvancedServicecus, DecimalPipe]
+  
 })
 export class CustomerListComponent implements OnInit {
+  tableData!: Customer[];
+  hideme: boolean[] = [];
+  tables$: Observable<Customer[]>;
+  total$: Observable<number>;
+  @ViewChildren(AdvancedSortableDirective)
+  headers!: QueryList<AdvancedSortableDirective>;
   customer!:any
 
-  constructor(private customerService:CustomerService) { }
+  constructor(private customerService:CustomerService,public service:AdvancedServicecus) { 
+    this.tables$ = service.tables$;
+      this.total$ = service.total$;
+  }
 
   ngOnInit(): void {
-    this.customerService.getAll().subscribe(customers => {
+    this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
+     console.log('customer >>>>>>>>>>>.....[]',this.customer);
+
     })
   }
 

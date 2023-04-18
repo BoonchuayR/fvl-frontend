@@ -27,8 +27,10 @@
                     </div>
 
                     <div class="button-items">
-                        <button routerLink="/ticket-add" routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded float-right">
+                        <button routerLink="/ticket-add"
+                            routerLinkActive="active"
+                            class="btn btn-outline-success btn-rounded
+                            float-right">
                             <i class="bx bx-user-plus"></i> เพิ่มรายการ
                         </button>
                     </div>
@@ -39,13 +41,39 @@
                 <div class="row">
                     <div class="position-relative">
                         <div class="card">
+                            
                             <div class="card-body">
+                               
                                 <div class="table-responsive">
+                                    <div class="row mb-md-2">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length" id="tickets-table_length">
+                                              <label class="d-inline-flex align-items-center">
+                                                Show
+                                                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize">
+                                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                                      <option [ngValue]="10">10</option>
+                                                      <option [ngValue]="25">25</option>
+                                                      <option [ngValue]="50">50</option>
+                                                      <option [ngValue]="100">100</option>
+                                                  </select> entries
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <!-- Search -->
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                                    class="d-inline-flex align-items-center">Search:
+                                                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                                        aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                                        </div>
+                                        <!-- End search -->
+                                      </div>
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
                                                 <th>วันที่</th>
-                                                <th>เรื่องแจ้ง</th>    
+                                                <th>เรื่องแจ้ง</th>
                                                 <th>รายละเอียด</th>
                                                 <th>ประเภท</th>
                                                 <th>สถานะ</th>
@@ -53,14 +81,15 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr *ngFor="let ticket of ticket">
-                                                <th>{{ticket.CREATE_DATE}}</th>
-                                                <td>{{ticket.HEADLINE}}</td>
-                                                <td>{{ticket.DETAIL}}</td>
-                                                <th>{{ticket.CATEGORY}}</th>
-                                                <td>{{ticket.STATUS}}</td>
-                                                <td>{{ticket.DUE_DATE}}</td>
+                                        <tbody  *ngFor="let table of tables$ |
+                                        async;let i=index">
+                                            <tr>
+                                                <th>{{table.CREATE_DATE}}</th>
+                                                <td>{{table.HEADLINE}}</td>
+                                                <td>{{table.DETAIL}}</td>
+                                                <th>{{table.CATEGORY}}</th>
+                                                <td>{{table.STATUS}}</td>
+                                                <td>{{table.DUE_DATE}}</td>
                                                 <td>
                                                     <div class="button-items">
                                                         <!-- <button type="button"
@@ -76,9 +105,12 @@
                                                             <i class="bx bxs-pencil"></i>
                                                         </button> -->
                                                         <button type="button"
-                                                            class="btn btn-action"
+                                                            class="btn
+                                                            btn-action"
                                                             id="sa-warning">
-                                                            <i class="bx bxs-trash" (click)="confirm(ticket.id)"></i>
+                                                            <i class="bx
+                                                                bxs-trash"
+                                                                (click)="confirm(ticket.id)"></i>
                                                         </button>
                                                     </div>
                                                 </td>

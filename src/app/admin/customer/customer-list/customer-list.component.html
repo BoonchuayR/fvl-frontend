@@ -30,8 +30,7 @@
             <button
               routerLink="/customer-add"
               routerLinkActive="active"
-              class="btn btn-outline-success btn-rounded float-right"
-            >
+              class="btn btn-outline-success btn-rounded float-right">
               <i class="bx bx-user-plus"></i> เพิ่มลูกค้า
             </button>
           </div>
@@ -44,6 +43,35 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
+                  <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="dataTables_length" id="tickets-table_length">
+                        <label class="d-inline-flex align-items-center">
+                          Show
+                          <select name="tickets-table_length"
+                            aria-controls="tickets-table" name="pageSize">
+                            [(ngModel)]="service.pageSize" class="form-control
+                            form-control-sm mx-2">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select> entries
+                        </label>
+                      </div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                      <div id="tickets-table_filter" class="dataTables_filter
+                        text-md-end"><label
+                          class="d-inline-flex align-items-center">Search:
+                          <input type="text" name="searchTerm"
+                            class="form-control form-control-sm ms-2"
+                            aria-controls="tickets-table"
+                            [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                  </div>
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
@@ -56,13 +84,33 @@
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr *ngFor="let customer of customer">
-                        <th>{{ customer.custCode }}</th>
-                        <th>{{ customer.custName }}</th>
-                        <th>{{ customer.email }}</th>
-                        <th>{{ customer.custPhone }}</th>
-                        <th>{{ customer.custStartDate }}</th>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                      <tr>
+                        <th><ngb-highlight [result]="table.custCode | number"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </th>
+                        <th><ngb-highlight [result]="table.custName"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </th>
+                        <th><ngb-highlight [result]="table.email"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </th>
+                        <th><ngb-highlight [result]="table.custPhone | number"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </th>
+                        <th><ngb-highlight [result]="table.custStartDate |
+                            number"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </th>
+                        <th>{{ table.custName }}</th>
+                        <th>{{ table.email }}</th>
+                        <th>{{ table.custPhone }}</th>
+                        <th>{{ table.custStartDate }}</th>
                         <td>
                           <span class="badge badge-soft-success ms-1"></span>
                         </td>
@@ -72,27 +120,23 @@
                               type="button"
                               class="btn btn-action"
                               routerLink="/customer-view/{{ customer.id }}"
-                              routerLinkActive="active"
-                            >
+                              routerLinkActive="active">
                               <i class="bx bxs-show"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
                               routerLink="/customer-edit/{{ customer.id }}"
-                              routerLinkActive="active"
-                            >
+                              routerLinkActive="active">
                               <i class="bx bxs-pencil"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
-                              id="sa-warning"
-                            >
+                              id="sa-warning">
                               <i
                                 class="bx bxs-trash"
-                                (click)="confirm(customer.id)"
-                              ></i>
+                                (click)="confirm(customer.id)"></i>
                             </button>
                           </div>
                         </td>

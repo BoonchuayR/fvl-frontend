@@ -1,21 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Shop } from 'src/app/core/models/shop.models';
 import { ShopService } from 'src/app/service/shop.service';
 import Swal from 'sweetalert2';
+import { AdvancedSortableDirective } from './shop-sortable.directive';
+import { AdvancedServiceshop } from './shop-datatable.service';
+import { DecimalPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-shop-list',
   templateUrl: './shop-list.component.html',
-  styleUrls: ['./shop-list.component.scss']
+  styleUrls: ['./shop-list.component.scss'],
+  providers: [AdvancedServiceshop, DecimalPipe]
+
 })
 export class ShopListComponent implements OnInit {  
+  
+
+  tableData!: Shop[];
+  hideme: boolean[] = [];
+  tables$: Observable<Shop[]>;
+  total$: Observable<number>;
+  @ViewChildren(AdvancedSortableDirective)
+  headers!: QueryList<AdvancedSortableDirective>;
+  
   shops!: any
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService,public service:AdvancedServiceshop) {
+    this.tables$ = service.tables$;
+    this.total$ = service.total$; 
+   
+  }
 
   ngOnInit(): void {
     this.shopService.getAll().subscribe(shops => {
       this.shops = shops;
-      console.log("shops");
+      console.log("shops>>>>>>>>>>>>>.............[]",this.shops);
     })
   }
 
