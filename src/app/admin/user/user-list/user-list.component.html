@@ -1,4 +1,5 @@
 <!-- start page title -->
+
 <div class="row mb-3">
   <div class="d-flex align-items-start">
     <ol class="breadcrumb m-0">
@@ -75,10 +76,10 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>ประเภทผู้ใช้</th>
-                        <th>ชื่อ-นามสกุล</th>
-                        <th>อีเมล</th>
-                        <th>เบอร์โทรศัพท์</th>
+                        <th sortableUser="typeUser" (sort)="onSort($event)">ประเภทผู้ใช้</th>
+                        <th sortableUser="displayName" (sort)="onSort($event)">ชื่อ-นามสกุล</th>
+                        <th sortableUser="email" (sort)="onSort($event)">อีเมล</th>
+                        <th sortableUser="phone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
                         <th>Action</th>
                       </tr>
                     </thead>
