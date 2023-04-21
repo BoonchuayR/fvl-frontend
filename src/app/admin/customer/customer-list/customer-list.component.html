@@ -75,42 +75,42 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>รหัสสมาชิก</th>
-                        <th>ชื่อลูกค้า</th>
-                        <th>อีเมล</th>
-                        <th>เบอร์โทรศัพท์</th>
-                        <th>วันที่สมัคร</th>
-                        <th>สถานะ</th>
+                        <th sortableCustomer="custCode" (sort)="onSort($event)">รหัสสมาชิก</th>
+                        <th sortableCustomer="custName" (sort)="onSort($event)">ชื่อลูกค้า</th>
+                        <th sortableCustomer="email" (sort)="onSort($event)">อีเมล</th>
+                        <th sortableCustomer="custPhone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
+                        <th sortableCustomer="custStartDate" (sort)="onSort($event)">วันที่สมัคร</th>
+                        <th sortableCustomer="custStartDate" (sort)="onSort($event)">สถานะ</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
-                        <th>
+                        <td>
                           <ngb-highlight [result]="table.custCode"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
+                        </td>
                         <td>
                           <ngb-highlight [result]="table.custName"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </td>
-                        <th>
+                        <td>
                           <ngb-highlight [result]="table.email"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                           <ngb-highlight [result]="table.custPhone"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                           <ngb-highlight [result]="table.custStartDate"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </th>
+                        </td>
                         <td>
                           <span class="badge badge-soft-success ms-1"></span>
                         </td>

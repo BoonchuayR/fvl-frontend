@@ -55,10 +55,12 @@ import { TicketListComponent } from './ticket/ticket-list/ticket-list.component'
 import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
+import { TicketSortableDirective } from "./ticket/ticket-list/ticket-sortable.directive";
+import { TopupSortableDirective } from "./topup/topup-list/topup-sortable.directive";
+import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.directive";
+import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
-import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
-import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.directive";
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.direct
     ShopSortableDirective,
     UserSortableDirective,
     CustomerSortableDirective,
+    TopupSortableDirective,
+    TicketSortableDirective,
     DashboardComponent,
     UserListComponent,
     UserEditComponent,

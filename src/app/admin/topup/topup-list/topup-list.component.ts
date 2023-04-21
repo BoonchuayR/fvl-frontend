@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Topup } from 'src/app/core/models/topup.model';
 import { TopupService } from 'src/app/service/topup.service';
 import Swal from 'sweetalert2';
-import { TopupServicetopup } from './topup-datatable.service';
+import { TopupAdvancedService } from './topup-datatable.service';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TopupSortableDirective, SortEventTopup } from './topup-sortable.directive';
@@ -12,7 +12,7 @@ import { TopupSortableDirective, SortEventTopup } from './topup-sortable.directi
   selector: 'app-topup-list',
   templateUrl: './topup-list.component.html',
   styleUrls: ['./topup-list.component.scss'],
-  providers: [TopupServicetopup, DecimalPipe]
+  providers: [TopupAdvancedService, DecimalPipe]
 })
 export class TopupListComponent implements OnInit {
   tableData!: Topup[];
@@ -27,7 +27,7 @@ export class TopupListComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private topupService: TopupService,public service:TopupServicetopup) {
+    private topupService: TopupService,public service:TopupAdvancedService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
      }
@@ -41,7 +41,7 @@ export class TopupListComponent implements OnInit {
   onSort({ column, direction }: SortEventTopup) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortable !== column) {
+      if (header.sortableTopup !== column) {
         header.direction = '';
       }
     });

@@ -42,7 +42,7 @@ export class ShopListComponent implements OnInit {
   onSort({ column, direction }: SortEventShop) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortableUser !== column) {
+      if (header.sortableShop !== column) {
         header.direction = '';
       }
     });

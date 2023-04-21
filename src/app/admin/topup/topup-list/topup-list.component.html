@@ -82,10 +82,14 @@
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
-                                                <th>วันที่</th>
-                                                <th>ผู้ใช้งาน</th>
-                                                <th>ต้องการชำระ</th>
-                                                <th>สถานะ</th>
+                                                <th sortableTopup="createdAt"
+                                                    (sort)="onSort($event)">วันที่</th>
+                                                <th sortableTopup="custName"
+                                                    (sort)="onSort($event)">ผู้ใช้งาน</th>
+                                                <th sortableTopup="topupMoney"
+                                                    (sort)="onSort($event)">ต้องการชำระ</th>
+                                                <th sortableTopup="statusName"
+                                                    (sort)="onSort($event)">สถานะ</th>
                                                 <th>แอคชั่น</th>
                                             </tr>
                                         </thead>

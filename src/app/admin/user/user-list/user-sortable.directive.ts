@@ -25,12 +25,12 @@ export class UserSortableDirective {
 
   constructor() { }
 
-  @Input() sortable: SortColumn = '';
+  @Input() sortableUser: SortColumn = '';
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEventUser>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
+    this.sort.emit({ column: this.sortableUser, direction: this.direction });
   }
 }

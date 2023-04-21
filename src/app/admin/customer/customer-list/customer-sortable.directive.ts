@@ -13,7 +13,7 @@ export interface SortEventCustomer {
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'th[sortable]',
+  selector: 'th[sortableCustomer]',
   // tslint:disable-next-line: no-host-metadata-property
   host: {
     '[class.asc]': 'direction === "asc"',
@@ -26,12 +26,12 @@ export class CustomerSortableDirective {
 
   constructor() { }
 
-  @Input() sortableUser: SortColumn = '';
+  @Input() sortableCustomer: SortColumn = '';
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEventCustomer>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortableUser, direction: this.direction });
+    this.sort.emit({ column: this.sortableCustomer, direction: this.direction });
   }
 }

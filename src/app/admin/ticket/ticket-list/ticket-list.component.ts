@@ -36,7 +36,7 @@ export class TicketListComponent implements OnInit {
   onSort({ column, direction }: SortEventTicket) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortable !== column) {
+      if (header.sortableTicket !== column) {
         header.direction = '';
       }
     });

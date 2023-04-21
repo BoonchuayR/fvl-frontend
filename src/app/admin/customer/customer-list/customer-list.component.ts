@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
   onSort({ column, direction }: SortEventCustomer) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortableUser !== column) {
+      if (header.sortableCustomer !== column) {
         header.direction = '';
       }
     });

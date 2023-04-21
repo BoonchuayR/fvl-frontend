@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit {
   onSort({ column, direction }: SortEventUser) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortable !== column) {
+      if (header.sortableUser !== column) {
         header.direction = '';
       }
     });

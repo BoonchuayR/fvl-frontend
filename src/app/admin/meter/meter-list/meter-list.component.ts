@@ -48,7 +48,7 @@ export class MeterListComponent implements OnInit {
   onSort({ column, direction }: SortEventMeter) {
     // resetting other headers
     this.headers.forEach(header => {
-      if (header.sortableUser !== column) {
+      if (header.sortableMeter !== column) {
         header.direction = '';
       }
     });

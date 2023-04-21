@@ -82,12 +82,18 @@
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
-                                                <th>เลขแผง</th>
-                                                <th>เลขที่สัญญา</th>
-                                                <th>ชื่อเจ้าของร้าน</th>
-                                                <th>ชื่อร้านค้า</th>
-                                                <th>ประเภทร้านค้า</th>
-                                                <th>วันสิ้นสุดสัญญา</th>
+                                                <th sortableShop="boothCode"
+                                                    (sort)="onSort($event)">เลขแผง</th>
+                                                <th sortableShop="contractNo"
+                                                    (sort)="onSort($event)">เลขที่สัญญา</th>
+                                                <th sortableShop="custName"
+                                                    (sort)="onSort($event)">ชื่อเจ้าของร้าน</th>
+                                                <th sortableShop="boothName"
+                                                    (sort)="onSort($event)">ชื่อร้านค้า</th>
+                                                <th sortableShop="boothCate"
+                                                    (sort)="onSort($event)">ประเภทร้านค้า</th>
+                                                <th sortableShop="contractEndDate"
+                                                    (sort)="onSort($event)">วันสิ้นสุดสัญญา</th>
                                                 <!-- <th>แอคชั่น</th> -->
                                             </tr>
                                         </thead>

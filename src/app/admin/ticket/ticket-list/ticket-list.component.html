@@ -85,13 +85,18 @@
                                     </div>
                                     <table class="table align-middle mb-0">
                                         <thead>
-                                            <tr>
-                                                <th>วันที่</th>
-                                                <th>เรื่องแจ้ง</th>
-                                                <th>รายละเอียด</th>
-                                                <th>ประเภท</th>
-                                                <th>สถานะ</th>
-                                                <th>กำหนดเสร็จ</th>
+                                            <tr> <th sortableTicket="CREATE_DATE"
+                                                    (sort)="onSort($event)">วันที่</th>
+                                                <th sortableTicket="HEADLINE"
+                                                    (sort)="onSort($event)">เรื่องแจ้ง</th>
+                                                <th sortableTicket="DETAIL"
+                                                    (sort)="onSort($event)">รายละเอียด</th>
+                                                <th sortableTicket="CATEGORY"
+                                                    (sort)="onSort($event)">ประเภท</th>
+                                                <th sortableTicket="STATUS"
+                                                    (sort)="onSort($event)">สถานะ</th>
+                                                <th sortableTicket="DUE_DATE"
+                                                    (sort)="onSort($event)">กำหนดเสร็จ</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
