@@ -105,6 +105,7 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
+
 app.get("/getRole", async (req, res) => {
 	const params = req.query
 

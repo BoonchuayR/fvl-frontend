@@ -53,6 +53,7 @@ import { TicketEditComponent } from './ticket/ticket-edit/ticket-edit.component'
 import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
 import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     Select2Module,
     IconsModule,
     SharedModule,
+    NgbModule,
     FlatpickrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",

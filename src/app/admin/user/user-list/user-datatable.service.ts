@@ -138,8 +138,7 @@ export class AdvancedService {
     private _search(): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
-        // 1. sort
-        
+        // 1. sort  
         let tables = sort(userData, sortColumn, sortDirection);
 
         // 2. filter

@@ -80,8 +80,11 @@
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
-                        <th>{{ table.typeUser }}</th>
-                        <th>{{ table.displayName }}</th>
+                        <td>
+                          <ngb-highlight [result]="table.typeUser" [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>{{ table.displayName }}</td>
                         <td>{{ table.email }}</td>
                         <td>{{ table.phone }}</td>
                         <td>
