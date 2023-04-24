@@ -5,6 +5,7 @@ const request = require("request-promise");
 const moment = require("moment");
 const cors = require('cors');
 const express = require('express');
+const { user } = require("firebase-functions/v1/auth");
 
 initializeApp();
 
@@ -173,6 +174,49 @@ app.get("/checkDupMeter", async (req, res) => {
 
 	res.status(200).jsonp({"isDup": false});
 });
+
+// TODO: [Bento] Create get all users API
+app.get("/users", async (req, res) => {
+
+	const userRef = db.collection('user');
+	const usersSnapshot = await userRef.get();
+	const users = [];
+
+	usersSnapshot.forEach(async doc => {
+		users.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": users
+	});
+});
+
+
+
+
+// TODO: [Bento] Create get all customers API
+
+
+
+
+// TODO: [Bento] Create get all shops API
+
+
+
+
+// TODO: [Bento] Create get all meters API
+
+
+
+// TODO: [Bento] Create get all topups API
+
+
+
+// TODO: [Bento] Create get all repairing services API
+
+
+
 
 exports.api = functions.https.onRequest(app);
 
