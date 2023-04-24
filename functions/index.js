@@ -178,6 +178,8 @@ app.get("/checkDupMeter", async (req, res) => {
 // TODO: [Bento] Create get all users API
 app.get("/users", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
 	const userRef = db.collection('user');
 	const usersSnapshot = await userRef.get();
 	const users = [];
@@ -198,24 +200,104 @@ app.get("/users", async (req, res) => {
 // TODO: [Bento] Create get all customers API
 
 
+app.get("/customers", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
+	const customerRef = db.collection('customers');
+	const customersSnapshot = await customerRef.get();
+	const customers = [];
+
+	customersSnapshot.forEach(async doc => {
+		customers.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": customers
+	});
+});
 
 // TODO: [Bento] Create get all shops API
 
 
+app.get("/shops", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
+	const shopRef = db.collection('shop');
+	const shopsSnapshot = await shopRef.get();
+	const shops = [];
+
+	shopsSnapshot.forEach(async doc => {
+		shops.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": shops
+	});
+});
 
 // TODO: [Bento] Create get all meters API
 
+app.get("/meters", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
+	const meterRef = db.collection('meter');
+	const metersSnapshot = await meterRef.get();
+	const meters = [];
+
+	metersSnapshot.forEach(async doc => {
+		meters.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": meters
+	});
+});
 
 // TODO: [Bento] Create get all topups API
 
+app.get("/topups", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
+	const topupRef = db.collection('topup');
+	const topupsSnapshot = await topupRef.get();
+	const topups = [];
+
+	topupsSnapshot.forEach(async doc => {
+		topups.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": topups
+	});
+});
 
 // TODO: [Bento] Create get all repairing services API
 
+app.get("/repairing", async (req, res) => {
 
+	// res.status(200).jsonp({"message": "success"})
+
+	const repairingRef = db.collection('tickets');
+	const repairSnapshot = await repairingRef.get();
+	const repair = [];
+
+	repairSnapshot.forEach(async doc => {
+		repair.push(doc.data());
+	});
+
+	res.status(200).jsonp({
+		"result": "success",
+		"data": repair
+	});
+});
 
 
 exports.api = functions.https.onRequest(app);
