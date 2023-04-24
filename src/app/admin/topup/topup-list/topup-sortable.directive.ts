@@ -5,14 +5,14 @@ export type SortColumn = keyof Topup | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
-export interface SortEvent {
+export interface SortEventTopup {
   column: SortColumn;
   direction: SortDirection;
 }
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'th[sortable]',
+  selector: 'th[sortableTopup]',
   // tslint:disable-next-line: no-host-metadata-property
   host: {
     '[class.asc]': 'direction === "asc"',
@@ -21,16 +21,16 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class TopupSortableDirective {
 
   constructor() { }
 
-  @Input() sortable: SortColumn = '';
+  @Input() sortableTopup: SortColumn = '';
   @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
+  @Output() sort = new EventEmitter<SortEventTopup>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
+    this.sort.emit({ column: this.sortableTopup, direction: this.direction });
   }
 }

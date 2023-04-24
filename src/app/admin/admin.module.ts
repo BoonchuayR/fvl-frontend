@@ -13,6 +13,7 @@ import {
   NgbTooltipModule,
   NgbPopoverModule,
   NgbCollapseModule,
+  NgbModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
 import { Select2Module } from 'ng-select2-component';
@@ -53,10 +54,22 @@ import { TicketEditComponent } from './ticket/ticket-edit/ticket-edit.component'
 import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
 import { TicketViewComponent } from './ticket/ticket-view/ticket-view.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
+import { TicketSortableDirective } from "./ticket/ticket-list/ticket-sortable.directive";
+import { TopupSortableDirective } from "./topup/topup-list/topup-sortable.directive";
+import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.directive";
+import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
+import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
+import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 
 @NgModule({
   declarations: [
+    MeterSortableDirective,
+    ShopSortableDirective,
+    UserSortableDirective,
+    CustomerSortableDirective,
+    TopupSortableDirective,
+    TicketSortableDirective,
     DashboardComponent,
     UserListComponent,
     UserEditComponent,
@@ -90,9 +103,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,
+    SharedModule,
+    TablesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
+    AdminRoutingModule,
     ScrollToModule.forRoot(),
     NgApexchartsModule,
     NgbDropdownModule,
@@ -105,8 +121,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CountToModule,
     Select2Module,
     IconsModule,
-    SharedModule,
-    NgbModule,
     FlatpickrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",

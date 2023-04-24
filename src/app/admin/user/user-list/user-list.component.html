@@ -1,4 +1,5 @@
 <!-- start page title -->
+
 <div class="row mb-3">
   <div class="d-flex align-items-start">
     <ol class="breadcrumb m-0">
@@ -30,8 +31,7 @@
             <button
               routerLink="/user-add"
               routerLinkActive="active"
-              class="btn btn-outline-success btn-rounded float-right"
-            >
+              class="btn btn-outline-success btn-rounded float-right">
               <i class="bx bx-user-plus"></i> เพิ่มผู้ใช้งาน
             </button>
           </div>
@@ -45,25 +45,30 @@
               <div class="card-body">
                 <div class="row mb-md-2">
                   <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_length" id="tickets-table_length">
-                        <label class="d-inline-flex align-items-center">
-                          Show
-                            <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize">
-                              [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
-                                <option [ngValue]="10">10</option>
-                                <option [ngValue]="25">25</option>
-                                <option [ngValue]="50">50</option>
-                                <option [ngValue]="100">100</option>
-                            </select> entries
-                          </label>
-                        </div>
+                    <div class="dataTables_length" id="tickets-table_length">
+                      <label class="d-inline-flex align-items-center">
+                        Show
+                        <select name="tickets-table_length"
+                          aria-controls="tickets-table" name="pageSize">
+                          [(ngModel)]="service.pageSize" class="form-control
+                          form-control-sm mx-2">
+                          <option [ngValue]="10">10</option>
+                          <option [ngValue]="25">25</option>
+                          <option [ngValue]="50">50</option>
+                          <option [ngValue]="100">100</option>
+                        </select> entries
+                      </label>
+                    </div>
                   </div>
                   <!-- Search -->
                   <div class="col-sm-12 col-md-6">
-                      <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                              class="d-inline-flex align-items-center">Search:
-                              <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
-                                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    <div id="tickets-table_filter" class="dataTables_filter
+                      text-md-end"><label
+                        class="d-inline-flex align-items-center">Search:
+                        <input type="text" name="searchTerm" class="form-control
+                          form-control-sm ms-2"
+                          aria-controls="tickets-table"
+                          [(ngModel)]="service.searchTerm"></label></div>
                   </div>
                   <!-- End search -->
                 </div>
@@ -71,51 +76,85 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>ประเภทผู้ใช้</th>
-                        <th>ชื่อ-นามสกุล</th>
-                        <th>อีเมล</th>
-                        <th>เบอร์โทรศัพท์</th>
+                        <th sortableUser="typeUser" (sort)="onSort($event)">ประเภทผู้ใช้</th>
+                        <th sortableUser="displayName" (sort)="onSort($event)">ชื่อ-นามสกุล</th>
+                        <th sortableUser="email" (sort)="onSort($event)">อีเมล</th>
+                        <th sortableUser="phone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.typeUser" [term]="service.searchTerm">
+                          <ngb-highlight [result]="table.typeUser"
+                            [term]="service.searchTerm">
                           </ngb-highlight>
                         </td>
-                        <td>{{ table.displayName }}</td>
-                        <td>{{ table.email }}</td>
-                        <td>{{ table.phone }}</td>
+                        <td>
+                          <ngb-highlight [result]="table.displayName"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="table.email"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="table.phone"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
                         <td>
                           <div class="button-items">
-                            <button  *ngIf="0"
+                            <button *ngIf="0"
                               type="button"
                               class="btn btn-action"
                               routerLink="//mobile/profile-view/"
-                              routerLinkActive="active"
-                            >
+                              routerLinkActive="active">
                               <i class="bx bxs-show"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
                               routerLink="/user-edit/{{ table.id }}"
-                              routerLinkActive="active"
-                            >
+                              routerLinkActive="active">
                               <i class="bx bxs-pencil"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
                               id="sa-warning">
-                              <i class="bx bxs-trash" (click)="confirm(table.id)"></i>
+                              <i class="bx bxs-trash"
+                                (click)="confirm(table.id)"></i>
                             </button>
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div class="row justify-content-md-between align-items-md-center
+                  mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2"
+                      id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      {{service.startIndex}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end
+                      pagination-rounded">
+                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                        [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,9 +163,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- end row -->
-<!--   
+  <!-- end row -->
+  <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

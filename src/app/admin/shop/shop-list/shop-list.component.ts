@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { Shop } from 'src/app/core/models/shop.models';
 import { ShopService } from 'src/app/service/shop.service';
 import Swal from 'sweetalert2';
-import { AdvancedSortableDirective } from './shop-sortable.directive';
-import { AdvancedServiceshop } from './shop-datatable.service';
+import { ShopSortableDirective, SortEventShop } from './shop-sortable.directive';
+import { ShopServiceshop } from './shop-datatable.service';
 import { DecimalPipe } from '@angular/common';
 
 
@@ -12,7 +12,7 @@ import { DecimalPipe } from '@angular/common';
   selector: 'app-shop-list',
   templateUrl: './shop-list.component.html',
   styleUrls: ['./shop-list.component.scss'],
-  providers: [AdvancedServiceshop, DecimalPipe]
+  providers: [ShopServiceshop, DecimalPipe]
 
 })
 export class ShopListComponent implements OnInit {  
@@ -22,12 +22,12 @@ export class ShopListComponent implements OnInit {
   hideme: boolean[] = [];
   tables$: Observable<Shop[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(ShopSortableDirective)
+  headers!: QueryList<ShopSortableDirective>;
   
   shops!: any
 
-  constructor(private shopService: ShopService,public service:AdvancedServiceshop) {
+  constructor(private shopService: ShopService,public service:ShopServiceshop) {
     this.tables$ = service.tables$;
     this.total$ = service.total$; 
    
@@ -39,7 +39,16 @@ export class ShopListComponent implements OnInit {
       console.log("shops>>>>>>>>>>>>>.............[]",this.shops);
     })
   }
-
+  onSort({ column, direction }: SortEventShop) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortableShop !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   /**
    * Confirm sweet alert
    * @param confirm modal content

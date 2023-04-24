@@ -59,7 +59,7 @@ function matches(table: User, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class AdvancedService {
+export class UserAdvancedService {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name

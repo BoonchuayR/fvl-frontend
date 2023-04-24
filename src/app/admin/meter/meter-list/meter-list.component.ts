@@ -3,31 +3,31 @@ import { ActivatedRoute } from '@angular/router';
 import { IotService } from 'src/app/service/iot.service';
 import { MeterService } from 'src/app/service/meter.service';
 import Swal from 'sweetalert2';
-import { AdvancedServicemeter } from './meter-datatable.service';
+import { MeterServicemeter as MeterServicemeter } from './meter-datatable.service';
 import { DecimalPipe } from '@angular/common';
 import { Meter } from 'src/app/core/models/meter.model';
 import { Observable } from 'rxjs';
-import { AdvancedSortableDirective } from './meter-sortable.directive';
+import { MeterSortableDirective, SortEventMeter } from './meter-sortable.directive';
 
 @Component({
   selector: 'app-meter-list',
   templateUrl: './meter-list.component.html',
   styleUrls: ['./meter-list.component.scss'],
-  providers: [AdvancedServicemeter, DecimalPipe]
+  providers: [MeterServicemeter, DecimalPipe]
 })
 export class MeterListComponent implements OnInit {
   tableData!: Meter[];
   hideme: boolean[] = [];
   tables$: Observable<Meter[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(MeterSortableDirective)
+  headers!: QueryList<MeterSortableDirective>;
   meters!: any
 
   constructor(
     private meterService: MeterService,
     private iotService: IotService,
-    private route: ActivatedRoute,public service:AdvancedServicemeter) {
+    private route: ActivatedRoute,public service:MeterServicemeter) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
      }
@@ -45,7 +45,16 @@ export class MeterListComponent implements OnInit {
       this.meters = meters;
     })
   }
-
+  onSort({ column, direction }: SortEventMeter) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortableMeter !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   /**
    * Confirm sweet alert
    * @param confirm modal content

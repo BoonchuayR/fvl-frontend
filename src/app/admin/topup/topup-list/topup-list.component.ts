@@ -3,31 +3,31 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Topup } from 'src/app/core/models/topup.model';
 import { TopupService } from 'src/app/service/topup.service';
 import Swal from 'sweetalert2';
-import { AdvancedServicetopup } from './topup-datatable.service';
+import { TopupAdvancedService } from './topup-datatable.service';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { AdvancedSortableDirective } from './topup-sortable.directive';
+import { TopupSortableDirective, SortEventTopup } from './topup-sortable.directive';
 
 @Component({
   selector: 'app-topup-list',
   templateUrl: './topup-list.component.html',
   styleUrls: ['./topup-list.component.scss'],
-  providers: [AdvancedServicetopup, DecimalPipe]
+  providers: [TopupAdvancedService, DecimalPipe]
 })
 export class TopupListComponent implements OnInit {
   tableData!: Topup[];
   hideme: boolean[] = [];
   tables$: Observable<Topup[]>;
   total$: Observable<number>;
-  @ViewChildren(AdvancedSortableDirective)
-  headers!: QueryList<AdvancedSortableDirective>;
+  @ViewChildren(TopupSortableDirective)
+  headers!: QueryList<TopupSortableDirective>;
   
   topups!: any
   reportDate!: string
 
   constructor(
     private modalService: NgbModal,
-    private topupService: TopupService,public service:AdvancedServicetopup) {
+    private topupService: TopupService,public service:TopupAdvancedService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
      }
@@ -38,7 +38,16 @@ export class TopupListComponent implements OnInit {
       console.log("topups: ", this.topups)
     })
   }
-
+  onSort({ column, direction }: SortEventTopup) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortableTopup !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   /**
    * Confirm sweet alert
    * @param confirm modal content

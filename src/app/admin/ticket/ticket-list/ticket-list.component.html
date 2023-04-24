@@ -41,55 +41,104 @@
                 <div class="row">
                     <div class="position-relative">
                         <div class="card">
-                            
+
                             <div class="card-body">
-                               
-                                <div class="table-responsive">
+
+                                <div class="">
                                     <div class="row mb-md-2">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="dataTables_length" id="tickets-table_length">
-                                              <label class="d-inline-flex align-items-center">
-                                                Show
-                                                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize">
-                                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
-                                                      <option [ngValue]="10">10</option>
-                                                      <option [ngValue]="25">25</option>
-                                                      <option [ngValue]="50">50</option>
-                                                      <option [ngValue]="100">100</option>
-                                                  </select> entries
+                                            <div class="dataTables_length"
+                                                id="tickets-table_length">
+                                                <label class="d-inline-flex
+                                                    align-items-center">
+                                                    Show
+                                                    <select
+                                                        name="tickets-table_length"
+                                                        aria-controls="tickets-table"
+                                                        name="pageSize">
+                                                        [(ngModel)]="service.pageSize"
+                                                        class="form-control
+                                                        form-control-sm mx-2">
+                                                        <option [ngValue]="10">10</option>
+                                                        <option [ngValue]="25">25</option>
+                                                        <option [ngValue]="50">50</option>
+                                                        <option [ngValue]="100">100</option>
+                                                    </select> entries
                                                 </label>
-                                              </div>
+                                            </div>
                                         </div>
                                         <!-- Search -->
                                         <div class="col-sm-12 col-md-6">
-                                            <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                                                    class="d-inline-flex align-items-center">Search:
-                                                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
-                                                        aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                                            <div id="tickets-table_filter"
+                                                class="dataTables_filter
+                                                text-md-end"><label
+                                                    class="d-inline-flex
+                                                    align-items-center">Search:
+                                                    <input type="text"
+                                                        name="searchTerm"
+                                                        class="form-control
+                                                        form-control-sm ms-2"
+                                                        aria-controls="tickets-table"
+                                                        [(ngModel)]="service.searchTerm"></label></div>
                                         </div>
                                         <!-- End search -->
-                                      </div>
+                                    </div>
                                     <table class="table align-middle mb-0">
                                         <thead>
-                                            <tr>
-                                                <th>วันที่</th>
-                                                <th>เรื่องแจ้ง</th>
-                                                <th>รายละเอียด</th>
-                                                <th>ประเภท</th>
-                                                <th>สถานะ</th>
-                                                <th>กำหนดเสร็จ</th>
+                                            <tr> <th sortableTicket="CREATE_DATE"
+                                                    (sort)="onSort($event)">วันที่</th>
+                                                <th sortableTicket="HEADLINE"
+                                                    (sort)="onSort($event)">เรื่องแจ้ง</th>
+                                                <th sortableTicket="DETAIL"
+                                                    (sort)="onSort($event)">รายละเอียด</th>
+                                                <th sortableTicket="CATEGORY"
+                                                    (sort)="onSort($event)">ประเภท</th>
+                                                <th sortableTicket="STATUS"
+                                                    (sort)="onSort($event)">สถานะ</th>
+                                                <th sortableTicket="DUE_DATE"
+                                                    (sort)="onSort($event)">กำหนดเสร็จ</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody  *ngFor="let table of tables$ |
-                                        async;let i=index">
+                                        <tbody *ngFor="let table of tables$ |
+                                            async;let i=index">
                                             <tr>
-                                                <th>{{table.CREATE_DATE}}</th>
-                                                <td>{{table.HEADLINE}}</td>
-                                                <td>{{table.DETAIL}}</td>
-                                                <th>{{table.CATEGORY}}</th>
-                                                <td>{{table.STATUS}}</td>
-                                                <td>{{table.DUE_DATE}}</td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.CREATE_DATE"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.HEADLINE"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.DETAIL"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.CATEGORY"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.STATUS"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.DUE_DATE"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
                                                 <td>
                                                     <div class="button-items">
                                                         <!-- <button type="button"
@@ -118,6 +167,33 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="row justify-content-md-between
+                                    align-items-md-center
+                                    mt-2">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info mb-2"
+                                            id="tickets-table_info"
+                                            role="status"
+                                            aria-live="polite">
+                                            Showing
+                                            {{service.startIndex}} to
+                                            {{service.endIndex}} of
+                                            {{service.totalRecords}}
+                                            entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="text-md-right float-md-end
+                                            pagination-rounded">
+                                            <ngb-pagination
+                                                [collectionSize]="(total$ |
+                                                async)!"
+                                                [(page)]="service.page"
+                                                [pageSize]="service.pageSize">
+                                            </ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,9 +201,8 @@
             </div>
         </div>
     </div>
-</div>
-<!-- end row -->
-<!--   
+    <!-- end row -->
+    <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

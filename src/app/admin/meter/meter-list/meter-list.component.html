@@ -42,54 +42,94 @@
           <div class="position-relative">
             <div class="card">
               <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                   <div class="row mb-md-2">
                     <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_length" id="tickets-table_length">
-                          <label class="d-inline-flex align-items-center">
-                            Show
-                              <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize">
-                                [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
-                                  <option [ngValue]="10">10</option>
-                                  <option [ngValue]="25">25</option>
-                                  <option [ngValue]="50">50</option>
-                                  <option [ngValue]="100">100</option>
-                              </select> entries
-                            </label>
-                          </div>
+                      <div class="dataTables_length" id="tickets-table_length">
+                        <label class="d-inline-flex align-items-center">
+                          Show
+                          <select name="tickets-table_length"
+                            aria-controls="tickets-table" name="pageSize">
+                            [(ngModel)]="service.pageSize" class="form-control
+                            form-control-sm mx-2">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select> entries
+                        </label>
+                      </div>
                     </div>
                     <!-- Search -->
                     <div class="col-sm-12 col-md-6">
-                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                                class="d-inline-flex align-items-center">Search:
-                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
-                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                      <div id="tickets-table_filter" class="dataTables_filter
+                        text-md-end"><label
+                          class="d-inline-flex align-items-center">Search:
+                          <input type="text" name="searchTerm"
+                            class="form-control form-control-sm ms-2"
+                            aria-controls="tickets-table"
+                            [(ngModel)]="service.searchTerm"></label></div>
                     </div>
                     <!-- End search -->
                   </div>
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>Zone</th>
-                        <th>Store ID</th>
-                        <th>Device ID</th>
-                        <th>Contract ID</th>
-                        <th>Device Zone</th>
-                        <th>Serial No.</th>
-                        <th>Line Voltage</th>
+                        <th sortableMeter="zone" (sort)="onSort($event)">Zone</th>
+                        <th sortableMeter="storeId" (sort)="onSort($event)">Store ID</th>
+                        <th sortableMeter="deviceId" (sort)="onSort($event)">Device ID</th>
+                        <th sortableMeter="contractId" (sort)="onSort($event)">Contract ID</th>
+                        <th sortableMeter="deviceZone" (sort)="onSort($event)">Device Zone</th>
+                        <th sortableMeter="serialNo" (sort)="onSort($event)">Serial No.</th>
+                        <th sortableMeter="lineVoltage" (sort)="onSort($event)">Line Voltage</th>
                         <th>Meter State</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
-                        <th>{{ table.zone }}</th>
-                        <td>{{ table.storeId }}</td>
-                        <th>{{ table.deviceId }}</th>
-                        <th>{{ table.contractId }}</th>
-                        <td>{{ table.deviceZone }}</td>
-                        <td>{{ table.serialNo }}</td>
-                        <td>{{ table.lineVoltage }}</td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.zone"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.storeId"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.deviceId"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.contractId"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.deviceZone"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.serialNo"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.lineVoltage"
+                            [term]="service.searchTerm">
+                          </ngb-highlight>
+                        </td>
                         <td>
                           <!-- <span class="badge rounded-pill bg-success ms-1">{{
                             meter.meterState
@@ -145,6 +185,28 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="row justify-content-md-between align-items-md-center
+                  mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2"
+                      id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      {{service.startIndex}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end
+                      pagination-rounded">
+                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                        [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -152,9 +214,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- end row -->
-<!--   
+  <!-- end row -->
+  <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

@@ -6,14 +6,14 @@ export type SortColumn = keyof Shop | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
-export interface SortEvent {
+export interface SortEventShop {
   column: SortColumn;
   direction: SortDirection;
 }
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'th[sortable]',
+  selector: 'th[sortableShop]',
   // tslint:disable-next-line: no-host-metadata-property
   host: {
     '[class.asc]': 'direction === "asc"',
@@ -22,16 +22,16 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class ShopSortableDirective {
 
   constructor() { }
 
-  @Input() sortable: SortColumn = '';
+  @Input() sortableShop: SortColumn = '';
   @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
+  @Output() sort = new EventEmitter<SortEventShop>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
+    this.sort.emit({ column: this.sortableShop, direction: this.direction });
   }
 }

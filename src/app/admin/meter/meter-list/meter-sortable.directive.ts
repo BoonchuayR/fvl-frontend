@@ -7,14 +7,14 @@ export type SortColumn = keyof  Meter| '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
-export interface SortEvent {
+export interface SortEventMeter {
   column: SortColumn;
   direction: SortDirection;
 }
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'th[sortable]',
+  selector: 'th[sortableMeter]',
   // tslint:disable-next-line: no-host-metadata-property
   host: {
     '[class.asc]': 'direction === "asc"',
@@ -23,16 +23,16 @@ export interface SortEvent {
   }
 })
 
-export class AdvancedSortableDirective {
+export class MeterSortableDirective {
 
   constructor() { }
 
-  @Input() sortable: SortColumn = '';
+  @Input() sortableMeter: SortColumn = '';
   @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
+  @Output() sort = new EventEmitter<SortEventMeter>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
+    this.sort.emit({ column: this.sortableMeter, direction: this.direction });
   }
 }

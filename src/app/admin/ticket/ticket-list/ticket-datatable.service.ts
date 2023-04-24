@@ -3,10 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortColumn } from './ticket-sortable.directive';
-import { Customer } from 'src/app/core/models/customer.models';
 import { ticketData } from './ticket-data';
-import { Shop } from 'src/app/core/models/shop.models';
-import { ShopService } from 'src/app/service/shop.service';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/service/ticket.service';
 
@@ -68,7 +65,7 @@ function matches(table: Ticket, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class AdvancedServiceticket {
+export class TicketServiceticket {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name
