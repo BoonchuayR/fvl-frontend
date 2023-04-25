@@ -6,6 +6,7 @@ import { SortDirection, SortColumn } from './user-sortable.directive';
 import { User } from 'src/app/core/models/user.models';
 import { UserService } from 'src/app/service/user.service';
 import { userData } from './user-data';
+import { user } from '@angular/fire/auth';
 
 interface SearchResult {
     tables: User[];
@@ -80,7 +81,11 @@ export class UserAdvancedService {
         totalRecords: 0
     };
 
+    users = [];
+
     constructor(private pipe: DecimalPipe, private userService: UserService) {
+        
+        
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
@@ -92,6 +97,8 @@ export class UserAdvancedService {
             this._total$.next(result.total);
         });
         this._search$.next();
+
+
     }
 
     /**
@@ -138,8 +145,24 @@ export class UserAdvancedService {
     private _search(): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
-        // 1. sort  
+        // 1. sort
+        // const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+        // const jsonData = await response.json();
+        // console.log(jsonData);
+        // this.listname=jsonData;
+        // userData.join(this.listname);
+        // console.log("userData>>>>>> ",userData);
+
+        // const userData = this.userService.getAllFromAPI();
+
         let tables = sort(userData, sortColumn, sortDirection);
+
+        this.userService.getAllFromAPI().then(users => {
+            this.users = users;
+            console.log("users: ", this.users);
+            tables = sort(this.users, sortColumn, sortDirection);
+
+        });
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

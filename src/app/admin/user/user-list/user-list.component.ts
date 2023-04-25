@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { UserAdvancedService } from "./user-datatable.service";
 import { UserSortableDirective, SortEventUser } from "./user-sortable.directive";
 import { User } from "src/app/core/models/user.models";
+import { userData } from "./user-data";
 
 @Component({
   selector: "app-user-list",
@@ -23,18 +24,35 @@ export class UserListComponent implements OnInit {
   headers!: QueryList<UserSortableDirective>;
   
   user!: any;
+  listname!:string;
 
-  constructor(private userService: UserService, public service: UserAdvancedService) {
+  constructor(private userService: UserService, 
+    public service: UserAdvancedService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.userService.getAll().subscribe((user) => {
-      this.user = user;
-      this.tableData = user;
-      console.log("user: ", user);
+        // this.user = user;
+        // this.tableData = user;
+        // console.log("user: ", user);
+      
     });
+
+    
+    // const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+    // const jsonData = await response.json();
+    // console.log(jsonData);
+    // this.listname=jsonData;
+    // userData.join(this.listname);
+    // console.log("userData>>>>>> ",userData);
+  }
+
+  async logJSONData() {
+    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+    const jsonData = await response.json();
+    console.log(jsonData);
   }
 
   onSort({ column, direction }: SortEventUser) {
