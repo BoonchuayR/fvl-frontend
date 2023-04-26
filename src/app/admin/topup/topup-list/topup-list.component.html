@@ -51,10 +51,10 @@
                                                     <select
                                                         name="tickets-table_length"
                                                         aria-controls="tickets-table"
-                                                        name="pageSize">
-                                                        [(ngModel)]="service.pageSize"
+                                                        name="pageSize"
                                                         class="form-control
-                                                        form-control-sm mx-2">
+                                                        form-control-sm
+                                                        mx-2"[(ngModel)]="service.pageSize">
                                                         <option [ngValue]="10">10</option>
                                                         <option [ngValue]="25">25</option>
                                                         <option [ngValue]="50">50</option>

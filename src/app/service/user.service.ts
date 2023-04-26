@@ -101,6 +101,6 @@ export class UserService {
   async getAllFromAPI() {
     const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
     const users = await response.json();
-    return users;
+    return users.data;
 }
 }

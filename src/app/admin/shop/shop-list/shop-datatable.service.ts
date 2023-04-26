@@ -50,18 +50,8 @@ function sort(tables: Shop[], column: SortColumn, direction: string): Shop[] {
  * @param term Search the value
  */
 function matches(table: Shop, term: string, pipe: PipeTransform) {
-    return table.uid.toLowerCase().includes(term)
-        || table.storeId.toLowerCase().includes(term)
-        || table.custName.includes(term)
-        || table.custPhone.toLowerCase().includes(term)
-        || table.contractNo.toLowerCase().includes(term)
-        || table.contractDate.toLowerCase().includes(term)
-        || table.contractEndDate.toLowerCase().includes(term)
-        || table.boothName.includes(term)
-        || table.boothCate.toLowerCase().includes(term)
-        || table.boothCode.toLowerCase().includes(term)
-        || table.boothZone.toLowerCase().includes(term)
-        
+    return table.custName.includes(term)
+        || table.boothName.includes(term)    
 }
 
 @Injectable({
@@ -88,7 +78,7 @@ export class ShopServiceshop {
         endIndex: 9,
         totalRecords: 0
     };
-
+    shops = [];
     constructor(private pipe: DecimalPipe, private shopService: ShopService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
@@ -150,6 +140,14 @@ export class ShopServiceshop {
         // 1. sort
         
         let tables = sort(shopData, sortColumn, sortDirection);
+        this.shopService.getAllShopFromAPI().then(shops => {
+            this.shops = shops;
+            // console.log("shops: ", this.shops);
+            tables = sort(this.shops, sortColumn, sortDirection);
+
+        });
+        tables = sort(this.shops, sortColumn, sortDirection);
+
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

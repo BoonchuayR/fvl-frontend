@@ -51,10 +51,10 @@
                                                     <select
                                                         name="tickets-table_length"
                                                         aria-controls="tickets-table"
-                                                        name="pageSize">
-                                                        [(ngModel)]="service.pageSize"
+                                                        name="pageSize"
                                                         class="form-control
-                                                        form-control-sm mx-2">
+                                                        form-control-sm
+                                                        mx-2"[(ngModel)]="service.pageSize">
                                                         <option [ngValue]="10">10</option>
                                                         <option [ngValue]="25">25</option>
                                                         <option [ngValue]="50">50</option>
@@ -92,7 +92,8 @@
                                                     (sort)="onSort($event)">ชื่อร้านค้า</th>
                                                 <th sortableShop="boothCate"
                                                     (sort)="onSort($event)">ประเภทร้านค้า</th>
-                                                <th sortableShop="contractEndDate"
+                                                <th
+                                                    sortableShop="contractEndDate"
                                                     (sort)="onSort($event)">วันสิ้นสุดสัญญา</th>
                                                 <!-- <th>แอคชั่น</th> -->
                                             </tr>

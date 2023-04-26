@@ -49,9 +49,10 @@
                       <label class="d-inline-flex align-items-center">
                         Show
                         <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize">
-                          [(ngModel)]="service.pageSize" class="form-control
-                          form-control-sm mx-2">
+                          aria-controls="tickets-table" name="pageSize"
+                          class="form-control
+                          form-control-sm mx-2" class="form-control
+                          form-control-sm mx-2"[(ngModel)]="service.pageSize">
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>

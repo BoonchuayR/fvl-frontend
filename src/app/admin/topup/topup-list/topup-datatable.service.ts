@@ -48,12 +48,11 @@ function sort(tables: Topup[], column: SortColumn, direction: string): Topup[] {
  * @param term Search the value
  */
 function matches(table: Topup, term: string, pipe: PipeTransform) {
-    return table.uid.toLowerCase().includes(term)
-        || table.statusName.toLowerCase().includes(term)
-        || table.custName.toLowerCase().includes(term)
-        || table.status.toLowerCase().includes(term)
-        || table.createdAt.toLowerCase().includes(term)
-        || table.topupMoney.toLowerCase().includes(term)        
+    return pipe.transform(table.topupMoney).includes(term)   
+    || table.createdAt.toLowerCase().includes(term)
+    || table.status.toLowerCase().includes(term)
+    //     || table.custName.toLowerCase().includes(term)
+            
 }
 
 @Injectable({
@@ -80,7 +79,7 @@ export class TopupAdvancedService {
         endIndex: 9,
         totalRecords: 0
     };
-
+    topups=[];
     constructor(private pipe: DecimalPipe, private topupService: TopupService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
@@ -142,6 +141,13 @@ export class TopupAdvancedService {
         // 1. sort
         
         let tables = sort(topupData, sortColumn, sortDirection);
+        this.topupService.getAllTopupFromAPI().then(topups => {
+            this.topups = topups;
+            // console.log("topups: ", this.topups);
+            tables = sort(this.topups, sortColumn, sortDirection);
+
+        });
+        tables = sort(this.topups, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

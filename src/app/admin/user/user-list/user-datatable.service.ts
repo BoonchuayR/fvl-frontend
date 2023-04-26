@@ -6,7 +6,8 @@ import { SortDirection, SortColumn } from './user-sortable.directive';
 import { User } from 'src/app/core/models/user.models';
 import { UserService } from 'src/app/service/user.service';
 import { userData } from './user-data';
-import { user } from '@angular/fire/auth';
+
+
 
 interface SearchResult {
     tables: User[];
@@ -159,10 +160,11 @@ export class UserAdvancedService {
 
         this.userService.getAllFromAPI().then(users => {
             this.users = users;
-            console.log("users: ", this.users);
+            // console.log("users: ", this.users);
             tables = sort(this.users, sortColumn, sortDirection);
 
         });
+        tables = sort(this.users, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

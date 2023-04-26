@@ -62,4 +62,9 @@ export class ShopService {
     const shopDocumentReference = doc(this.firestore, `shop/${id}`);
     return deleteDoc(shopDocumentReference);
   }
+  async getAllShopFromAPI() {
+    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/shops");
+    const users = await response.json();
+    return users.data;
+  }
 }

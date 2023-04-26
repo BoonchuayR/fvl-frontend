@@ -48,25 +48,12 @@ function sort(tables: Meter[], column: SortColumn, direction: string): Meter[] {
  * @param term Search the value
  */
 function matches(table: Meter, term: string, pipe: PipeTransform) {
-    return table.lineFrequency.includes(term)
-        || table.updateDatetime.toLowerCase().includes(term)
-        || table.lastActiveEnergy.toLowerCase().includes(term)
-        || table.meterState.toLowerCase().includes(term)
+    return table.lineVoltage.includes(term)
         || table.storeId.toLowerCase().includes(term)
-        || table.modelSpec.toLowerCase().includes(term)
-        || table.slaveId.toLowerCase().includes(term)
-        || table.activeEnergy.toLowerCase().includes(term)
-        || table.updateStateDatetime.toLowerCase().includes(term)
-        || table.meterStateAdmin.toLowerCase().includes(term)
         || table.deviceId.toLowerCase().includes(term)
         || table.deviceZone.toLowerCase().includes(term)
-        || table.updateStateAdminDatetime.toLowerCase().includes(term)
         || table.contractId.toLowerCase().includes(term)
         || table.serialNo.toLowerCase().includes(term)
-        || table.lineCurrent.toLowerCase().includes(term)
-        || table.activePower.toLowerCase().includes(term)
-        || table.zone.toLowerCase().includes(term)
-        
 }
 
 @Injectable({
@@ -93,7 +80,7 @@ export class MeterServicemeter {
         endIndex: 9,
         totalRecords: 0
     };
-
+    meters = [];
     constructor(private pipe: DecimalPipe, private meterService: MeterService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
@@ -155,6 +142,14 @@ export class MeterServicemeter {
         // 1. sort
         
         let tables = sort(meterData, sortColumn, sortDirection);
+        this.meterService.getAllMeterFromAPI().then(meters => {
+            this.meters = meters;
+            // console.log("meters: ", this.meters);
+            tables = sort(this.meters, sortColumn, sortDirection);
+
+        });
+        tables = sort(this.meters, sortColumn, sortDirection);
+
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

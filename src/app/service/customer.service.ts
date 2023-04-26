@@ -73,4 +73,9 @@ export class CustomerService {
     const customerDocumentReference = doc(this.firestore, `customers/${id}`);
     return deleteDoc(customerDocumentReference);
   }
+  async getAllCustomerFromAPI() {
+    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/customers");
+    const users = await response.json();
+    return users.data;
+  }
 }

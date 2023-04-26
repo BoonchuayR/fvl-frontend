@@ -49,9 +49,9 @@
                         <label class="d-inline-flex align-items-center">
                           Show
                           <select name="tickets-table_length"
-                            aria-controls="tickets-table" name="pageSize">
-                            [(ngModel)]="service.pageSize" class="form-control
-                            form-control-sm mx-2">
+                            aria-controls="tickets-table" name="pageSize"
+                            class="form-control
+                            form-control-sm mx-2"[(ngModel)]="service.pageSize">
                             <option [ngValue]="10">10</option>
                             <option [ngValue]="25">25</option>
                             <option [ngValue]="50">50</option>
@@ -78,9 +78,11 @@
                         <th sortableCustomer="custCode" (sort)="onSort($event)">รหัสสมาชิก</th>
                         <th sortableCustomer="custName" (sort)="onSort($event)">ชื่อลูกค้า</th>
                         <th sortableCustomer="email" (sort)="onSort($event)">อีเมล</th>
-                        <th sortableCustomer="custPhone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
-                        <th sortableCustomer="custStartDate" (sort)="onSort($event)">วันที่สมัคร</th>
-                        <th sortableCustomer="custStartDate" (sort)="onSort($event)">สถานะ</th>
+                        <th sortableCustomer="custPhone"
+                          (sort)="onSort($event)">เบอร์โทรศัพท์</th>
+                        <th sortableCustomer="custStartDate"
+                          (sort)="onSort($event)">วันที่สมัคร</th>
+                        <th>สถานะ</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -119,14 +121,14 @@
                             <button *ngIf="0"
                               type="button"
                               class="btn btn-action"
-                              routerLink="/customer-view/{{ customer.id }}"
+                              routerLink="/customer-view/{{ table.id }}"
                               routerLinkActive="active">
                               <i class="bx bxs-show"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
-                              routerLink="/customer-edit/{{ customer.id }}"
+                              routerLink="/customer-edit/{{ table.id }}"
                               routerLinkActive="active">
                               <i class="bx bxs-pencil"></i>
                             </button>
@@ -136,7 +138,7 @@
                               id="sa-warning">
                               <i
                                 class="bx bxs-trash"
-                                (click)="confirm(customer.id)"></i>
+                                (click)="confirm(table.id)"></i>
                             </button>
                           </div>
                         </td>

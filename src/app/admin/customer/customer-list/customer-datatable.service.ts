@@ -48,15 +48,12 @@ function sort(tables: Customer[], column: SortColumn, direction: string): Custom
  * @param term Search the value
  */
 function matches(table: Customer, term: string, pipe: PipeTransform) {
-    return table.currentMoney.includes(term)
-        || table.custCode.toLowerCase().includes(term)
+    // console.log("table",table);
+    return table.custCode.toLowerCase().includes(term)
         || table.custName.includes(term)
+        || table.email.toLowerCase().includes(term)
         || table.custPhone.toLowerCase().includes(term)
         || table.custStartDate.toLowerCase().includes(term)
-        || table.email.toLowerCase().includes(term)
-        || table.minimumMoney.toLowerCase().includes(term)
-        || table.uid.toLowerCase().includes(term)
-        
 }
 
 @Injectable({
@@ -83,7 +80,7 @@ export class CustomerServicecus {
         endIndex: 9,
         totalRecords: 0
     };
-
+    customers = [];
     constructor(private pipe: DecimalPipe, private customerService: CustomerService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
@@ -145,6 +142,14 @@ export class CustomerServicecus {
         // 1. sort
         
         let tables = sort(customerData, sortColumn, sortDirection);
+
+        this.customerService.getAllCustomerFromAPI().then(customers => {
+            this.customers = customers;
+            // console.log("customers: ", this.customers);
+            tables = sort(this.customers, sortColumn, sortDirection);
+
+        });
+        tables = sort(this.customers, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

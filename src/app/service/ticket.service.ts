@@ -54,4 +54,9 @@ export class TicketService {
     const ticketDocumentReference = doc(this.firestore, `tickets/${id}`);
     return deleteDoc(ticketDocumentReference);
   }
+  async getAllTicketFromAPI() {
+    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/service");
+    const users = await response.json();
+    return users.data;
+  }
 }

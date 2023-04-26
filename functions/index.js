@@ -281,7 +281,7 @@ app.get("/topups", async (req, res) => {
 
 // TODO: [Bento] Create get all repairing services API
 
-app.get("/repairing", async (req, res) => {
+app.get("/service", async (req, res) => {
 
 	// res.status(200).jsonp({"message": "success"})
 

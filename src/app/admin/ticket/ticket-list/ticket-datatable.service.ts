@@ -85,7 +85,7 @@ export class TicketServiceticket {
         endIndex: 9,
         totalRecords: 0
     };
-
+    tickets = [];
     constructor(private pipe: DecimalPipe, private ticketService: TicketService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
@@ -147,6 +147,14 @@ export class TicketServiceticket {
         // 1. sort
         
         let tables = sort(ticketData, sortColumn, sortDirection);
+        this.ticketService.getAllTicketFromAPI().then(tickets => {
+            this.tickets = tickets;
+            // console.log("tickets: ", this.tickets);
+            tables = sort(this.tickets, sortColumn, sortDirection);
+
+        });
+        tables = sort(this.tickets, sortColumn, sortDirection);
+
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

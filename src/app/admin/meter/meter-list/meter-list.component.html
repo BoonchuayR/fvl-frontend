@@ -49,9 +49,11 @@
                         <label class="d-inline-flex align-items-center">
                           Show
                           <select name="tickets-table_length"
-                            aria-controls="tickets-table" name="pageSize">
-                            [(ngModel)]="service.pageSize" class="form-control
-                            form-control-sm mx-2">
+                            aria-controls="tickets-table" name="pageSize"
+                            class="form-control
+                            form-control-sm mx-2"
+                            [(ngModel)]="service.pageSize">
+
                             <option [ngValue]="10">10</option>
                             <option [ngValue]="25">25</option>
                             <option [ngValue]="50">50</option>
@@ -76,12 +78,18 @@
                     <thead>
                       <tr>
                         <th sortableMeter="zone" (sort)="onSort($event)">Zone</th>
-                        <th sortableMeter="storeId" (sort)="onSort($event)">Store ID</th>
-                        <th sortableMeter="deviceId" (sort)="onSort($event)">Device ID</th>
-                        <th sortableMeter="contractId" (sort)="onSort($event)">Contract ID</th>
-                        <th sortableMeter="deviceZone" (sort)="onSort($event)">Device Zone</th>
-                        <th sortableMeter="serialNo" (sort)="onSort($event)">Serial No.</th>
-                        <th sortableMeter="lineVoltage" (sort)="onSort($event)">Line Voltage</th>
+                        <th sortableMeter="storeId" (sort)="onSort($event)">Store
+                          ID</th>
+                        <th sortableMeter="deviceId" (sort)="onSort($event)">Device
+                          ID</th>
+                        <th sortableMeter="contractId" (sort)="onSort($event)">Contract
+                          ID</th>
+                        <th sortableMeter="deviceZone" (sort)="onSort($event)">Device
+                          Zone</th>
+                        <th sortableMeter="serialNo" (sort)="onSort($event)">Serial
+                          No.</th>
+                        <th sortableMeter="lineVoltage" (sort)="onSort($event)">Line
+                          Voltage</th>
                         <th>Meter State</th>
                         <th>Action</th>
                       </tr>

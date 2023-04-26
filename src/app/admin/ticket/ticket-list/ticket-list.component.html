@@ -55,10 +55,10 @@
                                                     <select
                                                         name="tickets-table_length"
                                                         aria-controls="tickets-table"
-                                                        name="pageSize">
-                                                        [(ngModel)]="service.pageSize"
+                                                        name="pageSize"
                                                         class="form-control
-                                                        form-control-sm mx-2">
+                                                        form-control-sm mx-2"
+                                                        [(ngModel)]="service.pageSize">
                                                         <option [ngValue]="10">10</option>
                                                         <option [ngValue]="25">25</option>
                                                         <option [ngValue]="50">50</option>
@@ -85,7 +85,8 @@
                                     </div>
                                     <table class="table align-middle mb-0">
                                         <thead>
-                                            <tr> <th sortableTicket="CREATE_DATE"
+                                            <tr> <th
+                                                    sortableTicket="CREATE_DATE"
                                                     (sort)="onSort($event)">วันที่</th>
                                                 <th sortableTicket="HEADLINE"
                                                     (sort)="onSort($event)">เรื่องแจ้ง</th>

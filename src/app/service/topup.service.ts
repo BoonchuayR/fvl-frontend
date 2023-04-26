@@ -59,4 +59,9 @@ export class TopupService {
     const topupDocumentReference = doc(this.firestore, `topup/${id}`);
     return deleteDoc(topupDocumentReference);
   }
+  async getAllTopupFromAPI() {
+    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/Topups");
+    const users = await response.json();
+    return users.data;
+  }
 }
