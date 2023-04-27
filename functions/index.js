@@ -299,6 +299,22 @@ app.get("/service", async (req, res) => {
 	});
 });
 
+app.post("/customercurrentmoney", async (req, res) => {
+
+	// res.status(200).jsonp({"message": "success"})
+
+	const repairingRef = db.collection('customers');
+	const repairSnapshot = await repairingRef.post();
+	const repair = [];
+
+	repairSnapshot.forEach(async doc => {
+		repair.post(doc.data());
+	});
+	res.status(200).jsonp({
+		"result": "success",
+		"data": repair
+	});
+});
 
 exports.api = functions.https.onRequest(app);
 

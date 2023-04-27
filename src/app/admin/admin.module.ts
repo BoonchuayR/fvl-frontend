@@ -61,7 +61,8 @@ import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.direct
 import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
-
+import {FirebaseTSApp} from 'firebasets/firebasetsApp/firebaseTSApp';
+import { environment } from "src/environments/environment";
 @NgModule({
   declarations: [
     MeterSortableDirective,
@@ -128,4 +129,6 @@ import { CustomerSortableDirective } from "./customer/customer-list/customer-sor
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AdminModule {}
+export class AdminModule {
+
+}

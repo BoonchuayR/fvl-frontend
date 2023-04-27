@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/7304180f68.js" crossorigin="anonymous"></script>
 <!-- start page title -->
 <div class="row mb-3">
   <div class="d-flex align-items-start">
@@ -125,6 +126,8 @@
                               routerLinkActive="active">
                               <i class="bx bxs-show"></i>
                             </button>
+                            <button type="button"
+                              (click)="topupModal(topup, table)">เติมเงิน</button>
                             <button
                               type="button"
                               class="btn btn-action"
@@ -132,6 +135,7 @@
                               routerLinkActive="active">
                               <i class="bx bxs-pencil"></i>
                             </button>
+
                             <button
                               type="button"
                               class="btn btn-action"
@@ -181,3 +185,38 @@
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
   </div> -->
+  <ng-template #topup let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">เติมเงิน</h5>
+      <button type="button" class="btn-close"
+        (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <p class="card-title-desc">ได้รับชำระเงินตามยอดที่ร้านค้ากำหนด
+                เรียบร้อยแล้ว
+              </p>
+              <form class="form-floating mb-3">
+                <input class="form-control form-control-lg"
+                  type="number" value="0"
+                  placeholder="จำนวนเงินที่รับชำระ"
+                  id="example-number-input"
+                  name="topupAmt"
+                  [(ngModel)] = "topupAmt"
+                  >
+                <!-- <label for="floatingInputValue">หัวข้อ</label> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light"
+        (click)="modal.close('Close click')">ยกเลิก</button>
+      <button type="button" class="btn btn-primary" (click)="updatecurrentMoney(topupAmt)">รับเงิน</button>
+    </div>
+  </ng-template>

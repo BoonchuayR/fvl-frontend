@@ -2,12 +2,13 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CustomerService } from 'src/app/service/customer.service';
 import Swal from 'sweetalert2';
 import { DecimalPipe } from '@angular/common';
-
+import {FirebaseTSFirestore} from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { Observable } from 'rxjs';
 
 import { Customer } from 'src/app/core/models/customer.models';
 import { CustomerSortableDirective, SortEventCustomer } from './customer-sortable.directive';
 import { CustomerServicecus } from './customer-datatable.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-customer-list',
@@ -17,6 +18,8 @@ import { CustomerServicecus } from './customer-datatable.service';
   
 })
 export class CustomerListComponent implements OnInit {
+  private firestorets: FirebaseTSFirestore = new FirebaseTSFirestore;
+  item:any;
   tableData!: Customer[];
   hideme: boolean[] = [];
   tables$: Observable<Customer[]>;
@@ -24,13 +27,16 @@ export class CustomerListComponent implements OnInit {
   @ViewChildren(CustomerSortableDirective)
   headers!: QueryList<CustomerSortableDirective>;
   customer!:any
+  selectedCustomer!: any;
+  topupAmt!: any;
 
-  constructor(private customerService:CustomerService,public service:CustomerServicecus) { 
+  constructor(private modalService: NgbModal,private customerService:CustomerService,public service:CustomerServicecus) { 
     this.tables$ = service.tables$;
-      this.total$ = service.total$;
+    this.total$ = service.total$;
   }
 
   ngOnInit(): void {
+    this.topupAmt = 300;
     this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
      console.log('customer >>>>>>>>>>>.....[]',this.customer);
@@ -78,5 +84,27 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
+  topupModal(topup: any, table: any) {
+    this.selectedCustomer = table;
+    this.modalService.open(topup, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
+  }
 
+  updatecurrentMoney(topupAmt: any) {
+    console.log("topupAmt:", topupAmt);
+    console.log("currentMoney: ", this.selectedCustomer.currentMoney);
+    const topupMoney = topupAmt;
+    const currntMoney = this.selectedCustomer.currentMoney;
+    const updateCurrentMoney = topupMoney + currntMoney;
+    console.log("updateCurrentMoney: ", updateCurrentMoney);
+    // this.selectedCustomer.currentMoney =
+    // this.customerService.update(this.selectedCustomer).then(
+    //   updatemoney => this.beforcurrentMoney = currentMoney
+    // );
+    this.firestorets = new FirebaseTSFirestore;
+    this.firestorets.update({
+      path:["customers",this.selectedCustomer.uid],
+      data:{currentMoney:updateCurrentMoney},
+    });
+  }
+  
 }
