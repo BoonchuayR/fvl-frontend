@@ -118,7 +118,7 @@
                             <button
                               type="button"
                               class="btn btn-action"
-                              routerLink="/user-edit/{{ table.id }}"
+                              routerLink="/user-edit/{{ table.uid }}"
                               routerLinkActive="active">
                               <i class="bx bxs-pencil"></i>
                             </button>
@@ -129,13 +129,7 @@
                               <i class="bx bxs-trash"
                                 (click)="confirm(table.id)"></i>
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-action"
-                              id="sa-warning">
-                              <i class="bx bxs-trash"
-                                (click)="logJSONData()"></i>
-                            </button>
+
                           </div>
                         </td>
                       </tr>
