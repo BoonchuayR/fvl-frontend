@@ -247,6 +247,7 @@
     <div class="sweetalert-footer">
       <button type="button" class="btn btn-light center"
         (click)="sweetalert.close('Close click')">ยกเลิก</button>
-      <button type="button" class="btn btn-primary center" (click)="updatecurrentMoney(topupAmt)" (click)="sweetalert.close('Close click')">ยืนยัน</button>
+      <button type="button" class="btn btn-primary center"  (click)="updatecurrentMoney(topupAmt)" (click)="sweetalert.close('Close click')" type="submit"
+      routerLinkActive="active">ยืนยัน</button>
     </div>
   </ng-template>

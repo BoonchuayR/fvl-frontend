@@ -1,14 +1,18 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CustomerService } from 'src/app/service/customer.service';
 import Swal from 'sweetalert2';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, formatDate } from '@angular/common';
 import {FirebaseTSFirestore} from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { Observable } from 'rxjs';
-
 import { Customer } from 'src/app/core/models/customer.models';
 import { CustomerSortableDirective, SortEventCustomer } from './customer-sortable.directive';
 import { CustomerServicecus } from './customer-datatable.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TopupService } from 'src/app/service/topup.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { updateCurrentUser } from '@angular/fire/auth';
+import { Topup } from 'src/app/core/models/topup.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,6 +22,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   
 })
 export class CustomerListComponent implements OnInit {
+  submit!: boolean;
+  validationform!: FormGroup;
   private firestorets: FirebaseTSFirestore = new FirebaseTSFirestore;
   item:any;
   tableData!: Customer[];
@@ -29,8 +35,12 @@ export class CustomerListComponent implements OnInit {
   customer!:any
   selectedCustomer!: any;
   topupAmt!: any;
-
-  constructor(private modalService: NgbModal,private customerService:CustomerService,public service:CustomerServicecus) { 
+  Date1 : Date = new Date();
+  createdAttoday:any;
+  custNametopup:any;
+  topupMoneyAt!: any;
+  statusNametopup:any;
+  constructor(private modalService: NgbModal,private customerService:CustomerService,public service:CustomerServicecus ,private topupService:TopupService,private formBuilder: FormBuilder) { 
     this.tables$ = service.tables$;
     this.total$ = service.total$;
   }
@@ -41,7 +51,8 @@ export class CustomerListComponent implements OnInit {
       this.customer = customers;
      console.log('customer >>>>>>>>>>>.....[]',this.customer);
 
-    })
+    });
+   
   }
 
   onSort({ column, direction }: SortEventCustomer) {
@@ -109,6 +120,20 @@ export class CustomerListComponent implements OnInit {
       path:["customers",this.selectedCustomer.uid],
       data:{currentMoney:updateCurrentMoney},
     });
+    this.createdAttoday= this.Date1;
+    this.custNametopup = this.selectedCustomer.custName;
+    this.topupMoneyAt = updateCurrentMoney;
+    this.statusNametopup = 'รอชำระ';
+   
+    const topup: any = {} ;
+    topup.createdAt = moment().format("yyyy-MM-DD HH:mm:ss");
+    topup.statusName = "รอชำระ";
+    topup.custName = this.selectedCustomer.custName;
+    topup.topupMoney = updateCurrentMoney;
+    topup.uid = this.selectedCustomer.uid;
+    this.topupService.create(topup)
+      .then((topup) => { console.log("topup",topup) 
+    });
   }
-  
+ 
 }

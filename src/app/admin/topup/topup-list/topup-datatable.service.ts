@@ -145,10 +145,11 @@ export class TopupAdvancedService {
             this.topups = topups;
             // console.log("topups: ", this.topups);
             tables = sort(this.topups, sortColumn, sortDirection);
+            
 
         });
         tables = sort(this.topups, sortColumn, sortDirection);
-
+        
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));
         const total = tables.length;
