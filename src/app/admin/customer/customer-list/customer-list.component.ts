@@ -88,6 +88,10 @@ export class CustomerListComponent implements OnInit {
     this.selectedCustomer = table;
     this.modalService.open(topup, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
   }
+  alertsweetalert(alert:any) {
+   
+    this.modalService.open(alert, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'sweetalert-holder' });
+  }
 
   updatecurrentMoney(topupAmt: any) {
     console.log("topupAmt:", topupAmt);
