@@ -23,7 +23,7 @@ interface Customers {
   custPhone?: string;
   custStartDate?: string;
   minimumMoney?: string;
-  currentMoney?: string;
+  currentMoney?: number;
 }
 
 @Injectable({

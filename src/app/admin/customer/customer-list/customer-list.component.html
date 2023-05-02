@@ -116,10 +116,8 @@
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </td>
-                        <td>
-                          <ngb-highlight [result]="table.currentMoney"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
+                        <td class="right">
+                         {{table.currentMoney | number:'0.2'}}
                         </td>
                         <td>
                           <span class="badge badge-soft-success ms-1"></span>

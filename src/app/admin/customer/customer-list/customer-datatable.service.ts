@@ -7,6 +7,7 @@ import { Customer } from 'src/app/core/models/customer.models';
 import { customerData } from './customer-data';
 import { CustomerService } from 'src/app/service/customer.service';
 
+
 interface SearchResult {
     tables: Customer[];
     total: number;
@@ -50,11 +51,10 @@ function sort(tables: Customer[], column: SortColumn, direction: string): Custom
 function matches(table: Customer, term: string, pipe: PipeTransform) {
     // console.log("table",table);
     return table.custCode.toLowerCase().includes(term)
-        // || table.currentMoney.includes(term)
-        // || table.custName.includes(term)
-        // || table.email.toLowerCase().includes(term)
-        // || table.custPhone.toLowerCase().includes(term)
-        // || table.custStartDate.toLowerCase().includes(term)
+        || table.custName.includes(term)
+        || table.email.toLowerCase().includes(term)
+        || table.custPhone.toLowerCase().includes(term)
+        || table.custStartDate.toLowerCase().includes(term)
 }
 
 @Injectable({

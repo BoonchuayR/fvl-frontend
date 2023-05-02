@@ -1,7 +1,7 @@
 
 export interface Customer {
   id: string;
-  currentMoney: string;
+  currentMoney: number;
   custCode: string;
   custName: string;
   custPhone: string;
