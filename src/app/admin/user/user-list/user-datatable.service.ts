@@ -158,13 +158,13 @@ export class UserAdvancedService {
 
         let tables = sort(userData, sortColumn, sortDirection);
 
-        this.userService.getAllFromAPI().then(users => {
-            this.users = users;
-            // console.log("users: ", this.users);
-            tables = sort(this.users, sortColumn, sortDirection);
+        // this.userService.getAllFromAPI().then(users => {
+        //     this.users = users;
+        //     // console.log("users: ", this.users);
+        //     tables = sort(this.users, sortColumn, sortDirection);
 
-        });
-        tables = sort(this.users, sortColumn, sortDirection);
+        // });
+        // tables = sort(this.users, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

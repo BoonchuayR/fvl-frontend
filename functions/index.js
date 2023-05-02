@@ -13,90 +13,90 @@ const app = express();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
-    .timeZone("Asia/Bangkok")
-    .onRun(async (context) => {
-    //   console.info("This will be run every minute!");
+// exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
+//     .timeZone("Asia/Bangkok")
+//     .onRun(async (context) => {
+//     //   console.info("This will be run every minute!");
 
-    // db.collection("customers").get().then((documentSnapshot) => {
-	// 	let data = documentSnapshot.data;
-  	// 	console.log(`Retrieved data: ${JSON.stringify(data)}`);
-    // });
+//     // db.collection("customers").get().then((documentSnapshot) => {
+// 	// 	let data = documentSnapshot.data;
+//   	// 	console.log(`Retrieved data: ${JSON.stringify(data)}`);
+//     // });
 
-		const customersRef = db.collection('customers');
-		const shopRef = db.collection('shop');
+// 		const customersRef = db.collection('customers');
+// 		const shopRef = db.collection('shop');
 		
-		const snapshot = await customersRef.get();
-		snapshot.forEach(async doc => {
-			console.info(`Customer ${doc.id} `, '=>', doc.data());
-			customer = doc.data;
-			uid = customer.uid;
+// 		const snapshot = await customersRef.get();
+// 		snapshot.forEach(async doc => {
+// 			console.info(`Customer ${doc.id} `, '=>', doc.data());
+// 			customer = doc.data;
+// 			uid = customer.uid;
 
-			// Get customer's shop
-			const shopSnapshot = await shopRef.where('uid', '==', uid).get();
-			if (shopSnapshot.empty) {
-				console.log('No matching documents.');
-				return;
-			}  
+// 			// Get customer's shop
+// 			const shopSnapshot = await shopRef.where('uid', '==', uid).get();
+// 			if (shopSnapshot.empty) {
+// 				console.log('No matching documents.');
+// 				return;
+// 			}  
 
-			shopSnapshot.forEach(doc => {
-				const shop = doc.data();
-				console.log(`Customer[${customer.custName}], Shop[${shop.boothName}]`);
-			});
-		});
+// 			shopSnapshot.forEach(doc => {
+// 				const shop = doc.data();
+// 				console.log(`Customer[${customer.custName}], Shop[${shop.boothName}]`);
+// 			});
+// 		});
 
-		// console.info("snapshot >>> ", snapshot);
+// 		// console.info("snapshot >>> ", snapshot);
 
-      	const bodyReq = {
-        CMD_TYPE: "METER_SELECT",
-				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-				CMD_PARAMS: [
-					"STORE_ID",
-					"DEVICE_ZONE",
-					"DEVICE_ID",
-					"SERIAL_NO",
-					"SLAVE_ID",
-					"MODEL_SPEC",
-					"LINE_VOLTAGE",
-					"LINE_FREQUENCY",
-					"LINE_CURRENT",
-					"ACTIVE_POWER",
-					"ACTIVE_ENERGY",
-					"UPDATE_DATETIME",
-					"METER_STATE",
-					"UPDATE_STATE_DATETIME",
-					"METER_STATE_ADMIN",
-					"UPDATE_STATE_ADMIN_DATETIME",
-					"METER_STATE_PREVIOUS_UNIT",
-					"METER_STATE_CALCULATE_UNIT"
-				],
-				STORE_ID: ["*"]
-      };
+//       	const bodyReq = {
+//         CMD_TYPE: "METER_SELECT",
+// 				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
+// 				CMD_PARAMS: [
+// 					"STORE_ID",
+// 					"DEVICE_ZONE",
+// 					"DEVICE_ID",
+// 					"SERIAL_NO",
+// 					"SLAVE_ID",
+// 					"MODEL_SPEC",
+// 					"LINE_VOLTAGE",
+// 					"LINE_FREQUENCY",
+// 					"LINE_CURRENT",
+// 					"ACTIVE_POWER",
+// 					"ACTIVE_ENERGY",
+// 					"UPDATE_DATETIME",
+// 					"METER_STATE",
+// 					"UPDATE_STATE_DATETIME",
+// 					"METER_STATE_ADMIN",
+// 					"UPDATE_STATE_ADMIN_DATETIME",
+// 					"METER_STATE_PREVIOUS_UNIT",
+// 					"METER_STATE_CALCULATE_UNIT"
+// 				],
+// 				STORE_ID: ["*"]
+//       };
 
-      return request({
-        method: "POST",
-        uri: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
-        body: bodyReq,
-        json: true,
-      }).then((meters) => {
-				const meterData = meters.DATA;
-				// console.log("meterData: ", meterData);
-        for (let i = 0; i < 100; i++) {
-          const electricity = {
-            storeId: meterData[i].STORE_ID,
-            date: moment().format("YYYY-MM-DD hh:mm:ss"),
-            priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
-            calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
-            charge: +meterData[i].METER_STATE_CALCULATE_UNIT * 7,
-          };
+//       return request({
+//         method: "POST",
+//         uri: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
+//         body: bodyReq,
+//         json: true,
+//       }).then((meters) => {
+// 				const meterData = meters.DATA;
+// 				// console.log("meterData: ", meterData);
+//         for (let i = 0; i < 100; i++) {
+//           const electricity = {
+//             storeId: meterData[i].STORE_ID,
+//             date: moment().format("YYYY-MM-DD hh:mm:ss"),
+//             priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
+//             calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
+//             charge: +meterData[i].METER_STATE_CALCULATE_UNIT * 7,
+//           };
 
-			db.collection('electricity').add(electricity).then(res => {
-				// console.log("res: ", res)
-			});
+// 			db.collection('electricity').add(electricity).then(res => {
+// 				// console.log("res: ", res)
+// 			});
 					
-        }
-      });
-    });
+//         }
+//       });
+//     });
 
 // Calculate energy charge every day 00.00
 // 1. Get all meter

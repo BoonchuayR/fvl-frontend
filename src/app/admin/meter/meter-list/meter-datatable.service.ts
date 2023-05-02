@@ -142,13 +142,13 @@ export class MeterServicemeter {
         // 1. sort
         
         let tables = sort(meterData, sortColumn, sortDirection);
-        this.meterService.getAllMeterFromAPI().then(meters => {
-            this.meters = meters;
-            // console.log("meters: ", this.meters);
-            tables = sort(this.meters, sortColumn, sortDirection);
+        // this.meterService.getAllMeterFromAPI().then(meters => {
+        //     this.meters = meters;
+        //     // console.log("meters: ", this.meters);
+        //     tables = sort(this.meters, sortColumn, sortDirection);
 
-        });
-        tables = sort(this.meters, sortColumn, sortDirection);
+        // });
+        // tables = sort(this.meters, sortColumn, sortDirection);
 
 
         // 2. filter

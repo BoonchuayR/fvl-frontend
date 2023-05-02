@@ -147,13 +147,13 @@ export class TicketServiceticket {
         // 1. sort
         
         let tables = sort(ticketData, sortColumn, sortDirection);
-        this.ticketService.getAllTicketFromAPI().then(tickets => {
-            this.tickets = tickets;
-            // console.log("tickets: ", this.tickets);
-            tables = sort(this.tickets, sortColumn, sortDirection);
+        // this.ticketService.getAllTicketFromAPI().then(tickets => {
+        //     this.tickets = tickets;
+        //     // console.log("tickets: ", this.tickets);
+        //     tables = sort(this.tickets, sortColumn, sortDirection);
 
-        });
-        tables = sort(this.tickets, sortColumn, sortDirection);
+        // });
+        // tables = sort(this.tickets, sortColumn, sortDirection);
 
 
         // 2. filter

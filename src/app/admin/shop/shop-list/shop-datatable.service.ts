@@ -140,13 +140,13 @@ export class ShopServiceshop {
         // 1. sort
         
         let tables = sort(shopData, sortColumn, sortDirection);
-        this.shopService.getAllShopFromAPI().then(shops => {
-            this.shops = shops;
-            // console.log("shops: ", this.shops);
-            tables = sort(this.shops, sortColumn, sortDirection);
+        // this.shopService.getAllShopFromAPI().then(shops => {
+        //     this.shops = shops;
+        //     // console.log("shops: ", this.shops);
+        //     tables = sort(this.shops, sortColumn, sortDirection);
 
-        });
-        tables = sort(this.shops, sortColumn, sortDirection);
+        // });
+        // tables = sort(this.shops, sortColumn, sortDirection);
 
 
         // 2. filter

@@ -144,13 +144,13 @@ export class CustomerServicecus {
         
         let tables = sort(customerData, sortColumn, sortDirection);
 
-        this.customerService.getAllCustomerFromAPI().then(customers => {
-            this.customers = customers;
-            // console.log("customers: ", this.customers);
-            tables = sort(this.customers, sortColumn, sortDirection);
+        // this.customerService.getAllCustomerFromAPI().then(customers => {
+        //     this.customers = customers;
+        //     // console.log("customers: ", this.customers);
+        //     tables = sort(this.customers, sortColumn, sortDirection);
 
-        });
-        tables = sort(this.customers, sortColumn, sortDirection);
+        // });
+        // tables = sort(this.customers, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));
