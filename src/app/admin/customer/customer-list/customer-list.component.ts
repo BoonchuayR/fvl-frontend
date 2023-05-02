@@ -50,7 +50,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
      console.log('customer >>>>>>>>>>>.....[]',this.customer);
-
+     this.service.customers = this.customer
     });
    
   }

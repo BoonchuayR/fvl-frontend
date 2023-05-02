@@ -50,11 +50,11 @@ function sort(tables: Customer[], column: SortColumn, direction: string): Custom
 function matches(table: Customer, term: string, pipe: PipeTransform) {
     // console.log("table",table);
     return table.custCode.toLowerCase().includes(term)
-        || table.currentMoney.includes(term)
-        || table.custName.includes(term)
-        || table.email.toLowerCase().includes(term)
-        || table.custPhone.toLowerCase().includes(term)
-        || table.custStartDate.toLowerCase().includes(term)
+        // || table.currentMoney.includes(term)
+        // || table.custName.includes(term)
+        // || table.email.toLowerCase().includes(term)
+        // || table.custPhone.toLowerCase().includes(term)
+        // || table.custStartDate.toLowerCase().includes(term)
 }
 
 @Injectable({
@@ -81,12 +81,12 @@ export class CustomerServicecus {
         endIndex: 9,
         totalRecords: 0
     };
-    customers = [];
+    customers: Customer[] = [];
     constructor(private pipe: DecimalPipe, private customerService: CustomerService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search()),
+            switchMap(() => this._search(this.customers)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -129,6 +129,12 @@ export class CustomerServicecus {
     set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
 
+    set setTables(customers: Customer[]) { this._set_tables( customers ); }
+
+    private _set_tables(customers: Customer[]) {
+        this.customers = customers
+    }
+
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
         this._search$.next();
@@ -137,12 +143,14 @@ export class CustomerServicecus {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(customers: Customer[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
         
-        let tables = sort(customerData, sortColumn, sortDirection);
+        console.log("customers: ", customers);
+
+        let tables = sort(customers, sortColumn, sortDirection);
 
         // this.customerService.getAllCustomerFromAPI().then(customers => {
         //     this.customers = customers;
