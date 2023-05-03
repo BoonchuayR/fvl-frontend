@@ -10,9 +10,11 @@ import {
   docData,
   DocumentData,
   Firestore,
+  orderBy,
   Timestamp,
   updateDoc,
 } from "@angular/fire/firestore";
+import { topupData } from "../admin/topup/topup-list/topup-data";
 
 
 interface Topup {
@@ -32,7 +34,7 @@ export class TopupService {
   private topupCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore) {
-    this.topupCollection = collection(firestore, "topup");
+    this.topupCollection = collection(firestore,"topup");
   }
 
   create(topup: Topup) {

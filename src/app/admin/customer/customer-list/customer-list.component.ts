@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { CustomerService } from 'src/app/service/customer.service';
+
 import Swal from 'sweetalert2';
 import { DecimalPipe, formatDate } from '@angular/common';
 import {FirebaseTSFirestore} from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateCurrentUser } from '@angular/fire/auth';
 import { Topup } from 'src/app/core/models/topup.model';
 import * as moment from 'moment';
+import { CustomerService } from 'src/app/service/customer.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -120,6 +121,7 @@ export class CustomerListComponent implements OnInit {
       path:["customers",this.selectedCustomer.uid],
       data:{currentMoney:updateCurrentMoney},
     });
+
     this.createdAttoday= this.Date1;
     this.custNametopup = this.selectedCustomer.custName;
     this.topupMoneyAt = updateCurrentMoney;

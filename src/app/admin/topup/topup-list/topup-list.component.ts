@@ -34,7 +34,12 @@ export class TopupListComponent implements OnInit {
 
   ngOnInit(): void {
     this.topupService.getAll().subscribe(topups => {
-      this.topups = topups;
+      this.topups = topups.sort((a,b)=>{
+        if(a.createdAt > b.createdAt){
+          return -1
+        }
+        return 1
+    });
       console.log("topups: ", this.topups)
     })
   }

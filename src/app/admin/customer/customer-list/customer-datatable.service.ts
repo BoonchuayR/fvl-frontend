@@ -148,7 +148,7 @@ export class CustomerServicecus {
 
         // 1. sort
         
-        console.log("customers: ", customers);
+        // console.log("customers: ", customers);
 
         let tables = sort(customers, sortColumn, sortDirection);
 

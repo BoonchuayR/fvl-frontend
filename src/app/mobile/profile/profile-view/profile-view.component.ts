@@ -71,7 +71,7 @@ export class ProfileViewComponent implements OnInit {
     this.customer = {
       currentMoney: 0,
     };
-
+ 
     this.topupMoney = 300;
 
     this.currentUser = this.authService.currentUser();
@@ -86,15 +86,24 @@ export class ProfileViewComponent implements OnInit {
       .subscribe((customer) => {
         this.customer = customer;
       });
+      
 
     this.topUpAndChargeBarChart = emailSentBarChart;
 
     // Get topup transactions
     this.topupService.getAll().subscribe((res) => {
       this.topups = res.filter(r => {return r.uid === this.currentUser.uid});
-      this.buildBarChart();
+      this.topups.sort((a: { createdAt: number; },b: { createdAt: number; })=>{
+        if(a.createdAt > b.createdAt){
+          return -1
+        }
+        return 1
     });
-
+      this.buildBarChart();
+      
+      console.log("data",this.topups);
+    });
+    
     // Get shops of customer
     this.shopService.getAll().subscribe((shops) => {
       this.meterService.getAll().subscribe((allMeters) => {
