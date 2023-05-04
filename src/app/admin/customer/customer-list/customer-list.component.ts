@@ -129,7 +129,7 @@ export class CustomerListComponent implements OnInit {
     topup.createdAt = moment().format("yyyy-MM-DD HH:mm:ss");
     topup.statusName = "รอชำระ";
     topup.custName = this.selectedCustomer.custName;
-    topup.topupMoney = updateCurrentMoney;
+    topup.topupMoney = topupMoney;
     topup.uid = this.selectedCustomer.uid;
     this.topupService.create(topup)
       .then((topup) => {
