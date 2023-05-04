@@ -41,17 +41,21 @@ export class CustomerListComponent implements OnInit {
   custNametopup:any;
   topupMoneyAt!: any;
   statusNametopup:any;
-  constructor(private modalService: NgbModal,private customerService:CustomerService,public service:CustomerServicecus ,private topupService:TopupService,private formBuilder: FormBuilder) { 
-    this.tables$ = service.tables$;
-    this.total$ = service.total$;
+
+  constructor(
+    private modalService: NgbModal,
+    private customerService:CustomerService, 
+    public service:CustomerServicecus, 
+    private topupService:TopupService) {
+      this.tables$ = service.tables$;
+      this.total$ = service.total$;
   }
 
   ngOnInit(): void {
     this.topupAmt = 300;
     this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
-     console.log('customer >>>>>>>>>>>.....[]',this.customer);
-     this.service.customers = this.customer
+      this.service.customers = this.customer
     });
    
   }
@@ -81,9 +85,9 @@ export class CustomerListComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
-      console.log(id)
       if (result.value) {
-        this.customerService.delete(id).then(deletedcustomer => {console.log(deletedcustomer);
+        this.customerService.delete(id).then(deletedcustomer => {
+          
         })
         Swal.fire({
           position: 'top-end',
@@ -106,16 +110,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   updatecurrentMoney(topupAmt: any) {
-    console.log("topupAmt:", topupAmt);
-    console.log("currentMoney: ", this.selectedCustomer.currentMoney);
     const topupMoney = topupAmt;
     const currntMoney = this.selectedCustomer.currentMoney;
     const updateCurrentMoney = topupMoney + currntMoney;
-    console.log("updateCurrentMoney: ", updateCurrentMoney);
-    // this.selectedCustomer.currentMoney =
-    // this.customerService.update(this.selectedCustomer).then(
-    //   updatemoney => this.beforcurrentMoney = currentMoney
-    // );
+
     this.firestorets = new FirebaseTSFirestore;
     this.firestorets.update({
       path:["customers",this.selectedCustomer.uid],
@@ -134,7 +132,8 @@ export class CustomerListComponent implements OnInit {
     topup.topupMoney = updateCurrentMoney;
     topup.uid = this.selectedCustomer.uid;
     this.topupService.create(topup)
-      .then((topup) => { console.log("topup",topup) 
+      .then((topup) => {
+        
     });
   }
  

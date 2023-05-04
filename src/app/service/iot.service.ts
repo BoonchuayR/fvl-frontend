@@ -43,15 +43,6 @@ export class IotService {
   }
 
   meterUpdateState(storeId: string, state: string) {
-    console.log("serialNo: ", storeId);
-    console.log("state: ", state);
-    // const bodyReq = {
-    //   CMD_TYPE: "METER_UPDATE_STATE",
-    //   USER_ID: "1",
-    //   USER_TOKEN: "ff15d1de48d17581834cd05f5c1b9caf",
-    //   SERIAL_NO: serialNo,
-    //   METER_STATE_VALUE: state,
-    // };
 
     const bodyReq = {
       CMD_TYPE: "METER_UPDATE", 

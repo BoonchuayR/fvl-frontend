@@ -122,24 +122,6 @@ export class MeterAddComponent implements OnInit {
     });
   }
 
-  // formSubmit() {
-  //   const meter = {
-  //     ...this.validationform.value,
-  //     lastActiveEnergy: this.validationform.get("activeEnergy")
-  //   }
-  //   console.log("meter: ", meter)
-  //   this.meterService.create(meter).then((res) => {
-  //     console.log("savedMeter: ", res);
-  //   });
-  //   Swal.fire({
-  //     position: "top-end",
-  //     icon: "success",
-  //     title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
-  //     showConfirmButton: false,
-  //     timer: 3000,
-  //   });
-  // }
-
   /**
    * Bootsrap validation form submit method
    */
@@ -151,8 +133,6 @@ export class MeterAddComponent implements OnInit {
       ...this.validationform.value,
       lastActiveEnergy: this.validationform.get("activeEnergy")?.value
     }
-
-    console.log("addMeter >>> ", meter)
 
     // Check Duplicate Meter
     const isDupMeter = await this.meterService.checkDupMeter(storeId)

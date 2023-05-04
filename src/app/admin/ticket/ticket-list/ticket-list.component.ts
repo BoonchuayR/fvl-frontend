@@ -30,7 +30,7 @@ export class TicketListComponent implements OnInit {
   ngOnInit(): void {
     this.ticketService.getAll().subscribe(tickets => {
       this.ticket = tickets;
-      console.log("Ticket >>>>>>>>>>>>>>>.............[]",this.ticket)
+
     })
   }
   onSort({ column, direction }: SortEventTicket) {
@@ -58,9 +58,8 @@ export class TicketListComponent implements OnInit {
         confirmButtonText: 'ใช่, ต้องการ!',
         cancelButtonText:'ไม่, ยกเลิก!',
       }).then((result) => {
-        console.log(id)
         if (result.value) {
-          this.ticketService.delete(id).then(deletedticket => {console.log(deletedticket);
+          this.ticketService.delete(id).then(deletedticket => {
           })
           Swal.fire({
             position: 'top-end',

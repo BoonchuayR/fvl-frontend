@@ -163,7 +163,6 @@ export class CustomerAddComponent implements OnInit {
       };
       this.meterOptions.push(data);
     }
-    console.log("this.meterOptions: ", this.meterOptions);
   }
 
   get email() {
@@ -238,32 +237,6 @@ export class CustomerAddComponent implements OnInit {
         console.log("error: ", error);
       }
     );
-    // console.log("registeredUser: ", registeredUser);
-    // this.authService
-    //   .register(email, password)
-    //   .pipe(
-    //     switchMap(({ user: { uid } }) =>
-    //       this.customerService.addCustomer({
-    //         uid,
-    //         email,
-    //         custCode: custCode,
-    //         custName: custName,
-    //         custPhone: custPhone,
-    //         custStartDate: custStartDate,
-    //         minimumMoney: minimumMoney,
-    //         currentMoney: currentMoney,
-    //       })
-    //     )
-    //   )
-    //   .subscribe((user) => {
-    //     console.log("user: ", user);
-    //     this.router.navigate(["/customer-list"]);
-    //   });
-
-    // this.customerService
-    // .create(this.validationform.value)
-    // .then((customer) => {
-    //   // console.log(`customers: ${customers}`);
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -271,17 +244,6 @@ export class CustomerAddComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000,
     });
-    //   return customer.id;
-    // })
-    // .catch((err) => {
-    //   console.log("error: ", err);
-    // });
-
-    // Add shop(s)
-    // console.log("customerId: ", customerId);
-    // this.shopService.create(this.itemShopForm.value).then((shop) => {
-    //   console.log("shop");
-    // });
   }
 
   addShops() {

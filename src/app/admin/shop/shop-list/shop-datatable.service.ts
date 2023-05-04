@@ -138,16 +138,7 @@ export class ShopServiceshop {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        
         let tables = sort(shopData, sortColumn, sortDirection);
-        // this.shopService.getAllShopFromAPI().then(shops => {
-        //     this.shops = shops;
-        //     // console.log("shops: ", this.shops);
-        //     tables = sort(this.shops, sortColumn, sortDirection);
-
-        // });
-        // tables = sort(this.shops, sortColumn, sortDirection);
-
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

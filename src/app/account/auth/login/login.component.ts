@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("onSubmit >>> ");
+
     this.submit = true;
     const { email, password } = this.loginForm.value;
 

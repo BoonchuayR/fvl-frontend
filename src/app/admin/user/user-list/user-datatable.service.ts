@@ -147,24 +147,7 @@ export class UserAdvancedService {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        // const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
-        // const jsonData = await response.json();
-        // console.log(jsonData);
-        // this.listname=jsonData;
-        // userData.join(this.listname);
-        // console.log("userData>>>>>> ",userData);
-
-        // const userData = this.userService.getAllFromAPI();
-
         let tables = sort(userData, sortColumn, sortDirection);
-
-        // this.userService.getAllFromAPI().then(users => {
-        //     this.users = users;
-        //     // console.log("users: ", this.users);
-        //     tables = sort(this.users, sortColumn, sortDirection);
-
-        // });
-        // tables = sort(this.users, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

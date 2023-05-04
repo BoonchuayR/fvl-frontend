@@ -139,16 +139,7 @@ export class TopupAdvancedService {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        
         let tables = sort(topupData, sortColumn, sortDirection);
-        // this.topupService.getAllTopupFromAPI().then(topups => {
-        //     this.topups = topups;
-        //     // console.log("topups: ", this.topups);
-        //     tables = sort(this.topups, sortColumn, sortDirection);
-            
-
-        // });
-        // tables = sort(this.topups, sortColumn, sortDirection);
         
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

@@ -100,8 +100,6 @@ export class ProfileViewComponent implements OnInit {
         return 1
     });
       this.buildBarChart();
-      
-      console.log("data",this.topups);
     });
     
     // Get shops of customer
@@ -112,13 +110,9 @@ export class ProfileViewComponent implements OnInit {
           return s.uid === this.currentUser.uid;
         });
 
-        // console.log("shops: ", shops)
-
         const shopMeters = this.shops.map((s: any) => {
           return s.storeId;
         });
-
-        console.log("shopMeters: ", shopMeters)
 
         if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
           for (let i = 0; i < shopMeters.length; i++) {
@@ -132,7 +126,6 @@ export class ProfileViewComponent implements OnInit {
               for(let k = 0; k < filteredMeters.length; k++) {
                   this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
                     this.electricityList.push(...eltList);
-                    // console.log("this.electricityList: ", this.electricityList);
                   })
               }
             }
@@ -439,10 +432,8 @@ export class ProfileViewComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
-      console.log(id)
       if (result.value) {
         this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
-          console.log("meterUpdateState: ", res)
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(res => {
             window.location.reload();

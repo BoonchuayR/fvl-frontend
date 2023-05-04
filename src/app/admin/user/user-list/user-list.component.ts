@@ -34,26 +34,13 @@ export class UserListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.userService.getAll().subscribe((user) => {
-        // this.user = user;
-        // this.tableData = user;
-        // console.log("user: ", user);
-      
     });
-
-    
-    // const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
-    // const jsonData = await response.json();
-    // console.log(jsonData);
-    // this.listname=jsonData;
-    // userData.join(this.listname);
-    // console.log("userData>>>>>> ",userData);
   }
 
-  async logJSONData() {
-    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
-    const jsonData = await response.json();
-    console.log(jsonData);
-  }
+  // async logJSONData() {
+  //   const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+  //   const jsonData = await response.json();
+  // }
 
   onSort({ column, direction }: SortEventUser) {
     // resetting other headers
@@ -80,10 +67,8 @@ export class UserListComponent implements OnInit {
       confirmButtonText: "ใช่, ต้องการ!",
       cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
-      console.log(id);
       if (result.value) {
         this.userService.delete(id).then((deleteduser) => {
-          console.log(deleteduser);
         });
         Swal.fire({
           position: "top-end",

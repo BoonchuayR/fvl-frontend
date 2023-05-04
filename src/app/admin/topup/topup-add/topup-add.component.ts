@@ -26,9 +26,8 @@ export class TopupAddComponent implements OnInit {
   }
 
   formSubmit(){
-    console.log(this.validationform.value);
     this.topupService.create(this.validationform.value)
-      .then((topup) => { console.log("topup") })
+      .then((topup) => {})
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -36,7 +35,9 @@ export class TopupAddComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       })
-      .catch(error => { console.log(error) });
+      .catch(error => { 
+        console.log(error) 
+      });
   }
 
     /**

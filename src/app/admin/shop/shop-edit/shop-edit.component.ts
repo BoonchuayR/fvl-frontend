@@ -55,7 +55,7 @@ export class ShopEditComponent implements OnInit {
 
   formSubmit() {
     this.shopService.update(this.editform.value)
-      .then((shop) => {console.log("shop");
+      .then((shop) => {
         Swal.fire({
           position: 'top-end',
           icon: 'success',

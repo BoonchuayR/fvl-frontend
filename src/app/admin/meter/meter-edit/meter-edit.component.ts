@@ -68,7 +68,6 @@ export class MeterEditComponent implements OnInit {
   formSubmit() {
     this.meterService.update(this.editform.value)
       .then((meter) => {
-        console.log("meter");
         Swal.fire({
           position: 'top-end',
           icon: 'success',

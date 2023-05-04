@@ -47,11 +47,9 @@ export class UserEditComponent implements OnInit {
   }
 
   formSubmit() {
-    console.log("formSubmit...");
     this.userService
       .update(this.editform.value)
       .then((user) => {
-        console.log("user");
         Swal.fire({
           position: "top-end",
           icon: "success",

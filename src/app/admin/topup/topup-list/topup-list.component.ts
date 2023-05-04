@@ -40,7 +40,6 @@ export class TopupListComponent implements OnInit {
         }
         return 1
     });
-      console.log("topups: ", this.topups)
     })
   }
   onSort({ column, direction }: SortEventTopup) {
@@ -68,10 +67,8 @@ export class TopupListComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
-      console.log(id)
       if (result.value) {
         this.topupService.delete(id).then(deletedTopup => {
-          console.log(deletedTopup);
         })
         Swal.fire({
           position: 'top-end',

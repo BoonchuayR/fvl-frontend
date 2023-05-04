@@ -37,9 +37,7 @@ export class ShopAddComponent implements OnInit {
   }
 
   formSubmit() {
-    console.log(this.validationform.value);
     this.shopService.create(this.validationform.value).then((shop) => {
-      console.log("shop");
     });
     Swal.fire({
       position: "top-end",

@@ -49,7 +49,6 @@ export class TopupEditComponent implements OnInit {
   formSubmit() {
     this.topupService.update(this.editform.value)
       .then((topup) => {
-        console.log("topup");
         Swal.fire({
           position: 'top-end',
           icon: 'success',

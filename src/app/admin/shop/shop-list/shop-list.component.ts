@@ -36,7 +36,6 @@ export class ShopListComponent implements OnInit {
   ngOnInit(): void {
     this.shopService.getAll().subscribe(shops => {
       this.shops = shops;
-      console.log("shops>>>>>>>>>>>>>.............[]",this.shops);
     })
   }
   onSort({ column, direction }: SortEventShop) {
@@ -64,9 +63,9 @@ export class ShopListComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
-      console.log(id)
+
       if (result.value) {
-        this.shopService.delete(id).then(deletedShop => {console.log(deletedShop);
+        this.shopService.delete(id).then(deletedShop => {
         })
         Swal.fire({
           position: 'top-end',

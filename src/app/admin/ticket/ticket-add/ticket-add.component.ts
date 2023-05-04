@@ -30,9 +30,8 @@ export class TicketAddComponent implements OnInit {
   }
 
   formSubmit(){
-    console.log(this.validationform.value);
     this.ticketService.create(this.validationform.value)
-      .then((tickets) => { console.log("tickets") })
+      .then((tickets) => {})
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -40,7 +39,9 @@ export class TicketAddComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       })
-      .catch(error => { console.log(error) });
+      .catch(error => { 
+        console.log(error) 
+      });
   }
   validSubmit() {
     this.submit = true;

@@ -49,7 +49,6 @@ function sort(tables: Customer[], column: SortColumn, direction: string): Custom
  * @param term Search the value
  */
 function matches(table: Customer, term: string, pipe: PipeTransform) {
-    // console.log("table",table);
     return table.custCode.toLowerCase().includes(term)
         || table.custName.includes(term)
         || table.email.toLowerCase().includes(term)
@@ -147,18 +146,7 @@ export class CustomerServicecus {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        
-        // console.log("customers: ", customers);
-
         let tables = sort(customers, sortColumn, sortDirection);
-
-        // this.customerService.getAllCustomerFromAPI().then(customers => {
-        //     this.customers = customers;
-        //     // console.log("customers: ", this.customers);
-        //     tables = sort(this.customers, sortColumn, sortDirection);
-
-        // });
-        // tables = sort(this.customers, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

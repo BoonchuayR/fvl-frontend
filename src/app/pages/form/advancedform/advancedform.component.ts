@@ -301,7 +301,6 @@ export class AdvancedformComponent implements OnInit {
    * Wizard step changed
    */
   stepChanged(args: StepChangedArgs) {
-    console.log(args.step);
   }
 
   isValidTypeBoolean: boolean = true;
