@@ -192,7 +192,6 @@ export class CustomerEditComponent implements OnInit {
         });
       
       this.shops.forEach((shop:any) => {
-        // console.log("shop: ", shop);
         if (control.controls.length < 20) {
           const shopForm = this.createItem();
           shopForm.get("id")?.setValue(shop.id);
@@ -238,14 +237,12 @@ export class CustomerEditComponent implements OnInit {
 
   formSubmit() {
     const customer = {uid: this.customer.uid, ...this.validationform.value};
-    // console.log("customer: ", customer);
 
     this.customerService.update(customer).then(res => {
       const shopItems: FormArray = this.itemShopForm.get(
         "items"
       ) as FormArray;
       shopItems.value.forEach((shop: any) => {
-        // console.log("shop: ", shop);
         this.shopService.update(shop).then(res => {
           
         }).catch(err => {
