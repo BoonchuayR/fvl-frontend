@@ -27,7 +27,8 @@ export class TopupListComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private topupService: TopupService,public service:TopupAdvancedService) {
+    private topupService: TopupService, 
+    public service:TopupAdvancedService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
      }
@@ -39,7 +40,9 @@ export class TopupListComponent implements OnInit {
           return -1
         }
         return 1
-    });
+      });
+
+      this.service.topups = this.topups;
     })
   }
   onSort({ column, direction }: SortEventTopup) {

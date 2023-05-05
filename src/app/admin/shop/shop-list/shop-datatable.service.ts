@@ -3,10 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortColumn } from './shop-sortable.directive';
-import { Customer } from 'src/app/core/models/customer.models';
-import { shopData } from './shop-data';
 import { Shop } from 'src/app/core/models/shop.models';
-import { ShopService } from 'src/app/service/shop.service';
 
 
 interface SearchResult {

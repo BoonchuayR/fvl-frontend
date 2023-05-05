@@ -48,11 +48,7 @@ function sort(tables: Topup[], column: SortColumn, direction: string): Topup[] {
  * @param term Search the value
  */
 function matches(table: Topup, term: string, pipe: PipeTransform) {
-    return pipe.transform(table.topupMoney).includes(term)   
-    || table.createdAt.toLowerCase().includes(term)
-    || table.status.toLowerCase().includes(term)
-    //     || table.custName.toLowerCase().includes(term)
-            
+    return table.custName.includes(term)           
 }
 
 @Injectable({
@@ -79,19 +75,22 @@ export class TopupAdvancedService {
         endIndex: 9,
         totalRecords: 0
     };
-    topups=[];
-    constructor(private pipe: DecimalPipe, private topupService: TopupService) {
-        this._search$.pipe(
-            tap(() => this._loading$.next(true)),
-            debounceTime(200),
-            switchMap(() => this._search()),
-            delay(200),
-            tap(() => this._loading$.next(false))
-        ).subscribe(result => {
-            this._tables$.next(result.tables);
-            this._total$.next(result.total);
-        });
-        this._search$.next();
+
+    topups: Topup[] = [];
+
+    constructor(
+        private pipe: DecimalPipe) {
+            this._search$.pipe(
+                tap(() => this._loading$.next(true)),
+                debounceTime(200),
+                switchMap(() => this._search(this.topups)),
+                delay(200),
+                tap(() => this._loading$.next(false))
+            ).subscribe(result => {
+                this._tables$.next(result.tables);
+                this._total$.next(result.total);
+            });
+            this._search$.next();
     }
 
     /**
@@ -127,6 +126,13 @@ export class TopupAdvancedService {
     set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
 
+    set setTables(topups: Topup[]) { this._set_tables( topups ); }
+
+
+    private _set_tables(topups: Topup[]) {
+        this.topups = topups
+    }
+
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
         this._search$.next();
@@ -135,11 +141,11 @@ export class TopupAdvancedService {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(topups: Topup[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(topupData, sortColumn, sortDirection);
+        let tables = sort(topups, sortColumn, sortDirection);
         
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));
