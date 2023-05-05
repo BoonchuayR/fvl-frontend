@@ -48,12 +48,12 @@ function sort(tables: Meter[], column: SortColumn, direction: string): Meter[] {
  * @param term Search the value
  */
 function matches(table: Meter, term: string, pipe: PipeTransform) {
-    return table.lineVoltage.includes(term)
-        || table.storeId.toLowerCase().includes(term)
-        || table.deviceId.toLowerCase().includes(term)
-        || table.deviceZone.toLowerCase().includes(term)
-        || table.contractId.toLowerCase().includes(term)
-        || table.serialNo.toLowerCase().includes(term)
+    return table.zone.includes(term)
+        || table.storeId.includes(term)
+        || table.deviceId.includes(term)
+        || table.contractId.includes(term)
+        || table.deviceZone.includes(term)
+        || table.serialNo.includes(term)
 }
 
 @Injectable({
@@ -80,12 +80,13 @@ export class MeterServicemeter {
         endIndex: 9,
         totalRecords: 0
     };
-    meters = [];
-    constructor(private pipe: DecimalPipe, private meterService: MeterService) {
+    meters: Meter[] = [];
+
+    constructor(private pipe: DecimalPipe) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search()),
+            switchMap(() => this._search(this.meters)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -127,6 +128,11 @@ export class MeterServicemeter {
     set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
     set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
+    set setTables(meters: Meter[]) { this._set_tables( meters ); }
+
+    private _set_tables(meters: Meter[]) {
+        this.meters = meters
+    }
 
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
@@ -136,12 +142,11 @@ export class MeterServicemeter {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(meters: Meter[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        
-        let tables = sort(meterData, sortColumn, sortDirection);
+        let tables = sort(meters, sortColumn, sortDirection);
         
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

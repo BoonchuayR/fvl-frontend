@@ -13,7 +13,7 @@ const app = express();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
+exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
     .timeZone("Asia/Bangkok")
     .onRun(async (context) => {
 

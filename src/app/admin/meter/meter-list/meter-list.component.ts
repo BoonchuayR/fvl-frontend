@@ -27,7 +27,8 @@ export class MeterListComponent implements OnInit {
   constructor(
     private meterService: MeterService,
     private iotService: IotService,
-    private route: ActivatedRoute,public service:MeterServicemeter) {
+    private route: ActivatedRoute,
+    public service:MeterServicemeter) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
      }
@@ -36,10 +37,17 @@ export class MeterListComponent implements OnInit {
     
     const zone = this.route.snapshot.params["zone"];
 
+    console.log("zone >>> ", zone);
+
     this.meterService.findMeterByZone(zone).subscribe(meters => {
+      
       this.meters = meters;
+      this.service.meters = this.meters;
+      console.log("meters >>> ", this.meters);
     })
+
   }
+
   onSort({ column, direction }: SortEventMeter) {
     // resetting other headers
     this.headers.forEach(header => {
