@@ -50,8 +50,12 @@ function sort(tables: Shop[], column: SortColumn, direction: string): Shop[] {
  * @param term Search the value
  */
 function matches(table: Shop, term: string, pipe: PipeTransform) {
-    return table.custName.includes(term)
-        || table.boothName.includes(term)    
+    return table.boothCode.includes(term)
+        || table.boothCode.includes(term)  
+        || table.boothName.includes(term)
+        || table.boothZone.includes(term)
+        || table.contractNo.includes(term)
+        || table.custName.includes(term)
 }
 
 @Injectable({
@@ -78,12 +82,14 @@ export class ShopServiceshop {
         endIndex: 9,
         totalRecords: 0
     };
-    shops = [];
-    constructor(private pipe: DecimalPipe, private shopService: ShopService) {
+
+    shops: Shop[] = [];
+
+    constructor(private pipe: DecimalPipe,) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search()),
+            switchMap(() => this._search(this.shops)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -125,6 +131,11 @@ export class ShopServiceshop {
     set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
     set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
+    set setTables(shops: Shop[]) { this._set_tables( shops ); }
+
+    private _set_tables(shops: Shop[]) {
+        this.shops = shops
+    }
 
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
@@ -134,11 +145,11 @@ export class ShopServiceshop {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(shops: Shop[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(shopData, sortColumn, sortDirection);
+        let tables = sort(shops, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

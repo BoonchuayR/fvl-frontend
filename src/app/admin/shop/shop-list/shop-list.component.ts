@@ -27,7 +27,8 @@ export class ShopListComponent implements OnInit {
   
   shops!: any
 
-  constructor(private shopService: ShopService,public service:ShopServiceshop) {
+  constructor(private shopService: ShopService, 
+    public service: ShopServiceshop) {
     this.tables$ = service.tables$;
     this.total$ = service.total$; 
    
@@ -35,7 +36,9 @@ export class ShopListComponent implements OnInit {
 
   ngOnInit(): void {
     this.shopService.getAll().subscribe(shops => {
+      console.log("shops >>> ", shops);
       this.shops = shops;
+      this.service.shops = this.shops;
     })
   }
   onSort({ column, direction }: SortEventShop) {
