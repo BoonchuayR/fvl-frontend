@@ -46,4 +46,12 @@ export class ElectricityService {
     }) as Observable<Electricity[]>;
     
   }
+
+  findByUID(uid: string) {
+    const q = query(this.electricityCollection, where("uid", "==", uid));
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Electricity[]>;
+    
+  }
 }

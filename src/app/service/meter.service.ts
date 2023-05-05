@@ -102,9 +102,12 @@ export class MeterService {
   checkDupMeter(storeId: string) {
     return fetch(`${CHECK_DUP_METER_URL}?storeId=${storeId}`);
   }
+  
   async getAllMeterFromAPI() {
     const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/meters");
     const users = await response.json();
     return users.data;
   }
+
+
 }

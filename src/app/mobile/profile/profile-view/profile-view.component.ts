@@ -101,6 +101,8 @@ export class ProfileViewComponent implements OnInit {
     });
       this.buildBarChart();
     });
+
+
     
     // Get shops of customer
     this.shopService.getAll().subscribe((shops) => {
@@ -116,21 +118,34 @@ export class ProfileViewComponent implements OnInit {
 
         if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
           for (let i = 0; i < shopMeters.length; i++) {
+            this.meters = [];
             for (let j = 0; j < shopMeters[i].length; j++) {
               const filteredMeters: any = allMeters.filter((am) => {
                 return am.storeId === shopMeters[i][j];
               });
   
               this.meters.push(...filteredMeters);
+
+              // this.electricityList = [];
   
-              for(let k = 0; k < filteredMeters.length; k++) {
-                  this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
-                    this.electricityList.push(...eltList);
-                  })
-              }
+              // for(let k = 0; k < filteredMeters.length; k++) {
+              //     this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
+              //       this.electricityList.push(...eltList);
+              //     })
+              // }
             }
           }
         }
+      });
+    });
+
+    // Get electricity of customer
+    this.electricityService.findByUID(this.currentUser.uid).subscribe(eltList => {
+      this.electricityList = eltList.sort((a, b) => {
+        if (a.date! > b.date!) {
+          return -1;
+        }
+        return 1;
       });
     });
 

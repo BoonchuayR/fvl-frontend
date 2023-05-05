@@ -13,90 +13,115 @@ const app = express();
 
 const db = getFirestore();
 
-// exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
-//     .timeZone("Asia/Bangkok")
-//     .onRun(async (context) => {
-//     //   console.info("This will be run every minute!");
+exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
+    .timeZone("Asia/Bangkok")
+    .onRun(async (context) => {
 
-//     // db.collection("customers").get().then((documentSnapshot) => {
-// 	// 	let data = documentSnapshot.data;
-//   	// 	console.log(`Retrieved data: ${JSON.stringify(data)}`);
-//     // });
+		console.log("Schedule start >>> ");
 
-// 		const customersRef = db.collection('customers');
-// 		const shopRef = db.collection('shop');
+		// const customersRef = db.collection('customers');
+		// const shopRef = db.collection('shop');
 		
-// 		const snapshot = await customersRef.get();
-// 		snapshot.forEach(async doc => {
-// 			console.info(`Customer ${doc.id} `, '=>', doc.data());
-// 			customer = doc.data;
-// 			uid = customer.uid;
+		// const customerSnapshot = await customersRef.get();
 
-// 			// Get customer's shop
-// 			const shopSnapshot = await shopRef.where('uid', '==', uid).get();
-// 			if (shopSnapshot.empty) {
-// 				console.log('No matching documents.');
-// 				return;
-// 			}  
+		// customerSnapshot.forEach(async doc => {
+		// 	customer = doc.data();
+		// 	uid = customer.uid;
 
-// 			shopSnapshot.forEach(doc => {
-// 				const shop = doc.data();
-// 				console.log(`Customer[${customer.custName}], Shop[${shop.boothName}]`);
-// 			});
-// 		});
+		// 	console.log("customer >>> ", customer);
+			
+		// 	// Get customer's shop
+		// 	const shopSnapshot = await shopRef.where('uid', '==', uid).get();
+		// 	if (shopSnapshot.empty) {
+		// 		console.log('No matching documents.');
+		// 		return;
+		// 	}  
 
-// 		// console.info("snapshot >>> ", snapshot);
+		// 	shopSnapshot.forEach(doc => {
+		// 		const shop = doc.data();
+		// 		// console.log(`Customer[${customer.custName}], Shop[${shop.boothName}]`);
+		// 	});
+		// });
 
-//       	const bodyReq = {
-//         CMD_TYPE: "METER_SELECT",
-// 				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-// 				CMD_PARAMS: [
-// 					"STORE_ID",
-// 					"DEVICE_ZONE",
-// 					"DEVICE_ID",
-// 					"SERIAL_NO",
-// 					"SLAVE_ID",
-// 					"MODEL_SPEC",
-// 					"LINE_VOLTAGE",
-// 					"LINE_FREQUENCY",
-// 					"LINE_CURRENT",
-// 					"ACTIVE_POWER",
-// 					"ACTIVE_ENERGY",
-// 					"UPDATE_DATETIME",
-// 					"METER_STATE",
-// 					"UPDATE_STATE_DATETIME",
-// 					"METER_STATE_ADMIN",
-// 					"UPDATE_STATE_ADMIN_DATETIME",
-// 					"METER_STATE_PREVIOUS_UNIT",
-// 					"METER_STATE_CALCULATE_UNIT"
-// 				],
-// 				STORE_ID: ["*"]
-//       };
+		// return;
 
-//       return request({
-//         method: "POST",
-//         uri: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
-//         body: bodyReq,
-//         json: true,
-//       }).then((meters) => {
-// 				const meterData = meters.DATA;
-// 				// console.log("meterData: ", meterData);
-//         for (let i = 0; i < 100; i++) {
-//           const electricity = {
-//             storeId: meterData[i].STORE_ID,
-//             date: moment().format("YYYY-MM-DD hh:mm:ss"),
-//             priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
-//             calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
-//             charge: +meterData[i].METER_STATE_CALCULATE_UNIT * 7,
-//           };
+      	const bodyReq = {
+        	CMD_TYPE: "METER_SELECT",
+				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
+				CMD_PARAMS: [
+					"STORE_ID",
+					"DEVICE_ZONE",
+					"DEVICE_ID",
+					"SERIAL_NO",
+					"SLAVE_ID",
+					"MODEL_SPEC",
+					"LINE_VOLTAGE",
+					"LINE_FREQUENCY",
+					"LINE_CURRENT",
+					"ACTIVE_POWER",
+					"ACTIVE_ENERGY",
+					"UPDATE_DATETIME",
+					"METER_STATE",
+					"UPDATE_STATE_DATETIME",
+					"METER_STATE_ADMIN",
+					"UPDATE_STATE_ADMIN_DATETIME",
+					"METER_STATE_PREVIOUS_UNIT",
+					"METER_STATE_CALCULATE_UNIT"
+				],
+				STORE_ID: ["A004"]
+      	};
 
-// 			db.collection('electricity').add(electricity).then(res => {
-// 				// console.log("res: ", res)
-// 			});
-					
-//         }
-//       });
-//     });
+		return request({
+			method: "POST",
+			uri: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
+			body: bodyReq,
+			json: true,
+		}).then(async (meters) => {
+			const meterData = meters.DATA;
+			// console.log("meterData: ", meterData);
+			for (let i = 0; i < meterData.length; i++) {
+				const electricity = {
+					storeId: meterData[i].STORE_ID,
+					date: moment().format("YYYY-MM-DD hh:mm:ss"),
+					priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
+					calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
+					charge: +meterData[i].METER_STATE_CALCULATE_UNIT * 7,
+				};
+
+				// console.log("electricity >>> ", electricity);
+				
+				// db.collection('electricity').add(electricity).then(res => {
+				// 	// console.log("res: ", res);
+				// });				
+
+				const shopSnapshot = await db.collection("shop").where("storeId", "array-contains", meterData[i].STORE_ID).get();
+				
+				shopSnapshot.forEach(async doc => {
+					// console.log(doc.id, '=>', doc.data());
+					const shop = doc.data();
+					const customerSnapshot = await db.collection("customers").where("uid", "==", shop.uid).get();
+					customerSnapshot.forEach(async cust => {
+						const updateCust = cust.data();
+						// console.log("updateCust: ", updateCust);
+						updateCust.currentMoney = +updateCust.currentMoney - +electricity.charge;
+						console.log("updateCust: ", updateCust);
+						const custRef = db.collection('customers').doc(updateCust.uid);
+						const res = await custRef.update(updateCust);
+						// await db.collection("customers").doc(updateCust.uid).set(updateCust);
+
+						electricity.uid = updateCust.uid;
+						db.collection('electricity').add(electricity).then(res => {
+							// console.log("res: ", res);
+						});	
+					});
+					// console.log(doc.id, '=>', doc.data());
+
+								
+	
+				})
+			}
+      });
+    });
 
 // Calculate energy charge every day 00.00
 // 1. Get all meter
