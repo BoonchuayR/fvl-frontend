@@ -15,6 +15,7 @@ import {
 } from "@angular/fire/firestore";
 
 interface Shop {
+  custPhone: any;
   id: string;
   boothCode: string;
   contractNo: string;

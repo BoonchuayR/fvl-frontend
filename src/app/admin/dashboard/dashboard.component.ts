@@ -1,21 +1,17 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  emailSentBarChart,
-  monthlyEarningChart,
-  transactions,
-  orders,
-  users,
-} from "../dashboard/data";
-import { ChartType } from "../dashboard/dashboard.model";
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { ChartType, DashboardUser ,DashboardShop} from "../dashboard/dashboard.model";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
-import { user } from "@angular/fire/auth";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
 import { MeterService } from "src/app/service/meter.service";
 import { AuthenticationService } from "src/app/core/services/auth.service";
-import { Router } from "@angular/router";
+import { DashboardSortableDirective, SortEventDashboard } from "./dashboard-sortable.directive";
+import { Observable } from "rxjs/internal/Observable";
+import { DashboardAdvancedServiceMD } from "./dashboard-datatable.service";
+import { DashboardAdvancedService } from "./dashboardshop-datatable.service";
+
 
 @Component({
   selector: "app-dashboard",
@@ -29,6 +25,15 @@ import { Router } from "@angular/router";
 export class DashboardComponent implements OnInit {
   // bread crumb items
   breadCrumbItems!: Array<{}>;
+
+
+  tableData!: DashboardUser[];
+  hideme: boolean[] = [];
+  tables$: Observable<DashboardUser[]>;
+  tableshop$: Observable<DashboardShop[]>;
+  total$: Observable<number>;
+  @ViewChildren(DashboardSortableDirective)
+  headers!: QueryList<DashboardSortableDirective>;
 
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
@@ -52,8 +57,14 @@ export class DashboardComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private authenService: AuthenticationService,
-
-  ) {}
+    public service: DashboardAdvancedServiceMD,
+    public services: DashboardAdvancedService
+  ) {  
+    this.tables$ = service.tables$;
+    this.total$ = service.total$;
+    this.tableshop$ = services.tables$;
+    this.total$ = services.total$;
+  }
 
   ngOnInit(): void {
     this.displayUsers = [];
@@ -65,7 +76,7 @@ export class DashboardComponent implements OnInit {
     ];
 
     const currentUser = this.authenService.currentUser();
-
+   
     // Get all users show in dashboard
     this.userService.getAll().subscribe((allUsers) => {
       this.users = allUsers;
@@ -79,10 +90,11 @@ export class DashboardComponent implements OnInit {
           phone: u.phone
         }
       })
+    //   // console.log("tempUsers ",tempUsers);
 
       this.displayUsers.push(...tempUsers)
 
-      // Get all customer show in dashboard
+    //   // Get all customer show in dashboard
       this.customerService.getAll().subscribe((allCustomer) => {
         this.customers = allCustomer;
         this.numberOfUsers += allCustomer.length;
@@ -95,6 +107,7 @@ export class DashboardComponent implements OnInit {
             phone: cust.custPhone
           }
         })
+        // console.log("userCustomer ",userCustomers);
 
         this.displayUsers.push(...userCustomers)
       });
@@ -104,6 +117,7 @@ export class DashboardComponent implements OnInit {
      this.shopService.getAll().subscribe((shops) => {
       this.shops = shops;
       this.numberOfShops = shops.length;
+      // console.log("shops ",shops);
     });
 
     // Get all meters
@@ -111,6 +125,16 @@ export class DashboardComponent implements OnInit {
       this.meters = meters;
       this.numberOfMeters = meters.length;
     });
+  }
+  onSort({ column, direction }: SortEventDashboard) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortableDashboard !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
   }
 
   // ngAfterViewInit() {

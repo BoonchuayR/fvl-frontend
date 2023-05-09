@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DecimalPipe } from "@angular/common";
 import { CountToModule } from "angular-count-to";
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +17,6 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
 import { Select2Module } from 'ng-select2-component';
-
 import { AdminRoutingModule } from "./admin-routing.module";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { IconsModule } from "../pages/icons/icons.module";
@@ -61,8 +60,7 @@ import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.direct
 import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
-import {FirebaseTSApp} from 'firebasets/firebasetsApp/firebaseTSApp';
-import { environment } from "src/environments/environment";
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [
     MeterSortableDirective,
@@ -103,6 +101,7 @@ import { environment } from "src/environments/environment";
     TicketViewComponent,
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     SharedModule,
     TablesRoutingModule,
@@ -127,6 +126,7 @@ import { environment } from "src/environments/environment";
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",
     }),
   ],
+  providers:[DecimalPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule {

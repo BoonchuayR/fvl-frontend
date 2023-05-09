@@ -287,4 +287,8 @@ const users = [
     }
 ];
 
-export { emailSentBarChart, monthlyEarningChart, transactions, orders, users };
+export { emailSentBarChart as emailSentBarChart};
+export {monthlyEarningChart as monthlyEarningChart};
+export {transactions as transactions};
+export {  orders as orders};
+export { users as users};

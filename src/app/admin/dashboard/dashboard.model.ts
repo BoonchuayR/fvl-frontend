@@ -15,5 +15,16 @@ export interface ChartType {
     tooltip?: any;
     grid?: any;
 }
+export interface DashboardUser{
+    typeUser: string;
+    displayName: string;
+    email: string;
+    phone: string;
+}
 
-
+export interface DashboardShop{
+    boothName: string;
+    custName: string;
+    boothCode: string;
+    custPhone: string;
+}

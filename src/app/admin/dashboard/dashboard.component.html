@@ -1,8 +1,7 @@
 <!-- start page title -->
 <app-pagetitle
   title="Dashboard"
-  [breadcrumbItems]="breadCrumbItems"
-></app-pagetitle>
+  [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 <!-- end page title -->
 
 <div class="row">
@@ -45,9 +44,7 @@
               class="counter-value"
               [CountTo]="numberOfShops"
               [from]="0"
-              [duration]="1"
-              >{{ numberOfShops }}</span
-            >
+              [duration]="1">{{ numberOfShops }}</span>
             ร้านค้า
           </h4>
         </div>
@@ -76,9 +73,7 @@
               class="counter-value"
               [CountTo]="numberOfMeters"
               [from]="0"
-              [duration]="1"
-              >{{ numberOfMeters }}</span
-            >
+              [duration]="1">{{ numberOfMeters }}</span>
             มิเตอร์
           </h4>
         </div>
@@ -97,8 +92,29 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">ผู้ใช้งาน</h4>
-
-        <div class="table-responsive">
+        <div class="row mb-md-2">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length" id="tickets-table_length">
+              <label class="d-inline-flex align-items-center">
+                Show
+                <select name="tickets-table_length"
+                  aria-controls="tickets-table" name="pageSize"
+                  class="form-control
+                  form-control-sm mx-2" class="form-control
+                  form-control-sm mx-2"[(ngModel)]="service.pageSize">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entries
+              </label>
+            </div>
+          </div>
+          <!-- Search -->
+       
+          <!-- End search -->
+        </div>
+        <div>
           <table class="table table-striped mb-0">
             <thead>
               <tr>
@@ -108,15 +124,56 @@
                 <th>เบอร์โทรศัพท์</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let user of displayUsers">
-                <th>{{ user.typeUser || "ลูกค้า" }}</th>
-                <th>{{ user.displayName || user.custName }}</th>
-                <td>{{ user.email }}</td>
-                <td>{{ user.phone }}</td>
+            <tbody *ngFor="let table of tables$ | async;let i=index">
+              <tr>
+                <td>
+                  <ngb-highlight [result]="table.typeUser"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.displayName"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.email"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.phone"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center
+          mt-2">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info mb-2"
+              id="tickets-table_info" role="status"
+              aria-live="polite">
+              Showing
+              {{service.startIndex}} to
+              {{service.endIndex}} of {{service.totalRecords}}
+              entries
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-right float-md-end
+              pagination-rounded">
+              <ngb-pagination [collectionSize]="(total$ | async)!"
+                [(page)]="service.page"
+                [pageSize]="service.pageSize">
+              </ngb-pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -125,7 +182,28 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">ร้านค้า</h4>
-
+        <div class="row mb-md-2">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length" id="tickets-table_length">
+              <label class="d-inline-flex align-items-center">
+                Show
+                <select name="tickets-table_length"
+                  aria-controls="tickets-table" name="pageSize"
+                  class="form-control
+                  form-control-sm mx-2" class="form-control
+                  form-control-sm mx-2"[(ngModel)]="services.pageSize">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entries
+              </label>
+            </div>
+          </div>
+          <!-- Search -->
+        
+          <!-- End search -->
+        </div>
         <div class="table-responsive">
           <table class="table table-striped mb-0">
             <thead>
@@ -136,15 +214,57 @@
                 <th>เบอร์โทร</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let shop of shops">
-                <td>{{ shop.boothName }}</td>
-                <td>{{ shop.custName }}</td>
-                <td>{{ shop.boothCode }}</td>
-                <td>{{ shop.custPhone }}</td>
+          
+            <tbody *ngFor="let table of tableshop$ | async;let i=index">
+              <tr>
+                <td>
+                  <ngb-highlight [result]="table.boothName"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.custName"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.boothCode"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.custPhone"
+                    [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center
+          mt-2">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info mb-2"
+              id="tickets-table_info" role="status"
+              aria-live="polite">
+              Showing
+              {{services.startIndex}} to
+              {{services.endIndex}} of {{services.totalRecords}}
+              entries
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-right float-md-end
+              pagination-rounded">
+              <ngb-pagination [collectionSize]="(total$ | async)!"
+                [(page)]="services.page"
+                [pageSize]="services.pageSize">
+              </ngb-pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>

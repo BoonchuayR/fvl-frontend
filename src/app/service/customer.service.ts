@@ -17,13 +17,13 @@ import {
 
 interface Customers {
   uid: string;
-  email?: string;
-  custCode?: string;
-  custName?: string;
-  custPhone?: string;
-  custStartDate?: string;
-  minimumMoney?: string;
-  currentMoney?: number;
+  email: string;
+  custCode: string;
+  custName: string;
+  custPhone: string;
+  custStartDate: string;
+  minimumMoney: string;
+  currentMoney: number;
 }
 
 @Injectable({
