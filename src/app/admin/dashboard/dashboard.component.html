@@ -215,26 +215,26 @@
               </tr>
             </thead>
           
-            <tbody *ngFor="let table of tableshop$ | async;let i=index">
+            <tbody *ngFor="let table of tablesshop$ | async;let i=index">
               <tr>
                 <td>
                   <ngb-highlight [result]="table.boothName"
-                    [term]="service.searchTerm">
+                    [term]="services.searchTerm">
                   </ngb-highlight>
                 </td>
                 <td>
                   <ngb-highlight [result]="table.custName"
-                    [term]="service.searchTerm">
+                    [term]="services.searchTerm">
                   </ngb-highlight>
                 </td>
                 <td>
                   <ngb-highlight [result]="table.boothCode"
-                    [term]="service.searchTerm">
+                    [term]="services.searchTerm">
                   </ngb-highlight>
                 </td>
                 <td>
                   <ngb-highlight [result]="table.custPhone"
-                    [term]="service.searchTerm">
+                    [term]="services.searchTerm">
                   </ngb-highlight>
                 </td>
                 <td>
@@ -259,7 +259,7 @@
           <div class="col-sm-12 col-md-5">
             <div class="text-md-right float-md-end
               pagination-rounded">
-              <ngb-pagination [collectionSize]="(total$ | async)!"
+              <ngb-pagination [collectionSize]="(totalshop$ | async)!"
                 [(page)]="services.page"
                 [pageSize]="services.pageSize">
               </ngb-pagination>

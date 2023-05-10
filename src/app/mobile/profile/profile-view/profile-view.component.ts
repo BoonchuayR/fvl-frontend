@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { emailSentBarChart, monthlyEarningChart } from "../data";
 import { ChartType } from "../profile.model";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -17,6 +17,16 @@ import { Meter } from "src/app/core/models/meter.model";
 import { Router } from "@angular/router";
 import { ElectricityService } from "src/app/service/electricity.service";
 import { ticketData } from "src/app/admin/ticket/ticket-list/ticket-data";
+import { Observable } from "rxjs/internal/Observable";
+import { profileElectricData, profileMeterData, profileShopData, profileTopupData } from "./profile-view-models";
+import { ProfileViewShopSortableDirective, SortEventShop } from "./profile-view-shop-sortable.directive";
+import { ProfileShopAdvancedServiceMD } from "./profile-shop-datatable.service";
+import { ProfileViewMeterSortableDirective } from "./profile-view-meter-sortable.directive";
+import { ProfileMeterAdvancedServiceMD } from "./profile-meter-datatable.service";
+import { ProfileTopupAdvancedServiceMD } from "./profile-topup-datatable.service";
+import { ProfileViewTopupSortableDirective } from "./profile-view-topup-sortable.directive";
+import { ProfileViewElectricSortableDirective } from "./profile-view-electric-sortable.directive";
+import { ProfileElectricAdvancedServiceMD } from "./profile-electric-datatable.service";
 
 @Component({
   selector: "app-profile-view",
@@ -24,6 +34,35 @@ import { ticketData } from "src/app/admin/ticket/ticket-list/ticket-data";
   styleUrls: ["./profile-view.component.scss"],
 })
 export class ProfileViewComponent implements OnInit {
+
+  tableData!: profileShopData[];
+  hideme: boolean[] = [];
+  tables$: Observable<profileShopData[]>;
+  total$: Observable<number>;
+  @ViewChildren(ProfileViewShopSortableDirective)
+  headers!: QueryList<ProfileViewShopSortableDirective>;
+
+  tableDataMeter!: profileMeterData[];
+  hidemeMeter: boolean[] = [];
+  tablesMeter$: Observable<profileMeterData[]>;
+  totalMeter$: Observable<number>;
+  @ViewChildren(ProfileViewMeterSortableDirective)
+  headersMeter!: QueryList<ProfileViewMeterSortableDirective>;
+  
+  tableDataTopup!: profileTopupData[];
+  hidemeTopup: boolean[] = [];
+  tablesTopup$: Observable<profileTopupData[]>;
+  totalTopup$: Observable<number>;
+  @ViewChildren(ProfileViewTopupSortableDirective)
+  headersTopup!: QueryList<ProfileViewTopupSortableDirective>;
+ 
+  tableDataElectric!: profileElectricData[];
+  hidemeElectric: boolean[] = [];
+  tablesElectric$: Observable<profileElectricData[]>;
+  totalElectric$: Observable<number>;
+  @ViewChildren(ProfileViewElectricSortableDirective)
+  headersElectric!: QueryList<ProfileViewElectricSortableDirective>;
+
   currentUser!: any;
   customer!: any;
   customerId!: string;
@@ -63,8 +102,21 @@ export class ProfileViewComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private iotService: IotService,
-    private electricityService: ElectricityService
-  ) {}
+    private electricityService: ElectricityService,
+    public service: ProfileShopAdvancedServiceMD,
+    public services: ProfileMeterAdvancedServiceMD,
+    public serviceTopup: ProfileTopupAdvancedServiceMD,
+    public serviceElectric : ProfileElectricAdvancedServiceMD,
+  ) {
+    this.tables$ = service.tables$;
+    this.total$ = service.total$;
+    this.tablesMeter$ = services.tables$;
+    this.totalMeter$ = services.total$;
+    this.tablesTopup$ = serviceTopup.tables$;
+    this.totalTopup$ = serviceTopup.total$;
+    this.tablesElectric$ = serviceElectric.tables$;
+    this.totalElectric$ = serviceElectric.total$;
+  }
 
   ngOnInit(): void {
     this.meterState = localStorage.getItem("meterState");
@@ -98,7 +150,9 @@ export class ProfileViewComponent implements OnInit {
           return -1
         }
         return 1
-    });
+      });
+      // console.log("this.topups >>> ", this.topups)
+      this.serviceTopup.profileTopups = this.topups;
       this.buildBarChart();
     });
 
@@ -111,10 +165,11 @@ export class ProfileViewComponent implements OnInit {
         this.shops = shops.filter((s: any) => {
           return s.uid === this.currentUser.uid;
         });
-
+        this.service.profileShops = this.shops;
         const shopMeters = this.shops.map((s: any) => {
           return s.storeId;
         });
+        //  console.log("shopMeters >>>> ",shopMeters);
 
         if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
           for (let i = 0; i < shopMeters.length; i++) {
@@ -125,7 +180,8 @@ export class ProfileViewComponent implements OnInit {
               });
   
               this.meters.push(...filteredMeters);
-
+              this.services.profileMeters =this.meters
+              // console.log("shop >>>> ",filteredMeters);
               // this.electricityList = [];
   
               // for(let k = 0; k < filteredMeters.length; k++) {
@@ -140,13 +196,15 @@ export class ProfileViewComponent implements OnInit {
     });
 
     // Get electricity of customer
-    this.electricityService.findByUID(this.currentUser.uid).subscribe(eltList => {
+      this.electricityService.findByUID(this.currentUser.uid).subscribe(eltList => {
       this.electricityList = eltList.sort((a, b) => {
         if (a.date! > b.date!) {
           return -1;
         }
         return 1;
       });
+      this.serviceElectric.profileElectrics = this.electricityList;
+  
     });
 
     //BreadCrumb
@@ -160,7 +218,16 @@ export class ProfileViewComponent implements OnInit {
      */
     this.fetchData();
   }
-
+  onSort({ column, direction }: SortEventShop) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortableShop !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
   buildBarChart() {
 
     const topUpMonths = [

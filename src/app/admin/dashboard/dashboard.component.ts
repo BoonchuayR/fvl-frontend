@@ -11,6 +11,7 @@ import { DashboardSortableDirective, SortEventDashboard } from "./dashboard-sort
 import { Observable } from "rxjs/internal/Observable";
 import { DashboardAdvancedServiceMD } from "./dashboard-datatable.service";
 import { DashboardAdvancedService } from "./dashboardshop-datatable.service";
+import { DashboardShopSortableDirective } from "./dashboardshop-sortable.directive";
 
 
 @Component({
@@ -30,10 +31,18 @@ export class DashboardComponent implements OnInit {
   tableData!: DashboardUser[];
   hideme: boolean[] = [];
   tables$: Observable<DashboardUser[]>;
-  tableshop$: Observable<DashboardShop[]>;
   total$: Observable<number>;
   @ViewChildren(DashboardSortableDirective)
   headers!: QueryList<DashboardSortableDirective>;
+
+  tableDatashop!: DashboardShop[];
+  hidemeshop: boolean[] = [];
+  tablesshop$: Observable<DashboardShop[]>;
+  totalshop$: Observable<number>;
+  @ViewChildren(DashboardShopSortableDirective)
+  headersshop!: QueryList<DashboardShopSortableDirective>;
+
+  
 
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
@@ -62,8 +71,8 @@ export class DashboardComponent implements OnInit {
   ) {  
     this.tables$ = service.tables$;
     this.total$ = service.total$;
-    this.tableshop$ = services.tables$;
-    this.total$ = services.total$;
+    this.tablesshop$ = services.tables$;
+    this.totalshop$ = services.total$;
   }
 
   ngOnInit(): void {
@@ -110,6 +119,7 @@ export class DashboardComponent implements OnInit {
         // console.log("userCustomer ",userCustomers);
 
         this.displayUsers.push(...userCustomers)
+        this.service.dashboards = userCustomers;
       });
     });
 
@@ -118,6 +128,8 @@ export class DashboardComponent implements OnInit {
       this.shops = shops;
       this.numberOfShops = shops.length;
       // console.log("shops ",shops);
+      this.services.dashboardshop = this.shops;
+      console.log("this shops >>>> ///// ", this.shops);
     });
 
     // Get all meters

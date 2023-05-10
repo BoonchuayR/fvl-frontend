@@ -89,25 +89,13 @@ export class DashboardAdvancedService {
     users!:any;
     customers!:any;
     numberOfUsers!:number;
-    dashboards:DashboardShop[]=[];
-    constructor(private pipe: DecimalPipe, private userService: UserService,private customerService: CustomerService ,private shopService: ShopService) {
-          this.shopService.getAll().subscribe((shops) => {
-            this.shops = shops;
-            const Shop = shops.map(cust => {
-                return {
-                    boothName: cust.boothName,
-                    custName: cust.custName,
-                    boothCode: cust.boothCode,
-                    custPhone: cust.custPhone
-                }
-              })
-            // console.log("shops ",shops);
-            this.displayUsers.push(...Shop)
-          });
+    dashboardshop:DashboardShop[]=[];
+    constructor(private pipe: DecimalPipe) {
+     
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search(this.displayUsers)),
+            switchMap(() => this._search(this.dashboardshop)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -149,9 +137,9 @@ export class DashboardAdvancedService {
     set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
     set sortColumn(sortColumn: SortColumnshop) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
-    set setTables(dashboards: DashboardShop[]) { this._set_tables( dashboards ); }
-    private _set_tables(displayUsers: DashboardShop[]) {
-        this.displayUsers = displayUsers
+    set setTables(dashboardshop: DashboardShop[]) { this._set_tables( dashboardshop ); }
+    private _set_tables(dashboardshop: DashboardShop[]) {
+        this.dashboardshop = dashboardshop
     }
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
@@ -161,11 +149,11 @@ export class DashboardAdvancedService {
     /**
      * Search Method
      */
-    private _search(dashboards: DashboardShop[]): Observable<SearchResult> {
+    private _search(dashboardshop: DashboardShop[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(dashboards, sortColumn, sortDirection);
+        let tables = sort(dashboardshop, sortColumn, sortDirection);
         // console.log("dashboards>>>>>>>>>>", dashboards);
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

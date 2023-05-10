@@ -1,18 +1,18 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { DashboardShop } from './dashboard.model';
+import { profileElectricData} from './profile-view-models';
 
-export type SortColumnshop = keyof DashboardShop | '';
+export type SortColumnElectric = keyof profileElectricData | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
-export interface SortEventDashboard {
-  column: SortColumnshop;
+export interface SortEventShop {
+  column: SortColumnElectric;
   direction: SortDirection;
 }
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'th[sortableDashboardshop]',
+  selector: 'th[sortableelectric]',
   // tslint:disable-next-line: no-host-metadata-property
   host: {
     '[class.asc]': 'direction === "asc"',
@@ -21,16 +21,16 @@ export interface SortEventDashboard {
   }
 })
 
-export class DashboardShopSortableDirective {
+export class ProfileViewElectricSortableDirective {
 
   constructor() { }
 
-  @Input() sortableDashboardshop: SortColumnshop = '';
+  @Input() sortableelectric: SortColumnElectric = '';
   @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEventDashboard>();
+  @Output() sort = new EventEmitter<SortEventShop>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortableDashboardshop, direction: this.direction });
+    this.sort.emit({ column: this.sortableelectric, direction: this.direction });
   }
 }

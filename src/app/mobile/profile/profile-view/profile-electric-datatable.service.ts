@@ -2,16 +2,15 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
-import { UserService } from 'src/app/service/user.service';
-import { DashboardUser } from './dashboard.model';
-import { SortColumn, SortDirection } from './dashboard-sortable.directive';
-import { CustomerService } from 'src/app/service/customer.service';
-import { ShopService } from 'src/app/service/shop.service';
+import { SortColumnMeter, SortDirection } from './profile-view-meter-sortable.directive';
+import { profileElectricData } from './profile-view-models';
+import { SortColumnElectric } from './profile-view-electric-sortable.directive';
+
 
 
 
 interface SearchResult {
-    tables: DashboardUser[];
+    tables: profileElectricData[];
     total: number;
 }
 
@@ -19,7 +18,7 @@ interface State {
     page: number;
     pageSize: number;
     searchTerm: string;
-    sortColumn: SortColumn;
+    sortColumn: SortColumnElectric;
     sortDirection: SortDirection;
     startIndex: number;
     endIndex: number;
@@ -34,7 +33,7 @@ const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 
  * @param column Fetch the column
  * @param direction Sort direction Ascending or Descending
  */
-function sort(tables: DashboardUser[], column: SortColumn, direction: string): DashboardUser[] {
+function sort(tables: profileElectricData[], column: SortColumnElectric, direction: string): profileElectricData[] {
     if (direction === '' || column === '') {
         return tables;
     } else {
@@ -50,25 +49,22 @@ function sort(tables: DashboardUser[], column: SortColumn, direction: string): D
  * @param  Table field value fetch
  * @param term Search the value
  */
-function matches(table: DashboardUser, term: string, pipe: PipeTransform) {
-    return table.typeUser.includes(term)
-        || table.displayName.includes(term)
-        || table.email.toLowerCase().includes(term)
-        || table.phone.toLowerCase().includes(term)
-        
+function matches(table: profileElectricData, term: string, pipe: PipeTransform) {
+    return table.storeId.includes(term)
+    || table.date.includes(term)
+    || table.calculateUnit.toLowerCase().includes(term)
+    || table.charge.toLowerCase().includes(term)
 }
 
-@Injectable({
-    providedIn: 'any'
-})
+@Injectable({providedIn : 'any'})
 
-export class DashboardAdvancedServiceMD {
+export class ProfileElectricAdvancedServiceMD {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name
     private _search$ = new Subject<void>();
     // tslint:disable-next-line: variable-name
-    private _tables$ = new BehaviorSubject<DashboardUser[]>([]);
+    private _tables$ = new BehaviorSubject<profileElectricData[]>([]);
     // tslint:disable-next-line: variable-name
     private _total$ = new BehaviorSubject<number>(0);
     // tslint:disable-next-line: variable-name
@@ -82,19 +78,18 @@ export class DashboardAdvancedServiceMD {
         endIndex: 9,
         totalRecords: 0
     };
-
+    meters:any=[];
     displayUsers:any = [];
     shops:any=[];
-    users!:any;
-    customers!:any;
-    numberOfUsers!:number;
-    dashboards:DashboardUser[]=[];
+    currentUser:any;
+    customer:any;
+    profileElectrics:profileElectricData[]=[];
     constructor(private pipe: DecimalPipe) {
       
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search(this.dashboards)),
+            switchMap(() => this._search(this.profileElectrics)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -134,11 +129,11 @@ export class DashboardAdvancedServiceMD {
     set totalRecords(totalRecords: number) { this._set({ totalRecords }); }
     // tslint:disable-next-line: adjacent-overload-signatures
     set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
-    set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
+    set sortColumn(sortColumn: SortColumnElectric) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
-    set setTables(dashboards: DashboardUser[]) { this._set_tables( dashboards ); }
-    private _set_tables(dashboards: DashboardUser[]) {
-        this.dashboards = dashboards
+    set setTables(profileElectrics: profileElectricData[]) { this._set_tables( profileElectrics ); }
+    private _set_tables(profileElectrics: profileElectricData[]) {
+        this.profileElectrics = profileElectrics
     }
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
@@ -148,11 +143,12 @@ export class DashboardAdvancedServiceMD {
     /**
      * Search Method
      */
-    private _search(dashboards: DashboardUser[]): Observable<SearchResult> {
+    private _search(profileElectrics: profileElectricData[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(dashboards, sortColumn, sortDirection);
+        let tables = sort(profileElectrics, sortColumn, sortDirection);
+        // console.log("profileElectrics >>>>> ",profileElectrics);
         // console.log("dashboards>>>>>>>>>>", dashboards);
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

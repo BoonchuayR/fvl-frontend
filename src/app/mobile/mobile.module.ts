@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { CommonModule, DecimalPipe } from "@angular/common";
 import { SimplebarAngularModule } from "simplebar-angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -13,6 +13,7 @@ import {
   NgbTooltipModule,
   NgbPopoverModule,
   NgbCollapseModule,
+  NgbModule,
 } from "@ng-bootstrap/ng-bootstrap";
 
 import { MobileRoutingModule } from "./mobile-routing.module";
@@ -42,9 +43,14 @@ import { RepairViewComponent } from "./repair/repair-view/repair-view.component"
 import { HistoryListComponent } from "./history/history-list/history-list.component";
 import { HistoryViewComponent } from "./history/history-view/history-view.component";
 import { PrintPageComponent } from './profile/print-page/print-page.component';
+import { HttpClientModule } from "@angular/common/http";
+import { SharedModule } from "../shared/shared.module";
+import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
+import { ProfileViewShopSortableDirective } from "./profile/profile-view/profile-view-shop-sortable.directive";
 
 @NgModule({
   declarations: [
+    ProfileViewShopSortableDirective,
     RegisterComponent,
     TopupComponent,
     AnnounceListComponent,
@@ -73,6 +79,12 @@ import { PrintPageComponent } from './profile/print-page/print-page.component';
     PrintPageComponent
   ],
   imports: [
+    HttpClientModule,
+    SharedModule,
+    TablesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
     CommonModule,
     MobileRoutingModule,
     ScrollToModule.forRoot(),
@@ -88,5 +100,7 @@ import { PrintPageComponent } from './profile/print-page/print-page.component';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [DecimalPipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MobileModule {}
