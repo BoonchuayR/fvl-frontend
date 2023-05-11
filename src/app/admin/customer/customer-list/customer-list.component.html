@@ -81,8 +81,8 @@
                         <th sortableCustomer="email" (sort)="onSort($event)">อีเมล</th>
                         <th sortableCustomer="custPhone"
                           (sort)="onSort($event)">เบอร์โทรศัพท์</th>
-                        <th sortableCustomer="custStartDate"
-                          (sort)="onSort($event)">วันที่สมัคร</th>
+                        <!-- <th sortableCustomer="custStartDate"
+                          (sort)="onSort($event)">วันที่สมัคร</th> -->
                           <th sortableCustomer="currentMoney"
                           (sort)="onSort($event)">ยอดเงินปัจจุบัน</th>
                         <th>สถานะ</th>
@@ -111,11 +111,11 @@
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </td>
-                        <td>
+                        <!-- <td>
                           <ngb-highlight [result]="table.custStartDate"
                             [term]="service.searchTerm">
                           </ngb-highlight>
-                        </td>
+                        </td> -->
                         <td class="right">
                          {{table.currentMoney | number:'0.2'}}
                         </td>

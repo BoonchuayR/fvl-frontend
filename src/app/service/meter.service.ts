@@ -43,6 +43,9 @@ interface Meter {
   providedIn: "root",
 })
 export class MeterService {
+  subscribe(arg0: (meters: any) => void) {
+    throw new Error('Method not implemented.');
+  }
   private meterCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore) {
@@ -82,6 +85,15 @@ export class MeterService {
   findMeterByZone(zone: string) {
     
     const q = query(this.meterCollection, where("zone", "==", zone));
+    
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Meter[]>;
+    
+  }
+  findMeterByStatus(meterstate: string) {
+    
+    const q = query(this.meterCollection, where("meterState", "==", meterstate));
     
     return collectionData(q, {
       idField: "id",
