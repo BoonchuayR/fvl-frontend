@@ -38,6 +38,7 @@ interface Meter {
   lineCurrent: string;
   activePower: string;
   zone: string;
+  shopName: string;
 }
 @Injectable({
   providedIn: "root",

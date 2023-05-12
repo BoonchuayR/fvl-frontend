@@ -44,8 +44,7 @@ export class MeterListComponent implements OnInit {
       this.meters = meters;
       this.service.meters = this.meters;
       console.log("meters >>> ", this.meters);
-    })
-
+    });
   }
 
   onSort({ column, direction }: SortEventMeter) {

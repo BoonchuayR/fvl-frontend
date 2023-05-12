@@ -8,6 +8,9 @@ import { IotService } from 'src/app/service/iot.service';
 import { MeterServicemeter } from './meter-dashboard-datatable.service';
 import Swal from 'sweetalert2';
 import { DecimalPipe } from '@angular/common';
+import { ShopService } from 'src/app/service/shop.service';
+import { map } from 'rxjs/operators';
+import { CustomerService } from 'src/app/service/customer.service';
 
 @Component({
   selector: 'app-meter-dashboard',
@@ -25,10 +28,14 @@ export class MeterDashboardComponent implements OnInit {
   meters!: any
   meterstate:any = 0;
   state:any;
-  constructor(private meterService: MeterService,
+  constructor(
+    private meterService: MeterService,
     private iotService: IotService,
     private route: ActivatedRoute,
-    public service:MeterServicemeter) { 
+    public service:MeterServicemeter,
+    private shopService: ShopService,
+    private customerService: CustomerService
+    ) { 
       this.tables$ = service.tables$;
       this.total$ = service.total$;
     }
@@ -36,15 +43,28 @@ export class MeterDashboardComponent implements OnInit {
   ngOnInit(): void {
    this.changeValue(this.meterstate);
   }
+
   changeValue(event:any){
     if(this.meterstate == 0){
-      this.meterService.getAll().subscribe(meters => {
+      this.meterService.getAll()
+      .subscribe(meters => {
         this.meters = meters;
         this.service.meters = this.meters;
-        // this.meterstate = event.target.value;
-        console.log("meterstate >>> ", this.meterstate);
+        this.meters = this.meters.map((meter: any) => {
+
+          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+            if (shops && shops.length > 0) {
+              meter.shopName = shops[0].boothName;
+              meter.custName = shops[0].custName;
+            }
+            return meter
+          });
+
+        });
+
       })
     }
+
     if(this.meterstate == 1){
       this.meterService.findMeterByStatus("1").subscribe(meters => {
         this.meters = meters;
@@ -54,6 +74,7 @@ export class MeterDashboardComponent implements OnInit {
         console.log("meterstate >>> ", this.meterstate);
       })
     }
+
     if(this.meterstate == 2){
          this.meterService.findMeterByStatus("0").subscribe(meters => {
         this.meters = meters;
@@ -63,7 +84,9 @@ export class MeterDashboardComponent implements OnInit {
         console.log(" this.meters >>> ", this.meters);
       })
     }
+
   }
+
   onSort({ column, direction }: SortEventMeter) {
     // resetting other headers
     this.headers.forEach(header => {
@@ -74,6 +97,7 @@ export class MeterDashboardComponent implements OnInit {
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
   }
+
   changMeterState(event: any, storeId: any, id: any, meter: any) {
     const isChecked = event.target.checked;
     Swal.fire({
@@ -105,6 +129,7 @@ export class MeterDashboardComponent implements OnInit {
       }
     });
   }
+
   confirm(id: string) {
     Swal.fire({
       title: 'ลบข้อมูลมิเตอร์',
@@ -129,4 +154,5 @@ export class MeterDashboardComponent implements OnInit {
       }
     });
   }
+
 }

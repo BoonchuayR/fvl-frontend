@@ -19,4 +19,6 @@ export interface Meter {
   updateStateDatetime: string,
   meterStateAdmin: string,
   updateStateAdminDatetime: string,
+  shopName: string,
+  custName: string
 }

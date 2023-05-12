@@ -236,6 +236,18 @@
                                                         </button>
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.shopName"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.custName"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
