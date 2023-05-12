@@ -14,6 +14,7 @@ export interface ChartType {
     yaxis?: any;
     tooltip?: any;
     grid?: any;
+    // code:any;
 }
 
 

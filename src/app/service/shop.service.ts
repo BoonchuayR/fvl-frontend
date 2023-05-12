@@ -72,6 +72,13 @@ export class ShopService {
       idField: "id",
     }) as Observable<Shop[]>;
   }
+
+  findByBoothCode(boothCode: string) {
+    const q = query(this.shopCollection, where("boothCode", "==", boothCode));
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Shop[]>;
+  }
   
   async getAllShopFromAPI() {
     const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/shops");

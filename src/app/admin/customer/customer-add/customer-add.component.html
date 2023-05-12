@@ -22,8 +22,7 @@
         class="needs-validation"
         (ngSubmit)="validSubmit()"
         [formGroup]="validationform"
-        novalidate
-      >
+        novalidate>
         <div class="p-3 px-4 bg-success">
           <div class="d-flex align-items-start">
             <!-- <div class="align-self-center me-3">
@@ -39,16 +38,14 @@
               <button
                 routerLink="/customer-list"
                 routerLinkActive="active"
-                class="btn btn-outline-default btn-rounded float-right"
-              >
+                class="btn btn-outline-default btn-rounded float-right">
                 <i class="bx bx-x"></i> ยกเลิก
               </button>
               <button
                 class="btn btn-outline-success btn-rounded float-right"
                 type="submit"
                 (click)="formSubmit()"
-                routerLinkActive="active"
-              >
+                routerLinkActive="active">
                 <i class="bx bx bx-save"></i> บันทึก
               </button>
             </div>
@@ -75,7 +72,7 @@
                               formControlName="custCode"
                               type="text"
                               placeholder="ระบุรหัสสมาชิก"
-                            />
+                              />
                           </div>
                           <div class="font-size-12 mb-3">
                             <label class="form-label">ชื่อลูกค้า</label>
@@ -84,7 +81,7 @@
                               formControlName="custName"
                               type="text"
                               placeholder="ระบุชื่อ-นามสกุล"
-                            />
+                              />
                           </div>
                           <div class="font-size-12 mb-3">
                             <label class="form-label">อีเมล</label>
@@ -93,7 +90,7 @@
                               formControlName="email"
                               type="text"
                               placeholder="ระบุอีเมล"
-                            />
+                              />
                           </div>
                           <div class="font-size-12 mb-3">
                             <label class="form-label">พาสเวิร์ด</label>
@@ -102,7 +99,7 @@
                               formControlName="password"
                               type="password"
                               placeholder="ระบุพาสเวิร์ด"
-                            />
+                              />
                           </div>
                           <div class="font-size-12 mb-3">
                             <label class="form-label">เบอร์โทรศัพท์</label>
@@ -111,7 +108,7 @@
                               formControlName="custPhone"
                               type="text"
                               placeholder="ระบุเบอร์โทรศัพท์"
-                            />
+                              />
                           </div>
                           <!-- <div class="font-size-12 mb-3">
                             <label class="form-label">วันสมัครสมาชิก</label>
@@ -132,7 +129,7 @@
                               value="500"
                               placeholder="จำนวนเงินขั้นต่ำ"
                               id="example-number-input"
-                            />
+                              />
                           </div>
                         </div>
                       </div>
@@ -142,110 +139,95 @@
                         <div
                           class="card-message mt-3"
                           [formGroup]="itemShopForm"
-                          *ngIf="itemShopForm"
-                        >
+                          *ngIf="itemShopForm">
                           <div class="list-card-message" formArrayName="items">
                             <div
                               class="card"
                               *ngFor="
-                                let item of getItemShopForm().controls;
-                                let i = index
+                              let item of getItemShopForm().controls;
+                              let i= index
                               "
                               (click)="onclickItem(i)"
                               [class.active]="
-                                keyActionItemCard === i ? true : false
+                              keyActionItemCard === i ? true : false
                               "
-                              [formGroupName]="i"
-                            >
+                              [formGroupName]="i">
                               <div class="card-body">
                                 <h4
                                   class="card-title"
                                   (click)="
-                                    item_collapsed[i] = !item_collapsed[i]
-                                  "
-                                >
+                                  item_collapsed[i]= !item_collapsed[i]
+                                  ">
                                   {{
-                                    getValueItemShopForm(i, "boothName")
-                                      ? getValueItemShopForm(i, "boothName")
-                                      : "ชื่อร้านค้า"
+                                  getValueItemShopForm(i, "boothName")
+                                  ? getValueItemShopForm(i, "boothName")
+                                  : "ชื่อร้านค้า"
                                   }}
 
                                   <i
                                     class="mdi"
                                     [class.mdi-chevron-down]="
-                                      !item_collapsed[i]
+                                    !item_collapsed[i]
                                     "
-                                    [class.mdi-chevron-up]="item_collapsed[i]"
-                                  ></i>
+                                    [class.mdi-chevron-up]="item_collapsed[i]"></i>
                                 </h4>
 
                                 <div
                                   class="collapse-block"
-                                  [ngbCollapse]="!item_collapsed[i]"
-                                >
+                                  [ngbCollapse]="!item_collapsed[i]">
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >ชื่อร้านค้า</label
-                                        >
+                                        <label class="form-label">ชื่อร้านค้า</label>
                                         <input
                                           class="form-control"
                                           formControlName="boothName"
                                           type="text"
                                           placeholder="ระบุชื่อร้านค้า"
-                                        />
+                                          />
                                       </div>
                                     </div>
 
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >เลขที่สัญญา</label
-                                        >
+                                        <label class="form-label">เลขที่สัญญา</label>
                                         <input
                                           class="form-control"
                                           formControlName="contractNo"
                                           type="text"
                                           placeholder="ระบุเลขที่สัญญา"
-                                        />
+                                          />
                                       </div>
                                     </div>
                                   </div>
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >โซนร้านค้า</label
-                                        >
+                                        <label class="form-label">โซนร้านค้า</label>
                                         <input
                                           class="form-control"
                                           formControlName="boothZone"
                                           type="text"
                                           placeholder="ระบุโซนร้านค้า"
-                                        />
+                                          />
                                       </div>
                                     </div>
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >ประเภทร้านค้า</label
-                                        >
+                                        <label class="form-label">ประเภทร้านค้า</label>
                                         <input
                                           class="form-control"
                                           formControlName="boothCate"
                                           type="text"
                                           placeholder="ระบุประเภทร้านค้า"
-                                        />
+                                          />
                                       </div>
                                     </div>
                                   </div>
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >วันเริ่มต้นสัญญา</label
-                                        >
+                                        <label class="form-label">วันเริ่มต้นสัญญา</label>
                                         <input
                                           class="form-control"
                                           formControlName="contractDate"
@@ -253,14 +235,12 @@
                                           value="2023-03-19"
                                           id="example-date-input"
                                           placeholder="วันเริ่มต้นสัญญา"
-                                        />
+                                          />
                                       </div>
                                     </div>
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >วันสิ้นสุดสัญญา</label
-                                        >
+                                        <label class="form-label">วันสิ้นสุดสัญญา</label>
                                         <input
                                           class="form-control"
                                           formControlName="contractEndDate"
@@ -268,38 +248,42 @@
                                           value="2023-03-19"
                                           id="example-date-input"
                                           placeholder="วันสิ้นสุดสัญญา"
-                                        />
+                                          />
                                       </div>
                                     </div>
                                   </div>
+
                                   <div class="row">
-                                    <div class="col-lg-6">
-                                      <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >รหัสแผงร้านค้า</label
-                                        >
-                                        <input
-                                          class="form-control"
-                                          formControlName="boothCode"
-                                          type="text"
-                                          placeholder="ระบุรหัสแผง"
-                                        />
-                                      </div>
-                                    </div>
 
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >เลขมิเตอร์</label
-                                        >
+                                        <label class="form-label">รหัสแผงร้านค้า</label>
+                                        <select
+
+                                          name="tickets-table_length"
+                                          aria-controls="tickets-table"
+                                          name="state"
+                                          class="form-control
+                                          form-control-sm text-center"
+                                         
+                                          (change)="checkboothcode($event)">
+                                          <option *ngFor="let item of codedata" >
+                                            {{item.code}} 
+                                          </option>
+
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label">เลขมิเตอร์</label>
                                         <select2
                                           class=""
                                           formControlName="storeId"
                                           placeholder="เลือกมิเตอร์"
                                           type="text"
                                           [data]="meterOptions"
-                                          [multiple]="true"
-                                        >
+                                          [multiple]="true">
                                         </select2>
                                         <!-- <input
                                           class="form-control"
@@ -320,24 +304,21 @@
                                 type="button"
                                 class="btn button-action btn-rounded mb-2"
                                 [disabled]="checkCountItemDisabledButton()"
-                                (click)="sortItemCardMessage('up')"
-                              >
+                                (click)="sortItemCardMessage('up')">
                                 <i class="mdi mdi-arrow-up"></i>
                               </button>
                               <button
                                 type="button"
                                 class="btn button-action btn-rounded mb-2"
                                 [disabled]="checkCountItemDisabledButton()"
-                                (click)="sortItemCardMessage('down')"
-                              >
+                                (click)="sortItemCardMessage('down')">
                                 <i class="mdi mdi-arrow-down"></i>
                               </button>
                               <button
                                 type="button"
                                 class="btn button-action btn-rounded mb-2"
                                 [disabled]="checkCountItemDisabledButton()"
-                                (click)="removeformCardMessage()"
-                              >
+                                (click)="removeformCardMessage()">
                                 <i class="mdi mdi-trash-can-outline"></i>
                               </button>
                             </div>
@@ -349,8 +330,7 @@
                             <button
                               type="button"
                               class="btn button-add-card-message btn-rounded"
-                              (click)="formShopMessage(true)"
-                            >
+                              (click)="formShopMessage(true)">
                               <i class="mdi mdi-plus-circle-outline"></i>
                               เพิ่มแผงร้านค้า
                             </button>

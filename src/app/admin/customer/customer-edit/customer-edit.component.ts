@@ -40,6 +40,7 @@ export class CustomerEditComponent implements OnInit {
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
 
+  codedata:any=[];
   meters: any = [];
   meterOptions: Select2Data = [];
 
@@ -117,6 +118,16 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.customerService.getCode().subscribe((code)=>{
+      this.codedata = code;
+      console.log("Code >>> ",code);
+      this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
+        if(a.code < b.code){
+          return -1
+        }
+        return 1
+      });
+    })
     this.uId = this.route.snapshot.paramMap.get("id");
 
     // Get meters

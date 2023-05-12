@@ -37,6 +37,8 @@ export class CustomerAddComponent implements OnInit {
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
 
+  codedata:any=[];
+  state:any;
   meters: any = [];
   meterOptions: Select2Data = [];
   // select multi options start
@@ -121,6 +123,23 @@ export class CustomerAddComponent implements OnInit {
 
     this.validationform.get("email")?.setValue("");
     this.addItem();
+    this.customerService.getCode().subscribe((code)=>{
+      this.codedata = code;
+      console.log("Code >>> ",code);
+      this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
+        if(a.code < b.code){
+          return -1
+        }
+        return 1
+      });
+    })
+  }
+  checkboothcode(even:any){
+    // console.log(" state >>>> ",this.state);
+    // console.log(" even >>>> ",even);
+    this.shopService.findByBoothCode("fvl023").subscribe(a=>{
+      console.log(" a >>>> ",a);
+    })
   }
 
   createMeterOptions() {
@@ -162,6 +181,7 @@ export class CustomerAddComponent implements OnInit {
           }),
       };
       this.meterOptions.push(data);
+      // console.log("data" , this.meterOptions)
     }
   }
 

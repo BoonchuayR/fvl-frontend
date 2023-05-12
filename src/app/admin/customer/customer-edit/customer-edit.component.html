@@ -267,15 +267,19 @@
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label"
-                                          >รหัสแผงร้านค้า</label
-                                        >
-                                        <input
-                                          class="form-control"
-                                          formControlName="boothCode"
-                                          type="text"
-                                          placeholder="ระบุรหัสแผง"
-                                        />
+                                        <label class="form-label">รหัสแผงร้านค้า</label>
+                                        <select
+
+                                          name="tickets-table_length"
+                                          aria-controls="tickets-table"
+                                          name="pageSize"
+                                          class="form-control
+                                          form-control-sm text-center">
+                                          <option *ngFor="let item of codedata">
+                                            {{item.code}}
+                                          </option>
+
+                                        </select>
                                       </div>
                                     </div>
 

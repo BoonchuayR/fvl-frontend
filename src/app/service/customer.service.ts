@@ -25,15 +25,22 @@ interface Customers {
   minimumMoney: string;
   currentMoney: number;
 }
+interface BoothCode{
+  code: string;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class CustomerService {
   private customerCollection: CollectionReference<DocumentData>;
+  private bootCodeCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore) {
     this.customerCollection = collection(firestore, "customers");
+    this.bootCodeCollection = collection(firestore, "options_boot_code");
+
+
   }
 
   create(customers: Customers) {
@@ -49,6 +56,11 @@ export class CustomerService {
     return collectionData(this.customerCollection, {
       idField: "id",
     }) as Observable<Customers[]>;
+  }
+  getCode() {
+    return collectionData(this.bootCodeCollection, {
+      idField: "id",
+    }) as Observable<BoothCode[]>;
   }
 
   get(id: string) {

@@ -80,45 +80,52 @@
                                                         [(ngModel)]="service.searchTerm">
                                                 </label>
                                             </span>
-                                         
-                                                <span class="dataTables_length"
-                                                    id="tickets-table_length">
-                                                    <label class="d-inline-flex
-                                                        align-items-center">
-                                                        Meter
-                                                        <select
-                                                            name="tickets-table_length"
-                                                            aria-controls="tickets-table"
-                                                            name="pageSize"
-                                                            class="form-control
-                                                            form-control-sm mx-2"
-                                                            [(ngModel)]="meterstate" (change)="changeValue($event)">
-                                                            <option [ngValue]="0" value="0">ALL</option>
-                                                            <option [ngValue]="1" value="1">ON</option>
-                                                            <option [ngValue]="2" value="2">OFF</option>
-                                                        </select> State
-                                                    </label>
-                                                </span>
-                                         
+
+                                            <span class="dataTables_length"
+                                                id="tickets-table_length">
+                                                <label class="d-inline-flex
+                                                    align-items-center">
+                                                    Meter
+                                                    <select
+                                                        name="tickets-table_length"
+                                                        aria-controls="tickets-table"
+                                                        name="pageSize"
+                                                        class="form-control
+                                                        form-control-sm mx-2"
+                                                        [(ngModel)]="meterstate"
+                                                        (change)="changeValue($event)">
+                                                        <option [ngValue]="0"
+                                                            value="0">ALL</option>
+                                                        <option [ngValue]="1"
+                                                            value="1">ON</option>
+                                                        <option [ngValue]="2"
+                                                            value="2">OFF</option>
+                                                    </select> State
+                                                </label>
+                                            </span>
+
                                         </div>
 
                                         <!-- End search -->
                                     </div>
-                               
+
                                     <table class="table align-middle mb-0">
                                         <thead>
                                             <tr>
-                                                <th sortableMeter="zone"
-                                                    (sort)="onSort($event)">Zone</th>
+
                                                 <th sortableMeter="storeId"
                                                     (sort)="onSort($event)">Store
                                                     ID</th>
+                                                <th sortableMeter="shopName"
+                                                    (sort)="onSort($event)">Shop
+                                                    Name</th>
+                                                <th sortableMeter="custName"
+                                                    (sort)="onSort($event)">Cust
+                                                    Name</th>
                                                 <th sortableMeter="deviceId"
                                                     (sort)="onSort($event)">Device
                                                     ID</th>
-                                                <th sortableMeter="contractId"
-                                                    (sort)="onSort($event)">Contract
-                                                    ID</th>
+
                                                 <th sortableMeter="deviceZone"
                                                     (sort)="onSort($event)">Device
                                                     Zone</th>
@@ -135,15 +142,27 @@
                                         <tbody *ngFor="let table of tables$ |
                                             async;let i=index">
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <ngb-highlight
                                                         [result]="table.zone"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td> -->
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.storeId"
                                                         [term]="service.searchTerm">
                                                     </ngb-highlight>
                                                 </td>
                                                 <td>
                                                     <ngb-highlight
-                                                        [result]="table.storeId"
+                                                        [result]="table.shopName"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td>
+                                                <td>
+                                                    <ngb-highlight
+                                                        [result]="table.custName"
                                                         [term]="service.searchTerm">
                                                     </ngb-highlight>
                                                 </td>
@@ -153,12 +172,12 @@
                                                         [term]="service.searchTerm">
                                                     </ngb-highlight>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <ngb-highlight
                                                         [result]="table.contractId"
                                                         [term]="service.searchTerm">
                                                     </ngb-highlight>
-                                                </td>
+                                                </td> -->
                                                 <td>
                                                     <ngb-highlight
                                                         [result]="table.deviceZone"
@@ -236,18 +255,7 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.shopName"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.custName"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
+                                              
                                             </tr>
                                         </tbody>
                                     </table>
