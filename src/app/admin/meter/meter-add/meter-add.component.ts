@@ -68,7 +68,8 @@ export class MeterAddComponent implements OnInit {
 
     this.validationform.get("storeId")?.valueChanges.subscribe((value) => {
       this.iotService.meterSelectByStoreId(value).subscribe((res: any) => {
-        const meter = res.DATA[0];
+        console.log("res >>> ", res);
+        const meter = res.DATA_RESPONSE[0];
         if (meter) {
           this.validationform.get("deviceId")?.setValue(meter.DEVICE_ID);
           this.validationform.get("contractId")?.setValue(meter.CONTRACT_ID);

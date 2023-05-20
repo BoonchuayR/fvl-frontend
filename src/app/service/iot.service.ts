@@ -19,14 +19,30 @@ export class IotService {
     return this.http.post(BASE_API, bodyReq);
   }
 
-  meterSelectByStoreId(storeId: string) {
+  meterSelectByStoreId(bootId: string) {
     const bodyReq = {
       CMD_TYPE: "METER_SELECT",
       CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      CMD_PARAMS: ["STORE_ID","DEVICE_ZONE","DEVICE_ID","SERIAL_NO","SLAVE_ID","MODEL_SPEC",
-      "LINE_VOLTAGE","LINE_FREQUENCY","LINE_CURRENT","ACTIVE_POWER","ACTIVE_ENERGY","UPDATE_DATETIME",
-      "METER_STATE","UPDATE_STATE_DATETIME","METER_STATE_ADMIN","UPDATE_STATE_ADMIN_DATETIME"],
-      STORE_ID: [storeId],
+      CMD_PARAMS: ["BOOTH_ID",
+        "DEVICE_ZONE",
+        "DEVICE_ID",
+        "SERIAL_NO",
+        "SLAVE_ID",
+        "MODEL_SPEC",
+        "LINE_VOLTAGE",
+        "LINE_FREQUENCY",
+        "LINE_CURRENT",
+        "ACTIVE_POWER",
+        "ACTIVE_ENERGY",
+        "UPDATE_DATETIME",
+        "METER_STATE",
+        "UPDATE_STATE_DATETIME",
+        "METER_STATE_ADMIN",
+        "UPDATE_STATE_ADMIN_DATETIME",
+        "METER_STATE_PREVIOUS_UNIT",
+        "METER_STATE_CALCULATE_UNIT"
+      ],
+      BOOTH_ID: [bootId],
     };
 
     return this.http.post(BASE_API, bodyReq);
