@@ -67,7 +67,7 @@ export class MeterAddComponent implements OnInit {
     });
 
     this.validationform.get("storeId")?.valueChanges.subscribe((value) => {
-      this.iotService.meterSelectByStoreId(value).subscribe((res: any) => {
+      this.iotService.meterSelectByBoothId(value).subscribe((res: any) => {
         console.log("res >>> ", res);
         const meter = res.DATA_RESPONSE[0];
         if (meter) {

@@ -134,6 +134,7 @@ export class CustomerAddComponent implements OnInit {
       });
     })
   }
+  
   checkboothcode(even:any){
     // console.log(" state >>>> ",this.state);
     // console.log(" even >>>> ",even);

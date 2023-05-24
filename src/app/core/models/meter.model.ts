@@ -1,7 +1,6 @@
 export interface Meter {
   id: string,
-  zone: string,
-  storeId: string,
+  boothId: string,
   deviceZone: string,
   deviceId: string,
   serialNo: string,

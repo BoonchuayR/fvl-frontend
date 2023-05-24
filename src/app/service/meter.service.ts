@@ -14,32 +14,34 @@ import {
   updateDoc,
   where
 } from "@angular/fire/firestore";
+import { Meter } from "../core/models/meter.model";
 
 const CHECK_DUP_METER_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
 
-interface Meter {
-  lineVoltage: string;
-  lineFrequency: string;
-  updateDatetime: string;
-  lastActiveEnergy: string;
-  meterState: string;
-  storeId: string;
-  modelSpec: string;
-  slaveId: string;
-  activeEnergy: string;
-  updateStateDatetime: string;
-  meterStateAdmin: string;
-  id: string;
-  deviceId: string;
-  deviceZone: string;
-  updateStateAdminDatetime: string;
-  contractId: string;
-  serialNo: string;
-  lineCurrent: string;
-  activePower: string;
-  zone: string;
-  shopName: string;
-}
+// interface Meter {
+//   lineVoltage: string;
+//   lineFrequency: string;
+//   updateDatetime: string;
+//   lastActiveEnergy: string;
+//   meterState: string;
+//   storeId: string;
+//   modelSpec: string;
+//   slaveId: string;
+//   activeEnergy: string;
+//   updateStateDatetime: string;
+//   meterStateAdmin: string;
+//   id: string;
+//   deviceId: string;
+//   deviceZone: string;
+//   updateStateAdminDatetime: string;
+//   contractId: string;
+//   serialNo: string;
+//   lineCurrent: string;
+//   activePower: string;
+//   zone: string;
+//   shopName: string;
+// }
+
 @Injectable({
   providedIn: "root",
 })

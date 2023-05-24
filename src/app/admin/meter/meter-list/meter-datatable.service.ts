@@ -48,8 +48,7 @@ function sort(tables: Meter[], column: SortColumn, direction: string): Meter[] {
  * @param term Search the value
  */
 function matches(table: Meter, term: string, pipe: PipeTransform) {
-    return table.zone.includes(term)
-        || table.storeId.includes(term)
+    return table.boothId.includes(term)
         || table.deviceId.includes(term)
         || table.contractId.includes(term)
         || table.deviceZone.includes(term)

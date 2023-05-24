@@ -176,7 +176,7 @@ export class ProfileViewComponent implements OnInit {
             this.meters = [];
             for (let j = 0; j < shopMeters[i].length; j++) {
               const filteredMeters: any = allMeters.filter((am) => {
-                return am.storeId === shopMeters[i][j];
+                return am.boothId === shopMeters[i][j];
               });
   
               this.meters.push(...filteredMeters);

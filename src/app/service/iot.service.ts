@@ -19,11 +19,12 @@ export class IotService {
     return this.http.post(BASE_API, bodyReq);
   }
 
-  meterSelectByStoreId(bootId: string) {
+  meterSelectByBoothId(bootId: string) {
     const bodyReq = {
       CMD_TYPE: "METER_SELECT",
-      CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      CMD_PARAMS: ["BOOTH_ID",
+      CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303",
+      CMD_PARAMS: [
+        "BOOTH_ID",
         "DEVICE_ZONE",
         "DEVICE_ID",
         "SERIAL_NO",
@@ -44,6 +45,8 @@ export class IotService {
       ],
       BOOTH_ID: [bootId],
     };
+
+    console.log("bodyReq: ", bodyReq)
 
     return this.http.post(BASE_API, bodyReq);
   }
