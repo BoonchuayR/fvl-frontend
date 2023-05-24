@@ -69,7 +69,9 @@
                           <input type="text" name="searchTerm"
                             class="form-control form-control-sm ms-2"
                             aria-controls="tickets-table"
-                            [(ngModel)]="service.searchTerm"></label></div>
+                            [(ngModel)]="service.searchTerm">
+                        </label>
+                      </div>
                     </div>
                     <!-- End search -->
                   </div>
@@ -83,7 +85,7 @@
                           (sort)="onSort($event)">เบอร์โทรศัพท์</th>
                         <!-- <th sortableCustomer="custStartDate"
                           (sort)="onSort($event)">วันที่สมัคร</th> -->
-                          <th sortableCustomer="currentMoney"
+                        <th sortableCustomer="currentMoney"
                           (sort)="onSort($event)">ยอดเงินปัจจุบัน</th>
                         <th>สถานะ</th>
                         <th>Action</th>
@@ -117,7 +119,7 @@
                           </ngb-highlight>
                         </td> -->
                         <td class="right">
-                         {{table.currentMoney | number:'0.2'}}
+                          {{table.currentMoney | number:'0.2'}}
                         </td>
                         <td>
                           <span class="badge badge-soft-success ms-1"></span>
@@ -209,8 +211,7 @@
                   placeholder="จำนวนเงินที่รับชำระ"
                   id="example-number-input"
                   name="topupAmt"
-                  [(ngModel)] = "topupAmt"
-                  >
+                  [(ngModel)]="topupAmt">
                 <!-- <label for="floatingInputValue">หัวข้อ</label> -->
               </form>
             </div>
@@ -221,21 +222,23 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-light"
         (click)="modal.close('Close click')">ยกเลิก</button>
-      <button type="button" class="btn btn-primary" (click)="alertsweetalert(alert)" (click)="modal.close('Close click')">เติมเงิน</button>
+      <button type="button" class="btn btn-primary"
+        (click)="alertsweetalert(alert)" (click)="modal.close('Close click')">เติมเงิน</button>
     </div>
   </ng-template>
-  
+
   <ng-template #alert let-sweetalert>
     <div class="sweetalert-header">
       <h5 class="sweetalert-title mt-0"></h5>
-      
+
     </div>
     <div class="sweetalert-body">
       <div>
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <p class="card-title-desc text-center">คุณแน่ใจในการยืนยันการเติมเงินใช่ไหม ?
+              <p class="card-title-desc text-center">คุณแน่ใจในการยืนยันการเติมเงินใช่ไหม
+                ?
               </p>
             </div>
           </div>
@@ -245,7 +248,9 @@
     <div class="sweetalert-footer">
       <button type="button" class="btn btn-light center"
         (click)="sweetalert.close('Close click')">ยกเลิก</button>
-      <button type="button" class="btn btn-primary center"  (click)="updatecurrentMoney(topupAmt)" (click)="sweetalert.close('Close click')" type="submit"
-      routerLinkActive="active">ยืนยัน</button>
+      <button type="button" class="btn btn-primary center"
+        (click)="updatecurrentMoney(topupAmt)" (click)="sweetalert.close('Close
+        click')" type="submit"
+        routerLinkActive="active">ยืนยัน</button>
     </div>
   </ng-template>
