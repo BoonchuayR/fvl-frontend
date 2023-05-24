@@ -49,18 +49,19 @@ export class MeterDashboardComponent implements OnInit {
       this.meterService.getAll()
       .subscribe(meters => {
         this.meters = meters;
+        console.log("this.meters >>>>>>> ",this.meters);
         this.service.meters = this.meters;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
 
       })
     }
@@ -70,17 +71,17 @@ export class MeterDashboardComponent implements OnInit {
         this.meters = meters;
         this.service.meters = this.meters;
         this.meterstate = event.target.value;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
         // console.log(" this.meters >>> ", this.meters);
         // console.log("meterstate >>> ", this.meterstate);
       })
@@ -91,19 +92,19 @@ export class MeterDashboardComponent implements OnInit {
         this.meters = meters;
         this.service.meters = this.meters;
         this.meterstate = event.target.value;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
         // console.log("meterstate >>> ", this.meterstate);
-        // console.log(" this.meters >>> ", this.meters);
+        console.log(" this.meters >>> ", meters);
       })
     }
 
@@ -610,21 +611,21 @@ export class MeterDashboardComponent implements OnInit {
           deviceId: iotMeter.DATA_RESPONSE[0].DEVICE_ID,
           serialNo: iotMeter.DATA_RESPONSE[0].SERIAL_NO,
           slaveId: iotMeter.DATA_RESPONSE[0].SLAVE_ID,
-          modelSpec: iotMeter.DATA_RESPONSE[0].MODEL_SPEC, 
+          modelSpec: iotMeter.DATA_RESPONSE[0].MODEL_SPEC,
           lineVoltage: iotMeter.DATA_RESPONSE[0].LINE_VOLTAGE,
           lineFrequency: iotMeter.DATA_RESPONSE[0].LINE_FREQUENCY,
           lineCurrent: iotMeter.DATA_RESPONSE[0].LINE_CURRENT,
           activePower: iotMeter.DATA_RESPONSE[0].ACTIVE_POWER,
           activeEnergy: iotMeter.DATA_RESPONSE[0].ACTIVE_ENERGY,
           contractId: "",
-          lastActiveEnergy: "",
           meterState: iotMeter.DATA_RESPONSE[0].METER_STATE,
           updateDatetime: iotMeter.DATA_RESPONSE[0].UPDATE_DATETIME,
           updateStateDatetime: iotMeter.DATA_RESPONSE[0].UPDATE_STATE_DATETIME,
           meterStateAdmin: iotMeter.DATA_RESPONSE[0].METER_STATE_ADMIN,
           updateStateAdminDatetime: iotMeter.DATA_RESPONSE[0].UPDATE_STATE_ADMIN_DATETIME,
           shopName: "",
-          custName: ""
+          custName: "",
+          lineActiveEnergy: ''
         }
         this.meterService.create(meter).then(res => {
           console.log("create meter result: ", res);

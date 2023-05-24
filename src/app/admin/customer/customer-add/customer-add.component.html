@@ -253,47 +253,54 @@
                                     </div>
                                   </div>
 
-                                  <div class="row">
 
+
+                                  <div class="row">
+                                    <!-- <div class="col-lg-6">
+                                      <div class="font-size-12 mb-3">
+                                        <label class="form-label">รหัสแผงร้านค้า</label>
+                                        <select2
+                                          class=""
+                                          formControlName="code"
+                                          placeholder="เลือกมิเตอร์"
+                                          type="text"
+                                          [data]="shopOptions"
+                                          [multiple]="true">
+                                        </select2>
+                                      </div>
+                                    </div> -->
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label">รหัสแผงร้านค้า</label>
-                                        <select
-
-                                          name="tickets-table_length"
-                                          aria-controls="tickets-table"
-                                          name="state"
-                                          class="form-control
-                                          form-control-sm text-center"
-                                         
-                                          (change)="checkboothcode($event)">
-                                          <option *ngFor="let item of codedata" >
-                                            {{item.code}} 
-                                          </option>
-
-                                        </select>
+                                        <select2
+                                          class=""
+                                          formControlName="code"
+                                          placeholder="เลือกมิเตอร์"
+                                          type="text"
+                                          [data]="shopOptions"
+                                          [multiple]="true">
+                                        </select2>
                                       </div>
                                     </div>
+
+                                  
+
+
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
                                         <label class="form-label">เลขมิเตอร์</label>
                                         <select2
                                           class=""
-                                          formControlName="storeId"
+                                          formControlName="deviceId"
                                           placeholder="เลือกมิเตอร์"
                                           type="text"
                                           [data]="meterOptions"
                                           [multiple]="true">
                                         </select2>
-                                        <!-- <input
-                                          class="form-control"
-                                          formControlName="SLAVE_ID"
-                                          type="text"
-                                          placeholder="เลือกมิเตอร์"
-                                        /> -->
                                       </div>
                                     </div>
                                   </div>
+
                                 </div>
                               </div>
                             </div>

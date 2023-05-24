@@ -77,8 +77,12 @@
                   <table class="table align-middle mb-0">
                     <thead>
                       <tr>
+<<<<<<< HEAD
                         <th sortableMeter="boothId" (sort)="onSort($event)">Store
                           ID</th>
+=======
+                        <th sortableMeter="slaveId" (sort)="onSort($event)">Slave ID</th>
+>>>>>>> 5064c805e2053c277c76a387867588fa04b6965f
                         <th sortableMeter="deviceId" (sort)="onSort($event)">Device
                           ID</th>
                         <th sortableMeter="contractId" (sort)="onSort($event)">Contract
@@ -95,9 +99,10 @@
                     </thead>
                     <tbody *ngFor="let table of tables$ | async;let i=index">
                       <tr>
+                       
                         <td>
                           <ngb-highlight
-                            [result]="table.boothId"
+                            [result]="table.slaveId"
                             [term]="service.searchTerm">
                           </ngb-highlight>
                         </td>
@@ -147,7 +152,7 @@
                               (change)="
                               changMeterState(
                               $event,
-                              table.boothId,
+                              table.slaveId,
                               table.id,
                               table
                               )

@@ -51,10 +51,12 @@ function sort(tables: Meter[], column: SortColumn, direction: string): Meter[] {
  */
 function matches(table: Meter, term: string, pipe: PipeTransform) {
     return table.boothId.includes(term)
+        || table.shopName.includes(term)
+        || table.custName.includes(term)
         || table.deviceId.includes(term)
-        || table.contractId.includes(term)
         || table.deviceZone.includes(term)
         || table.serialNo.includes(term)
+        || table.lineVoltage.includes(term)
 }
 
 @Injectable({
@@ -73,7 +75,7 @@ export class MeterServicemeter {
     // tslint:disable-next-line: variable-name
     private _state: State = {
         page: 1,
-        pageSize: 50,
+        pageSize: 25,
         searchTerm: '',
         sortColumn: '',
         sortDirection: '',

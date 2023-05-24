@@ -1,6 +1,5 @@
 export interface Meter {
   id: string,
-  boothId: string,
   deviceZone: string,
   deviceId: string,
   serialNo: string,
@@ -9,15 +8,16 @@ export interface Meter {
   lineVoltage: string,
   lineFrequency: string,
   lineCurrent: string,
+  lineActiveEnergy: string,
   activePower: string,
   activeEnergy: string,
   contractId: string,
-  lastActiveEnergy: string,
   meterState: string,
   updateDatetime: string,
   updateStateDatetime: string,
   meterStateAdmin: string,
   updateStateAdminDatetime: string,
   shopName: string,
-  custName: string
+  custName: string,
+  boothId: string,
 }

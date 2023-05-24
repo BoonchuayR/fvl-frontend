@@ -41,62 +41,63 @@ export class CustomerAddComponent implements OnInit {
   state:any;
   meters: any = [];
   meterOptions: Select2Data = [];
+  shopOptions: Select2Data = [];
   // select multi options start
   data: Select2Data = [
-    {
-      label: "Meter Zone A",
-      data: { name: "Meter Zone A" },
-      options: [
-        {
-          value: "A001",
-          label: "A001",
-          data: { name: "A001" },
-          templateId: "template1",
-          id: "option-A001",
-        },
-        {
-          value: "A002",
-          label: "A002",
-          data: { name: "A002" },
-          templateId: "template2",
-          id: "option-A002",
-        },
-      ],
-    },
-    {
-      label: "Meter Zone B",
-      data: { name: "Meter Zone B" },
-      options: [
-        {
-          value: "B001",
-          label: "B001",
-          data: { name: "B001" },
-          templateId: "template1",
-          id: "option-B001",
-        },
-        {
-          value: "B002",
-          label: "B002",
-          data: { name: "B002" },
-          templateId: "template2",
-          id: "option-B002",
-        },
-        {
-          value: "B003",
-          label: "B003",
-          data: { name: "B003" },
-          templateId: "template3",
-          id: "option-B003",
-        },
-        {
-          value: "B004",
-          label: "B004",
-          data: { name: "B004" },
-          templateId: "template4",
-          id: "option-B004",
-        },
-      ],
-    },
+    // {
+    //   label: "Meter Zone A",
+    //   data: { name: "Meter Zone A" },
+    //   options: [
+    //     {
+    //       value: "A001",
+    //       label: "A001",
+    //       data: { name: "A001" },
+    //       templateId: "template1",
+    //       id: "option-A001",
+    //     },
+    //     {
+    //       value: "A002",
+    //       label: "A002",
+    //       data: { name: "A002" },
+    //       templateId: "template2",
+    //       id: "option-A002",
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Meter Zone B",
+    //   data: { name: "Meter Zone B" },
+    //   options: [
+    //     {
+    //       value: "B001",
+    //       label: "B001",
+    //       data: { name: "B001" },
+    //       templateId: "template1",
+    //       id: "option-B001",
+    //     },
+    //     {
+    //       value: "B002",
+    //       label: "B002",
+    //       data: { name: "B002" },
+    //       templateId: "template2",
+    //       id: "option-B002",
+    //     },
+    //     {
+    //       value: "B003",
+    //       label: "B003",
+    //       data: { name: "B003" },
+    //       templateId: "template3",
+    //       id: "option-B003",
+    //     },
+    //     {
+    //       value: "B004",
+    //       label: "B004",
+    //       data: { name: "B004" },
+    //       templateId: "template4",
+    //       id: "option-B004",
+    //     },
+    //   ],
+    // },
   ];
 
   // select multi options End
@@ -118,6 +119,7 @@ export class CustomerAddComponent implements OnInit {
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
       this.meters = meters;
+      console.log(" meter log >>>> ",this.meters);
       this.createMeterOptions();
     });
 
@@ -125,6 +127,7 @@ export class CustomerAddComponent implements OnInit {
     this.addItem();
     this.customerService.getCode().subscribe((code)=>{
       this.codedata = code;
+      this.createShopOptions();
       console.log("Code >>> ",code);
       this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
         if(a.code < b.code){
@@ -143,15 +146,16 @@ export class CustomerAddComponent implements OnInit {
     })
   }
 
+  
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.zone < b.zone) {
+      if (a.deviceZone < b.deviceZone) {
         return -1;
       } else {
         return 1;
       }
     }).filter((m:any) => {
-      if (m.storeId) {
+      if (m.deviceId) {
         return true;
       }
       return false
@@ -160,32 +164,74 @@ export class CustomerAddComponent implements OnInit {
     for (let i = 0; i < sortedMeters.length; i++) {
       if (
         sortedMeters[i + 1] &&
-        sortedMeters[i].zone === sortedMeters[i + 1].zone
+        sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
       ) {
         continue;
       }
       const data = {
-        label: "โซน " + sortedMeters[i].zone,
-        data: { name: sortedMeters[i].zone },
+        label: "โซน " + sortedMeters[i].deviceZone,
+        data: { name: sortedMeters[i].deviceZone },
         options: sortedMeters
           .filter((m: any) => {
-            return m.zone === sortedMeters[i].zone;
+            return m.deviceZone === sortedMeters[i].deviceZone;
           })
           .map((m: any) => {
             return {
-              value: m.storeId,
-              label: m.storeId,
-              data: { name: m.storeId },
+              value: m.deviceId,
+              label: m.deviceId,
+              data: { name: m.deviceId },
               templateId: "template1",
-              id: m.storeId,
+              id: m.deviceId,
             };
           }),
       };
       this.meterOptions.push(data);
-      // console.log("data" , this.meterOptions)
+      console.log("meterOptions" , data)
     }
   }
-
+  createShopOptions() {
+    const sortedShop = this.codedata.sort((a: any, b: any) => {
+      if (a.code < b.code) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }).filter((m:any) => {
+      if (m.code) {
+        return true;
+      }
+      return false
+    });
+    for (let i = 0; i < sortedShop.length; i++) {
+      if (
+        sortedShop[i + 1] &&
+        sortedShop[i].code === sortedShop[i + 1].code
+      ) {
+        continue;
+      }
+      const data = {
+        label: "",
+        data: { name: sortedShop[i].code },
+        options: sortedShop
+          .filter((m: any) => {
+            return m.code === sortedShop[i].code;
+          })
+          .map((m: any) => {
+            return {
+              value: m.code,
+              label: m.code,
+              data: { name: m.code },
+              templateId: "template1",
+              id: m.code,
+              // hide: true
+              // disabled:true
+            };
+          }),
+      };
+      this.shopOptions.push(data);
+      console.log("shopOptions" , data)
+    }
+  }
   get email() {
     return this.validationform.get("email");
   }
