@@ -113,9 +113,8 @@
                                         <thead>
                                             <tr>
 
-                                                <th sortableMeter="storeId"
-                                                    (sort)="onSort($event)">Store
-                                                    ID</th>
+                                                <th sortableMeter="boothId"
+                                                    (sort)="onSort($event)">Booth ID</th>
                                                 <th sortableMeter="shopName"
                                                     (sort)="onSort($event)">Shop
                                                     Name</th>
@@ -150,7 +149,7 @@
                                                 </td> -->
                                                 <td>
                                                     <ngb-highlight
-                                                        [result]="table.storeId"
+                                                        [result]="table.boothId"
                                                         [term]="service.searchTerm">
                                                     </ngb-highlight>
                                                 </td>
@@ -215,7 +214,7 @@
                                                             (change)="
                                                             changMeterState(
                                                             $event,
-                                                            table.storeId,
+                                                            table.boothId,
                                                             table.id,
                                                             table
                                                             )

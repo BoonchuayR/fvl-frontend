@@ -49,18 +49,19 @@ export class MeterDashboardComponent implements OnInit {
       this.meterService.getAll()
       .subscribe(meters => {
         this.meters = meters;
+        console.log("this.meters >>>>>>> ",this.meters);
         this.service.meters = this.meters;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
 
       })
     }
@@ -70,17 +71,17 @@ export class MeterDashboardComponent implements OnInit {
         this.meters = meters;
         this.service.meters = this.meters;
         this.meterstate = event.target.value;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
         // console.log(" this.meters >>> ", this.meters);
         // console.log("meterstate >>> ", this.meterstate);
       })
@@ -91,19 +92,19 @@ export class MeterDashboardComponent implements OnInit {
         this.meters = meters;
         this.service.meters = this.meters;
         this.meterstate = event.target.value;
-        this.meters = this.meters.map((meter: any) => {
+        // this.meters = this.meters.map((meter: any) => {
 
-          this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
-            if (shops && shops.length > 0) {
-              meter.shopName = shops[0].boothName;
-              meter.custName = shops[0].custName;
-            }
-            return meter
-          });
+        //   this.shopService.findByStoreId(meter.storeId).subscribe(shops => {
+        //     if (shops && shops.length > 0) {
+        //       meter.shopName = shops[0].boothName;
+        //       meter.custName = shops[0].custName;
+        //     }
+        //     return meter
+        //   });
 
-        });
+        // });
         // console.log("meterstate >>> ", this.meterstate);
-        // console.log(" this.meters >>> ", this.meters);
+        console.log(" this.meters >>> ", meters);
       })
     }
 

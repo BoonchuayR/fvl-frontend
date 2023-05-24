@@ -18,33 +18,33 @@ import {
 const CHECK_DUP_METER_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
 
 interface Meter {
+  id: string;
+  deviceZone: string;
+  deviceId: string;
+  serialNo: string;
+  slaveId: string;
+  modelSpec: string;
   lineVoltage: string;
   lineFrequency: string;
-  updateDatetime: string;
-  lastActiveEnergy: string;
-  meterState: string;
-  storeId: string;
-  modelSpec: string;
-  slaveId: string;
+  lineCurrent: string;
+  lineActiveEnergy: string;
+  activePower: string;
   activeEnergy: string;
+  contractId: string;
+  meterState: string;
+  updateDatetime: string;
   updateStateDatetime: string;
   meterStateAdmin: string;
-  id: string;
-  deviceId: string;
-  deviceZone: string;
   updateStateAdminDatetime: string;
-  contractId: string;
-  serialNo: string;
-  lineCurrent: string;
-  activePower: string;
-  zone: string;
   shopName: string;
+  custName: string;
+  boothId: string;
 }
 @Injectable({
   providedIn: "root",
 })
 export class MeterService {
-  subscribe(arg0: (meters: any) => void) {
+  subscribe(arg0: (meters: any) => void) {  
     throw new Error('Method not implemented.');
   }
   private meterCollection: CollectionReference<DocumentData>;
@@ -61,6 +61,16 @@ export class MeterService {
   getAll() {
     let $metersRef = collection(this.firestore, "meter");
     return collectionData($metersRef, {idField: "id"}) as Observable<Meter[]>;
+  }
+  
+  findMeterByStatus(meterstate: string) {
+    
+    const q = query(this.meterCollection, where("meterState", "==", meterstate));
+    
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Meter[]>;
+    
   }
 
   get(id: string) {
@@ -86,15 +96,6 @@ export class MeterService {
   findMeterByZone(zone: string) {
     
     const q = query(this.meterCollection, where("zone", "==", zone));
-    
-    return collectionData(q, {
-      idField: "id",
-    }) as Observable<Meter[]>;
-    
-  }
-  findMeterByStatus(meterstate: string) {
-    
-    const q = query(this.meterCollection, where("meterState", "==", meterstate));
     
     return collectionData(q, {
       idField: "id",

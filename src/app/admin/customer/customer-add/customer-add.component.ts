@@ -148,13 +148,13 @@ export class CustomerAddComponent implements OnInit {
   
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.zone < b.zone) {
+      if (a.deviceZone < b.deviceZone) {
         return -1;
       } else {
         return 1;
       }
     }).filter((m:any) => {
-      if (m.storeId) {
+      if (m.deviceId) {
         return true;
       }
       return false
@@ -163,24 +163,24 @@ export class CustomerAddComponent implements OnInit {
     for (let i = 0; i < sortedMeters.length; i++) {
       if (
         sortedMeters[i + 1] &&
-        sortedMeters[i].zone === sortedMeters[i + 1].zone
+        sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
       ) {
         continue;
       }
       const data = {
-        label: "โซน " + sortedMeters[i].zone,
-        data: { name: sortedMeters[i].zone },
+        label: "โซน " + sortedMeters[i].deviceZone,
+        data: { name: sortedMeters[i].deviceZone },
         options: sortedMeters
           .filter((m: any) => {
-            return m.zone === sortedMeters[i].zone;
+            return m.deviceZone === sortedMeters[i].deviceZone;
           })
           .map((m: any) => {
             return {
-              value: m.storeId,
-              label: m.storeId,
-              data: { name: m.storeId },
+              value: m.deviceId,
+              label: m.deviceId,
+              data: { name: m.deviceId },
               templateId: "template1",
-              id: m.storeId,
+              id: m.deviceId,
             };
           }),
       };
@@ -201,7 +201,6 @@ export class CustomerAddComponent implements OnInit {
       }
       return false
     });
-
     for (let i = 0; i < sortedShop.length; i++) {
       if (
         sortedShop[i + 1] &&
@@ -223,6 +222,8 @@ export class CustomerAddComponent implements OnInit {
               data: { name: m.code },
               templateId: "template1",
               id: m.code,
+              // hide: true
+              // disabled:true
             };
           }),
       };
