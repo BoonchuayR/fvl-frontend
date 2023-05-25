@@ -124,7 +124,9 @@ export class CustomerAddComponent implements OnInit {
     });
 
     this.validationform.get("email")?.setValue("");
+
     this.addItem();
+    
     this.customerService.getCode().subscribe((code)=>{
       this.codedata = code;
       this.createShopOptions();
@@ -162,12 +164,14 @@ export class CustomerAddComponent implements OnInit {
     });
 
     for (let i = 0; i < sortedMeters.length; i++) {
+
       if (
         sortedMeters[i + 1] &&
         sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
       ) {
         continue;
       }
+
       const data = {
         label: "โซน " + sortedMeters[i].deviceZone,
         data: { name: sortedMeters[i].deviceZone },
@@ -185,6 +189,7 @@ export class CustomerAddComponent implements OnInit {
             };
           }),
       };
+
       this.meterOptions.push(data);
       console.log("meterOptions" , data)
     }

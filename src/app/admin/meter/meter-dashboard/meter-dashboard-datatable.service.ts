@@ -75,7 +75,7 @@ export class MeterServicemeter {
     // tslint:disable-next-line: variable-name
     private _state: State = {
         page: 1,
-        pageSize: 25,
+        pageSize: 50,
         searchTerm: '',
         sortColumn: '',
         sortDirection: '',
