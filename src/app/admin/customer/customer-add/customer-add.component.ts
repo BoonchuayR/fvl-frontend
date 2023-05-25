@@ -36,8 +36,12 @@ export class CustomerAddComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
-
+  shops:any=[];
   codedata:any=[];
+  shop:any=[];
+  cust:any=[];
+  datalist1:any=[];
+  datalist2:any=[];
   state:any;
   meters: any = [];
   meterOptions: Select2Data = [];
@@ -127,8 +131,8 @@ export class CustomerAddComponent implements OnInit {
     this.addItem();
     this.customerService.getCode().subscribe((code)=>{
       this.codedata = code;
-      this.createShopOptions();
-      console.log("Code >>> ",code);
+      
+      // console.log("Code >>> ", this.codedata);
       this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
         if(a.code < b.code){
           return -1
@@ -136,6 +140,24 @@ export class CustomerAddComponent implements OnInit {
         return 1
       });
     })
+    this.shopService.getAll().subscribe((shop)=>{
+      this.datalist1 = shop
+      // console.log("dataShop",this.datalist1);
+      this.datalist1.forEach((data:any) => {
+        this.codedata.forEach((code:any)=>{
+          if(data.storeId[0]==code.code){
+            this.datalist2 = [];
+            this.datalist2.push(code);
+            console.log("datalist2",this.datalist2);
+            this.createShopOptions();
+         }
+        
+        })
+      });
+    
+    });
+    
+    
   }
   checkboothcode(even:any){
     // console.log(" state >>>> ",this.state);
@@ -185,11 +207,12 @@ export class CustomerAddComponent implements OnInit {
           }),
       };
       this.meterOptions.push(data);
-      console.log("meterOptions" , data)
+      // console.log("meterOptions" , data)
     }
   }
   createShopOptions() {
-    const sortedShop = this.codedata.sort((a: any, b: any) => {
+    const sortedShop = this.datalist2.sort((a: any, b: any) => {
+      console.log(this.datalist2);
       if (a.code < b.code) {
         return -1;
       } else {
@@ -228,7 +251,7 @@ export class CustomerAddComponent implements OnInit {
           }),
       };
       this.shopOptions.push(data);
-      console.log("shopOptions" , data)
+      // console.log("shopOptions" , data)
     }
   }
   get email() {
