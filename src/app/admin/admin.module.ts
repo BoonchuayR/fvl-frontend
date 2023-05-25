@@ -61,6 +61,7 @@ import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive"
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 import { HttpClientModule } from "@angular/common/http";
+import { meterData } from "./meter/meter-list/meter-data";
 @NgModule({
   declarations: [
     MeterSortableDirective,

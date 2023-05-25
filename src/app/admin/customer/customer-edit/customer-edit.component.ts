@@ -39,11 +39,12 @@ export class CustomerEditComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
-
+  datalist1:any=[];
+  datalist2:any=[];
   codedata:any=[];
   meters: any = [];
   meterOptions: Select2Data = [];
-
+  shopOptions: Select2Data = [];
   // select multi options start
   data: Select2Data = [
     {
@@ -118,9 +119,11 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.customerService.getCode().subscribe((code)=>{
       this.codedata = code;
-      console.log("Code >>> ",code);
+      
+      // console.log("Code >>> ", this.codedata);
       this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
         if(a.code < b.code){
           return -1
@@ -128,6 +131,22 @@ export class CustomerEditComponent implements OnInit {
         return 1
       });
     })
+    this.shopService.getAll().subscribe((shop)=>{
+      this.datalist1 = shop
+      // console.log("dataShop",this.datalist1);
+      this.datalist1.forEach((data:any) => {
+        this.codedata.forEach((code:any)=>{
+          if(data.storeId[0]==code.code){
+            this.datalist2 = [];
+            this.datalist2.push(code);
+            console.log("datalist2",this.datalist2);
+            this.createShopOptions();
+         }
+        
+        })
+      });
+    
+    });
     this.uId = this.route.snapshot.paramMap.get("id");
 
     // Get meters
@@ -147,38 +166,88 @@ export class CustomerEditComponent implements OnInit {
 
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.zone < b.zone) {
+      if (a.deviceZone < b.deviceZone) {
         return -1;
       } else {
         return 1;
       }
+    }).filter((m:any) => {
+      if (m.deviceId) {
+        return true;
+      }
+      return false
     });
 
     for (let i = 0; i < sortedMeters.length; i++) {
       if (
         sortedMeters[i + 1] &&
-        sortedMeters[i].zone === sortedMeters[i + 1].zone
+        sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
       ) {
         continue;
       }
       const data = {
-        label: "โซน " + sortedMeters[i].zone,
-        data: { name: sortedMeters[i].zone },
+        label: "โซน " + sortedMeters[i].deviceZone,
+        data: { name: sortedMeters[i].deviceZone },
         options: sortedMeters
           .filter((m: any) => {
-            return m.zone === sortedMeters[i].zone;
+            return m.deviceZone === sortedMeters[i].deviceZone;
           })
           .map((m: any) => {
             return {
-              value: m.storeId,
-              label: m.storeId,
-              data: { name: m.storeId },
+              value: m.deviceId,
+              label: m.deviceId,
+              data: { name: m.deviceId },
               templateId: "template1",
-              id: m.storeId,
+              id: m.deviceId,
             };
           }),
       };
       this.meterOptions.push(data);
+      // console.log("meterOptions" , data)
+    }
+  }
+  createShopOptions() {
+    const sortedShop = this.datalist2.sort((a: any, b: any) => {
+      console.log(this.datalist2);
+      if (a.code < b.code) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }).filter((m:any) => {
+      if (m.code) {
+        return true;
+      }
+      return false
+    });
+    for (let i = 0; i < sortedShop.length; i++) {
+      if (
+        sortedShop[i + 1] &&
+        sortedShop[i].code === sortedShop[i + 1].code
+      ) {
+        continue;
+      }
+      const data = {
+        label: "",
+        data: { name: sortedShop[i].code },
+        options: sortedShop
+          .filter((m: any) => {
+            return m.code === sortedShop[i].code;
+          })
+          .map((m: any) => {
+            return {
+              value: m.code,
+              label: m.code,
+              data: { name: m.code },
+              templateId: "template1",
+              id: m.code,
+              // hide: true
+              // disabled:true
+            };
+          }),
+      };
+      this.shopOptions.push(data);
+      // console.log("shopOptions" , data)
     }
   }
 
