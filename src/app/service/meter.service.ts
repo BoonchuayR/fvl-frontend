@@ -15,6 +15,7 @@ import {
   where
 } from "@angular/fire/firestore";
 import { Meter } from "../core/models/meter.model";
+import { HttpClient } from "@angular/common/http";
 
 const CHECK_DUP_METER_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
 
@@ -22,14 +23,20 @@ const CHECK_DUP_METER_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/
   providedIn: "root",
 })
 export class MeterService {
+  CSVmeter = "C:\fvl\fvl-frontend\import_meters.csv";
   subscribe(arg0: (meters: any) => void) {  
     throw new Error('Method not implemented.');
   }
   private meterCollection: CollectionReference<DocumentData>;
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private http:HttpClient) {
     this.meterCollection = collection(firestore, "meter");
+    
   }
+  getInfo(){
+    return this.http.get(this.CSVmeter,{responseType:'text'});
+  }
+
 
   create(meter: Meter) {
     let $metersRef=collection(this.firestore, "meter");
@@ -80,7 +87,7 @@ export class MeterService {
     }) as Observable<Meter[]>;
     
   }
-
+  
   findMeterByStoreId(storeId: string) {
     
     const q = query(this.meterCollection, where("storeId", "==", storeId));

@@ -11,6 +11,7 @@ import { DecimalPipe } from '@angular/common';
 import { ShopService } from 'src/app/service/shop.service';
 import { map } from 'rxjs/operators';
 import { CustomerService } from 'src/app/service/customer.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-meter-dashboard',
@@ -19,6 +20,9 @@ import { CustomerService } from 'src/app/service/customer.service';
   providers: [MeterServicemeter, DecimalPipe]
 })
 export class MeterDashboardComponent implements OnInit {
+  nameExcel:any;
+  ExcelDATA:any=[];
+  importdata:any=[];
   tableData!: Meter[];
   hideme: boolean[] = [];
   tables$: Observable<Meter[]>;
@@ -44,6 +48,28 @@ export class MeterDashboardComponent implements OnInit {
    this.changeValue(this.meterstate);
   }
 
+  getData(){
+    this.meterService.getInfo().subscribe((data: string)=>{
+      const list = data.split('\n');
+      list.forEach((e: any)=>{
+        this.importdata.push(e);
+        console.log("importdata",this.importdata);
+      })
+    })
+  }
+  
+
+  async ReadExcel(event:any){
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+    fileReader.onload = ()=>{
+      var workBook = XLSX.read(fileReader.result,{type:'binary'});
+      var sheetNames = workBook.SheetNames;
+      this.ExcelDATA = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+      console.log("Excel DATA >>> ",this.ExcelDATA);
+    }
+  }
   changeValue(event:any){
     if(this.meterstate == 0){
       this.meterService.getAll()
