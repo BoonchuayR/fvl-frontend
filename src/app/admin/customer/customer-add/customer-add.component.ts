@@ -172,8 +172,9 @@ export class CustomerAddComponent implements OnInit {
 
   
   createMeterOptions() {
+    // console.log("this.meters >>> ", this.meters);
     const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.deviceZone < b.deviceZone) {
+      if (a.boothId < b.boothId) {
         return -1;
       } else {
         return 1;
@@ -203,11 +204,11 @@ export class CustomerAddComponent implements OnInit {
           })
           .map((m: any) => {
             return {
-              value: m.deviceId,
-              label: m.deviceId,
+              value: m.boothId,
+              label: m.boothId,
               data: { name: m.deviceId },
               templateId: "template1",
-              id: m.deviceId,
+              id: m.boothId,
             };
           }),
       };
