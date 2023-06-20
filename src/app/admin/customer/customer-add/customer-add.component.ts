@@ -44,6 +44,7 @@ export class CustomerAddComponent implements OnInit {
   datalist2:any=[];
   state:any;
   meters: any = [];
+  number:any = [];
   meterOptions: Select2Data = [];
   shopOptions: Select2Data = [];
   // select multi options start
@@ -123,40 +124,53 @@ export class CustomerAddComponent implements OnInit {
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
       this.meters = meters;
-      console.log(" meter log >>>> ",this.meters);
-      this.createMeterOptions();
+      
+      this.codedata = this.meters.sort((a: any, b: any) => {
+        if (a.boothId < b.boothId) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+      console.log(" codedata log >>>> ",this.codedata);
     });
 
     this.validationform.get("email")?.setValue("");
 
     this.addItem();
     
-    this.customerService.getCode().subscribe((code)=>{
-      this.codedata = code;
+    // this.customerService.getCode().subscribe((code)=>{
+    //   this.codedata = code;
       
-      // console.log("Code >>> ", this.codedata);
-      this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
-        if(a.code < b.code){
-          return -1
-        }
-        return 1
-      });
-    })
+    //   // console.log("Code >>> ", this.codedata);
+    //   this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
+    //     if(a.code < b.code){
+    //       return -1
+    //     }
+    //     return 1
+    //   });
+    //   console.log("customer",this.codedata);
+    // })
     this.shopService.getAll().subscribe((shop)=>{
       this.datalist1 = shop
       // console.log("dataShop",this.datalist1);
       this.datalist1.forEach((data:any) => {
         this.codedata.forEach((code:any)=>{
-          if(data.storeId[0]==code.code){
-            this.datalist2 = [];
-            this.datalist2.push(code);
-            console.log("datalist2",this.datalist2);
+          if(data.storeId[0]!==code.boothId){
+            // this.datalist2 = [];
+            // this.datalist2.push(data.storeId[0]);
+            // console.log("A == ",code.boothId);
+            // console.log("B == ",data.storeId);
+            this.number=[];
+            this.number.push(code.boothId);
+            console.log("number == ",this.number);
             this.createShopOptions();
+            
          }
         
         })
       });
-    
+      
     });
     
     
@@ -180,7 +194,7 @@ export class CustomerAddComponent implements OnInit {
         return 1;
       }
     }).filter((m:any) => {
-      if (m.deviceId) {
+      if (m.boothId) {
         return true;
       }
       return false
@@ -196,7 +210,7 @@ export class CustomerAddComponent implements OnInit {
       }
 
       const data = {
-        label: "โซน " + sortedMeters[i].deviceZone,
+        label: " ",
         data: { name: sortedMeters[i].deviceZone },
         options: sortedMeters
           .filter((m: any) => {
@@ -206,27 +220,27 @@ export class CustomerAddComponent implements OnInit {
             return {
               value: m.boothId,
               label: m.boothId,
-              data: { name: m.deviceId },
+              data: { name: m.deviceZone },
               templateId: "template1",
               id: m.boothId,
             };
           }),
       };
-
+      
       this.meterOptions.push(data);
       // console.log("meterOptions" , data)
     }
   }
   createShopOptions() {
-    const sortedShop = this.datalist2.sort((a: any, b: any) => {
-      console.log(this.datalist2);
-      if (a.code < b.code) {
+    const sortedShop = this.number.sort((a: any, b: any) => {
+      // console.log(this.datalist2);
+      if (a < b) {
         return -1;
       } else {
         return 1;
       }
     }).filter((m:any) => {
-      if (m.code) {
+      if (m) {
         return true;
       }
       return false
@@ -234,30 +248,42 @@ export class CustomerAddComponent implements OnInit {
     for (let i = 0; i < sortedShop.length; i++) {
       if (
         sortedShop[i + 1] &&
-        sortedShop[i].code === sortedShop[i + 1].code
+        sortedShop[i] === sortedShop[i + 1]
       ) {
         continue;
       }
       const data = {
         label: "",
-        data: { name: sortedShop[i].code },
+        data: { name: sortedShop[i] },
         options: sortedShop
           .filter((m: any) => {
-            return m.code === sortedShop[i].code;
+            return m === sortedShop[i];
           })
           .map((m: any) => {
             return {
-              value: m.code,
-              label: m.code,
-              data: { name: m.code },
+              value: m,
+              label: m,
+              data: { name: m },
               templateId: "template1",
-              id: m.code,
+              id: m,
               // hide: true
               // disabled:true
             };
-          }),
+          })
       };
+     
+      // console.log("number",this.number);
       this.shopOptions.push(data);
+      this.shopOptions.sort((a: any, b: any) => {
+        // console.log(this.shopOptions);
+        if (a.data.name < b.data.name) {
+          return -1;
+        }
+         else {
+          return 1;
+        }
+      })     
+      
       // console.log("shopOptions" , data)
     }
   }
