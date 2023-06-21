@@ -151,7 +151,7 @@ export class MeterDashboardComponent implements OnInit {
     const isChecked = event.target.checked;
     Swal.fire({
       title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
-      text: "คุณต้องการลบข้อมูลมิเตอร์นี้ใช่หรือไม่?",
+      text: "คุณต้องการ เปิด / ปิด กับข้อมูลมิเตอร์นี้ใช่หรือไม่?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
