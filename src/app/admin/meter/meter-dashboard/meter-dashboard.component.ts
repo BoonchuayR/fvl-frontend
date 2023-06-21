@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Meter } from 'src/app/core/models/meter.model';
 import { MeterSortableDirective, SortEventMeter } from './meter-dashboard-sortable.directive';
 import { MeterService } from 'src/app/service/meter.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IotService } from 'src/app/service/iot.service';
 import { MeterServicemeter } from './meter-dashboard-datatable.service';
 import Swal from 'sweetalert2';
@@ -20,6 +20,7 @@ import * as XLSX from 'xlsx';
   providers: [MeterServicemeter, DecimalPipe]
 })
 export class MeterDashboardComponent implements OnInit {
+  [x: string]: any;
   nameExcel:any;
   ExcelDATA:any=[];
   importdata:any=[];
@@ -57,7 +58,9 @@ export class MeterDashboardComponent implements OnInit {
       })
     })
   }
-  
+  topupModal(topup: any) {
+    this.modalService.open(topup, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
+  }
 
   async ReadExcel(event:any){
     let file = event.target.files[0];
@@ -159,11 +162,11 @@ export class MeterDashboardComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
-      if (result.value) {
+      if (result.isConfirmed) {
         this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(res => {
-
+            console.log("ตกลง")
           }).catch(err => {
             console.log("error: ", id)
           });
@@ -175,6 +178,9 @@ export class MeterDashboardComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
+      }else if (!result.isConfirmed) {
+      console.log("ยกเลิก")
+      window.location.reload();
       }
     });
   }
@@ -190,7 +196,7 @@ export class MeterDashboardComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
-      if (result.value) {
+      if (result.isConfirmed) {
         this.meterService.delete(id).then(deletedMeter => {
           Swal.fire({
             position: 'top-end',
