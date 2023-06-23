@@ -154,26 +154,26 @@ export class CustomerAddComponent implements OnInit {
     this.shopService.getAll().subscribe((shop)=>{
       this.datalist1 = shop
       // console.log("dataShop",this.datalist1);
-      this.datalist1.forEach((data:any) => {
-        this.codedata.forEach((code:any)=>{
-          if(data.storeId[0]!==code.boothId){
+      this.datalist1.filter((shop:any) => {
+        this.meters.filter((meter:any)=>{
+          if(meter.boothId==shop.storeId[0]){
             // this.datalist2 = [];
             // this.datalist2.push(data.storeId[0]);
             // console.log("A == ",code.boothId);
             // console.log("B == ",data.storeId);
-            this.number=[];
-            this.number.push(code.boothId);
-            console.log("number == ",this.number);
+            this.number= []
+            this.number.push(meter.boothId);
             this.createShopOptions();
+            console.log("number == ",this.number);
+            
             
          }
-        
+         
         })
+        
       });
       
     });
-    
-    
   }
   
   checkboothcode(even:any){
@@ -232,19 +232,7 @@ export class CustomerAddComponent implements OnInit {
     }
   }
   createShopOptions() {
-    const sortedShop = this.number.sort((a: any, b: any) => {
-      // console.log(this.datalist2);
-      if (a < b) {
-        return -1;
-      } else {
-        return 1;
-      }
-    }).filter((m:any) => {
-      if (m) {
-        return true;
-      }
-      return false
-    });
+    const sortedShop = this.number;
     for (let i = 0; i < sortedShop.length; i++) {
       if (
         sortedShop[i + 1] &&
@@ -257,7 +245,7 @@ export class CustomerAddComponent implements OnInit {
         data: { name: sortedShop[i] },
         options: sortedShop
           .filter((m: any) => {
-            return m === sortedShop[i];
+            return m;
           })
           .map((m: any) => {
             return {
@@ -273,7 +261,9 @@ export class CustomerAddComponent implements OnInit {
       };
      
       // console.log("number",this.number);
+     
       this.shopOptions.push(data);
+      
       this.shopOptions.sort((a: any, b: any) => {
         // console.log(this.shopOptions);
         if (a.data.name < b.data.name) {
@@ -367,6 +357,35 @@ export class CustomerAddComponent implements OnInit {
       timer: 3000,
     });
   }
+  /**
+   * Confirm sweet alert
+   * @param confirm modal content
+   */
+  confirm() {
+    Swal.fire({
+      title: 'ลบข้อมูลลูกค้า',
+      text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'ใช่, ต้องการ!',
+      cancelButtonText:'ไม่, ยกเลิก!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this.customerService.delete(id).then(deletedcustomer => {
+          
+        // })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'ลบข้อมูลลูกค้าเรียบร้อย',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+  }
 
   addShops() {
     throw new Error("Method not implemented.");
@@ -381,12 +400,24 @@ export class CustomerAddComponent implements OnInit {
   }
 
   formShopMessage(isNew: boolean, key?: number) {
+   
     const control = <FormArray>this.itemShopForm.controls["items"];
     if (control.controls.length < 20) {
+      
       control.push(this.createItem());
       this.item_collapsed.push(true);
+      console.log("item_collapsed",this.item_collapsed)
       // this.buildFormContents();
-    }
+      
+    //   Swal.fire({
+    //   position: "top-end",
+    //   icon: "success",
+    //   title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+    //   showConfirmButton: false,
+    //   timer: 3000,
+    // });
+    } 
+    
   }
 
   createItem(item: any = {}) {
@@ -439,14 +470,37 @@ export class CustomerAddComponent implements OnInit {
   }
 
   removeformCardMessage(index?: any) {
-    const itemProduct: FormArray = this.itemShopForm.get("items") as FormArray;
-    index = itemProduct.length - 1;
-    if (itemProduct.length === 1) return;
-    if (itemProduct.length == this.keyActionItemCard + 1) {
-      this.keyActionItemCard = 0;
+    Swal.fire({
+      title: 'ลบข้อมูลร้านค้า',
+      text: "คุณต้องการลบร้านค้านี้ใช่หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'ใช่, ต้องการ!',
+      cancelButtonText:'ไม่, ยกเลิก!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this.customerService.delete(id).then(deletedcustomer => {
+          
+        // })
+        const itemProduct: FormArray = this.itemShopForm.get("items") as FormArray;
+        index = itemProduct.length - 1;
+        if (itemProduct.length === 1) return;
+        if (itemProduct.length == this.keyActionItemCard + 1) {
+        this.keyActionItemCard = 0;
     }
     this.item_collapsed.splice(index, 1);
     itemProduct.removeAt(index);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'ลบข้อมูลร้านค้าเรียบร้อย',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
   }
 
   addItem() {

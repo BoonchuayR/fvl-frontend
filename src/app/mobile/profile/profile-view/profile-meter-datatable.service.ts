@@ -53,9 +53,7 @@ function sort(tables: profileMeterData[], column: SortColumnMeter, direction: st
  * @param term Search the value
  */
 function matches(table: profileMeterData, term: string, pipe: PipeTransform) {
-    return table.storeId.includes(term)
-    || table.deviceZone.includes(term)
-    || table.deviceId.toLowerCase().includes(term)
+    return table.deviceId.toLowerCase().includes(term)
 }
 
 @Injectable({providedIn : 'any'})

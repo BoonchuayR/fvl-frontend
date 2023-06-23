@@ -66,7 +66,7 @@ class FirebaseAuthBackend {
      */
     forgetPassword = (email: any) => {
         return new Promise((resolve, reject) => {
-            // tslint:disable-next-line: max-line-length
+            // tslint:disable-next-line: max-line-
             firebase.auth().sendPasswordResetEmail(email, { url: window.location.protocol + '//' + window.location.host + '/login' }).then(() => {
                 resolve(true);
             }).catch((error) => {

@@ -12,7 +12,7 @@
 
 <!-- Start row -->
 <div class="row">
-    <div class="">
+    <div class>
         <div class="card card-green-style">
             <div class="p-3 px-4 bg-success">
                 <div class="d-flex align-items-start">
@@ -44,7 +44,7 @@
 
                             <div class="card-body">
 
-                                <div class="">
+                                <div class>
                                     <div class="row mb-md-2">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="dataTables_length"
@@ -84,7 +84,7 @@
                                         <!-- End search -->
                                     </div>
                                     <table id="basic-datatable"
-                                    class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                                        class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
                                         <thead>
                                             <tr> <th
                                                     sortableTicket="CREATE_DATE"
@@ -99,6 +99,10 @@
                                                     (sort)="onSort($event)">สถานะ</th>
                                                 <th sortableTicket="DUE_DATE"
                                                     (sort)="onSort($event)">กำหนดเสร็จ</th>
+                                                <th sortableTicket="DUE_DATE"
+                                                    (sort)="onSort($event)">สัญญาทั้งหมด</th>
+                                                <th sortableTicket="DUE_DATE"
+                                                    (sort)="onSort($event)">ใช้มิเตอร์</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -142,6 +146,12 @@
                                                     </ngb-highlight>
                                                 </td>
                                                 <td>
+                                                    <h4>รอการเพิ่มField ในFirebase</h4>
+                                                </td>
+                                                <td>
+                                                    <h4>รอการเพิ่มField ในFirebase</h4>
+                                                </td>
+                                                <td>
                                                     <div class="button-items">
                                                         <!-- <button type="button"
                                                             class="btn btn-action"
@@ -155,13 +165,21 @@
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button> -->
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-action"
+                                                            routerLink="/ticket-view/{{ table.id }}"
+                                                            routerLinkActive="active">
+                                                            <i
+                                                                class="bx bxs-show"></i>
+                                                        </button>
                                                         <button type="button"
                                                             class="btn
                                                             btn-action"
                                                             id="sa-warning">
                                                             <i class="bx
                                                                 bxs-trash"
-                                                                (click)="confirm(ticket.id)"></i>
+                                                                (click)="confirm(table.id)"></i>
                                                         </button>
                                                     </div>
                                                 </td>

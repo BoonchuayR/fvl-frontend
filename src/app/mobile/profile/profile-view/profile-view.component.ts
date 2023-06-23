@@ -37,7 +37,7 @@ export class ProfileViewComponent implements OnInit {
 
   tableData!: profileShopData[];
   hideme: boolean[] = [];
-  tables$: Observable<profileShopData[]>;
+    tables$: Observable<profileShopData[]>;
   total$: Observable<number>;
   @ViewChildren(ProfileViewShopSortableDirective)
   headers!: QueryList<ProfileViewShopSortableDirective>;
@@ -139,7 +139,7 @@ export class ProfileViewComponent implements OnInit {
         this.customer = customer;
       });
       
-
+    
     this.topUpAndChargeBarChart = emailSentBarChart;
 
     // Get topup transactions
@@ -204,8 +204,9 @@ export class ProfileViewComponent implements OnInit {
         return 1;
       });
       this.serviceElectric.profileElectrics = this.electricityList;
-  
+      console.log("electricity == ",this.electricityList);
     });
+    // console.log("electricity == ",this.currentUser);
 
     //BreadCrumb
     this.breadCrumbItems = [
@@ -347,49 +348,57 @@ export class ProfileViewComponent implements OnInit {
           }
       },
       colors: ['#2cb57e', '#f1b44c'],
-      series: series,
+      series: [{
+          name: 'ค่าไฟ',
+          type: 'column',
+          data: [10, 20, 30, 40, 50, 60]
+      }, {
+          name: 'เติมเงิน',
+          type: 'column',
+          data: [60, 50, 40, 30, 20, 10]
+      }],
       fill: {
-        opacity: [0.85, 1, 0.25, 1],
-        gradient: {
-            inverseColors: false,
-            shade: 'light',
-            type: "vertical",
-            opacityFrom: 0.85,
-            opacityTo: 0.55,
-            stops: [0, 100, 100, 100]
-        }
+          opacity: [0.85, 1, 0.25, 1],
+          gradient: {
+              inverseColors: false,
+              shade: 'light',
+              type: "vertical",
+              opacityFrom: 0.85,
+              opacityTo: 0.55,
+              stops: [0, 100, 100, 100]
+          }
       },
-      labels: labels,
+      labels: ['01/01/2022', '02/01/2022', '03/01/2022', '04/01/2022', '05/01/2022', '06/01/2022'],
       markers: {
-        size: 0
+          size: 0
       },
   
       xaxis: {
-        type: "string"
+          type: "datetime"
       },
       yaxis: {
-        title: {
-          text: 'จำนวนเงิน',
-        },
+          title: {
+              text: 'ยอดเงินคงเหลือ',
+          },
       },
       tooltip: {
-        shared: true,
-        intersect: false,
-        y: {
-            formatter: function (y: any) {
-                if (typeof y !== "undefined") {
-                    return y.toFixed(0) + " บาท";
-                }
-                return y;
-
-            }
-        }
+          shared: true,
+          intersect: false,
+          y: {
+              formatter: function (y: any) {
+                  if (typeof y !== "undefined") {
+                      return y.toFixed(0) + " points";
+                  }
+                  return y;
+  
+              }
+          }
       },
       grid: {
-        borderColor: '#f1f1f1',
-        padding: {
-            bottom: 15
-        }
+          borderColor: '#f1f1f1',
+          padding: {
+              bottom: 15
+          }
       }
   };
   }

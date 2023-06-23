@@ -85,12 +85,12 @@ export class TicketServiceticket {
         endIndex: 9,
         totalRecords: 0
     };
-    tickets = [];
+    tickets : Ticket[]=[];
     constructor(private pipe: DecimalPipe, private ticketService: TicketService) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search()),
+            switchMap(() => this._search(this.tickets)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -132,7 +132,11 @@ export class TicketServiceticket {
     set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
     set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
+    set setTables(tickets: Ticket[]) { this._set_tables( tickets ); }
 
+    private _set_tables(tickets: Ticket[]) {
+        this.tickets = tickets
+    }
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
         this._search$.next();
@@ -141,11 +145,11 @@ export class TicketServiceticket {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(tickets:Ticket[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(ticketData, sortColumn, sortDirection);
+        let tables = sort(tickets, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

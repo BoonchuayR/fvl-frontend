@@ -30,6 +30,8 @@ export class TicketListComponent implements OnInit {
   ngOnInit(): void {
     this.ticketService.getAll().subscribe(tickets => {
       this.ticket = tickets;
+      this.service.tickets = this.ticket;
+      console.log("ticket data == ",this.ticket)
 
     })
   }
