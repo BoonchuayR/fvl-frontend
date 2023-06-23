@@ -90,6 +90,8 @@ export class ProfileViewComponent implements OnInit {
   electricityList: any = [];
 
   printTopup = {};
+  meterchart:any=[];
+  currentchart:any=[];
 
   @ViewChild("content") content: any;
 
@@ -151,9 +153,14 @@ export class ProfileViewComponent implements OnInit {
         }
         return 1
       });
-      // console.log("this.topups >>> ", this.topups)
+      console.log("this.topups >>> ", this.topups)
       this.serviceTopup.profileTopups = this.topups;
-      this.buildBarChart();
+      this.customerService.getCustomer(this.currentUser.uid).subscribe((meter)=>{
+        this.meterchart = meter;
+        console.log(this.meterchart);
+        this.buildBarChart();
+      })
+      
     });
 
 
@@ -294,17 +301,17 @@ export class ProfileViewComponent implements OnInit {
         topUpMonths[3].topUp += +this.topups[i].topupMoney
       } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
         topUpMonths[4].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 5) {
         topUpMonths[5].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 6) {
         topUpMonths[6].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 7) {
         topUpMonths[7].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 8) {
         topUpMonths[8].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 9) {
         topUpMonths[9].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
+      } else if (moment(createdAt, "YYYY-MM-DD").month() === 10) {
         topUpMonths[10].topUp += +this.topups[i].topupMoney
       } else{
         topUpMonths[11].topUp += +this.topups[i].topupMoney
@@ -312,12 +319,11 @@ export class ProfileViewComponent implements OnInit {
     }
     
     const filteredTopUpMonth = topUpMonths.filter(topUp => {return topUp.topUp > 0})
-
     const series = [
       {
-        name: 'เติมเงิน',
+        name: 'ยอดเงินคงเหลือ',
         type: 'column',
-        data: filteredTopUpMonth.map(t => {return t.topUp})
+        data: [this.meterchart.currentMoney]
         // data: [10,20]
       },
       {
@@ -328,6 +334,7 @@ export class ProfileViewComponent implements OnInit {
     ]
 
     const labels = filteredTopUpMonth.map(t => {return t.month})
+    console.log(labels);
     this.topUpAndChargeBarChart  = {
       chart: {
           height: 338,
@@ -348,15 +355,7 @@ export class ProfileViewComponent implements OnInit {
           }
       },
       colors: ['#2cb57e', '#f1b44c'],
-      series: [{
-          name: 'ค่าไฟ',
-          type: 'column',
-          data: [10, 20, 30, 40, 50, 60]
-      }, {
-          name: 'เติมเงิน',
-          type: 'column',
-          data: [60, 50, 40, 30, 20, 10]
-      }],
+      series: series,
       fill: {
           opacity: [0.85, 1, 0.25, 1],
           gradient: {
@@ -368,13 +367,13 @@ export class ProfileViewComponent implements OnInit {
               stops: [0, 100, 100, 100]
           }
       },
-      labels: ['01/01/2022', '02/01/2022', '03/01/2022', '04/01/2022', '05/01/2022', '06/01/2022'],
+      labels: [labels],
       markers: {
           size: 0
       },
   
       xaxis: {
-          type: "datetime"
+          type: "string"
       },
       yaxis: {
           title: {

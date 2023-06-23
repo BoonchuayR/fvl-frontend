@@ -77,7 +77,7 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
 			body: bodyReq,
 			json: true,
 		}).then(async (meters) => {
-			const meterData = meters.DATA;
+			const meterData = meters.DATA_RESPONSE;
 			// console.log("meterData: ", meterData);
 			for (let i = 0; i < meterData.length; i++) {
 				const electricity = {
