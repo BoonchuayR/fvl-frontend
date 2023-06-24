@@ -13,7 +13,7 @@ const app = express();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
+exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
     .timeZone("Asia/Bangkok")
     .onRun(async (context) => {
 
@@ -47,28 +47,34 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
 
       	const bodyReq = {
         	CMD_TYPE: "METER_SELECT",
-				CMD_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-				CMD_PARAMS: [
-					"STORE_ID",
-					"DEVICE_ZONE",
-					"DEVICE_ID",
-					"SERIAL_NO",
-					"SLAVE_ID",
-					"MODEL_SPEC",
-					"LINE_VOLTAGE",
-					"LINE_FREQUENCY",
-					"LINE_CURRENT",
-					"ACTIVE_POWER",
-					"ACTIVE_ENERGY",
-					"UPDATE_DATETIME",
-					"METER_STATE",
-					"UPDATE_STATE_DATETIME",
-					"METER_STATE_ADMIN",
-					"UPDATE_STATE_ADMIN_DATETIME",
-					"METER_STATE_PREVIOUS_UNIT",
-					"METER_STATE_CALCULATE_UNIT"
-				],
-				STORE_ID: ["A004"]
+			CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303",
+			CMD_PARAMS: [
+				BOOTH_ID,
+				DEVICE_ZONE,
+				DEVICE_ID,
+				SERIAL_NO,
+				SLAVE_ID,
+				MODEL_SPEC,
+				LINE_VOLTAGE,
+				LINE_FREQUENCY,
+				LINE_CURRENT,
+				ACTIVE_POWER,
+				ACTIVE_ENERGY,
+				UPDATE_DATETIME,
+				METER_STATE,
+				UPDATE_STATE_DATETIME,
+				METER_STATE_ADMIN,
+				UPDATE_STATE_ADMIN_DATETIME,
+				METER_STATE_PREVIOUS_UNIT,
+				METER_STATE_CALCULATE_UNIT
+			],
+			BOOTH_ID: [
+				"A004"
+			],
+			LIMIT: {
+				PAGE: 1,
+				PAGE_SIZE: 12
+			}
       	};
 
 		return request({
@@ -77,11 +83,11 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
 			body: bodyReq,
 			json: true,
 		}).then(async (meters) => {
-			const meterData = meters.DATA;
+			const meterData = meters.DATA_RESPONSE;
 			// console.log("meterData: ", meterData);
 			for (let i = 0; i < meterData.length; i++) {
 				const electricity = {
-					storeId: meterData[i].STORE_ID,
+					storeId: meterData[i].BOOTH_ID,
 					date: moment().format("YYYY-MM-DD hh:mm:ss"),
 					priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
 					calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
@@ -94,7 +100,7 @@ exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
 				// 	// console.log("res: ", res);
 				// });				
 
-				const shopSnapshot = await db.collection("shop").where("storeId", "array-contains", meterData[i].STORE_ID).get();
+				const shopSnapshot = await db.collection("shop").where("storeId", "array-contains", meterData[i].BOOTH_ID).get();
 				
 				shopSnapshot.forEach(async doc => {
 					// console.log(doc.id, '=>', doc.data());
