@@ -7,7 +7,6 @@ import {
 } from "@angular/common/http";
 import { environment } from "../environments/environment";
 import { initFirebaseBackend } from "./authUtils";
-
 import { FakeBackendInterceptor } from "./core/helpers/fake-backend";
 import { ErrorInterceptor } from "./core/helpers/error.interceptor";
 import { JwtInterceptor } from "./core/helpers/jwt.interceptor";
@@ -20,6 +19,7 @@ import {
   NgbPopoverModule,
   NgbNavModule,
 } from "@ng-bootstrap/ng-bootstrap";
+import {NgxPrintModule} from 'ngx-print';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
@@ -29,9 +29,7 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { provideAuth, getAuth } from "@angular/fire/auth";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Select2Module } from "ng-select2-component";
-import {NgxPrintModule} from 'ngx-print';
 import { AngularFireModule } from '@angular/fire/compat';
-
 // firebase
 import { provideFirestore, getFirestore } from "@angular/fire/firestore";
 

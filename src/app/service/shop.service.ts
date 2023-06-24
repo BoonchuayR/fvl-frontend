@@ -17,6 +17,7 @@ import {
 } from "@angular/fire/firestore";
 
 interface Shop {
+  [x: string]: any;
   custPhone: any;
   id: string;
   boothCode: string;
@@ -60,6 +61,11 @@ export class ShopService {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
   }
+  updatedeletedata(shop: Shop) {
+    const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
+    shop.clear();
+    return updateDoc(shopDocumentReference, { ...shop });
+  }
 
   delete(id: string) {
     const shopDocumentReference = doc(this.firestore, `shop/${id}`);
@@ -73,6 +79,12 @@ export class ShopService {
     }) as Observable<Shop[]>;
   }
 
+  findBycustName(custName: string) {
+    const q = query(this.shopCollection, where("custName", "==", custName));
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Shop[]>;
+  }
   findByBoothCode(boothCode: string) {
     const q = query(this.shopCollection, where("boothCode", "==", boothCode));
     return collectionData(q, {

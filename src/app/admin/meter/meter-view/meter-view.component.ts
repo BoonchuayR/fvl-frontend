@@ -57,7 +57,7 @@ export class MeterViewComponent implements OnInit {
   }
 
   onBtnBackClicked(): void{
-    this.router.navigate([`/meter-list/${this.meter.zone}`]);
+    this.router.navigate([`/meter-dashboard`]);
   }
 
   private fetchData() {

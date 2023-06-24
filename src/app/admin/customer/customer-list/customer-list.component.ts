@@ -14,6 +14,8 @@ import { updateCurrentUser } from '@angular/fire/auth';
 import { Topup } from 'src/app/core/models/topup.model';
 import * as moment from 'moment';
 import { CustomerService } from 'src/app/service/customer.service';
+import { ShopService } from 'src/app/service/shop.service';
+import { ElectricityService } from 'src/app/service/electricity.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -41,11 +43,16 @@ export class CustomerListComponent implements OnInit {
   custNametopup:any;
   topupMoneyAt!: any;
   statusNametopup:any;
+  shopdata!:any;
+  electricdata!:any;
+  
 
   constructor(
     private modalService: NgbModal,
     private customerService:CustomerService, 
     public service:CustomerServicecus, 
+    public shopService:ShopService,
+    public electricity:ElectricityService,
     private topupService:TopupService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
@@ -56,8 +63,12 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
       this.service.customers = this.customer
-      // console.log("customer list >>>>> ",this.customer);
+      console.log("customer list >>>>> ",this.customer);
     });
+    // this.shopService.getAll().subscribe((shops)=>{
+    //     this.shopdata = shops;
+    //     console.log("shops == ",this.shopdata);
+    // })
    
   }
 
@@ -75,7 +86,7 @@ export class CustomerListComponent implements OnInit {
    * Confirm sweet alert
    * @param confirm modal content
    */
-   confirm(id:string) {
+   confirm(custName:string) {
     Swal.fire({
       title: 'ลบข้อมูลลูกค้า',
       text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
@@ -86,10 +97,28 @@ export class CustomerListComponent implements OnInit {
       confirmButtonText: 'ใช่, ต้องการ!',
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
-      if (result.value) {
-        this.customerService.delete(id).then(deletedcustomer => {
+      if (result.isConfirmed) {
+        // this.customerService.delete(id).then(deletedcustomer => {
           
+        // })
+        // this.electricity.delete(id);
+        
+       this.shopService.findBycustName(custName).subscribe((shops:any)=>{
+        this.shopdata = shops;
+        console.log("shopdata == ",this.shopdata);
+        this.shopdata.filter((data:any)=>{
+          this.electricity.getAll().subscribe((electric:any)=>{
+            this.electricdata = electric;
+            this.electricdata.filter((edata:any)=>{
+              if(edata.storeId== data.storeId[0]){
+                this.electricity.delete(edata.id);
+              }
+            })
+          })
+          // this.electricity.deleteelectricity(id,data.storeId[0]);
+          console.log("data == ",data.storeId[0]);
         })
+       })
         Swal.fire({
           position: 'top-end',
           icon: 'success',

@@ -31,7 +31,7 @@
                         <button
                             hidden
                             routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded float-right" 
+                            class="btn btn-outline-success btn-rounded float-right"
                             (click)="import()">
                             <i class="bx bx-import"></i> import
                         </button>
@@ -116,27 +116,33 @@
                                     </div>
                                     <div class="table-responsive">
                                         <table id="basic-datatable"
-                                        class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                                            class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
                                             <thead>
                                                 <tr>
 
                                                     <th sortableMeter="boothId"
-                                                        (sort)="onSort($event)">Booth ID</th>
+                                                        (sort)="onSort($event)">Booth
+                                                        ID</th>
                                                     <th sortableMeter="shopName"
-                                                        (sort)="onSort($event)">Shop Name</th>
+                                                        (sort)="onSort($event)">Shop
+                                                        Name</th>
                                                     <th sortableMeter="custName"
                                                         (sort)="onSort($event)">Cust
                                                         Name</th>
                                                     <th sortableMeter="deviceId"
-                                                        (sort)="onSort($event)">Device ID</th>
+                                                        (sort)="onSort($event)">Device
+                                                        ID</th>
                                                     <th
                                                         sortableMeter="deviceZone"
-                                                        (sort)="onSort($event)">Device Zone</th>
+                                                        (sort)="onSort($event)">Device
+                                                        Zone</th>
                                                     <th sortableMeter="serialNo"
-                                                        (sort)="onSort($event)">Serial No.</th>
+                                                        (sort)="onSort($event)">Serial
+                                                        No.</th>
                                                     <th
                                                         sortableMeter="lineVoltage"
-                                                        (sort)="onSort($event)">Line Voltage</th>
+                                                        (sort)="onSort($event)">Line
+                                                        Voltage</th>
                                                     <th>Meter State</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -213,16 +219,8 @@
                                                                 class="form-check-input"
                                                                 type="checkbox"
                                                                 id="SwitchCheckSizelg"
-                                                                [checked]="table.meterState
-                                                            === '1'"
-                                                                (change)="
-                                                            changMeterState(
-                                                            $event,
-                                                            table.boothId,
-                                                            table.id,
-                                                            table
-                                                            )
-                                                            " />
+                                                                [checked]="table.meterState === '1'"
+                                                                (change)="changMeterState($event,table.boothId,table.id,table)" />
                                                         </div>
                                                     </td>
                                                     <td>
@@ -299,6 +297,40 @@
             </div>
         </div>
     </div>
+    <ng-template #topup let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">เติมเงิน</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="false"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="card-title-desc">ชำระเงินตามยอดได้ที่ จุดรับชำระเงินค่าไฟของโครงการ
+                            </p>
+                            <form class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputValue"
+                                    placeholder="ระบุจำนวนเงิน">
+                                <!-- <label for="floatingInputValue">หัวข้อ</label> -->
+                            </form>
+                        </div>
+                        <div class="button-items text-center mb-1">
+                            <button type="button" class="btn btn-primary btn-lg">300</button>
+                            <button type="button" class="btn btn-primary btn-lg">500</button>
+                            <button type="button" class="btn btn-primary btn-lg">1,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">3,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">5,000</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">ยกเลิก</button>
+            <button type="button" class="btn btn-primary">เติมเงิน</button>
+        </div>
+    </ng-template>
 </div>
 <!-- end row -->
 <!--   

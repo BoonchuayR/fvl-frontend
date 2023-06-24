@@ -117,7 +117,7 @@ const monthlyEarningChart: ChartType = {
         dashArray: 4,
     },
     series: [90],
-    labels: ['เงินคงเหลือ'],
+    labels: ['เงินคงเหลือ']
 };
 
 export { emailSentBarChart, monthlyEarningChart };

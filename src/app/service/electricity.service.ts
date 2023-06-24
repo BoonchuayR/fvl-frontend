@@ -38,6 +38,10 @@ export class ElectricityService {
     const electricityDocumentReference = doc(this.firestore, `electricity/${id}`);
     return deleteDoc(electricityDocumentReference);
   }
+  deleteelectricity(id: string,storeId:string) {
+    const electricityDocumentReference = doc(this.firestore, `electricity/${id}/${storeId}`);
+    return deleteDoc(electricityDocumentReference);
+  }
   
   findByStoreId(storeId: string) {
     const q = query(this.electricityCollection, where("storeId", "==", storeId));
