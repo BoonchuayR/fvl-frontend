@@ -13,7 +13,7 @@ const app = express();
 
 const db = getFirestore();
 
-exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
+exports.scheduledFunction = functions.pubsub.schedule("0 0 * * *")
     .timeZone("Asia/Bangkok")
     .onRun(async (context) => {
 
@@ -49,24 +49,24 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
         	CMD_TYPE: "METER_SELECT",
 			CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303",
 			CMD_PARAMS: [
-				BOOTH_ID,
-				DEVICE_ZONE,
-				DEVICE_ID,
-				SERIAL_NO,
-				SLAVE_ID,
-				MODEL_SPEC,
-				LINE_VOLTAGE,
-				LINE_FREQUENCY,
-				LINE_CURRENT,
-				ACTIVE_POWER,
-				ACTIVE_ENERGY,
-				UPDATE_DATETIME,
-				METER_STATE,
-				UPDATE_STATE_DATETIME,
-				METER_STATE_ADMIN,
-				UPDATE_STATE_ADMIN_DATETIME,
-				METER_STATE_PREVIOUS_UNIT,
-				METER_STATE_CALCULATE_UNIT
+				"BOOTH_ID",
+				"DEVICE_ZONE",
+				"DEVICE_ID",
+				"SERIAL_NO",
+				"SLAVE_ID",
+				"MODEL_SPEC",
+				"LINE_VOLTAGE",
+				"LINE_FREQUENCY",
+				"LINE_CURRENT",
+				"ACTIVE_POWER",
+				"ACTIVE_ENERGY",
+				"UPDATE_DATETIME",
+				"METER_STATE",
+				"UPDATE_STATE_DATETIME",
+				"METER_STATE_ADMIN",
+				"UPDATE_STATE_ADMIN_DATETIME",
+				"METER_STATE_PREVIOUS_UNIT",
+				"METER_STATE_CALCULATE_UNIT"
 			],
 			BOOTH_ID: [
 				"A004"
@@ -83,6 +83,7 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
 			body: bodyReq,
 			json: true,
 		}).then(async (meters) => {
+			console.log("meters >>> ", meters);
 			const meterData = meters.DATA_RESPONSE;
 			// console.log("meterData: ", meterData);
 			for (let i = 0; i < meterData.length; i++) {
