@@ -165,7 +165,6 @@ export class CustomerAddComponent implements OnInit {
     this.shopService.findByBoothCode("fvl023").subscribe(a=>{
     })
   }
-
   
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
