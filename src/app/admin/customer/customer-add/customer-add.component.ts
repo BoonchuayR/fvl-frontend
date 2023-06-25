@@ -123,70 +123,51 @@ export class CustomerAddComponent implements OnInit {
   ngOnInit(): void {
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
-      this.meters = meters;
+      console.log("meters >>> ", meters);
       
-      this.codedata = this.meters.sort((a: any, b: any) => {
-        if (a.boothId < b.boothId) {
-          return -1;
-        } else {
-          return 1;
-        }
-      })
-      console.log(" codedata log >>>> ",this.codedata);
+      this.meters = meters;
+
+      this.createBoothOptions();
+      
+      // this.codedata = this.meters.sort((a: any, b: any) => {
+      //   if (a.boothId < b.boothId) {
+      //     return -1;
+      //   } else {
+      //     return 1;
+      //   }
+      // });
+
+      // console.log("this.codedata >>> ", this.codedata);
+
     });
 
     this.validationform.get("email")?.setValue("");
 
     this.addItem();
+
     
-    // this.customerService.getCode().subscribe((code)=>{
-    //   this.codedata = code;
-      
-    //   // console.log("Code >>> ", this.codedata);
-    //   this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
-    //     if(a.code < b.code){
-    //       return -1
-    //     }
-    //     return 1
+
+    // this.shopService.getAll().subscribe((shop)=>{
+    //   this.datalist1 = shop
+    //   this.datalist1.filter((shop:any) => {
+    //     this.meters.filter((meter:any) => {
+    //       if(meter.boothId==shop.boothIds[0]){
+    //         this.number= []
+    //         this.number.push(meter.boothId);
+    //         this.createShopOptions();
+    //       } 
+    //     })
     //   });
-    //   console.log("customer",this.codedata);
-    // })
-    this.shopService.getAll().subscribe((shop)=>{
-      this.datalist1 = shop
-      // console.log("dataShop",this.datalist1);
-      this.datalist1.filter((shop:any) => {
-        this.meters.filter((meter:any)=>{
-          if(meter.boothId==shop.storeId[0]){
-            // this.datalist2 = [];
-            // this.datalist2.push(data.storeId[0]);
-            // console.log("A == ",code.boothId);
-            // console.log("B == ",data.storeId);
-            this.number= []
-            this.number.push(meter.boothId);
-            this.createShopOptions();
-            console.log("number == ",this.number);
-            
-            
-         }
-         
-        })
-        
-      });
-      
-    });
+    // });
   }
   
   checkboothcode(even:any){
-    // console.log(" state >>>> ",this.state);
-    // console.log(" even >>>> ",even);
     this.shopService.findByBoothCode("fvl023").subscribe(a=>{
-      console.log(" a >>>> ",a);
     })
   }
 
   
   createMeterOptions() {
-    // console.log("this.meters >>> ", this.meters);
     const sortedMeters = this.meters.sort((a: any, b: any) => {
       if (a.boothId < b.boothId) {
         return -1;
@@ -210,7 +191,7 @@ export class CustomerAddComponent implements OnInit {
       }
 
       const data = {
-        label: " ",
+        label: "",
         data: { name: sortedMeters[i].deviceZone },
         options: sortedMeters
           .filter((m: any) => {
@@ -226,75 +207,75 @@ export class CustomerAddComponent implements OnInit {
             };
           }),
       };
-      
       this.meterOptions.push(data);
-      // console.log("meterOptions" , data)
     }
   }
-  createShopOptions() {
-    const sortedShop = this.number;
-    for (let i = 0; i < sortedShop.length; i++) {
-      if (
-        sortedShop[i + 1] &&
-        sortedShop[i] === sortedShop[i + 1]
-      ) {
-        continue;
-      }
-      const data = {
-        label: "",
-        data: { name: sortedShop[i] },
-        options: sortedShop
-          .filter((m: any) => {
-            return m;
-          })
-          .map((m: any) => {
-            return {
-              value: m,
-              label: m,
-              data: { name: m },
-              templateId: "template1",
-              id: m,
-              // hide: true
-              // disabled:true
-            };
-          })
-      };
-     
-      // console.log("number",this.number);
-     
-      this.shopOptions.push(data);
+
+  createBoothOptions() {
+    const sortedShop = this.meters;
+
+    const data = {
+      label: "",
+      data: { name: "" },
+      options: sortedShop
+        .map((m: any) => {
+          return {
+            value: m.boothId,
+            label: m.boothId,
+            data: { name: m.boothId },
+            templateId: "template1",
+            id: m.boothId,
+          };
+        })
+    };
+   
+    this.shopOptions.push(data);
+    // console.log("sortedShop >>> ", sortedShop);
+    // for (let i = 0; i < sortedShop.length; i++) {
+      // if (
+      //   sortedShop[i + 1] &&
+      //   sortedShop[i] === sortedShop[i + 1]
+      // ) {
+      //   continue;
+      // }
       
-      this.shopOptions.sort((a: any, b: any) => {
-        // console.log(this.shopOptions);
-        if (a.data.name < b.data.name) {
-          return -1;
-        }
-         else {
-          return 1;
-        }
-      })     
       
-      // console.log("shopOptions" , data)
-    }
+      
+      // this.shopOptions.sort((a: any, b: any) => {
+      //   if (a.data.name < b.data.name) {
+      //     return -1;
+      //   }
+      //    else {
+      //     return 1;
+      //   }
+      // })
+    // }
   }
+
   get email() {
     return this.validationform.get("email");
   }
+
   get password() {
     return this.validationform.get("password");
   }
+
   get custCode() {
     return this.validationform.get("custCode");
   }
+
   get custName() {
     return this.validationform.get("custName");
   }
+
   get custPhone() {
     return this.validationform.get("custPhone");
   }
+
   get custStartDate() {
     return this.validationform.get("custStartDate");
   }
+
   get minimumMoney() {
     return this.validationform.get("minimumMoney");
   }
@@ -339,7 +320,6 @@ export class CustomerAddComponent implements OnInit {
                 custPhone: customer.custPhone,
               })
               .then((res) => {
-                console.log("res: ", res);
                 this.router.navigate(["/customer-list"]);
               });
           });
@@ -400,22 +380,10 @@ export class CustomerAddComponent implements OnInit {
   }
 
   formShopMessage(isNew: boolean, key?: number) {
-   
     const control = <FormArray>this.itemShopForm.controls["items"];
     if (control.controls.length < 20) {
-      
       control.push(this.createItem());
       this.item_collapsed.push(true);
-      console.log("item_collapsed",this.item_collapsed)
-      // this.buildFormContents();
-      
-    //   Swal.fire({
-    //   position: "top-end",
-    //   icon: "success",
-    //   title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-    //   showConfirmButton: false,
-    //   timer: 3000,
-    // });
     } 
     
   }
@@ -430,7 +398,7 @@ export class CustomerAddComponent implements OnInit {
       boothCate: ["", [Validators.required]],
       contractDate: ["", [Validators.required]],
       contractEndDate: ["", [Validators.required]],
-      storeId: ["", [Validators.required]],
+      boothIds: ["", [Validators.required]],
     });
   }
 

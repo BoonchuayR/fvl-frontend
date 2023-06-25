@@ -86,7 +86,7 @@ export class CustomerListComponent implements OnInit {
    * Confirm sweet alert
    * @param confirm modal content
    */
-   confirm(custName:string) {
+   confirm(uid:string) {
     Swal.fire({
       title: 'ลบข้อมูลลูกค้า',
       text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
@@ -98,34 +98,42 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.customerService.delete(id).then(deletedcustomer => {
+        this.customerService.delete(uid).then(deletedcustomer => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'ลบข้อมูลลูกค้าเรียบร้อย',
+            showConfirmButton: false,
+            timer: 3000
+          })
           
-        // })
+        })
+        
         // this.electricity.delete(id);
         
-       this.shopService.findBycustName(custName).subscribe((shops:any)=>{
-        this.shopdata = shops;
-        console.log("shopdata == ",this.shopdata);
-        this.shopdata.filter((data:any)=>{
-          this.electricity.getAll().subscribe((electric:any)=>{
-            this.electricdata = electric;
-            this.electricdata.filter((edata:any)=>{
-              if(edata.storeId== data.storeId[0]){
-                this.electricity.delete(edata.id);
-              }
-            })
-          })
-          // this.electricity.deleteelectricity(id,data.storeId[0]);
-          console.log("data == ",data.storeId[0]);
-        })
-       })
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'ลบข้อมูลลูกค้าเรียบร้อย',
-          showConfirmButton: false,
-          timer: 3000
-        })
+      //  this.shopService.findBycustName(custName).subscribe((shops:any)=>{
+      //   this.shopdata = shops;
+      //   console.log("shopdata == ",this.shopdata);
+      //   this.shopdata.filter((data:any)=>{
+      //     this.electricity.getAll().subscribe((electric:any)=>{
+      //       this.electricdata = electric;
+      //       this.electricdata.filter((edata:any)=>{
+      //         if(edata.storeId== data.storeId[0]){
+      //           this.electricity.delete(edata.id);
+      //         }
+      //       })
+      //     })
+      //     // this.electricity.deleteelectricity(id,data.storeId[0]);
+      //     console.log("data == ",data.storeId[0]);
+      //   })
+      //  })
+      //   Swal.fire({
+      //     position: 'top-end',
+      //     icon: 'success',
+      //     title: 'ลบข้อมูลลูกค้าเรียบร้อย',
+      //     showConfirmButton: false,
+      //     timer: 3000
+      //   })
       }
     });
   }
