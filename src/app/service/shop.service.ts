@@ -17,7 +17,6 @@ import {
 } from "@angular/fire/firestore";
 
 interface Shop {
-  [x: string]: any;
   custPhone: any;
   id: string;
   boothCode: string;
@@ -28,7 +27,7 @@ interface Shop {
   boothCate: string;
   contractDate: string;
   contractEndDate: string;
-  storeId: string;
+  boothIds: [string];
   uid: string;
 }
 
@@ -63,7 +62,6 @@ export class ShopService {
   }
   updatedeletedata(shop: Shop) {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
-    shop.clear();
     return updateDoc(shopDocumentReference, { ...shop });
   }
 

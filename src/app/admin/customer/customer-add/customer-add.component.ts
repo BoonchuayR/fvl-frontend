@@ -44,68 +44,9 @@ export class CustomerAddComponent implements OnInit {
   datalist2:any=[];
   state:any;
   meters: any = [];
-  number:any = [];
+  boothOptions:any = [];
   meterOptions: Select2Data = [];
   shopOptions: Select2Data = [];
-  // select multi options start
-  data: Select2Data = [
-    // {
-    //   label: "Meter Zone A",
-    //   data: { name: "Meter Zone A" },
-    //   options: [
-    //     {
-    //       value: "A001",
-    //       label: "A001",
-    //       data: { name: "A001" },
-    //       templateId: "template1",
-    //       id: "option-A001",
-    //     },
-    //     {
-    //       value: "A002",
-    //       label: "A002",
-    //       data: { name: "A002" },
-    //       templateId: "template2",
-    //       id: "option-A002",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Meter Zone B",
-    //   data: { name: "Meter Zone B" },
-    //   options: [
-    //     {
-    //       value: "B001",
-    //       label: "B001",
-    //       data: { name: "B001" },
-    //       templateId: "template1",
-    //       id: "option-B001",
-    //     },
-    //     {
-    //       value: "B002",
-    //       label: "B002",
-    //       data: { name: "B002" },
-    //       templateId: "template2",
-    //       id: "option-B002",
-    //     },
-    //     {
-    //       value: "B003",
-    //       label: "B003",
-    //       data: { name: "B003" },
-    //       templateId: "template3",
-    //       id: "option-B003",
-    //     },
-    //     {
-    //       value: "B004",
-    //       label: "B004",
-    //       data: { name: "B004" },
-    //       templateId: "template4",
-    //       id: "option-B004",
-    //     },
-    //   ],
-    // },
-  ];
-
-  // select multi options End
 
   constructor(
     private formBuilder: FormBuilder,
@@ -123,49 +64,38 @@ export class CustomerAddComponent implements OnInit {
   ngOnInit(): void {
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
-      console.log("meters >>> ", meters);
-      
+
       this.meters = meters;
 
-      this.createBoothOptions();
-      
-      // this.codedata = this.meters.sort((a: any, b: any) => {
-      //   if (a.boothId < b.boothId) {
-      //     return -1;
-      //   } else {
-      //     return 1;
-      //   }
-      // });
+      meters.forEach(meter => this.boothOptions.push(meter.boothId))
 
-      // console.log("this.codedata >>> ", this.codedata);
+      const boothIds: string[] = [];
+
+      this.shopService.getAll().subscribe((shops) => {
+
+        shops.forEach(shop => {
+          boothIds.push(...shop.boothIds);
+        })
+
+        this.boothOptions = this.boothOptions.filter((option: string) => {
+          return !boothIds.includes(option);
+        });
+
+        this.createBoothOptions();
+      });
 
     });
 
     this.validationform.get("email")?.setValue("");
 
     this.addItem();
-
-    
-
-    // this.shopService.getAll().subscribe((shop)=>{
-    //   this.datalist1 = shop
-    //   this.datalist1.filter((shop:any) => {
-    //     this.meters.filter((meter:any) => {
-    //       if(meter.boothId==shop.boothIds[0]){
-    //         this.number= []
-    //         this.number.push(meter.boothId);
-    //         this.createShopOptions();
-    //       } 
-    //     })
-    //   });
-    // });
   }
   
   checkboothcode(even:any){
     this.shopService.findByBoothCode("fvl023").subscribe(a=>{
     })
   }
-  
+
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
       if (a.boothId < b.boothId) {
@@ -211,7 +141,12 @@ export class CustomerAddComponent implements OnInit {
   }
 
   createBoothOptions() {
-    const sortedShop = this.meters;
+    const sortedShop = this.boothOptions.sort((a:string,b:string) => {
+      if (a > b) {
+        return 1;
+      }
+      return -1;
+    });
 
     const data = {
       label: "",
@@ -219,11 +154,11 @@ export class CustomerAddComponent implements OnInit {
       options: sortedShop
         .map((m: any) => {
           return {
-            value: m.boothId,
-            label: m.boothId,
-            data: { name: m.boothId },
+            value: m,
+            label: m,
+            data: { name: m },
             templateId: "template1",
-            id: m.boothId,
+            id: m,
           };
         })
     };
