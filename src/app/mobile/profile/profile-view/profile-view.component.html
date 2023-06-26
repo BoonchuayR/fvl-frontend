@@ -231,7 +231,7 @@
                     <tbody *ngFor="let table of tablesMeter$ | async;let i=index">
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.storeId"
+                          <ngb-highlight [result]="table.boothId"
                             [term]="services.searchTerm">
                           </ngb-highlight>
                         </td>
@@ -258,7 +258,7 @@
                               (change)="
                               changMeterState(
                               $event,
-                              table.storeId,
+                              table.boothId,
                               table.id,
                               table
                               )

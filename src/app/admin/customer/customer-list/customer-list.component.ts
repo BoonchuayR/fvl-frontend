@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ShopService } from 'src/app/service/shop.service';
 import { ElectricityService } from 'src/app/service/electricity.service';
+import { MeterService } from 'src/app/service/meter.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -45,15 +46,19 @@ export class CustomerListComponent implements OnInit {
   statusNametopup:any;
   shopdata!:any;
   electricdata!:any;
-  
-
+  edata:any=[];
+  topupdata:any;
+  meterdata:any;
+  meters:any;
+  shops:any;
   constructor(
     private modalService: NgbModal,
     private customerService:CustomerService, 
     public service:CustomerServicecus, 
     public shopService:ShopService,
     public electricity:ElectricityService,
-    private topupService:TopupService) {
+    public meterService:MeterService,
+    public topupService:TopupService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
   }
@@ -98,6 +103,7 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log("uid == ",uid);
         this.customerService.delete(uid).then(deletedcustomer => {
           Swal.fire({
             position: 'top-end',
@@ -108,32 +114,33 @@ export class CustomerListComponent implements OnInit {
           })
           
         })
+        this.electricity.findByUID(uid).subscribe(electric=>{
+          this.electricdata = electric;
+          this.electricdata.filter((edata:any)=>{
+            this.electricity.delete(edata.id);
+          })
+        })
+        this.shopService.findByuid(uid).subscribe(shop=>{
+          this.shopdata = shop;
+          this.shopdata.filter((sdata:any)=>{
+            this.meterService.getAll().subscribe(meter=>{
+              this.meterdata = meter;
+              this.meterdata.filter((mdata:any)=>{
+                return mdata.boothId === sdata.boothIds[0]
+              }).map((meters:any)=>{
+                return meters.custName = "";
+              })
+            })
+            this.shopService.delete(sdata.id);
+          })
+        })
+        this.topupService.findByuid(uid).subscribe(topup=>{
+          this.topupdata = topup;
+          this.topupdata.filter((tdata:any)=>{
+            this.topupService.delete(tdata.id);
+          })
+        })
         
-        // this.electricity.delete(id);
-        
-      //  this.shopService.findBycustName(custName).subscribe((shops:any)=>{
-      //   this.shopdata = shops;
-      //   console.log("shopdata == ",this.shopdata);
-      //   this.shopdata.filter((data:any)=>{
-      //     this.electricity.getAll().subscribe((electric:any)=>{
-      //       this.electricdata = electric;
-      //       this.electricdata.filter((edata:any)=>{
-      //         if(edata.storeId== data.storeId[0]){
-      //           this.electricity.delete(edata.id);
-      //         }
-      //       })
-      //     })
-      //     // this.electricity.deleteelectricity(id,data.storeId[0]);
-      //     console.log("data == ",data.storeId[0]);
-      //   })
-      //  })
-      //   Swal.fire({
-      //     position: 'top-end',
-      //     icon: 'success',
-      //     title: 'ลบข้อมูลลูกค้าเรียบร้อย',
-      //     showConfirmButton: false,
-      //     timer: 3000
-      //   })
       }
     });
   }

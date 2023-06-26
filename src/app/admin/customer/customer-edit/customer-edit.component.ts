@@ -21,13 +21,14 @@ import { MeterService } from "src/app/service/meter.service";
   styleUrls: ["./customer-edit.component.scss"],
 })
 export class CustomerEditComponent implements OnInit {
+  [x: string]: any;
   uId: any;
   customer: any;
   shops: any;
   submit!: boolean;
   validationform = this.formBuilder.group({
     email: ["", [Validators.required]],
-    // password: ["", Validators.required],
+    password: ["", Validators.required],
     custCode: ["", [Validators.required]],
     custName: ["", [Validators.required]],
     custPhone: ["", [Validators.required]],
@@ -43,64 +44,65 @@ export class CustomerEditComponent implements OnInit {
   datalist2:any=[];
   codedata:any=[];
   meters: any = [];
+  boothOptions:any = [];
   meterOptions: Select2Data = [];
   shopOptions: Select2Data = [];
   // select multi options start
   data: Select2Data = [
-    {
-      label: "Meter Zone A",
-      data: { name: "Meter Zone A" },
-      options: [
-        {
-          value: "A001",
-          label: "A001",
-          data: { name: "A001" },
-          templateId: "template1",
-          id: "option-A001",
-        },
-        {
-          value: "A002",
-          label: "A002",
-          data: { name: "A002" },
-          templateId: "template2",
-          id: "option-A002",
-        },
-      ],
-    },
-    {
-      label: "Meter Zone B",
-      data: { name: "Meter Zone B" },
-      options: [
-        {
-          value: "B001",
-          label: "B001",
-          data: { name: "B001" },
-          templateId: "template1",
-          id: "option-B001",
-        },
-        {
-          value: "B002",
-          label: "B002",
-          data: { name: "B002" },
-          templateId: "template2",
-          id: "option-B002",
-        },
-        {
-          value: "B003",
-          label: "B003",
-          data: { name: "B003" },
-          templateId: "template3",
-          id: "option-B003",
-        },
-        {
-          value: "B004",
-          label: "B004",
-          data: { name: "B004" },
-          templateId: "template4",
-          id: "option-B004",
-        },
-      ],
-    },
+    // {
+    //   label: "Meter Zone A",
+    //   data: { name: "Meter Zone A" },
+    //   options: [
+    //     {
+    //       value: "A001",
+    //       label: "A001",
+    //       data: { name: "A001" },
+    //       templateId: "template1",
+    //       id: "option-A001",
+    //     },
+    //     {
+    //       value: "A002",
+    //       label: "A002",
+    //       data: { name: "A002" },
+    //       templateId: "template2",
+    //       id: "option-A002",
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Meter Zone B",
+    //   data: { name: "Meter Zone B" },
+    //   options: [
+    //     {
+    //       value: "B001",
+    //       label: "B001",
+    //       data: { name: "B001" },
+    //       templateId: "template1",
+    //       id: "option-B001",
+    //     },
+    //     {
+    //       value: "B002",
+    //       label: "B002",
+    //       data: { name: "B002" },
+    //       templateId: "template2",
+    //       id: "option-B002",
+    //     },
+    //     {
+    //       value: "B003",
+    //       label: "B003",
+    //       data: { name: "B003" },
+    //       templateId: "template3",
+    //       id: "option-B003",
+    //     },
+    //     {
+    //       value: "B004",
+    //       label: "B004",
+    //       data: { name: "B004" },
+    //       templateId: "template4",
+    //       id: "option-B004",
+    //     },
+    //   ],
+    // },
   ];
 
   // select multi options End
@@ -136,10 +138,10 @@ export class CustomerEditComponent implements OnInit {
       // console.log("dataShop",this.datalist1);
       this.datalist1.forEach((data:any) => {
         this.codedata.forEach((code:any)=>{
-          if(data.storeId[0]==code.code){
+          if(data.boothIds[0]==code.code){
             this.datalist2 = [];
             this.datalist2.push(code);
-            console.log("datalist2",this.datalist2);
+            // console.log("datalist2",this.datalist2);
             this.createShopOptions();
          }
         
@@ -151,19 +153,61 @@ export class CustomerEditComponent implements OnInit {
 
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
+
       this.meters = meters;
-      this.createMeterOptions();
+
+      meters.forEach(meter => this.boothOptions.push(meter.boothId))
+
+      const boothIds: string[] = [];
+
+      this.shopService.getAll().subscribe((shops) => {
+
+        shops.forEach(shop => {
+          boothIds.push(...shop.boothIds);
+        })
+
+        this.boothOptions = this.boothOptions.filter((option: string) => {
+          return !boothIds.includes(option);
+        });
+
+        this.createBoothOptions();
+      });
+
     });
     
     this.customerService.get(this.uId).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
-      this.setShopForms();
+      // this.setShopForms();
     });
 
     this.addItem();
   }
+  createBoothOptions() {
+    const sortedShop = this.boothOptions.sort((a:string,b:string) => {
+      if (a > b) {
+        return 1;
+      }
+      return -1;
+    });
 
+    const data = {
+      label: "",
+      data: { name: "" },
+      options: sortedShop
+        .map((m: any) => {
+          return {
+            value: m,
+            label: m,
+            data: { name: m },
+            templateId: "template1",
+            id: m,
+          };
+        })
+    };
+   
+    this.shopOptions.push(data);
+  }
   createMeterOptions() {
     const sortedMeters = this.meters.sort((a: any, b: any) => {
       if (a.deviceZone < b.deviceZone) {
@@ -284,7 +328,7 @@ export class CustomerEditComponent implements OnInit {
           shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
           shopForm.get("contractNo")?.setValue(shop.contractNo);
           shopForm.get("custName")?.setValue(shop.custName);
-          shopForm.get("storeId")?.setValue(shop.storeId);
+          shopForm.get("boothIds")?.setValue(shop.boothIds);
           control.push(shopForm);
           this.item_collapsed.push(true);
           // this.buildFormContents();
@@ -296,21 +340,27 @@ export class CustomerEditComponent implements OnInit {
   get email() {
     return this.validationform.get("email");
   }
-  // get password() {
-  //   return this.validationform.get("password");
-  // }
+
+  get password() {
+    return this.validationform.get("password");
+  }
+
   get custCode() {
     return this.validationform.get("custCode");
   }
+
   get custName() {
     return this.validationform.get("custName");
   }
+
   get custPhone() {
     return this.validationform.get("custPhone");
   }
+
   get custStartDate() {
     return this.validationform.get("custStartDate");
   }
+
   get minimumMoney() {
     return this.validationform.get("minimumMoney");
   }
@@ -360,8 +410,8 @@ export class CustomerEditComponent implements OnInit {
     if (control.controls.length < 20) {
       control.push(this.createItem());
       this.item_collapsed.push(true);
-      // this.buildFormContents();
-    }
+    } 
+    
   }
 
   createItem(item: any = {}) {
@@ -376,7 +426,7 @@ export class CustomerEditComponent implements OnInit {
       boothCate: ["", [Validators.required]],
       contractDate: ["", [Validators.required]],
       contractEndDate: ["", [Validators.required]],
-      storeId: ["", [Validators.required]],
+      boothIds: ["", [Validators.required]],
     });
   }
 

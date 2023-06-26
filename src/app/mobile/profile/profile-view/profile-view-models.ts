@@ -14,7 +14,7 @@ export interface profileShopData{
 
 
 export interface profileMeterData{
-    storeId:string;
+    boothId:string;
     deviceZone:string;
     deviceId:string;
     meterState:string;

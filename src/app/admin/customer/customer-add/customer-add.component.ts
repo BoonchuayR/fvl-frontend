@@ -62,6 +62,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
 
@@ -164,26 +165,6 @@ export class CustomerAddComponent implements OnInit {
     };
    
     this.shopOptions.push(data);
-    // console.log("sortedShop >>> ", sortedShop);
-    // for (let i = 0; i < sortedShop.length; i++) {
-      // if (
-      //   sortedShop[i + 1] &&
-      //   sortedShop[i] === sortedShop[i + 1]
-      // ) {
-      //   continue;
-      // }
-      
-      
-      
-      // this.shopOptions.sort((a: any, b: any) => {
-      //   if (a.data.name < b.data.name) {
-      //     return -1;
-      //   }
-      //    else {
-      //     return 1;
-      //   }
-      // })
-    // }
   }
 
   get email() {

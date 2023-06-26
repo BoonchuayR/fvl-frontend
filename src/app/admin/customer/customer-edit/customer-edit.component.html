@@ -235,35 +235,15 @@
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="font-size-12 mb-3">
-                                        <label class="form-label">รหัสแผงร้านค้า</label>
+                                        <label class="form-label">รหัสแผงค้า</label>
                                         <select2
                                           class
-                                          formControlName="code"
-                                          placeholder="เลือกมิเตอร์"
+                                          formControlName="boothIds"
+                                          placeholder="รหัสแผงค้า"
                                           type="text"
                                           [data]="shopOptions"
                                           [multiple]="true">
                                         </select2>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                      <div class="font-size-12 mb-3">
-                                        <label class="form-label">เลขมิเตอร์</label>
-                                        <select2
-                                          class
-                                          formControlName="storeId"
-                                          placeholder="เลือกมิเตอร์"
-                                          type="text"
-                                          [data]="meterOptions"
-                                          [multiple]="true">
-                                        </select2>
-                                        <!-- <input
-                                            class="form-control"
-                                            formControlName="SLAVE_ID"
-                                            type="text"
-                                            placeholder="เลือกมิเตอร์"
-                                          /> -->
                                       </div>
                                     </div>
                                   </div>

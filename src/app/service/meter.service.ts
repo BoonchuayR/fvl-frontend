@@ -58,6 +58,16 @@ export class MeterService {
     
   }
 
+  findMeterByuid(uid: string) {
+    
+    const q = query(this.meterCollection, where("uid", "==", uid));
+    
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Meter[]>;
+    
+  }
+
   get(id: string) {
     const meterDocumentReference = doc(this.firestore, `meter/${id}`);
     return docData(meterDocumentReference, { idField: "id" });

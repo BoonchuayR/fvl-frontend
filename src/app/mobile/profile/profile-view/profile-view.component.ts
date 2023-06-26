@@ -157,7 +157,7 @@ export class ProfileViewComponent implements OnInit {
       this.serviceTopup.profileTopups = this.topups;
       this.customerService.getCustomer(this.currentUser.uid).subscribe((meter)=>{
         this.meterchart = meter;
-        console.log(this.meterchart);
+        // console.log(this.meterchart);
         this.buildBarChart();
       })
       
@@ -174,9 +174,9 @@ export class ProfileViewComponent implements OnInit {
         });
         this.service.profileShops = this.shops;
         const shopMeters = this.shops.map((s: any) => {
-          return s.storeId;
+          return s.boothIds;
         });
-        //  console.log("shopMeters >>>> ",shopMeters);
+        //  console.log("shopMeters >>>> ",this.shops);
 
         if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
           for (let i = 0; i < shopMeters.length; i++) {
@@ -187,6 +187,7 @@ export class ProfileViewComponent implements OnInit {
               });
   
               this.meters.push(...filteredMeters);
+              // console.log(this.meters)
               this.services.profileMeters =this.meters
               // console.log("shop >>>> ",filteredMeters);
               // this.electricityList = [];

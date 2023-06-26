@@ -76,6 +76,12 @@ export class ShopService {
       idField: "id",
     }) as Observable<Shop[]>;
   }
+  findByuid(uid: string) {
+    const q = query(this.shopCollection, where("uid", "==", uid));
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Shop[]>;
+  }
 
   findBycustName(custName: string) {
     const q = query(this.shopCollection, where("custName", "==", custName));

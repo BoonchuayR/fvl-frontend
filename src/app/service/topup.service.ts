@@ -11,8 +11,10 @@ import {
   DocumentData,
   Firestore,
   orderBy,
+  query,
   Timestamp,
   updateDoc,
+  where,
 } from "@angular/fire/firestore";
 import { topupData } from "../admin/topup/topup-list/topup-data";
 
@@ -55,6 +57,12 @@ export class TopupService {
   update(topup: Topup) {
     const topupDocumentReference = doc(this.firestore, `topup/${topup.id}`);
     return updateDoc(topupDocumentReference, { ...topup });
+  }
+  findByuid(uid: string) {
+    const q = query(this.topupCollection, where("uid", "==", uid));
+    return collectionData(q, {
+      idField: "id",
+    }) as Observable<Topup[]>;
   }
 
   delete(id: string) {
