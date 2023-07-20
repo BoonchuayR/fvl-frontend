@@ -30,7 +30,6 @@ import { AnnounceEditComponent } from "./announce/announce-edit/announce-edit.co
 import { AnnounceAddComponent } from "./announce/announce-add/announce-add.component";
 import { AnnounceViewComponent } from "./announce/announce-view/announce-view.component";
 import { MeterDashboardComponent } from "./meter/meter-dashboard/meter-dashboard.component";
-import { MeterListComponent } from "./meter/meter-list/meter-list.component";
 import { MeterAddComponent } from "./meter/meter-add/meter-add.component";
 import { MeterEditComponent } from "./meter/meter-edit/meter-edit.component";
 import { MeterViewComponent } from "./meter/meter-view/meter-view.component";
@@ -56,12 +55,12 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { TablesRoutingModule } from "../pages/tables/tables-routing.modules";
 import { TicketSortableDirective } from "./ticket/ticket-list/ticket-sortable.directive";
 import { TopupSortableDirective } from "./topup/topup-list/topup-sortable.directive";
-import { MeterSortableDirective } from "./meter/meter-list/meter-sortable.directive";
 import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive";
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 import { HttpClientModule } from "@angular/common/http";
-import { meterData } from "./meter/meter-list/meter-data";
+import { MeterSortableDirective } from "./meter/meter-dashboard/meter-dashboard-sortable.directive";
+
 @NgModule({
   declarations: [
     MeterSortableDirective,
@@ -79,7 +78,6 @@ import { meterData } from "./meter/meter-list/meter-data";
     AnnounceAddComponent,
     AnnounceViewComponent,
     MeterDashboardComponent,
-    MeterListComponent,
     MeterAddComponent,
     MeterEditComponent,
     MeterViewComponent,

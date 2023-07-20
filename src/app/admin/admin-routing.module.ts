@@ -10,7 +10,6 @@ import { AnnounceEditComponent } from './announce/announce-edit/announce-edit.co
 import { AnnounceAddComponent } from './announce/announce-add/announce-add.component';
 import { AnnounceViewComponent } from './announce/announce-view/announce-view.component';
 import { MeterDashboardComponent } from './meter/meter-dashboard/meter-dashboard.component';
-import { MeterListComponent } from './meter/meter-list/meter-list.component';
 import { MeterAddComponent } from './meter/meter-add/meter-add.component';
 import { MeterEditComponent } from './meter/meter-edit/meter-edit.component';
 import { MeterViewComponent } from './meter/meter-view/meter-view.component';
@@ -89,10 +88,6 @@ const routes: Routes = [
   {
     path: 'meter-dashboard',
     component: MeterDashboardComponent
-  },
-  {
-    path: 'meter-list/:zone',
-    component: MeterListComponent
   },
   {
     path: 'meter-edit/:id',
