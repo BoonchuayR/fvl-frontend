@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MeterDashboardComponent } from './meter-dashboard.component';
+import { MeterListComponent } from './meter-list.component';
 
-describe('MeterDashboardComponent', () => {
-  let component: MeterDashboardComponent;
-  let fixture: ComponentFixture<MeterDashboardComponent>;
+describe('MeterListComponent', () => {
+  let component: MeterListComponent;
+  let fixture: ComponentFixture<MeterListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MeterDashboardComponent ]
+      declarations: [ MeterListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MeterDashboardComponent);
+    fixture = TestBed.createComponent(MeterListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

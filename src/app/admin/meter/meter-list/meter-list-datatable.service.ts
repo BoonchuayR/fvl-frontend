@@ -5,7 +5,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 
 import { Meter } from 'src/app/core/models/meter.model';
 import { MeterService } from 'src/app/service/meter.service';
-import { SortColumn, SortDirection } from './meter-dashboard-sortable.directive';
+import { SortColumn, SortDirection } from './meter-list-sortable.directive';
 
 
 interface SearchResult {

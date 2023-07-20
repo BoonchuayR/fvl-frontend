@@ -1,11 +1,11 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Meter } from 'src/app/core/models/meter.model';
-import { MeterSortableDirective, SortEventMeter } from './meter-dashboard-sortable.directive';
+import { MeterSortableDirective, SortEventMeter } from './meter-list-sortable.directive';
 import { MeterService } from 'src/app/service/meter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IotService } from 'src/app/service/iot.service';
-import { MeterServicemeter } from './meter-dashboard-datatable.service';
+import { MeterServicemeter } from './meter-list-datatable.service';
 import Swal from 'sweetalert2';
 import { DecimalPipe } from '@angular/common';
 import { ShopService } from 'src/app/service/shop.service';
@@ -15,11 +15,11 @@ import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-meter-dashboard',
-  templateUrl: './meter-dashboard.component.html',
-  styleUrls: ['./meter-dashboard.component.scss'],
+  templateUrl: './meter-list.component.html',
+  styleUrls: ['./meter-list.component.scss'],
   providers: [MeterServicemeter, DecimalPipe]
 })
-export class MeterDashboardComponent implements OnInit {
+export class MeterListComponent implements OnInit {
   [x: string]: any;
   nameExcel:any;
   ExcelDATA:any=[];
@@ -37,7 +37,7 @@ export class MeterDashboardComponent implements OnInit {
     private meterService: MeterService,
     private iotService: IotService,
     private route: ActivatedRoute,
-    public service:MeterServicemeter,
+    public service:MeterServicemeter, 
     private shopService: ShopService,
     private customerService: CustomerService
     ) { 

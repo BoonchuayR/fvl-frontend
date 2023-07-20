@@ -29,7 +29,7 @@ import { AnnounceListComponent } from "./announce/announce-list/announce-list.co
 import { AnnounceEditComponent } from "./announce/announce-edit/announce-edit.component";
 import { AnnounceAddComponent } from "./announce/announce-add/announce-add.component";
 import { AnnounceViewComponent } from "./announce/announce-view/announce-view.component";
-import { MeterDashboardComponent } from "./meter/meter-dashboard/meter-dashboard.component";
+import { MeterListComponent } from "./meter/meter-list/meter-list.component";
 import { MeterAddComponent } from "./meter/meter-add/meter-add.component";
 import { MeterEditComponent } from "./meter/meter-edit/meter-edit.component";
 import { MeterViewComponent } from "./meter/meter-view/meter-view.component";
@@ -59,7 +59,7 @@ import { ShopSortableDirective } from "./shop/shop-list/shop-sortable.directive"
 import { UserSortableDirective } from "./user/user-list/user-sortable.directive";
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 import { HttpClientModule } from "@angular/common/http";
-import { MeterSortableDirective } from "./meter/meter-dashboard/meter-dashboard-sortable.directive";
+import { MeterSortableDirective } from "./meter/meter-list/meter-list-sortable.directive";
 
 @NgModule({
   declarations: [
@@ -77,7 +77,7 @@ import { MeterSortableDirective } from "./meter/meter-dashboard/meter-dashboard-
     AnnounceEditComponent,
     AnnounceAddComponent,
     AnnounceViewComponent,
-    MeterDashboardComponent,
+    MeterListComponent,
     MeterAddComponent,
     MeterEditComponent,
     MeterViewComponent,
