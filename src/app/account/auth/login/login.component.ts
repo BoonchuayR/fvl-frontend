@@ -110,6 +110,8 @@ export class LoginComponent implements OnInit {
           return role;
         });
 
+        console.log("role >>> ", role);
+        
         if (role === 'customer') {
           this.router.navigate(["/mobile/profile-view"]) 
         } else if (role === 'sale') {
@@ -118,7 +120,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/"]);
         } else if (role === 'service') {
           this.router.navigate(["/ticket-list"]);
-        } else {
+        // } else if (role === 'noRole') {
+        //   throw new Error('Something bad happened');
+        }  else {
           this.router.navigate(["/"]);
         }
            
