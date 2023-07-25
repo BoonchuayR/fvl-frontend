@@ -49,60 +49,7 @@ export class CustomerEditComponent implements OnInit {
   shopOptions: Select2Data = [];
   // select multi options start
   data: Select2Data = [
-    // {
-    //   label: "Meter Zone A",
-    //   data: { name: "Meter Zone A" },
-    //   options: [
-    //     {
-    //       value: "A001",
-    //       label: "A001",
-    //       data: { name: "A001" },
-    //       templateId: "template1",
-    //       id: "option-A001",
-    //     },
-    //     {
-    //       value: "A002",
-    //       label: "A002",
-    //       data: { name: "A002" },
-    //       templateId: "template2",
-    //       id: "option-A002",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Meter Zone B",
-    //   data: { name: "Meter Zone B" },
-    //   options: [
-    //     {
-    //       value: "B001",
-    //       label: "B001",
-    //       data: { name: "B001" },
-    //       templateId: "template1",
-    //       id: "option-B001",
-    //     },
-    //     {
-    //       value: "B002",
-    //       label: "B002",
-    //       data: { name: "B002" },
-    //       templateId: "template2",
-    //       id: "option-B002",
-    //     },
-    //     {
-    //       value: "B003",
-    //       label: "B003",
-    //       data: { name: "B003" },
-    //       templateId: "template3",
-    //       id: "option-B003",
-    //     },
-    //     {
-    //       value: "B004",
-    //       label: "B004",
-    //       data: { name: "B004" },
-    //       templateId: "template4",
-    //       id: "option-B004",
-    //     },
-    //   ],
-    // },
+   
   ];
 
   // select multi options End
@@ -178,7 +125,7 @@ export class CustomerEditComponent implements OnInit {
     this.customerService.get(this.uId).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
-      // this.setShopForms();
+      this.setShopForms();
     });
 
     this.addItem();
@@ -365,7 +312,7 @@ export class CustomerEditComponent implements OnInit {
     return this.validationform.get("minimumMoney");
   }
 
-  formSubmit() {
+    formSubmit() {
     const customer = {uid: this.customer.uid, ...this.validationform.value};
 
     this.customerService.update(customer).then(res => {
@@ -373,6 +320,7 @@ export class CustomerEditComponent implements OnInit {
         "items"
       ) as FormArray;
       shopItems.value.forEach((shop: any) => {
+        console.log("shop => ",shop)
         this.shopService.update(shop).then(res => {
           
         }).catch(err => {

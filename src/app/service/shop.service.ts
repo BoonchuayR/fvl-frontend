@@ -16,7 +16,7 @@ import {
   where,
 } from "@angular/fire/firestore";
 
-interface Shop {
+ interface Shop {
   custPhone: any;
   id: string;
   boothCode: string;
@@ -43,6 +43,23 @@ export class ShopService {
 
   create(shop: Shop) {
     return addDoc(this.shopCollection, shop);
+  }
+
+  add() {
+    const body = {
+      custPhone: "",
+      boothCode: "",
+      contractNo: "",
+      custName: "",
+      boothName: "",
+      boothZone: "",
+      boothCate: "",
+      contractDate: "",
+      contractEndDate: "",
+      boothIds: ["A003","A004"],
+      uid: ""
+    }
+    return addDoc(this.shopCollection, body);
   }
 
   getAll() {

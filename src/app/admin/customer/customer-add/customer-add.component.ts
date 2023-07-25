@@ -9,7 +9,7 @@ import {
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
-import { Select2Data } from "ng-select2-component";
+import { Select2Data, Select2Value } from "ng-select2-component";
 import { AuthService } from "src/app/service/auth.service";
 import { switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
@@ -36,17 +36,18 @@ export class CustomerAddComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
-  shops:any=[];
-  codedata:any=[];
-  shop:any=[];
-  cust:any=[];
-  datalist1:any=[];
-  datalist2:any=[];
-  state:any;
+  shops: any = [];
+  codedata: any = [];
+  shop: any = [];
+  cust: any = [];
+  datalist1: any = [];
+  datalist2: any = [];
+  state: any;
   meters: any = [];
-  boothOptions:any = [];
+  boothOptions: any = [];
   meterOptions: Select2Data = [];
   shopOptions: Select2Data = [];
+  Values:Select2Value = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,21 +63,18 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
-
       this.meters = meters;
 
-      meters.forEach(meter => this.boothOptions.push(meter.boothId))
+      meters.forEach((meter) => this.boothOptions.push(meter.boothId));
 
       const boothIds: string[] = [];
 
       this.shopService.getAll().subscribe((shops) => {
-
-        shops.forEach(shop => {
+        shops.forEach((shop) => {
           boothIds.push(...shop.boothIds);
-        })
+        });
 
         this.boothOptions = this.boothOptions.filter((option: string) => {
           return !boothIds.includes(option);
@@ -84,35 +82,42 @@ export class CustomerAddComponent implements OnInit {
 
         this.createBoothOptions();
       });
-
+      
     });
 
     this.validationform.get("email")?.setValue("");
 
     this.addItem();
   }
-  
-  checkboothcode(even:any){
-    this.shopService.findByBoothCode("fvl023").subscribe(a=>{
-    })
+
+  checkboothcode(even: any) {
+    this.shopService.findByBoothCode("fvl023").subscribe((a) => {});
+  }
+
+  update(even:any){
+   
+    console.log(even.value);
+    // this.shopService.create(even.value);
+    // this.shopService.add();
   }
 
   createMeterOptions() {
-    const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.boothId < b.boothId) {
-        return -1;
-      } else {
-        return 1;
-      }
-    }).filter((m:any) => {
-      if (m.boothId) {
-        return true;
-      }
-      return false
-    });
+    const sortedMeters = this.meters
+      .sort((a: any, b: any) => {
+        if (a.boothId < b.boothId) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+      .filter((m: any) => {
+        if (m.boothId) {
+          return true;
+        }
+        return false;
+      });
 
     for (let i = 0; i < sortedMeters.length; i++) {
-
       if (
         sortedMeters[i + 1] &&
         sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
@@ -142,7 +147,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   createBoothOptions() {
-    const sortedShop = this.boothOptions.sort((a:string,b:string) => {
+    const sortedShop = this.boothOptions.sort((a: string, b: string) => {
       if (a > b) {
         return 1;
       }
@@ -152,18 +157,17 @@ export class CustomerAddComponent implements OnInit {
     const data = {
       label: "",
       data: { name: "" },
-      options: sortedShop
-        .map((m: any) => {
-          return {
-            value: m,
-            label: m,
-            data: { name: m },
-            templateId: "template1",
-            id: m,
-          };
-        })
+      options: sortedShop.map((m: any) => {
+        return {
+          value: m,
+          label: m,
+          data: { name: m },
+          templateId: "template1",
+          id: m,
+        }; 
+      }),
     };
-   
+    console.log(this.Values)
     this.shopOptions.push(data);
   }
 
@@ -195,6 +199,27 @@ export class CustomerAddComponent implements OnInit {
     return this.validationform.get("minimumMoney");
   }
 
+  get boothName() {
+    return this.validationform.get("boothName");
+  }
+  get contractNo() {
+    return this.validationform.get("contractNo");
+  }
+  get boothZone() {
+    return this.validationform.get("boothZone");
+  }
+  get boothCate() {
+    return this.validationform.get("boothCate");
+  }
+  get contractDate() {
+    return this.validationform.get("contractDate");
+  }
+  get contractEndDate() {
+    return this.validationform.get("contractEndDate");
+  }
+  get boothIds() {
+    return this.validationform.get(["boothIds"]);
+  }
   formSubmit() {
     // Add customer
     const {
@@ -205,10 +230,18 @@ export class CustomerAddComponent implements OnInit {
       custPhone,
       custStartDate,
       minimumMoney,
+      boothName,
+      contractNo,
+      boothZone,
+      boothCate,
+      contractDate,
+      contractEndDate,
+      boothIds,
     } = this.validationform.value;
 
     this.authService.register(email, password).subscribe(
       (creden) => {
+        
         const customer = {
           uid: creden.user.uid,
           email: creden.user.email,
@@ -219,7 +252,7 @@ export class CustomerAddComponent implements OnInit {
           minimumMoney: minimumMoney,
           currentMoney: 0,
         };
-
+        console.log(creden);
         // Add customer
         this.addCustomer(customer).subscribe((cust) => {
           // Add shops
@@ -230,9 +263,7 @@ export class CustomerAddComponent implements OnInit {
             this.shopService
               .create({
                 ...shop,
-                uid: customer.uid,
-                custName: customer.custName,
-                custPhone: customer.custPhone,
+                uid: customer.uid
               })
               .then((res) => {
                 this.router.navigate(["/customer-list"]);
@@ -258,26 +289,26 @@ export class CustomerAddComponent implements OnInit {
    */
   confirm() {
     Swal.fire({
-      title: 'ลบข้อมูลลูกค้า',
+      title: "ลบข้อมูลลูกค้า",
       text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'ใช่, ต้องการ!',
-      cancelButtonText:'ไม่, ยกเลิก!',
+      confirmButtonColor: "#34c38f",
+      cancelButtonColor: "#f46a6a",
+      confirmButtonText: "ใช่, ต้องการ!",
+      cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
       if (result.isConfirmed) {
         // this.customerService.delete(id).then(deletedcustomer => {
-          
+
         // })
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'ลบข้อมูลลูกค้าเรียบร้อย',
+          position: "top-end",
+          icon: "success",
+          title: "ลบข้อมูลลูกค้าเรียบร้อย",
           showConfirmButton: false,
-          timer: 3000
-        })
+          timer: 3000,
+        });
       }
     });
   }
@@ -299,8 +330,7 @@ export class CustomerAddComponent implements OnInit {
     if (control.controls.length < 20) {
       control.push(this.createItem());
       this.item_collapsed.push(true);
-    } 
-    
+    }
   }
 
   createItem(item: any = {}) {
@@ -354,34 +384,36 @@ export class CustomerAddComponent implements OnInit {
 
   removeformCardMessage(index?: any) {
     Swal.fire({
-      title: 'ลบข้อมูลร้านค้า',
+      title: "ลบข้อมูลร้านค้า",
       text: "คุณต้องการลบร้านค้านี้ใช่หรือไม่?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'ใช่, ต้องการ!',
-      cancelButtonText:'ไม่, ยกเลิก!',
+      confirmButtonColor: "#34c38f",
+      cancelButtonColor: "#f46a6a",
+      confirmButtonText: "ใช่, ต้องการ!",
+      cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
       if (result.isConfirmed) {
         // this.customerService.delete(id).then(deletedcustomer => {
-          
+
         // })
-        const itemProduct: FormArray = this.itemShopForm.get("items") as FormArray;
+        const itemProduct: FormArray = this.itemShopForm.get(
+          "items"
+        ) as FormArray;
         index = itemProduct.length - 1;
         if (itemProduct.length === 1) return;
         if (itemProduct.length == this.keyActionItemCard + 1) {
-        this.keyActionItemCard = 0;
-    }
-    this.item_collapsed.splice(index, 1);
-    itemProduct.removeAt(index);
+          this.keyActionItemCard = 0;
+        }
+        this.item_collapsed.splice(index, 1);
+        itemProduct.removeAt(index);
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'ลบข้อมูลร้านค้าเรียบร้อย',
+          position: "top-end",
+          icon: "success",
+          title: "ลบข้อมูลร้านค้าเรียบร้อย",
           showConfirmButton: false,
-          timer: 3000
-        })
+          timer: 3000,
+        });
       }
     });
   }
@@ -403,5 +435,4 @@ export class CustomerAddComponent implements OnInit {
     count = value ? value.length : 0;
     return count;
   }
-  
 }
