@@ -1,225 +1,339 @@
 <!-- start page title -->
 <div class="row mb-3">
-  <div class="d-flex align-items-start">
-    <ol class="breadcrumb m-0">
-      <li class="breadcrumb-item">หน้าหลัก</li>
-      <li class="breadcrumb-item active">มิเตอร์</li>
-    </ol>
-  </div>
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item active">มิเตอร์ไฟฟ้า</li>
+        </ol>
+    </div>
 </div>
 
 <!-- end page title -->
 
 <!-- Start row -->
 <div class="row">
-  <div class="">
-    <div class="card card-green-style">
-      <div class="p-3 px-4 bg-success">
-        <div class="d-flex align-items-start">
-          <!-- <div class="align-self-center me-3">
+    <div class>
+        <div class="card card-green-style">
+            <div class="p-3 px-4 bg-success">
+                <div class="d-flex align-items-start">
+                    <!-- <div class="align-self-center me-3">
                     <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
                   </div> -->
-          <div class="flex-1 align-self-center">
-            <h5 class="title-card font-size-16 mb-0">
-              <a href="#" class="text-reset">มิเตอร์</a>
-            </h5>
-            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
-          </div>
-
-          <div class="button-items">
-            <button
-              routerLink="/meter-dashboard"
-              routerLinkActive="active"
-              class="btn btn-outline-success btn-rounded float-right">
-              <i class=""></i>โซนมิเตอร์
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-content">
-        <div class="row">
-          <div class="position-relative">
-            <div class="card">
-              <div class="card-body">
-                <div class="">
-                  <div class="row mb-md-2">
-                    <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_length" id="tickets-table_length">
-                        <label class="d-inline-flex align-items-center">
-                          Show
-                          <select name="tickets-table_length"
-                            aria-controls="tickets-table" name="pageSize"
-                            class="form-control
-                            form-control-sm mx-2"
-                            [(ngModel)]="service.pageSize">
-
-                            <option [ngValue]="10">10</option>
-                            <option [ngValue]="25">25</option>
-                            <option [ngValue]="50">50</option>
-                            <option [ngValue]="100">100</option>
-                          </select> entries
-                        </label>
-                      </div>
+                    <div class="flex-1 align-self-center">
+                        <h5 class="title-card font-size-16 mb-0">
+                            <a href="#" class="text-reset">รายการมิเตอร์ไฟฟ้า</a>
+                        </h5>
+                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
                     </div>
-                    <!-- Search -->
-                    <div class="col-sm-12 col-md-6">
-                      <div id="tickets-table_filter" class="dataTables_filter
-                        text-md-end"><label
-                          class="d-inline-flex align-items-center">Search:
-                          <input type="text" name="searchTerm"
-                            class="form-control form-control-sm ms-2"
-                            aria-controls="tickets-table"
-                            [(ngModel)]="service.searchTerm"></label></div>
-                    </div>
-                    <!-- End search -->
-                  </div>
-                  <table class="table align-middle mb-0">
-                    <thead>
-                      <tr>
 
-                        <th sortableMeter="boothId" (sort)="onSort($event)">Store
-                          ID</th>
-                        <th sortableMeter="slaveId" (sort)="onSort($event)">Slave ID</th>
-                        <th sortableMeter="deviceId" (sort)="onSort($event)">Device
-                          ID</th>
-                        <th sortableMeter="contractId" (sort)="onSort($event)">Contract
-                          ID</th>
-                        <th sortableMeter="deviceZone" (sort)="onSort($event)">Device
-                          Zone</th>
-                        <th sortableMeter="serialNo" (sort)="onSort($event)">Serial
-                          No.</th>
-                        <th sortableMeter="lineVoltage" (sort)="onSort($event)">Line
-                          Voltage</th>
-                        <th>Meter State</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody *ngFor="let table of tables$ | async;let i=index">
-                      <tr>
-                       
-                        <td>
-                          <ngb-highlight
-                            [result]="table.slaveId"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <ngb-highlight
-                            [result]="table.deviceId"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <ngb-highlight
-                            [result]="table.contractId"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <ngb-highlight
-                            [result]="table.deviceZone"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <ngb-highlight
-                            [result]="table.serialNo"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <ngb-highlight
-                            [result]="table.lineVoltage"
-                            [term]="service.searchTerm">
-                          </ngb-highlight>
-                        </td>
-                        <td>
-                          <!-- <span class="badge rounded-pill bg-success ms-1">{{
-                            meter.meterState
-                          }}</span> -->
-                          <div
-                            class="form-check form-switch form-switch-lg
-                            mb-lg-3"
-                            dir="ltr">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              id="SwitchCheckSizelg"
-                              [checked]="table.meterState === '1'"
-                              (change)="
-                              changMeterState(
-                              $event,
-                              table.slaveId,
-                              table.id,
-                              table
-                              )
-                              "
-                              />
-                          </div>
-                        </td>
-                        <td>
-                          <div class="button-items">
-                            <button
-                              type="button"
-                              class="btn btn-action"
-                              routerLink="/meter-view/{{ table.id }}"
-                              routerLinkActive="active">
-                              <i class="bx bxs-show"></i>
-                            </button>
-                            <!-- <button
-                              type="button"
-                              class="btn btn-action"
-                              routerLink="/meter-edit/{{ meter.id }}"
-                              routerLinkActive="active"
-                            >
-                              <i class="bx bxs-pencil"></i>
-                            </button> -->
-                            <button
-                              type="button"
-                              class="btn btn-action"
-                              id="sa-warning">
-                              <i
-                                class="bx bxs-trash"
-                                (click)="confirm(table.id)"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <div class="button-items">
+                        <!-- <input type="file" (change)="ReadExcel($event)">
+                        <button
+                            hidden
+                            routerLinkActive="active"
+                            class="btn btn-outline-success btn-rounded float-right"
+                            (click)="import()">
+                            <i class="bx bx-import"></i> import
+                        </button> -->
+                        <button routerLink="/meter-add"
+                            routerLinkActive="active"
+                            class="btn btn-outline-success btn-rounded
+                            float-right">
+                            <i class="bx bx-user-plus"></i> เพิ่มมิเตอร์
+                        </button>
+                    </div>
                 </div>
-                <div class="row justify-content-md-between align-items-md-center
-                  mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
-                      Showing
-                      {{service.startIndex}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
-                      entries
-                    </div>
-                  </div>
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(total$ | async)!"
-                        [(page)]="service.page"
-                        [pageSize]="service.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="card-content">
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class>
+                                    <div class="row mb-md-2">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length"
+                                                id="tickets-table_length">
+                                                <label class="d-inline-flex
+                                                    align-items-center">
+                                                    Show
+                                                    <select
+                                                        name="tickets-table_length"
+                                                        aria-controls="tickets-table"
+                                                        name="pageSize"
+                                                        class="form-control
+                                                        form-control-sm mx-2"
+                                                        [(ngModel)]="service.pageSize">
+                                                        <option [ngValue]="50">50</option>
+                                                        <option [ngValue]="100">100</option>
+                                                    </select> entries
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- Search -->
+                                        <div class="col text-end">
+                                            <span id="tickets-table_filter"
+                                                class="dataTables_filter
+                                                text-md-end">
+                                                <label
+                                                    class="d-inline-flex
+                                                    align-items-center">Search:
+                                                    <input type="text"
+                                                        name="searchTerm"
+                                                        class="form-control
+                                                        form-control-sm ms-2"
+                                                        aria-controls="tickets-table"
+                                                        [(ngModel)]="service.searchTerm">
+                                                </label>
+                                            </span>
+
+                                            <span class="dataTables_length"
+                                                id="tickets-table_length">
+                                                <label class="d-inline-flex
+                                                    align-items-center">
+                                                    Meter
+                                                    <select
+                                                        name="tickets-table_length"
+                                                        aria-controls="tickets-table"
+                                                        name="pageSize"
+                                                        class="form-control
+                                                        form-control-sm mx-2"
+                                                        [(ngModel)]="meterstate"
+                                                        (change)="changeValue($event)">
+                                                        <option [ngValue]="0"
+                                                            value="0">ALL</option>
+                                                        <option [ngValue]="1"
+                                                            value="1">ON</option>
+                                                        <option [ngValue]="2"
+                                                            value="2">OFF</option>
+                                                    </select> State
+                                                </label>
+                                            </span>
+
+                                        </div>
+
+                                        <!-- End search -->
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="basic-datatable"
+                                            class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                                            <thead>
+                                                <tr>
+
+                                                    <th sortableMeter="boothId"
+                                                        (sort)="onSort($event)">Booth
+                                                        ID</th>
+                                                    <th sortableMeter="shopName"
+                                                        (sort)="onSort($event)">Shop
+                                                        Name</th>
+                                                    <th sortableMeter="custName"
+                                                        (sort)="onSort($event)">Cust
+                                                        Name</th>
+                                                    <th sortableMeter="deviceId"
+                                                        (sort)="onSort($event)">Device
+                                                        ID</th>
+                                                    <th
+                                                        sortableMeter="deviceZone"
+                                                        (sort)="onSort($event)">Device
+                                                        Zone</th>
+                                                    <th sortableMeter="serialNo"
+                                                        (sort)="onSort($event)">Serial
+                                                        No.</th>
+                                                    <th
+                                                        sortableMeter="lineVoltage"
+                                                        (sort)="onSort($event)">Line
+                                                        Voltage</th>
+                                                    <th>Meter State</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody
+                                                *ngFor="let table of tables$ |
+                                            async;let i=index">
+                                                <tr>
+                                                    <!-- <td>
+                                                    <ngb-highlight
+                                                        [result]="table.zone"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td> -->
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.boothId"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.shopName"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.custName"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.deviceId"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <!-- <td>
+                                                    <ngb-highlight
+                                                        [result]="table.contractId"
+                                                        [term]="service.searchTerm">
+                                                    </ngb-highlight>
+                                                </td> -->
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.deviceZone"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.serialNo"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-highlight
+                                                            [result]="table.lineVoltage"
+                                                            [term]="service.searchTerm">
+                                                        </ngb-highlight>
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="badge rounded-pill bg-success ms-1">{{
+                                    meter.meterState
+                                  }}</span> -->
+                                                        <div
+                                                            class="form-check
+                                                                form-switch
+                                                                form-switch-lg
+                                                                mb-lg-3"
+                                                            dir="ltr">
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="checkbox"
+                                                                id="SwitchCheckSizelg"
+                                                                [checked]="table.meterState === '1'"
+                                                                (change)="changMeterState($event,table.boothId,table.id,table)" />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div
+                                                            class="button-items">
+                                                            <button
+                                                                type="button"
+                                                                class="btn
+                                                            btn-action"
+                                                                routerLink="/meter-view/{{
+                                                            table.id }}"
+                                                                routerLinkActive="active">
+                                                                <i class="bx
+                                                                bxs-show"></i>
+                                                            </button>
+                                                            <!-- <button
+                                                                type="button"
+                                                                class="btn btn-action"
+                                                                routerLink="/meter-edit/{{ meter.id }}"
+                                                                routerLinkActive="active"
+                                                                >
+                                                                <i class="bx bxs-pencil"></i>
+                                                                </button> -->
+                                                            <button
+                                                                type="button"
+                                                                class="btn
+                                                            btn-action"
+                                                                id="sa-warning">
+                                                                <i
+                                                                    class="bx
+                                                                bxs-trash"
+                                                                    (click)="confirm(table.id)"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-md-between
+                                    align-items-md-center
+                                    mt-2">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info mb-2"
+                                            id="tickets-table_info"
+                                            role="status"
+                                            aria-live="polite">
+                                            Showing
+                                            {{service.startIndex}} to
+                                            {{service.endIndex}} of
+                                            {{service.totalRecords}}
+                                            entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="text-md-right float-md-end
+                                            pagination-rounded">
+                                            <ngb-pagination
+                                                [collectionSize]="(total$ |
+                                                async)!"
+                                                [(page)]="service.page"
+                                                [pageSize]="service.pageSize">
+                                            </ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- end row -->
-  <!--   
+    <ng-template #topup let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">เติมเงิน</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="false"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="card-title-desc">ชำระเงินตามยอดได้ที่ จุดรับชำระเงินค่าไฟของโครงการ
+                            </p>
+                            <form class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputValue"
+                                    placeholder="ระบุจำนวนเงิน">
+                                <!-- <label for="floatingInputValue">หัวข้อ</label> -->
+                            </form>
+                        </div>
+                        <div class="button-items text-center mb-1">
+                            <button type="button" class="btn btn-primary btn-lg">300</button>
+                            <button type="button" class="btn btn-primary btn-lg">500</button>
+                            <button type="button" class="btn btn-primary btn-lg">1,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">3,000</button>
+                            <button type="button" class="btn btn-primary btn-lg">5,000</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">ยกเลิก</button>
+            <button type="button" class="btn btn-primary">เติมเงิน</button>
+        </div>
+    </ng-template>
+</div>
+<!-- end row -->
+<!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>

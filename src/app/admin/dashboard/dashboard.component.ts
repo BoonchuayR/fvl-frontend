@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
     //BreadCrumb
     this.breadCrumbItems = [
       { label: "หน้าหลัก" },
-      { label: "Dashboard", active: true },
+      { label: "มิเตอร์ไฟฟ้า", active: true },
     ];
 
     const currentUser = this.authenService.currentUser();
