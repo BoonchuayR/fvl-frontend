@@ -260,10 +260,13 @@ export class CustomerAddComponent implements OnInit {
             "items"
           ) as FormArray;
           shopItems.value.forEach((shop: any) => {
+            console.log("test console ==> ",shop);
             this.shopService
               .create({
                 ...shop,
-                uid: customer.uid
+                uid: customer.uid,
+                custName: customer.custName,
+                custPhone: customer.custPhone,
               })
               .then((res) => {
                 this.router.navigate(["/customer-list"]);

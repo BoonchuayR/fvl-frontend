@@ -25,6 +25,7 @@ export class CustomerEditComponent implements OnInit {
   uId: any;
   customer: any;
   shops: any;
+  oldBoothId:any="";
   submit!: boolean;
   validationform = this.formBuilder.group({
     email: ["", [Validators.required]],
@@ -40,17 +41,15 @@ export class CustomerEditComponent implements OnInit {
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
-  datalist1:any=[];
-  datalist2:any=[];
-  codedata:any=[];
+  datalist1: any = [];
+  datalist2: any = [];
+  codedata: any = [];
   meters: any = [];
-  boothOptions:any = [];
+  boothOptions: any = [];
   meterOptions: Select2Data = [];
   shopOptions: Select2Data = [];
   // select multi options start
-  data: Select2Data = [
-   
-  ];
+  data: Select2Data = [];
 
   // select multi options End
 
@@ -68,60 +67,88 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.customerService.getCode().subscribe((code)=>{
+    this.customerService.getCode().subscribe((code) => {
       this.codedata = code;
-      
+
       // console.log("Code >>> ", this.codedata);
-      this.codedata = this.codedata.sort((a: { code: number; },b: { code: number; })=>{
-        if(a.code < b.code){
-          return -1
+      this.codedata = this.codedata.sort(
+        (a: { code: number }, b: { code: number }) => {
+          if (a.code < b.code) {
+            return -1;
+          }
+          return 1;
         }
-        return 1
-      });
-    })
-    this.shopService.getAll().subscribe((shop)=>{
-      this.datalist1 = shop
+      );
+    });
+    this.shopService.getAll().subscribe((shop) => {
+      this.datalist1 = shop;
       // console.log("dataShop",this.datalist1);
-      this.datalist1.forEach((data:any) => {
-        this.codedata.forEach((code:any)=>{
-          if(data.boothIds[0]==code.code){
+      this.datalist1.forEach((data: any) => {
+        this.codedata.forEach((code: any) => {
+          if (data.boothIds[0] == code.code) {
             this.datalist2 = [];
             this.datalist2.push(code);
             // console.log("datalist2",this.datalist2);
             this.createShopOptions();
-         }
-        
-        })
+          }
+        });
       });
-    
     });
     this.uId = this.route.snapshot.paramMap.get("id");
 
     // Get meters
     this.meterService.getAll().subscribe((meters) => {
-
       this.meters = meters;
 
-      meters.forEach(meter => this.boothOptions.push(meter.boothId))
+      meters.forEach((meter) => this.boothOptions.push(meter.boothId));
 
       const boothIds: string[] = [];
 
       this.shopService.getAll().subscribe((shops) => {
-
-        shops.forEach(shop => {
+        shops.forEach((shop) => {
           boothIds.push(...shop.boothIds);
-        })
+        });
 
         this.boothOptions = this.boothOptions.filter((option: string) => {
           return !boothIds.includes(option);
         });
+        // console.log(this.boothOptions);
+        // this.createBoothOptions();
+        const control = <FormArray>this.itemShopForm.controls["items"];
+        control.removeAt(0);
 
+        this.shops = shops.filter((shop) => {
+          return shop.uid === this.uId;
+        });
+        this.shops.forEach((bId:any)=>{
+          this.oldBoothId = bId.boothIds;
+          this.boothOptions.push(this.oldBoothId.toString());
+        })
+        
+        console.log(this.boothOptions);
         this.createBoothOptions();
+        this.shops.forEach((shop: any) => {
+          if (control.controls.length < 20) {
+            const shopForm = this.createItem();
+            shopForm.get("id")?.setValue(shop.id);
+            shopForm.get("uid")?.setValue(shop.uid);
+            shopForm.get("boothCode")?.setValue(shop.boothCode);
+            shopForm.get("boothCate")?.setValue(shop.boothCate);
+            shopForm.get("boothName")?.setValue(shop.boothName);
+            shopForm.get("boothZone")?.setValue(shop.boothZone);
+            shopForm.get("contractDate")?.setValue(shop.contractDate);
+            shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
+            shopForm.get("contractNo")?.setValue(shop.contractNo);
+            shopForm.get("custName")?.setValue(shop.custName);
+            shopForm.get("boothIds")?.setValue(shop.boothIds);
+            control.push(shopForm);
+            this.item_collapsed.push(true);
+            // this.buildFormContents();
+          }
+        });
       });
-
     });
-    
+
     this.customerService.get(this.uId).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
@@ -131,7 +158,7 @@ export class CustomerEditComponent implements OnInit {
     this.addItem();
   }
   createBoothOptions() {
-    const sortedShop = this.boothOptions.sort((a:string,b:string) => {
+    const sortedShop = this.boothOptions.sort((a: string, b: string) => {
       if (a > b) {
         return 1;
       }
@@ -141,81 +168,61 @@ export class CustomerEditComponent implements OnInit {
     const data = {
       label: "",
       data: { name: "" },
-      options: sortedShop
-        .map((m: any) => {
-          return {
-            value: m,
-            label: m,
-            data: { name: m },
-            templateId: "template1",
-            id: m,
-          };
-        })
+      options: sortedShop.map((m: any) => {
+        return {
+          value: m,
+          label: m,
+          data: { name: m },
+          templateId: "template1",
+          id: m,
+        };
+      }),
     };
-   
+
     this.shopOptions.push(data);
   }
-  createMeterOptions() {
-    const sortedMeters = this.meters.sort((a: any, b: any) => {
-      if (a.deviceZone < b.deviceZone) {
-        return -1;
-      } else {
+  createBoothId() {
+    const sortedShop = this.boothOptions.sort((a: string, b: string) => {
+      if (a > b) {
         return 1;
       }
-    }).filter((m:any) => {
-      if (m.deviceId) {
-        return true;
-      }
-      return false
+      return -1;
     });
 
-    for (let i = 0; i < sortedMeters.length; i++) {
-      if (
-        sortedMeters[i + 1] &&
-        sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
-      ) {
-        continue;
-      }
-      const data = {
-        label: "โซน " + sortedMeters[i].deviceZone,
-        data: { name: sortedMeters[i].deviceZone },
-        options: sortedMeters
-          .filter((m: any) => {
-            return m.deviceZone === sortedMeters[i].deviceZone;
-          })
-          .map((m: any) => {
-            return {
-              value: m.deviceId,
-              label: m.deviceId,
-              data: { name: m.deviceId },
-              templateId: "template1",
-              id: m.deviceId,
-            };
-          }),
-      };
-      this.meterOptions.push(data);
-      // console.log("meterOptions" , data)
-    }
+    const data = {
+      label: "",
+      data: { name: "" },
+      options: sortedShop.map((m: any) => {
+        return {
+          value: m,
+          label: m,
+          data: { name: m },
+          templateId: "template1",
+          id: m,
+        };
+      }),
+    };
+
+    this.shopOptions.push(data);
   }
   createShopOptions() {
-    const sortedShop = this.datalist2.sort((a: any, b: any) => {
-      console.log(this.datalist2);
-      if (a.code < b.code) {
-        return -1;
-      } else {
-        return 1;
-      }
-    }).filter((m:any) => {
-      if (m.code) {
-        return true;
-      }
-      return false
-    });
+    const sortedShop = this.datalist2
+      .sort((a: any, b: any) => {
+        console.log(this.datalist2);
+        if (a.code < b.code) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+      .filter((m: any) => {
+        if (m.code) {
+          return true;
+        }
+        return false;
+      });
     for (let i = 0; i < sortedShop.length; i++) {
-      if (
-        sortedShop[i + 1] &&
-        sortedShop[i].code === sortedShop[i + 1].code
-      ) {
+      if (sortedShop[i + 1] && sortedShop[i].code === sortedShop[i + 1].code) {
         continue;
       }
       const data = {
@@ -253,35 +260,33 @@ export class CustomerEditComponent implements OnInit {
   }
 
   setShopForms() {
-    this.shopService.getAll().subscribe((shops) => {
-      const control = <FormArray>this.itemShopForm.controls["items"];
-      control.removeAt(0);
-      
-      this.shops = shops
-        .filter((shop) => {
-          return shop.uid === this.uId;
-        });
-      
-      this.shops.forEach((shop:any) => {
-        if (control.controls.length < 20) {
-          const shopForm = this.createItem();
-          shopForm.get("id")?.setValue(shop.id);
-          shopForm.get("uid")?.setValue(shop.uid);
-          shopForm.get("boothCode")?.setValue(shop.boothCode);
-          shopForm.get("boothCate")?.setValue(shop.boothCate);
-          shopForm.get("boothName")?.setValue(shop.boothName);
-          shopForm.get("boothZone")?.setValue(shop.boothZone);
-          shopForm.get("contractDate")?.setValue(shop.contractDate);
-          shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
-          shopForm.get("contractNo")?.setValue(shop.contractNo);
-          shopForm.get("custName")?.setValue(shop.custName);
-          shopForm.get("boothIds")?.setValue(shop.boothIds);
-          control.push(shopForm);
-          this.item_collapsed.push(true);
-          // this.buildFormContents();
-        }
-      });
-    });
+    // this.shopService.getAll().subscribe((shops) => {
+    //   const control = <FormArray>this.itemShopForm.controls["items"];
+    //   control.removeAt(0);
+    //   this.shops = shops
+    //     .filter((shop) => {
+    //       return shop.uid === this.uId;
+    //     });
+    //   this.shops.forEach((shop:any) => {
+    //     if (control.controls.length < 20) {
+    //       const shopForm = this.createItem();
+    //       shopForm.get("id")?.setValue(shop.id);
+    //       shopForm.get("uid")?.setValue(shop.uid);
+    //       shopForm.get("boothCode")?.setValue(shop.boothCode);
+    //       shopForm.get("boothCate")?.setValue(shop.boothCate);
+    //       shopForm.get("boothName")?.setValue(shop.boothName);
+    //       shopForm.get("boothZone")?.setValue(shop.boothZone);
+    //       shopForm.get("contractDate")?.setValue(shop.contractDate);
+    //       shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
+    //       shopForm.get("contractNo")?.setValue(shop.contractNo);
+    //       shopForm.get("custName")?.setValue(shop.custName);
+    //       shopForm.get("boothIds")?.setValue(shop.boothIds);
+    //       control.push(shopForm);
+    //       this.item_collapsed.push(true);
+    //       // this.buildFormContents();
+    //     }
+    //   });
+    // });
   }
 
   get email() {
@@ -312,33 +317,36 @@ export class CustomerEditComponent implements OnInit {
     return this.validationform.get("minimumMoney");
   }
 
-    formSubmit() {
-    const customer = {uid: this.customer.uid, ...this.validationform.value};
+  formSubmit() {
+    const customer = { uid: this.customer.uid, ...this.validationform.value };
 
-    this.customerService.update(customer).then(res => {
-      const shopItems: FormArray = this.itemShopForm.get(
-        "items"
-      ) as FormArray;
-      shopItems.value.forEach((shop: any) => {
-        console.log("shop => ",shop)
-        this.shopService.update(shop).then(res => {
-          
-        }).catch(err => {
-          console.log("err: ", err)
+    this.customerService
+      .update(customer)
+      .then((res) => {
+        const shopItems: FormArray = this.itemShopForm.get(
+          "items"
+        ) as FormArray;
+        shopItems.value.forEach((shop: any) => {
+          console.log("shop => ", shop);
+          this.shopService
+            .update(shop)
+            .then((res) => {})
+            .catch((err) => {
+              console.log("err: ", err);
+            });
         });
-      });
 
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
-        showConfirmButton: false,
-        timer: 3000,
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      })
+      .catch((err) => {
+        console.log("err: ", err);
       });
-
-    }).catch(err => {
-      console.log("err: ", err)
-    })
   }
 
   addShops() {
@@ -358,8 +366,7 @@ export class CustomerEditComponent implements OnInit {
     if (control.controls.length < 20) {
       control.push(this.createItem());
       this.item_collapsed.push(true);
-    } 
-    
+    }
   }
 
   createItem(item: any = {}) {
