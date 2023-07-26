@@ -125,7 +125,7 @@ export class CustomerEditComponent implements OnInit {
           this.boothOptions.push(this.oldBoothId.toString());
         })
         
-        console.log(this.boothOptions);
+        // console.log(this.boothOptions);
         this.createBoothOptions();
         this.shops.forEach((shop: any) => {
           if (control.controls.length < 20) {

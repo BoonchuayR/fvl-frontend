@@ -155,9 +155,9 @@
                                                                             <div class="font-size-12 mb-3">
                                                                                 <label class="form-label">รหัสแผงค้า</label>
                                                                                 <h6 style="float: right;color: red;">*</h6>
-                                                                                <label style="float: right;">รหัสแผงค้าปัจจุบัน</label>
-                                                                                <input class="form-control" formControlName="boothIds" type="text" [readOnly]="true" placeholder="วันสิ้นสุดสัญญา" />
-                                                                                <select2 placeholder="รหัสแผงค้า" type="text" [data]="shopOptions" [multiple]="true">
+                                                                                <!-- <label style="float: right;">รหัสแผงค้าปัจจุบัน</label> -->
+                                                                                <!-- <input class="form-control" formControlName="boothIds" type="text" [readOnly]="true" placeholder="วันสิ้นสุดสัญญา" /> -->
+                                                                                <select2 formControlName="boothIds" placeholder="รหัสแผงค้า" type="text" [data]="shopOptions" [multiple]="true">
                                                                                 </select2>
                                                                             </div>
                                                                         </div>
