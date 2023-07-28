@@ -106,6 +106,12 @@ export class MeterAddComponent implements OnInit {
           this.validationform
             .get("slaveId")
             ?.setValue(meter.SLAVE_ID);
+          this.validationform
+            .get("meterStatePreviousUnit")
+            ?.setValue(meter.METER_STATE_PREVIOUS_UNIT);
+          this.validationform
+            .get("meterStateCalculateUnit")
+            ?.setValue(meter.METER_STATE_CALCULATE_UNIT);
         } else {
           this.validationform.get("deviceId")?.setValue("");
           this.validationform.get("contractId")?.setValue("");
@@ -123,6 +129,8 @@ export class MeterAddComponent implements OnInit {
           this.validationform.get("meterStateAdmin")?.setValue("");
           this.validationform.get("updateStateAdminDateTime")?.setValue("");
           this.validationform.get("slaveId")?.setValue("");
+          this.validationform.get("meterStatePreviousUnit")?.setValue("");
+          this.validationform.get("meterStateCalculateUnit")?.setValue("");
         }
       });
     });
