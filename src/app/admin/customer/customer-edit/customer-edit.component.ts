@@ -55,7 +55,6 @@ export class CustomerEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
     private customerService: CustomerService,
     private shopService: ShopService,
     private meterService: MeterService,
@@ -67,6 +66,7 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.customerService.getCode().subscribe((code) => {
       this.codedata = code;
 
@@ -80,6 +80,7 @@ export class CustomerEditComponent implements OnInit {
         }
       );
     });
+
     this.shopService.getAll().subscribe((shop) => {
       this.datalist1 = shop;
       // console.log("dataShop",this.datalist1);
@@ -94,6 +95,7 @@ export class CustomerEditComponent implements OnInit {
         });
       });
     });
+    
     this.uId = this.route.snapshot.paramMap.get("id");
 
     // Get meters

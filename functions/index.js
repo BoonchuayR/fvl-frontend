@@ -88,7 +88,7 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
 			// console.log("meterData: ", meterData);
 			for (let i = 0; i < meterData.length; i++) {
 				const electricity = {
-					storeId: meterData[i].BOOTH_ID,
+					boothId: meterData[i].BOOTH_ID,
 					date: moment().format("YYYY-MM-DD hh:mm:ss"),
 					priviousUnit: meterData[i].METER_STATE_PREVIOUS_UNIT,
 					calculateUnit: meterData[i].METER_STATE_CALCULATE_UNIT,
@@ -101,7 +101,7 @@ exports.scheduledFunction = functions.pubsub.schedule("* * * * *")
 				// 	// console.log("res: ", res);
 				// });				
 
-				const shopSnapshot = await db.collection("shop").where("storeId", "array-contains", meterData[i].BOOTH_ID).get();
+				const shopSnapshot = await db.collection("shop").where("boothId", "array-contains", meterData[i].BOOTH_ID).get();
 				
 				shopSnapshot.forEach(async doc => {
 					// console.log(doc.id, '=>', doc.data());
@@ -187,14 +187,14 @@ app.get("/getRole", async (req, res) => {
 app.get("/checkDupMeter", async (req, res) => {
 	const params = req.query
 
-	if (!params.storeId) {
-		res.status(200).send("Not found storeId");
+	if (!params.boothId) {
+		res.status(200).send("Not found boothId");
 	}
 
-	const storeId = params.storeId;
+	const boothId = params.boothId;
 
 	const meterRef = db.collection('meter');
-	const meterSnapshot = await meterRef.where("storeId", "==", storeId).get();
+	const meterSnapshot = await meterRef.where("boothId", "==", boothId).get();
 	const meters = [];
 	meterSnapshot.forEach(async doc => {
 		meters.push(doc.data());

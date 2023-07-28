@@ -56,7 +56,7 @@ function matches(table: Meter, term: string, pipe: PipeTransform) {
         || table.deviceId.includes(term)
         || table.deviceZone.includes(term)
         || table.serialNo.includes(term)
-        || table.lineVoltage.includes(term)
+        || table.lineVoltage.includes(term);
 }
 
 @Injectable({

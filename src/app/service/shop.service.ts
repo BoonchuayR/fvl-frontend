@@ -106,6 +106,7 @@ export class ShopService {
       idField: "id",
     }) as Observable<Shop[]>;
   }
+  
   findByBoothCode(boothCode: string) {
     const q = query(this.shopCollection, where("boothCode", "==", boothCode));
     return collectionData(q, {

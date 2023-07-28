@@ -10,6 +10,9 @@ import {
   docData,
   DocumentData,
   Firestore,
+  getDoc,
+  getDocs,
+  getFirestore,
   query,
   updateDoc,
   where
@@ -33,10 +36,10 @@ export class MeterService {
     this.meterCollection = collection(firestore, "meter");
     
   }
+  
   getInfo(){
     return this.http.get(this.CSVmeter,{responseType:'text'});
   }
-
 
   create(meter: Meter) {
     let $metersRef=collection(this.firestore, "meter");
@@ -108,8 +111,8 @@ export class MeterService {
     
   }
 
-  checkDupMeter(storeId: string) {
-    return fetch(`${CHECK_DUP_METER_URL}?storeId=${storeId}`);
+  checkDupMeter(boothId: string) {
+    return fetch(`${CHECK_DUP_METER_URL}?boothId=${boothId}`);
   }
   
   async getAllMeterFromAPI() {
@@ -118,5 +121,15 @@ export class MeterService {
     return users.data;
   }
 
+  async getAllMeters() {
+    const db = getFirestore();
+    const colRef = collection(db, "meter");
+    const docsSnap = await getDocs(colRef);
+    const meters: any = [];
+    docsSnap.forEach(doc => {
+      meters.push(doc.data())
+    })
+    return meters;
+  }
 
 }

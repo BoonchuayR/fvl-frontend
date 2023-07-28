@@ -62,10 +62,10 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="font-size-12 mb-3">
-                        <label class="form-label">Store ID</label>
+                        <label class="form-label">Booth ID</label>
                         <input
                           class="form-control form-control-lg"
-                          formControlName="storeId"
+                          formControlName="boothId"
                           type="text"
                           placeholder="Store ID"
                         />
@@ -92,7 +92,13 @@
                           formControlName="contractId"
                           type="text"
                           placeholder="Contract ID"
+                          [ngClass]="{
+                            'is-invalid': submit && formData.contractId.errors
+                          }" 
                         />
+                        <div *ngIf="submit && formData.contractId.errors" class="invalid-tooltip">
+                          <span *ngIf="formData.contractId.errors.required">กรุณาระบุเลขที่สัญญา</span>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -103,6 +109,7 @@
                           formControlName="deviceZone"
                           type="text"
                           placeholder="Device Zone"
+                          
                         />
                       </div>
                     </div>
@@ -196,7 +203,7 @@
                         <label class="form-label">Update Date Time</label>
                         <input
                           class="form-control form-control-lg"
-                          formControlName="updateDatetime"
+                          formControlName="updateDateTime"
                           type="text"
                           placeholder="Update Date Time"
                         />
@@ -220,7 +227,7 @@
                         <label class="form-label">Update State Date Time</label>
                         <input
                           class="form-control form-control-lg"
-                          formControlName="updateStateDatetime"
+                          formControlName="updateStateAdminDateTime"
                           type="text"
                           placeholder="Update State Date Time"
                         />
@@ -246,7 +253,7 @@
                         >
                         <input
                           class="form-control form-control-lg"
-                          formControlName="updateStateAdminDatetime"
+                          formControlName="updateStateAdminDateTime"
                           type="text"
                           placeholder="Update State Admin Date Time"
                         />
