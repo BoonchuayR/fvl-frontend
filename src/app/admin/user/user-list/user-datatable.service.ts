@@ -58,7 +58,7 @@ function matches(table: User, term: string, pipe: PipeTransform) {
     providedIn: 'root'
 })
 
-export class UserAdvancedService {
+export class UserDataTableService {
     // tslint:disable-next-line: variable-name
     private _loading$ = new BehaviorSubject<boolean>(true);
     // tslint:disable-next-line: variable-name
@@ -79,7 +79,7 @@ export class UserAdvancedService {
         totalRecords: 0
     };
 
-    users = [];
+    users: User[] = [];
 
     constructor(private pipe: DecimalPipe, private userService: UserService) {
         

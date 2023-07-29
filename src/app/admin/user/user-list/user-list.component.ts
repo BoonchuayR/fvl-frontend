@@ -3,7 +3,7 @@ import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
-import { UserAdvancedService } from "./user-datatable.service";
+import { UserDataTableService } from "./user-datatable.service";
 import { UserSortableDirective, SortEventUser } from "./user-sortable.directive";
 import { User } from "src/app/core/models/user.models";
 import { userData } from "./user-data";
@@ -12,7 +12,7 @@ import { userData } from "./user-data";
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
-  providers: [UserAdvancedService, DecimalPipe]
+  providers: [UserDataTableService, DecimalPipe]
 })
 export class UserListComponent implements OnInit {
 
@@ -27,13 +27,16 @@ export class UserListComponent implements OnInit {
   listname!:string;
 
   constructor(private userService: UserService, 
-    public service: UserAdvancedService) {
-      this.tables$ = service.tables$;
-      this.total$ = service.total$;
+    public userDataTableService: UserDataTableService) {
+      this.tables$ = userDataTableService.tables$;
+      this.total$ = userDataTableService.total$;
   }
 
   async ngOnInit(): Promise<void> {
-    this.userService.getAll().subscribe((user) => {
+    this.userService.getAll().subscribe((users) => {
+      console.log("users >>> ", users);
+      this.userDataTableService.users  = users;
+      console.log("after set users >>> ");
     });
   }
 
@@ -49,8 +52,8 @@ export class UserListComponent implements OnInit {
         header.direction = '';
       }
     });
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    this.userDataTableService.sortColumn = column;
+    this.userDataTableService.sortDirection = direction;
   }
   /**
    * Confirm sweet alert

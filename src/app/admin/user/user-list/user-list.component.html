@@ -31,7 +31,8 @@
             <button
               routerLink="/user-add"
               routerLinkActive="active"
-              class="btn btn-outline-success btn-rounded float-right">
+              class="btn btn-outline-success btn-rounded float-right"
+            >
               <i class="bx bx-user-plus"></i> เพิ่มผู้ใช้งาน
             </button>
           </div>
@@ -48,113 +49,153 @@
                     <div class="dataTables_length" id="tickets-table_length">
                       <label class="d-inline-flex align-items-center">
                         Show
-                        <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize"
-                          class="form-control
-                          form-control-sm mx-2" class="form-control
-                          form-control-sm mx-2"[(ngModel)]="service.pageSize">
+                        <select
+                          name="tickets-table_length"
+                          aria-controls="tickets-table"
+                          name="pageSize"
+                          class="form-control form-control-sm mx-2"
+                          class="form-control form-control-sm mx-2"
+                          [(ngModel)]="userDataTableService.pageSize"
+                        >
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
-                        </select> entries
+                        </select>
+                        entries
                       </label>
                     </div>
                   </div>
                   <!-- Search -->
                   <div class="col-sm-12 col-md-6">
-                    <div id="tickets-table_filter" class="dataTables_filter
-                      text-md-end"><label
-                        class="d-inline-flex align-items-center">Search:
-                        <input type="text" name="searchTerm" class="form-control
-                          form-control-sm ms-2"
+                    <div
+                      id="tickets-table_filter"
+                      class="dataTables_filter text-md-end"
+                    >
+                      <label class="d-inline-flex align-items-center"
+                        >Search:
+                        <input
+                          type="text"
+                          name="searchTerm"
+                          class="form-control form-control-sm ms-2"
                           aria-controls="tickets-table"
-                          [(ngModel)]="service.searchTerm"></label></div>
+                          [(ngModel)]="userDataTableService.searchTerm"
+                      /></label>
+                    </div>
                   </div>
                   <!-- End search -->
                 </div>
                 <div class="table-responsive">
-                  <table id="basic-datatable"
-                  class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                  <table
+                    id="basic-datatable"
+                    class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline"
+                  >
                     <thead>
                       <tr>
-                        <th sortableUser="typeUser" (sort)="onSort($event)">ประเภทผู้ใช้</th>
-                        <th sortableUser="displayName" (sort)="onSort($event)">ชื่อ-นามสกุล</th>
-                        <th sortableUser="email" (sort)="onSort($event)">อีเมล</th>
-                        <th sortableUser="phone" (sort)="onSort($event)">เบอร์โทรศัพท์</th>
+                        <th sortableUser="typeUser" (sort)="onSort($event)">
+                          ประเภทผู้ใช้
+                        </th>
+                        <th sortableUser="displayName" (sort)="onSort($event)">
+                          ชื่อ-นามสกุล
+                        </th>
+                        <th sortableUser="email" (sort)="onSort($event)">
+                          อีเมล
+                        </th>
+                        <th sortableUser="phone" (sort)="onSort($event)">
+                          เบอร์โทรศัพท์
+                        </th>
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                    <tbody *ngFor="let table of tables$ | async; let i = index">
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.typeUser"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.typeUser"
+                            [term]="userDataTableService.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.displayName"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.displayName"
+                            [term]="userDataTableService.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.email"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.email"
+                            [term]="userDataTableService.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.phone"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.phone"
+                            [term]="userDataTableService.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
                           <div class="button-items">
-                            <button *ngIf="0"
+                            <button
+                              *ngIf="0"
                               type="button"
                               class="btn btn-action"
                               routerLink="//mobile/profile-view/"
-                              routerLinkActive="active">
+                              routerLinkActive="active"
+                            >
                               <i class="bx bxs-show"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
                               routerLink="/user-edit/{{ table.uid }}"
-                              routerLinkActive="active">
+                              routerLinkActive="active"
+                            >
                               <i class="bx bxs-pencil"></i>
                             </button>
                             <button
                               type="button"
                               class="btn btn-action"
-                              id="sa-warning">
-                              <i class="bx bxs-trash"
-                                (click)="confirm(table.id)"></i>
+                              id="sa-warning"
+                            >
+                              <i
+                                class="bx bxs-trash"
+                                (click)="confirm(table.id)"
+                              ></i>
                             </button>
-
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <div class="row justify-content-md-between align-items-md-center
-                  mt-2">
+                <div
+                  class="row justify-content-md-between align-items-md-center mt-2"
+                >
                   <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
                       Showing
-                      {{service.startIndex}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
+                      {{ userDataTableService.startIndex }} to
+                      {{ userDataTableService.endIndex }} of
+                      {{ userDataTableService.totalRecords }}
                       entries
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(total$ | async)!"
-                        [(page)]="service.page"
-                        [pageSize]="service.pageSize">
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination
+                        [collectionSize]="(total$ | async)!"
+                        [(page)]="userDataTableService.page"
+                        [pageSize]="userDataTableService.pageSize"
+                      >
                       </ngb-pagination>
                     </div>
                   </div>
@@ -172,3 +213,4 @@
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
   </div> -->
+</div>
