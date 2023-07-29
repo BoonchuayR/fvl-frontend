@@ -86,12 +86,12 @@
                                                         [(ngModel)]="service.searchTerm">
                                                 </label>
                                             </span>
-
+                                            
                                             <span class="dataTables_length"
                                                 id="tickets-table_length">
                                                 <label class="d-inline-flex
                                                     align-items-center">
-                                                    Meter
+                                                    State:
                                                     <select
                                                         name="tickets-table_length"
                                                         aria-controls="tickets-table"
@@ -106,7 +106,7 @@
                                                             value="1">ON</option>
                                                         <option [ngValue]="2"
                                                             value="2">OFF</option>
-                                                    </select> State
+                                                    </select> 
                                                 </label>
                                             </span>
 
@@ -123,12 +123,13 @@
                                                     <th sortableMeter="boothId"
                                                         (sort)="onSort($event)">Booth
                                                         ID</th>
+                                                        <th sortableMeter="custName"
+                                                        (sort)="onSort($event)">Cust
+                                                        Name</th>
                                                     <th sortableMeter="shopName"
                                                         (sort)="onSort($event)">Shop
                                                         Name</th>
-                                                    <th sortableMeter="custName"
-                                                        (sort)="onSort($event)">Cust
-                                                        Name</th>
+                                                    
                                                     <th sortableMeter="deviceId"
                                                         (sort)="onSort($event)">Device
                                                         ID</th>
@@ -165,13 +166,13 @@
                                                     </td>
                                                     <td>
                                                         <ngb-highlight
-                                                            [result]="table.shopName"
+                                                            [result]="table.custName"
                                                             [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
                                                         <ngb-highlight
-                                                            [result]="table.custName"
+                                                            [result]="table.shopName"
                                                             [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>

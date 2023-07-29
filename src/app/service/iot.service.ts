@@ -61,12 +61,12 @@ export class IotService {
     return this.http.post(BASE_API, bodyReq);
   }
 
-  meterUpdateState(storeId: string, state: string) {
+  meterUpdateState(boothId: string, state: string) {
 
     const bodyReq = {
       CMD_TYPE: "METER_UPDATE", 
       CMD_TOKEN: "KANT_IOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303", 
-      STORE_ID:[storeId],
+      BOOTH_ID:[boothId],
       CMD_PARAMS:[
           {
               "METER_STATE": state

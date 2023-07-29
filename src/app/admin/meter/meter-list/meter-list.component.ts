@@ -33,6 +33,7 @@ export class MeterListComponent implements OnInit {
   meters!: any
   meterstate:any = 0;
   state:any;
+  
   constructor(
     private meterService: MeterService,
     private iotService: IotService,
@@ -58,6 +59,7 @@ export class MeterListComponent implements OnInit {
       })
     })
   }
+
   topupModal(topup: any) {
     this.modalService.open(topup, { backdrop: 'static', keyboard: false, centered: true, windowClass: 'modal-holder' });
   }
@@ -73,6 +75,7 @@ export class MeterListComponent implements OnInit {
       console.log("Excel DATA >>> ",this.ExcelDATA);
     }
   }
+
   changeValue(event:any){
     if(this.meterstate == 0){
       this.meterService.getAll()
@@ -93,9 +96,7 @@ export class MeterListComponent implements OnInit {
         // });
 
       })
-    }
-
-    if(this.meterstate == 1){
+    } else if(this.meterstate == 1){
       this.meterService.findMeterByStatus("1").subscribe(meters => {
         this.meters = meters;
         this.service.meters = this.meters;
@@ -114,9 +115,7 @@ export class MeterListComponent implements OnInit {
         // console.log(" this.meters >>> ", this.meters);
         // console.log("meterstate >>> ", this.meterstate);
       })
-    }
-
-    if(this.meterstate == 2){
+    } else {
          this.meterService.findMeterByStatus("0").subscribe(meters => {
         this.meters = meters;
         this.service.meters = this.meters;
@@ -150,7 +149,7 @@ export class MeterListComponent implements OnInit {
     this.service.sortDirection = direction;
   }
 
-  changMeterState(event: any, storeId: any, id: any, meter: any) {
+  changMeterState(event: any, boothId: any, id: any, meter: any) {
     const isChecked = event.target.checked;
     Swal.fire({
       title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
@@ -163,7 +162,7 @@ export class MeterListComponent implements OnInit {
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
+        this.iotService.meterUpdateState(boothId, isChecked ? "1" : "2").subscribe(res => {
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(res => {
             console.log("ตกลง")

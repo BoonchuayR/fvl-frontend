@@ -5,9 +5,6 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortColumn } from './user-sortable.directive';
 import { User } from 'src/app/core/models/user.models';
 import { UserService } from 'src/app/service/user.service';
-import { userData } from './user-data';
-
-
 
 interface SearchResult {
     tables: User[];
@@ -90,7 +87,7 @@ export class UserAdvancedService {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),
-            switchMap(() => this._search()),
+            switchMap(() => this._search(this.users)),
             delay(200),
             tap(() => this._loading$.next(false))
         ).subscribe(result => {
@@ -143,11 +140,11 @@ export class UserAdvancedService {
     /**
      * Search Method
      */
-    private _search(): Observable<SearchResult> {
+    private _search(users: User[]): Observable<SearchResult> {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let tables = sort(userData, sortColumn, sortDirection);
+        let tables = sort(users, sortColumn, sortDirection);
 
         // 2. filter
         tables = tables.filter(table => matches(table, searchTerm, this.pipe));

@@ -220,6 +220,7 @@ export class CustomerAddComponent implements OnInit {
   get boothIds() {
     return this.validationform.get(["boothIds"]);
   }
+  
   formSubmit() {
     // Add customer
     const {

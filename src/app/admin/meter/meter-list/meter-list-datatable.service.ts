@@ -51,8 +51,8 @@ function sort(tables: Meter[], column: SortColumn, direction: string): Meter[] {
  */
 function matches(table: Meter, term: string, pipe: PipeTransform) {
     return table.boothId.includes(term)
-        || table.shopName.includes(term)
-        || table.custName.includes(term)
+        || table.shopName?.includes(term)
+        || table.custName?.includes(term)
         || table.deviceId.includes(term)
         || table.deviceZone.includes(term)
         || table.serialNo.includes(term)

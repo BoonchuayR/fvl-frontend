@@ -25,6 +25,7 @@ class FirebaseAuthBackend {
     registerUser = (email: any, password: any) => {
         return new Promise((resolve, reject) => {
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user: any) => {
+                console.log("firebase.auth().currentUser >>> ", firebase.auth().currentUser);
                 var user: any = firebase.auth().currentUser;
                 resolve(user);
             }, (error) => {

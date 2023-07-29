@@ -4,9 +4,6 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortColumn } from './customer-sortable.directive';
 import { Customer } from 'src/app/core/models/customer.models';
-import { customerData } from './customer-data';
-import { CustomerService } from 'src/app/service/customer.service';
-
 
 interface SearchResult {
     tables: Customer[];
@@ -81,7 +78,7 @@ export class CustomerServicecus {
         totalRecords: 0
     };
     customers: Customer[] = [];
-    constructor(private pipe: DecimalPipe, private customerService: CustomerService) {
+    constructor(private pipe: DecimalPipe) {
         this._search$.pipe(
             tap(() => this._loading$.next(true)),
             debounceTime(200),

@@ -47,6 +47,7 @@ export class AuthenticationService {
       .loginUser(email, password)
       .then((response: any) => {
         const user = response;
+        console.log("user >>> ", user);
         return user;
       });
   }

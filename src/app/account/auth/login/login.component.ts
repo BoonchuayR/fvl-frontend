@@ -103,28 +103,30 @@ export class LoginComponent implements OnInit {
         this.incorrectEmailOrPass = false;
         // Switch route role 
        
-        const role = await this.userService.getRole(user.uid)
-        .then(res => res.json())
-        .then(function(res) {
-          const role = res.role;
-          return role;
-        });
+        // const role = await this.userService.getRole(user.uid)
+        // .then(res => res.json())
+        // .then(function(res) {
+        //   const role = res.role;
+        //   return role;
+        // });
 
-        console.log("role >>> ", role);
+        // console.log("role >>> ", role);
         
-        if (role === 'customer') {
-          this.router.navigate(["/mobile/profile-view"]) 
-        } else if (role === 'sale') {
-          this.router.navigate(["/ticket-list"]);
-        } else if (role === 'account') {
-          this.router.navigate(["/"]);
-        } else if (role === 'service') {
-          this.router.navigate(["/ticket-list"]);
-        // } else if (role === 'noRole') {
-        //   throw new Error('Something bad happened');
-        }  else {
-          this.router.navigate(["/"]);
-        }
+        // if (role === 'customer') {
+        //   this.router.navigate(["/mobile/profile-view"]) 
+        // } else if (role === 'sale') {
+        //   this.router.navigate(["/ticket-list"]);
+        // } else if (role === 'account') {
+        //   this.router.navigate(["/"]);
+        // } else if (role === 'service') {
+        //   this.router.navigate(["/ticket-list"]);
+        // // } else if (role === 'noRole') {
+        // //   throw new Error('Something bad happened');
+        // }  else {
+        //   this.router.navigate(["/"]);
+        // }
+
+        this.router.navigate(["/"]);
            
       })
       .catch((err) => {
