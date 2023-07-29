@@ -17,6 +17,7 @@ import {
 import { AuthService } from "./auth.service";
 import { map, switchMap } from "rxjs/operators";
 import { User } from "../core/models/user.models";
+import { environment } from "src/environments/environment";
 export interface ProfileUser {
   uid: string;
   email?: string;
@@ -102,7 +103,7 @@ export class UserService {
   }
 
   getUserById(uid: string) {
-    return this._http.get<{ user: User }>(`http://127.0.0.1:5001/fvl-app/us-central1/api/users/${uid}`).pipe(map(result => {
+    return this._http.get<{ user: User }>(`${environment.apiUrl}/users/${uid}`).pipe(map(result => {
       return result.user;
     }));
   }

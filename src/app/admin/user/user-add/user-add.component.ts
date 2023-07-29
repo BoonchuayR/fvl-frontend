@@ -57,6 +57,13 @@ export class UserAddComponent implements OnInit {
   formSubmit(){
     const { name, email, password, phone, typeUser} = this.validationform.value;
 
+    let role = "service";
+    if (typeUser === "ฝ่ายบัญชี") {
+      role = "account";
+    } else {
+      role = "sale";
+    }
+    
     const user: User = {
       id: "",
       displayName: email,
@@ -65,7 +72,7 @@ export class UserAddComponent implements OnInit {
       phone: "",
       typeUser: "",
       uid: "",
-      role: "customer"
+      role: role
     }
 
     this.userProfileService.register(user).subscribe((res: any) => {
