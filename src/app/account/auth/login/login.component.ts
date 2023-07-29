@@ -10,7 +10,7 @@ import { CustomerService } from "src/app/service/customer.service";
 import { UserService } from "src/app/service/user.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap";
 import { alertData } from './data';
-import { AlertColor } from "src/app/pages/advanced/notification/notification.model";
+import { AlertColor } from "src/app/pages/advanced/notification/notification.model";;
 
 @Component({
   selector: "app-login",
@@ -101,33 +101,29 @@ export class LoginComponent implements OnInit {
       .login(email, password)
       .then(async (user) => {
         this.incorrectEmailOrPass = false;
-        // Switch route role 
-       
-        // const role = await this.userService.getRole(user.uid)
-        // .then(res => res.json())
-        // .then(function(res) {
-        //   const role = res.role;
-        //   return role;
-        // });
-
-        // console.log("role >>> ", role);
-        
-        // if (role === 'customer') {
-        //   this.router.navigate(["/mobile/profile-view"]) 
-        // } else if (role === 'sale') {
-        //   this.router.navigate(["/ticket-list"]);
-        // } else if (role === 'account') {
-        //   this.router.navigate(["/"]);
-        // } else if (role === 'service') {
-        //   this.router.navigate(["/ticket-list"]);
-        // // } else if (role === 'noRole') {
-        // //   throw new Error('Something bad happened');
-        // }  else {
-        //   this.router.navigate(["/"]);
-        // }
-
-        this.router.navigate(["/"]);
-           
+        this.userService.getUserById(user.uid).subscribe((user:any) => {
+          if(user.email === "sa@mail.com") {
+            this.router.navigate(["/"]);
+          } else {
+            const role = user.role;
+            if (role === 'customer') {
+              this.router.navigate(["/mobile/profile-view"]) 
+            } else if (role === 'sale') {
+              this.router.navigate(["/ticket-list"]);
+            } else if (role === 'account') {
+              this.router.navigate(["/"]);
+            } else if (role === 'service') {
+              this.router.navigate(["/ticket-list"]);
+            } else if (role === 'admin'){
+              this.router.navigate(["/"]);
+            } else {
+              throw new Error('Something bad happened');
+            }
+          }
+        }, err=> {
+          console.log(err);
+          this.incorrectEmailOrPass = true;
+        })        
       })
       .catch((err) => {
         console.log("err: ", err);

@@ -14,6 +14,8 @@ import { AuthService } from "src/app/service/auth.service";
 import { switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { MeterService } from "src/app/service/meter.service";
+import { UserProfileService } from "src/app/core/services/user.service";
+import { User } from "src/app/core/models/user.models";
 
 @Component({
   selector: "app-customer-add",
@@ -55,6 +57,7 @@ export class CustomerAddComponent implements OnInit {
     private customerService: CustomerService,
     private shopService: ShopService,
     private meterService: MeterService,
+    private userProfileService: UserProfileService,
     private router: Router
   ) {
     this.itemShopForm = this.formBuilder.group({
@@ -95,10 +98,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   update(even:any){
-   
-    console.log(even.value);
-    // this.shopService.create(even.value);
-    // this.shopService.add();
+
   }
 
   createMeterOptions() {
@@ -240,12 +240,23 @@ export class CustomerAddComponent implements OnInit {
       boothIds,
     } = this.validationform.value;
 
-    this.authService.register(email, password).subscribe(
-      (creden) => {
-        
+    const user: User = {
+      id: "",
+      displayName: email,
+      email: email,
+      password: password,
+      phone: "",
+      typeUser: "",
+      uid: "",
+      role: "customer"
+    }
+    
+    this.userProfileService.register(user).subscribe(
+      (creden:any) => {
+        console.log("creden >>> ", creden);
         const customer = {
-          uid: creden.user.uid,
-          email: creden.user.email,
+          uid: creden.uid,
+          email: email,
           custCode: custCode,
           custName: custName,
           custPhone: custPhone,
@@ -253,6 +264,7 @@ export class CustomerAddComponent implements OnInit {
           minimumMoney: minimumMoney,
           currentMoney: 0,
         };
+
         console.log(creden);
         // Add customer
         this.addCustomer(customer).subscribe((cust) => {

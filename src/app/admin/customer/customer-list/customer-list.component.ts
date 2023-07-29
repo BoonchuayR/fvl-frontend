@@ -17,6 +17,7 @@ import { CustomerService } from 'src/app/service/customer.service';
 import { ShopService } from 'src/app/service/shop.service';
 import { ElectricityService } from 'src/app/service/electricity.service';
 import { MeterService } from 'src/app/service/meter.service';
+import { UserProfileService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -58,7 +59,8 @@ export class CustomerListComponent implements OnInit {
     public shopService:ShopService,
     public electricity:ElectricityService,
     public meterService:MeterService,
-    public topupService:TopupService) {
+    public topupService:TopupService,
+    private userProfileService: UserProfileService) {
       this.tables$ = service.tables$;
       this.total$ = service.total$;
   }
@@ -114,12 +116,17 @@ export class CustomerListComponent implements OnInit {
           })
           
         })
+
+        // Remove user
+        this.userProfileService.remove(uid).subscribe(result => {});
+        
         this.electricity.findByUID(uid).subscribe(electric=>{
           this.electricdata = electric;
           this.electricdata.filter((edata:any)=>{
             this.electricity.delete(edata.id);
           })
         })
+
         this.shopService.findByuid(uid).subscribe(shop=>{
           this.shopdata = shop;
           this.shopdata.filter((sdata:any)=>{
@@ -134,7 +141,8 @@ export class CustomerListComponent implements OnInit {
             this.shopService.delete(sdata.id);
           })
         })
-        this.topupService.findByuid(uid).subscribe(topup=>{
+
+        this.topupService.findByuid(uid).subscribe(topup => {
           this.topupdata = topup;
           this.topupdata.filter((tdata:any)=>{
             this.topupService.delete(tdata.id);

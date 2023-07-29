@@ -15,10 +15,8 @@ import {
   updateDoc,
 } from "@angular/fire/firestore";
 import { AuthService } from "./auth.service";
-import { switchMap } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
 import { User } from "../core/models/user.models";
-import { user, UserProfile } from "@angular/fire/auth";
-
 export interface ProfileUser {
   uid: string;
   email?: string;
@@ -29,7 +27,6 @@ export interface ProfileUser {
 
 const BASE_API_URL = "https://us-central1-fvl-app.cloudfunctions.net/api";
 const GET_ROLE_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/getRole";
-
 
 @Injectable({
   providedIn: "root",
@@ -102,5 +99,13 @@ export class UserService {
     const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
     const users = await response.json();
     return users.data;
-}
+  }
+
+  getUserById(uid: string) {
+    return this._http.get<{ user: User }>(`http://127.0.0.1:5001/fvl-app/us-central1/api/users/${uid}`).pipe(map(result => {
+      return result.user;
+    }));
+  }
+
+
 }

@@ -33,7 +33,9 @@ export class UserAddComponent implements OnInit {
     private router: Router,
     ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   get name() {
     return this.validationform.get('name');

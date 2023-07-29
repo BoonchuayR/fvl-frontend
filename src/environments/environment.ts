@@ -24,6 +24,7 @@ export const environment = {
     appId: "",
     measurementId: "",
   },
+  apiUrl: "http://127.0.0.1:5001/fvl-app/us-central1/api"
 };
 
 /*
