@@ -37,11 +37,7 @@ export class MeterListComponent implements OnInit {
   constructor(
     private meterService: MeterService,
     private iotService: IotService,
-    private route: ActivatedRoute,
-    public service:MeterServicemeter, 
-    private shopService: ShopService,
-    private customerService: CustomerService
-    ) { 
+    public service:MeterServicemeter    ) { 
       this.tables$ = service.tables$;
       this.total$ = service.total$;
     }
@@ -81,7 +77,6 @@ export class MeterListComponent implements OnInit {
       this.meterService.getAll()
       .subscribe(meters => {
         this.meters = meters;
-        console.log("this.meters >>>>>>> ",this.meters);
         this.service.meters = this.meters;
         // this.meters = this.meters.map((meter: any) => {
 
@@ -162,11 +157,11 @@ export class MeterListComponent implements OnInit {
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.iotService.meterUpdateState(boothId, isChecked ? "1" : "2").subscribe(res => {
+        this.iotService.meterUpdateState(boothId, isChecked ? "1" : "2").subscribe(() => {
           meter.meterState = isChecked ? "1" : "2"
-          this.meterService.update(meter).then(res => {
+          this.meterService.update(meter).then(() => {
             console.log("ตกลง")
-          }).catch(err => {
+          }).catch(() => {
             console.log("error: ", id)
           });
         })
@@ -196,7 +191,7 @@ export class MeterListComponent implements OnInit {
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.meterService.delete(id).then(deletedMeter => {
+        this.meterService.delete(id).then(() => {
           Swal.fire({
             position: 'top-end',
             icon: 'success',

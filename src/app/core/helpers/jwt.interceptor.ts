@@ -23,15 +23,17 @@ export class JwtInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
         if (environment.defaultauth === 'firebase') {
+            // console.log("request url >>> ", request.url);
             // add authorization header with jwt token if available
-            console.log("intercept >>> ")
             let currentUser = this.authenticationService.currentUser();
             if (currentUser && currentUser.stsTokenManager.accessToken) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: `Bearer ${currentUser.stsTokenManager.accessToken}`,
-                    },
-                });
+                if (request.url !== "https://www.k-tech.co.th/foodvilla/meter/api/controller.php") {
+                    request = request.clone({
+                        setHeaders: {
+                            Authorization: `Bearer ${currentUser.stsTokenManager.accessToken}`,
+                        },
+                    });
+                }
             }
         } else {
             // add authorization header with jwt token if available

@@ -16,25 +16,13 @@
         <div class="card card-green-style">
             <div class="p-3 px-4 bg-success">
                 <div class="d-flex align-items-start">
-                    <!-- <div class="align-self-center me-3">
-                    <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
-                  </div> -->
                     <div class="flex-1 align-self-center">
                         <h5 class="title-card font-size-16 mb-0">
                             <a href="#" class="text-reset">รายการมิเตอร์ไฟฟ้า</a>
                         </h5>
-                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
                     </div>
 
                     <div class="button-items">
-                        <!-- <input type="file" (change)="ReadExcel($event)">
-                        <button
-                            hidden
-                            routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded float-right"
-                            (click)="import()">
-                            <i class="bx bx-import"></i> import
-                        </button> -->
                         <button routerLink="/meter-add"
                             routerLinkActive="active"
                             class="btn btn-outline-success btn-rounded
@@ -121,29 +109,27 @@
                                                 <tr>
 
                                                     <th sortableMeter="boothId"
-                                                        (sort)="onSort($event)">Booth
-                                                        ID</th>
-                                                        <th sortableMeter="custName"
-                                                        (sort)="onSort($event)">Cust
-                                                        Name</th>
+                                                        (sort)="onSort($event)">รหัสแผงค้า
+                                                    </th>
+                                                    <th sortableMeter="custName"
+                                                        (sort)="onSort($event)">ชื่อลูกค้า
+                                                    </th>
                                                     <th sortableMeter="shopName"
-                                                        (sort)="onSort($event)">Shop
-                                                        Name</th>
-                                                    
+                                                        (sort)="onSort($event)">ชื่อร้านค้า
+                                                    </th>
                                                     <th sortableMeter="deviceId"
-                                                        (sort)="onSort($event)">Device
-                                                        ID</th>
+                                                        (sort)="onSort($event)">Device ID
+                                                    </th>
                                                     <th
                                                         sortableMeter="deviceZone"
-                                                        (sort)="onSort($event)">Device
-                                                        Zone</th>
+                                                        (sort)="onSort($event)">Device Zone
+                                                    </th>
                                                     <th sortableMeter="serialNo"
-                                                        (sort)="onSort($event)">Serial
-                                                        No.</th>
-                                                    <th
-                                                        sortableMeter="lineVoltage"
-                                                        (sort)="onSort($event)">Line
-                                                        Voltage</th>
+                                                        (sort)="onSort($event)">SerialNo.
+                                                    </th>
+                                                    <th sortableMeter="lineVoltage"
+                                                        (sort)="onSort($event)">Line Voltage
+                                                    </th>
                                                     <th>Meter State</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -152,12 +138,6 @@
                                                 *ngFor="let table of tables$ |
                                             async;let i=index">
                                                 <tr>
-                                                    <!-- <td>
-                                                    <ngb-highlight
-                                                        [result]="table.zone"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td> -->
                                                     <td>
                                                         <ngb-highlight
                                                             [result]="table.boothId"
@@ -182,12 +162,6 @@
                                                             [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
-                                                    <!-- <td>
-                                                    <ngb-highlight
-                                                        [result]="table.contractId"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td> -->
                                                     <td>
                                                         <ngb-highlight
                                                             [result]="table.deviceZone"
@@ -207,9 +181,6 @@
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <!-- <span class="badge rounded-pill bg-success ms-1">{{
-                                    meter.meterState
-                                  }}</span> -->
                                                         <div
                                                             class="form-check
                                                                 form-switch
@@ -237,14 +208,6 @@
                                                                 <i class="bx
                                                                 bxs-show"></i>
                                                             </button>
-                                                            <!-- <button
-                                                                type="button"
-                                                                class="btn btn-action"
-                                                                routerLink="/meter-edit/{{ meter.id }}"
-                                                                routerLinkActive="active"
-                                                                >
-                                                                <i class="bx bxs-pencil"></i>
-                                                                </button> -->
                                                             <button
                                                                 type="button"
                                                                 class="btn
@@ -313,7 +276,6 @@
                             <form class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInputValue"
                                     placeholder="ระบุจำนวนเงิน">
-                                <!-- <label for="floatingInputValue">หัวข้อ</label> -->
                             </form>
                         </div>
                         <div class="button-items text-center mb-1">
@@ -334,8 +296,3 @@
     </ng-template>
 </div>
 <!-- end row -->
-<!--   
-  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
-  <div class="preview-action" [class.show]="show_preview">
-    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
-  </div> -->

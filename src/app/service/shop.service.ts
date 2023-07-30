@@ -17,7 +17,6 @@ import {
 } from "@angular/fire/firestore";
 
  interface Shop {
-  custPhone: any;
   id: string;
   boothCode: string;
   contractNo: string;
@@ -29,9 +28,10 @@ import {
   contractEndDate: string;
   boothIds: [string];
   uid: string;
+  custPhone: string;
 }
 
-@Injectable({
+@Injectable({ 
   providedIn: "root",
 })
 export class ShopService {

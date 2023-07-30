@@ -149,12 +149,12 @@ export class MeterAddComponent implements OnInit {
     }
 
     // Check Duplicate Meter
-    const isDupMeter = await this.meterService.checkDupMeter(boothId)
-    .then(res => res.json())
-    .then(function(res) {
-      return res.isDup;
-    });
-    
+    // const isDupMeter = await this.meterService.checkDupMeter(boothId)
+    // .then(res => res.json())
+    // .then(function(res) {
+    //   return res.isDup;
+    // });
+    const isDupMeter = false;
     if (isDupMeter) {
       Swal.fire({
         position: "top-end",

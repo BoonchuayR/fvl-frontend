@@ -101,9 +101,9 @@ export class MeterService {
     
   }
   
-  findMeterByStoreId(storeId: string) {
+  findMeterByBooothId(boothId: string) {
     
-    const q = query(this.meterCollection, where("storeId", "==", storeId));
+    const q = query(this.meterCollection, where("boothId", "==", boothId));
     
     return collectionData(q, {
       idField: "id",
