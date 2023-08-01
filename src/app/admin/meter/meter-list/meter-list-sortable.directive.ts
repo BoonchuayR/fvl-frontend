@@ -3,7 +3,7 @@ import { Meter } from 'src/app/core/models/meter.model';
 
 
 
-export type SortColumn = keyof  Meter| '';
+export type SortColumn = keyof  Meter | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

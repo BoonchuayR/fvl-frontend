@@ -75,32 +75,6 @@ export class CustomerAddComponent implements OnInit {
 
       this.addShopCardItem();
     });
-
-    // Get meters
-    // this.meterService.getAll().subscribe((meters) => {
-    //   this.meters = meters;
-
-    //   meters.forEach((meter) => this.boothOptions.push(meter.boothId));
-
-    //   const boothIds: string[] = [];
-
-    //   this.shopService.getAll().subscribe((shops) => {
-    //     shops.forEach((shop) => {
-    //       boothIds.push(...shop.boothIds);
-    //     });
-
-    //     this.boothOptions = this.boothOptions.filter((option: string) => {
-    //       return !boothIds.includes(option);
-    //     });
-
-        
-    //   });
-      
-    // });
-
-    // this.validationform.get("email")?.setValue("");
-
-    
   }
 
   checkboothcode(even: any) {
@@ -110,51 +84,6 @@ export class CustomerAddComponent implements OnInit {
   update(even:any){
 
   }
-
-  // createMeterOptions() {
-  //   const sortedMeters = this.meters
-  //     .sort((a: any, b: any) => {
-  //       if (a.boothId < b.boothId) {
-  //         return -1;
-  //       } else {
-  //         return 1;
-  //       }
-  //     })
-  //     .filter((m: any) => {
-  //       if (m.boothId) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-
-  //   for (let i = 0; i < sortedMeters.length; i++) {
-  //     if (
-  //       sortedMeters[i + 1] &&
-  //       sortedMeters[i].deviceZone === sortedMeters[i + 1].deviceZone
-  //     ) {
-  //       continue;
-  //     }
-
-  //     const data = {
-  //       label: "",
-  //       data: { name: sortedMeters[i].deviceZone },
-  //       options: sortedMeters
-  //         .filter((m: any) => {
-  //           return m.deviceZone === sortedMeters[i].deviceZone;
-  //         })
-  //         .map((m: any) => {
-  //           return {
-  //             value: m.boothId,
-  //             label: m.boothId,
-  //             data: { name: m.deviceZone },
-  //             templateId: "template1",
-  //             id: m.boothId,
-  //           };
-  //         }),
-  //     };
-  //     this.meterOptions.push(data);
-  //   }
-  // }
 
   createBoothOptions() {
     const sortedShop = this.meters.sort((a: Meter, b: Meter) => {

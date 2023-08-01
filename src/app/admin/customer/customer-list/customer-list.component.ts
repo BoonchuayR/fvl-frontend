@@ -127,7 +127,7 @@ export class CustomerListComponent implements OnInit {
           })
         })
 
-        this.shopService.findByuid(uid).subscribe(shop=>{
+        this.shopService.findByUID(uid).subscribe(shop=>{
           this.shopdata = shop;
           this.shopdata.filter((sdata:any)=>{
             this.meterService.getAll().subscribe(meter=>{
