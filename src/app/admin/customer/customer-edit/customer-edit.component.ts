@@ -101,7 +101,7 @@ export class CustomerEditComponent implements OnInit {
           "items"
         ) as FormArray;
         shopItems.value.forEach((shop: any) => {
-          console.log("shop => ", shop);
+          // console.log("shop => ", shop);
           this.shopService
             .update(shop)
             .then((res) => {

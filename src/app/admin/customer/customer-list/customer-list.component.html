@@ -1,4 +1,7 @@
-<script src="https://kit.fontawesome.com/7304180f68.js" crossorigin="anonymous"></script>
+<script
+  src="https://kit.fontawesome.com/7304180f68.js"
+  crossorigin="anonymous"
+></script>
 <!-- start page title -->
 <div class="row mb-3">
   <div class="d-flex align-items-start">
@@ -31,7 +34,8 @@
             <button
               routerLink="/customer-add"
               routerLinkActive="active"
-              class="btn btn-outline-success btn-rounded float-right">
+              class="btn btn-outline-success btn-rounded float-right"
+            >
               <i class="bx bx-user-plus"></i> เพิ่มลูกค้า
             </button>
           </div>
@@ -49,69 +53,103 @@
                       <div class="dataTables_length" id="tickets-table_length">
                         <label class="d-inline-flex align-items-center">
                           Show
-                          <select name="tickets-table_length"
-                            aria-controls="tickets-table" name="pageSize"
-                            class="form-control
-                            form-control-sm mx-2"[(ngModel)]="service.pageSize">
+                          <select
+                            name="tickets-table_length"
+                            aria-controls="tickets-table"
+                            name="pageSize"
+                            class="form-control form-control-sm mx-2"
+                            [(ngModel)]="service.pageSize"
+                          >
                             <option [ngValue]="10">10</option>
                             <option [ngValue]="25">25</option>
                             <option [ngValue]="50">50</option>
                             <option [ngValue]="100">100</option>
-                          </select> entries
+                          </select>
+                          entries
                         </label>
                       </div>
                     </div>
                     <!-- Search -->
                     <div class="col-sm-12 col-md-6">
-                      <div id="tickets-table_filter" class="dataTables_filter
-                        text-md-end"><label
-                          class="d-inline-flex align-items-center">Search:
-                          <input type="text" name="searchTerm"
+                      <div
+                        id="tickets-table_filter"
+                        class="dataTables_filter text-md-end"
+                      >
+                        <label class="d-inline-flex align-items-center"
+                          >Search:
+                          <input
+                            type="text"
+                            name="searchTerm"
                             class="form-control form-control-sm ms-2"
                             aria-controls="tickets-table"
-                            [(ngModel)]="service.searchTerm">
+                            [(ngModel)]="service.searchTerm"
+                          />
                         </label>
                       </div>
                     </div>
                     <!-- End search -->
                   </div>
-                  <table id="basic-datatable"
-                  class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                  <table
+                    id="basic-datatable"
+                    class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline"
+                  >
                     <thead>
                       <tr>
-                        <th sortableCustomer="custCode" (sort)="onSort($event)">รหัสสมาชิก</th>
-                        <th sortableCustomer="custName" (sort)="onSort($event)">ชื่อลูกค้า</th>
-                        <th sortableCustomer="email" (sort)="onSort($event)">อีเมล</th>
-                        <th sortableCustomer="custPhone"
-                          (sort)="onSort($event)">เบอร์โทรศัพท์</th>
+                        <th sortableCustomer="custCode" (sort)="onSort($event)">
+                          รหัสสมาชิก
+                        </th>
+                        <th sortableCustomer="custName" (sort)="onSort($event)">
+                          ชื่อลูกค้า
+                        </th>
+                        <th sortableCustomer="email" (sort)="onSort($event)">
+                          อีเมล
+                        </th>
+                        <th
+                          sortableCustomer="custPhone"
+                          (sort)="onSort($event)"
+                        >
+                          เบอร์โทรศัพท์
+                        </th>
                         <!-- <th sortableCustomer="custStartDate"
                           (sort)="onSort($event)">วันที่สมัคร</th> -->
-                        <th sortableCustomer="currentMoney"
-                          (sort)="onSort($event)">ยอดเงินปัจจุบัน</th>
+                        <th
+                          sortableCustomer="currentMoney"
+                          (sort)="onSort($event)"
+                        >
+                          ยอดเงินปัจจุบัน
+                        </th>
                         <th>สถานะ</th>
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                    <tbody *ngFor="let table of tables$ | async; let i = index">
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.custCode"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.custCode"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.custName"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.custName"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.email"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.email"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.custPhone"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.custPhone"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <!-- <td>
@@ -120,27 +158,34 @@
                           </ngb-highlight>
                         </td> -->
                         <td class="right">
-                          {{table.currentMoney | number:'0.2'}}
+                          {{ table.currentMoney | number : "0.2" }}
                         </td>
                         <td>
                           <span class="badge badge-soft-success ms-1"></span>
                         </td>
                         <td>
                           <div class="button-items">
-                            <button *ngIf="0"
+                            <button
+                              *ngIf="0"
                               type="button"
                               class="btn btn-action"
                               routerLink="/customer-view/{{ table.uid }}"
-                              routerLinkActive="active">
+                              routerLinkActive="active"
+                            >
                               <i class="bx bxs-show"></i>
                             </button>
-                            <button type="button"
-                              (click)="topupModal(topup, table)">เติมเงิน</button>
+                            <button
+                              type="button"
+                              (click)="topupModal(topup, table)"
+                            >
+                              เติมเงิน
+                            </button>
                             <button
                               type="button"
                               class="btn btn-action"
                               routerLink="/customer-edit/{{ table.uid }}"
-                              routerLinkActive="active">
+                              routerLinkActive="active"
+                            >
                               <i class="bx bxs-pencil"></i>
                             </button>
 
@@ -148,10 +193,9 @@
                               type="button"
                               class="btn btn-action"
                               id="sa-warning"
-                              (click)="confirm(table.uid)">
-                              <i
-                                class="bx bxs-trash"
-                                ></i>
+                              (click)="confirm(table.uid)"
+                            >
+                              <i class="bx bxs-trash"></i>
                             </button>
                           </div>
                         </td>
@@ -159,24 +203,29 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="row justify-content-md-between align-items-md-center
-                  mt-2">
+                <div
+                  class="row justify-content-md-between align-items-md-center mt-2"
+                >
                   <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
                       Showing
-                      {{service.startIndex}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
+                      {{ service.startIndex }} to {{ service.endIndex }} of
+                      {{ service.totalRecords }}
                       entries
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination
+                        [collectionSize]="(total$ | async)!"
                         [(page)]="service.page"
-                        [pageSize]="service.pageSize">
+                        [pageSize]="service.pageSize"
+                      >
                       </ngb-pagination>
                     </div>
                   </div>
@@ -197,23 +246,29 @@
   <ng-template #topup let-modal>
     <div class="modal-header">
       <h5 class="modal-title mt-0">เติมเงิน</h5>
-      <button type="button" class="btn-close"
-        (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+      <button
+        type="button"
+        class="btn-close"
+        (click)="modal.dismiss('Cross click')"
+        aria-hidden="true"
+      ></button>
     </div>
     <div class="modal-body">
       <div>
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <p class="card-title-desc">คุณต้องการเติมเงินให้ลูกค้าจำนวน
-              </p>
+              <p class="card-title-desc">คุณต้องการเติมเงินให้ลูกค้าจำนวน</p>
               <form class="form-floating mb-3">
-                <input class="form-control form-control-lg"
-                  type="number" value="0"
+                <input
+                  class="form-control form-control-lg"
+                  type="number"
+                  value="0"
                   placeholder="จำนวนเงินที่รับชำระ"
                   id="example-number-input"
                   name="topupAmt"
-                  [(ngModel)]="topupAmt">
+                  [(ngModel)]="topupAmt"
+                />
                 <!-- <label for="floatingInputValue">หัวข้อ</label> -->
               </form>
             </div>
@@ -222,25 +277,35 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-light"
-        (click)="modal.close('Close click')">ยกเลิก</button>
-      <button type="button" class="btn btn-primary"
-        (click)="alertsweetalert(alert)" (click)="modal.close('Close click')">เติมเงิน</button>
+      <button
+        type="button"
+        class="btn btn-light"
+        (click)="modal.close('Close click')"
+      >
+        ยกเลิก
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="alertsweetalert(alert)"
+        (click)="modal.close('Close click')"
+      >
+        เติมเงิน
+      </button>
     </div>
   </ng-template>
 
   <ng-template #alert let-sweetalert>
     <div class="sweetalert-header">
       <h5 class="sweetalert-title mt-0"></h5>
-
     </div>
     <div class="sweetalert-body">
       <div>
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <p class="card-title-desc text-center">คุณแน่ใจในการยืนยันการเติมเงินใช่ไหม
-                ?
+              <p class="card-title-desc text-center">
+                คุณแน่ใจในการยืนยันการเติมเงินใช่ไหม ?
               </p>
             </div>
           </div>
@@ -248,11 +313,28 @@
       </div>
     </div>
     <div class="sweetalert-footer">
-      <button type="button" class="btn btn-light center"
-        (click)="sweetalert.close('Close click')">ยกเลิก</button>
-      <button type="button" class="btn btn-primary center"
-        (click)="updatecurrentMoney(topupAmt)" (click)="sweetalert.close('Close
-        click')" type="submit"
-        routerLinkActive="active">ยืนยัน</button>
+      <button
+        type="button"
+        class="btn btn-light center"
+        (click)="sweetalert.close('Close click')"
+      >
+        ยกเลิก
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary center"
+        (click)="updatecurrentMoney(topupAmt)"
+        (click)="
+          sweetalert.close(
+            'Close
+        click'
+          )
+        "
+        type="submit"
+        routerLinkActive="active"
+      >
+        ยืนยัน
+      </button>
     </div>
   </ng-template>
+</div>

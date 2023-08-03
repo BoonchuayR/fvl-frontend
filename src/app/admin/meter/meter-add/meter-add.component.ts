@@ -73,7 +73,7 @@ export class MeterAddComponent implements OnInit {
     // Set meter info when booth id change
     this.validationform.get("boothId")?.valueChanges.subscribe((value) => {
       this.iotService.meterSelectByBoothId(value).subscribe((res: any) => {
-        console.log("res >>> ", res);
+        // console.log("res >>> ", res);
         const meter = res.DATA_RESPONSE[0];
         if (meter) {
           this.validationform.get("deviceId")?.setValue(meter.DEVICE_ID);

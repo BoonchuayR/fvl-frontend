@@ -1,4 +1,10 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
 import { emailSentBarChart, monthlyEarningChart } from "../data";
 import { ChartType } from "../profile.model";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -18,8 +24,16 @@ import { Router } from "@angular/router";
 import { ElectricityService } from "src/app/service/electricity.service";
 import { ticketData } from "src/app/admin/ticket/ticket-list/ticket-data";
 import { Observable } from "rxjs/internal/Observable";
-import { profileElectricData, profileMeterData, profileShopData, profileTopupData } from "./profile-view-models";
-import { ProfileViewShopSortableDirective, SortEventShop } from "./profile-view-shop-sortable.directive";
+import {
+  profileElectricData,
+  profileMeterData,
+  profileShopData,
+  profileTopupData,
+} from "./profile-view-models";
+import {
+  ProfileViewShopSortableDirective,
+  SortEventShop,
+} from "./profile-view-shop-sortable.directive";
 import { ProfileShopAdvancedServiceMD } from "./profile-shop-datatable.service";
 import { ProfileViewMeterSortableDirective } from "./profile-view-meter-sortable.directive";
 import { ProfileMeterAdvancedServiceMD } from "./profile-meter-datatable.service";
@@ -27,6 +41,7 @@ import { ProfileTopupAdvancedServiceMD } from "./profile-topup-datatable.service
 import { ProfileViewTopupSortableDirective } from "./profile-view-topup-sortable.directive";
 import { ProfileViewElectricSortableDirective } from "./profile-view-electric-sortable.directive";
 import { ProfileElectricAdvancedServiceMD } from "./profile-electric-datatable.service";
+import { Electricity } from "src/app/core/models/electricity.model";
 
 @Component({
   selector: "app-profile-view",
@@ -34,10 +49,9 @@ import { ProfileElectricAdvancedServiceMD } from "./profile-electric-datatable.s
   styleUrls: ["./profile-view.component.scss"],
 })
 export class ProfileViewComponent implements OnInit {
-
   tableData!: profileShopData[];
   hideme: boolean[] = [];
-    tables$: Observable<profileShopData[]>;
+  tables$: Observable<profileShopData[]>;
   total$: Observable<number>;
   @ViewChildren(ProfileViewShopSortableDirective)
   headers!: QueryList<ProfileViewShopSortableDirective>;
@@ -48,14 +62,14 @@ export class ProfileViewComponent implements OnInit {
   totalMeter$: Observable<number>;
   @ViewChildren(ProfileViewMeterSortableDirective)
   headersMeter!: QueryList<ProfileViewMeterSortableDirective>;
-  
+
   tableDataTopup!: profileTopupData[];
   hidemeTopup: boolean[] = [];
   tablesTopup$: Observable<profileTopupData[]>;
   totalTopup$: Observable<number>;
   @ViewChildren(ProfileViewTopupSortableDirective)
   headersTopup!: QueryList<ProfileViewTopupSortableDirective>;
- 
+
   tableDataElectric!: profileElectricData[];
   hidemeElectric: boolean[] = [];
   tablesElectric$: Observable<profileElectricData[]>;
@@ -77,7 +91,7 @@ export class ProfileViewComponent implements OnInit {
   topUpAndChargeBarChart!: ChartType;
 
   topupMoney!: any;
- 
+
   topup: any;
   topups!: any;
 
@@ -90,8 +104,10 @@ export class ProfileViewComponent implements OnInit {
   electricityList: any = [];
 
   printTopup = {};
-  meterchart:any=[];
-  currentchart:any=[];
+  meterchart: any = [];
+  currentchart: any = [];
+
+  balancAmtItems: any[] = [];
 
   @ViewChild("content") content: any;
 
@@ -108,7 +124,7 @@ export class ProfileViewComponent implements OnInit {
     public service: ProfileShopAdvancedServiceMD,
     public services: ProfileMeterAdvancedServiceMD,
     public serviceTopup: ProfileTopupAdvancedServiceMD,
-    public serviceElectric : ProfileElectricAdvancedServiceMD,
+    public serviceElectric: ProfileElectricAdvancedServiceMD
   ) {
     this.tables$ = service.tables$;
     this.total$ = service.total$;
@@ -122,17 +138,17 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.meterState = localStorage.getItem("meterState");
+
     this.customer = {
       currentMoney: 0,
     };
- 
+
     this.topupMoney = 300;
 
     this.currentUser = this.authService.currentUser();
 
     // Get user data
-    this.userService.getUser(this.currentUser.uid).subscribe((user) => {
-    });
+    this.userService.getUser(this.currentUser.uid).subscribe((user) => {});
 
     // Get Balance Money
     this.customerService
@@ -140,35 +156,44 @@ export class ProfileViewComponent implements OnInit {
       .subscribe((customer) => {
         this.customer = customer;
       });
-      
-    
-    this.topUpAndChargeBarChart = emailSentBarChart;
 
     // Get topup transactions
     this.topupService.getAll().subscribe((res) => {
-      this.topups = res.filter(r => {return r.uid === this.currentUser.uid});
-      this.topups.sort((a: { createdAt: number; },b: { createdAt: number; })=>{
-        if(a.createdAt > b.createdAt){
-          return -1
-        }
-        return 1
+      this.topups = res.filter((r) => {
+        return r.uid === this.currentUser.uid;
       });
-      console.log("this.topups >>> ", this.topups)
+      this.topups.sort((a: { createdAt: number }, b: { createdAt: number }) => {
+        if (a.createdAt > b.createdAt) {
+          return 1;
+        }
+        return 1;
+      });
+      // console.log("this.topups >>> ", this.topups)
       this.serviceTopup.profileTopups = this.topups;
-      this.customerService.getCustomer(this.currentUser.uid).subscribe((meter)=>{
-        this.meterchart = meter;
-        // console.log(this.meterchart);
-        this.buildBarChart();
-      })
-      
+      this.customerService
+        .getCustomer(this.currentUser.uid)
+        .subscribe((meter) => {
+          this.meterchart = meter;
+          // console.log(this.meterchart);
+        });
     });
 
+    this.electricityService.getAll().subscribe((items) => {
+      const sortedItems = items.sort((a, b) => {
+        if (a.date! > b.date!) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+      const last10Items = sortedItems.slice(0, 5);
+      this.balancAmtItems = last10Items.reverse();
+      this.buildBarChart();
+    });
 
-    
     // Get shops of customer
     this.shopService.getAll().subscribe((shops) => {
       this.meterService.getAll().subscribe((allMeters) => {
-
         this.shops = shops.filter((s: any) => {
           return s.uid === this.currentUser.uid;
         });
@@ -185,18 +210,9 @@ export class ProfileViewComponent implements OnInit {
               const filteredMeters: any = allMeters.filter((am) => {
                 return am.boothId === shopMeters[i][j];
               });
-  
+
               this.meters.push(...filteredMeters);
-              // console.log(this.meters)
-              this.services.profileMeters =this.meters
-              // console.log("shop >>>> ",filteredMeters);
-              // this.electricityList = [];
-  
-              // for(let k = 0; k < filteredMeters.length; k++) {
-              //     this.electricityService.findByStoreId(filteredMeters[k].storeId).subscribe(eltList => {
-              //       this.electricityList.push(...eltList);
-              //     })
-              // }
+              this.services.profileMeters = this.meters;
             }
           }
         }
@@ -204,17 +220,18 @@ export class ProfileViewComponent implements OnInit {
     });
 
     // Get electricity of customer
-      this.electricityService.findByUID(this.currentUser.uid).subscribe(eltList => {
-      this.electricityList = eltList.sort((a, b) => {
-        if (a.date! > b.date!) {
-          return -1;
-        }
-        return 1;
+    this.electricityService
+      .findByUID(this.currentUser.uid)
+      .subscribe((eltList) => {
+        this.electricityList = eltList.sort((a, b) => {
+          if (a.date! > b.date!) {
+            return -1;
+          }
+          return 1;
+        });
+        this.serviceElectric.profileElectrics = this.electricityList;
+        console.log("electricity == ", this.electricityList);
       });
-      this.serviceElectric.profileElectrics = this.electricityList;
-      console.log("electricity == ",this.electricityList);
-    });
-    // console.log("electricity == ",this.currentUser);
 
     //BreadCrumb
     this.breadCrumbItems = [
@@ -227,186 +244,120 @@ export class ProfileViewComponent implements OnInit {
      */
     this.fetchData();
   }
+
   onSort({ column, direction }: SortEventShop) {
     // resetting other headers
-    this.headers.forEach(header => {
+    this.headers.forEach((header) => {
       if (header.sortableShop !== column) {
-        header.direction = '';
+        header.direction = "";
       }
     });
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
   }
+
   buildBarChart() {
 
-    const topUpMonths = [
-      {
-        month: "JAN", 
-        topUp: 0
-      },
-      {
-        month: "FEB",
-        topUp: 0
-      },
-      {
-        month: "MAR",
-        topUp: 0
-      },
-      {
-        month: "APR",
-        topUp: 0
-      },
-      {
-        month: "MAY",
-        topUp: 0
-      },
-      {
-        month: "JUN",
-        topUp: 0
-      },
-      {
-        month: "JUL",
-        topUp: 0
-      }, 
-      {
-        month: "AUG",
-        topUp: 0
-      },
-      {
-        month: "SEP",
-        topUp: 0
-      },
-      {
-        month: "OCT",
-        topUp: 0
-      },
-      {
-        month: "NOV",
-        topUp: 0
-      },
-      {
-        month: "DEC",
-        topUp: 0
-      }
-    ]
-      
-    for (let i = 0 ; i < this.topups.length ; i++) {
-      const createdAt = this.topups[i].createdAt;
-      if (moment(createdAt, "YYYY-MM-DD").month() === 0) {
-        topUpMonths[0].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 1) {
-        topUpMonths[1].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 2) {
-        topUpMonths[2].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 3) {
-        topUpMonths[3].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 4) {
-        topUpMonths[4].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 5) {
-        topUpMonths[5].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 6) {
-        topUpMonths[6].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 7) {
-        topUpMonths[7].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 8) {
-        topUpMonths[8].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 9) {
-        topUpMonths[9].topUp += +this.topups[i].topupMoney
-      } else if (moment(createdAt, "YYYY-MM-DD").month() === 10) {
-        topUpMonths[10].topUp += +this.topups[i].topupMoney
-      } else{
-        topUpMonths[11].topUp += +this.topups[i].topupMoney
-      }
-    }
-    
-    const filteredTopUpMonth = topUpMonths.filter(topUp => {return topUp.topUp > 0})
-    const series = [
-      {
-        name: 'ยอดเงินคงเหลือ',
-        type: 'column',
-        data: [this.meterchart.currentMoney]
-        // data: [10,20]
-      },
-      {
-        name: 'เติมเงิน',
-        type: 'column',
-        data: filteredTopUpMonth.map(t => {return t.topUp})
-    }
-    ]
-
-    const labels = filteredTopUpMonth.map(t => {return t.month})
-    console.log(labels);
-    this.topUpAndChargeBarChart  = {
+    // console.log(labels);
+    this.topUpAndChargeBarChart = {
       chart: {
-          height: 338,
-          type: 'line',
-          stacked: false,
-          offsetY: -5,
-          toolbar: {
-              show: false
-          }
+        height: 350,
+        type: "bar",
+        toolbar: {
+          show: false,
+        },
       },
-      stroke: {
-          width: [0, 0, 0, 1],
-          curve: 'smooth'
-      },
+      colors: ["#f1b44c"],
       plotOptions: {
-          bar: {
-              columnWidth: '40%'
-          }
+        bar: {
+          dataLabels: {
+            position: "top", // top, center, bottom
+          },
+        },
       },
-      colors: ['#2cb57e', '#f1b44c'],
-      series: series,
-      fill: {
-          opacity: [0.85, 1, 0.25, 1],
-          gradient: {
-              inverseColors: false,
-              shade: 'light',
-              type: "vertical",
-              opacityFrom: 0.85,
-              opacityTo: 0.55,
-              stops: [0, 100, 100, 100]
-          }
+      dataLabels: {
+        enabled: true,
+        formatter: (val: string) => {
+          return val;
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"],
+        },
       },
-      labels: [labels],
-      markers: {
-          size: 0
-      },
-  
+      series: [
+        {
+          name: "ยอดคงเหลือ",
+          data: this.balancAmtItems.map((i:Electricity) => Math.round(i.balanceAmt! * 100) / 100),
+        },
+      ],
       xaxis: {
-          type: "string"
+        categories: this.balancAmtItems.map((i:Electricity) => i.date?.substring(0,10)),
+        position: "bottom",
+        labels: {
+          offsetY: -5,
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        crosshairs: {
+          fill: {
+            type: "gradient",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5,
+            },
+          },
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35,
+        },
+      },
+      fill: {
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100],
+        },
       },
       yaxis: {
-          title: {
-              text: 'ยอดเงินคงเหลือ',
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: (val: string) => {
+            return val;
           },
+        },
       },
-      tooltip: {
-          shared: true,
-          intersect: false,
-          y: {
-              formatter: function (y: any) {
-                  if (typeof y !== "undefined") {
-                      return y.toFixed(0) + " points";
-                  }
-                  return y;
-  
-              }
-          }
-      },
-      grid: {
-          borderColor: '#f1f1f1',
-          padding: {
-              bottom: 15
-          }
-      }
-  };
+      // title: {
+      //   text: "ยอดเงินคงเหลือรายวัน",
+      //   floating: true,
+      //   offsetY: 320,
+      //   align: "center",
+      //   style: {
+      //     color: "#444",
+      //   },
+      // },
+    };
   }
-  // ngAfterViewInit() {
-  //   setTimeout(() => {
-  //     this.openModal();
-  //   }, 2000);
-  // }
 
   /**
    * Fetches the data
@@ -514,41 +465,44 @@ export class ProfileViewComponent implements OnInit {
   changMeterState(event: any, storeId: any, id: any, meter: any) {
     const isChecked = event.target.checked;
     Swal.fire({
-      title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
+      title: `${isChecked ? "ยืนยันการเปิดมิเตอร์" : "ยืนยันการปิดมิเตอร์"}`,
       text: "คุณต้องการลบข้อมูลมิเตอร์นี้ใช่หรือไม่?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'ใช่, ต้องการ!',
-      cancelButtonText: 'ไม่, ยกเลิก!',
+      confirmButtonColor: "#34c38f",
+      cancelButtonColor: "#f46a6a",
+      confirmButtonText: "ใช่, ต้องการ!",
+      cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
       if (result.value) {
-        this.iotService.meterUpdateState(storeId, isChecked ? "1" : "2").subscribe(res => {
-          meter.meterState = isChecked ? "1" : "2"
-          this.meterService.update(meter).then(res => {
-            window.location.reload();
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: `${isChecked ? "เปิดมิเตอร์สำเร็จ":"ปิดมิเตอร์สำเร็จ"}`,
-              showConfirmButton: false,
-              timer: 3000
-            })
-          }).catch(err => {
-            console.log("error: ", id)
+        this.iotService
+          .meterUpdateState(storeId, isChecked ? "1" : "2")
+          .subscribe((res) => {
+            meter.meterState = isChecked ? "1" : "2";
+            this.meterService
+              .update(meter)
+              .then((res) => {
+                window.location.reload();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `${
+                    isChecked ? "เปิดมิเตอร์สำเร็จ" : "ปิดมิเตอร์สำเร็จ"
+                  }`,
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+              })
+              .catch((err) => {
+                console.log("error: ", id);
+              });
           });
-        })
       }
     });
   }
 
   setPrintTopup(topup: any) {
-    this.printTopup = topup
+    this.printTopup = topup;
   }
 
-  // printPage() {
-  //   window.print();
-  // }
-  
 }

@@ -46,7 +46,7 @@ export class IotService {
       BOOTH_ID: [bootId],
     };
 
-    console.log("bodyReq: ", bodyReq)
+    // console.log("bodyReq: ", bodyReq)
 
     return this.http.post(BASE_API, bodyReq);
   }

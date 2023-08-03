@@ -50,7 +50,7 @@ function sort(tables: profileElectricData[], column: SortColumnElectric, directi
  * @param term Search the value
  */
 function matches(table: profileElectricData, term: string, pipe: PipeTransform) {
-    return table.storeId.includes(term)
+    return table.boothId.includes(term)
     || table.date.includes(term)
     || table.calculateUnit.toLowerCase().includes(term)
     || table.charge.toLowerCase().includes(term)

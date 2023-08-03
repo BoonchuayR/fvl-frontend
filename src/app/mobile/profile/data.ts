@@ -2,77 +2,115 @@ import { ChartType } from '../profile/profile.model';
 
 const emailSentBarChart: ChartType = {
     chart: {
-        height: 338,
-        type: 'line',
-        stacked: false,
-        offsetY: -5,
-        toolbar: {
-            show: false
-        }
+      height: 350,
+      type: "bar",
+      toolbar: {
+        show: false,
+      },
     },
-    stroke: {
-        width: [0, 0, 0, 1],
-        curve: 'smooth'
-    },
+    colors: ["#f1b44c"],
     plotOptions: {
-        bar: {
-            columnWidth: '40%'
-        }
+      bar: {
+        dataLabels: {
+          position: "top", // top, center, bottom
+        },
+      },
     },
-    colors: ['#2cb57e', '#f1b44c'],
-    series: [{
-        name: 'ค่าไฟ',
-        type: 'column',
-        data: [23, 11, 22, 27, 13, 22]
-    }, {
-        name: 'เติมเงิน',
-        type: 'column',
-        data: [19, 8, 26, 21, 18, 36]
-    }],
-    fill: {
-        opacity: [0.85, 1, 0.25, 1],
-        gradient: {
-            inverseColors: false,
-            shade: 'light',
-            type: "vertical",
-            opacityFrom: 0.85,
-            opacityTo: 0.55,
-            stops: [0, 100, 100, 100]
-        }
+    dataLabels: {
+      enabled: true,
+      formatter: (val: string) => {
+        return val + "%";
+      },
+      offsetY: -20,
+      style: {
+        fontSize: "12px",
+        colors: ["#304758"],
+      },
     },
-    labels: ['01/01/2022', '02/01/2022', '03/01/2022', '04/01/2022', '05/01/2022', '06/01/2022'],
-    markers: {
-        size: 0
-    },
-
+    series: [
+      {
+        name: "Inflation",
+        data: [2.5, 3.2, 5.0, 10.1, 4.2, 3.8, 3, 2.4, 4.0, 1.2, 3.5, 0.8],
+      },
+    ],
     xaxis: {
-        type: "datetime"
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+      position: "bottom",
+      labels: {
+        offsetY: -18,
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      crosshairs: {
+        fill: {
+          type: "gradient",
+          gradient: {
+            colorFrom: "#D8E3F0",
+            colorTo: "#BED1E6",
+            stops: [0, 100],
+            opacityFrom: 0.4,
+            opacityTo: 0.5,
+          },
+        },
+      },
+      tooltip: {
+        enabled: true,
+        offsetY: -35,
+      },
+    },
+    fill: {
+      gradient: {
+        shade: "light",
+        type: "horizontal",
+        shadeIntensity: 0.25,
+        gradientToColors: undefined,
+        inverseColors: true,
+        opacityFrom: 1,
+        opacityTo: 1,
+        stops: [50, 0, 100, 100],
+      },
     },
     yaxis: {
-        title: {
-            text: 'จำนวนเงิน',
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+        formatter: (val: string) => {
+          return val + "%";
         },
+      },
     },
-    tooltip: {
-        shared: true,
-        intersect: false,
-        y: {
-            formatter: function (y: any) {
-                if (typeof y !== "undefined") {
-                    return y.toFixed(0) + " points";
-                }
-                return y;
-
-            }
-        }
+    title: {
+      text: "ยอดเงินคงเหลือรายวัน",
+      floating: true,
+      offsetY: 320,
+      align: "center",
+      style: {
+        color: "#444",
+      },
     },
-    grid: {
-        borderColor: '#f1f1f1',
-        padding: {
-            bottom: 15
-        }
-    }
-};
+  };
 
 const monthlyEarningChart: ChartType = {
     chart: {

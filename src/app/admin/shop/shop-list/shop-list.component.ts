@@ -36,7 +36,7 @@ export class ShopListComponent implements OnInit {
 
   ngOnInit(): void {
     this.shopService.getAll().subscribe(shops => {
-      console.log("shops >>> ", shops);
+      // console.log("shops >>> ", shops);
       this.shops = shops;
       this.service.shops = this.shops;
     })

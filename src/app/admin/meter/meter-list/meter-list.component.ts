@@ -51,7 +51,7 @@ export class MeterListComponent implements OnInit {
       const list = data.split('\n');
       list.forEach((e: any)=>{
         this.importdata.push(e);
-        console.log("importdata",this.importdata);
+        // console.log("importdata",this.importdata);
       })
     })
   }
@@ -68,7 +68,7 @@ export class MeterListComponent implements OnInit {
       var workBook = XLSX.read(fileReader.result,{type:'binary'});
       var sheetNames = workBook.SheetNames;
       this.ExcelDATA = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
-      console.log("Excel DATA >>> ",this.ExcelDATA);
+      // console.log("Excel DATA >>> ",this.ExcelDATA);
     }
   }
 
@@ -127,7 +127,7 @@ export class MeterListComponent implements OnInit {
 
         // });
         // console.log("meterstate >>> ", this.meterstate);
-        console.log(" this.meters >>> ", meters);
+        // console.log(" this.meters >>> ", meters);
       })
     }
 
@@ -160,7 +160,7 @@ export class MeterListComponent implements OnInit {
         this.iotService.meterUpdateState(boothId, isChecked ? "1" : "2").subscribe(() => {
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(() => {
-            console.log("ตกลง")
+            // console.log("ตกลง")
           }).catch(() => {
             console.log("error: ", id)
           });
@@ -173,7 +173,7 @@ export class MeterListComponent implements OnInit {
           timer: 3000
         })
       }else if (!result.isConfirmed) {
-      console.log("ยกเลิก")
+      // console.log("ยกเลิก")
       window.location.reload();
       }
     });
@@ -205,7 +205,7 @@ export class MeterListComponent implements OnInit {
   }
 
   import() {
-    console.log("import >>>")
+    // console.log("import >>>")
     
     const booth_list = [
       "A001",
@@ -627,9 +627,9 @@ export class MeterListComponent implements OnInit {
     ];
 
     for( let i = 0; i < booth_list.length; i++) {
-      console.log("booth_id: ", booth_list[i])
+      // console.log("booth_id: ", booth_list[i])
       this.iotService.meterSelectByBoothId(booth_list[i]).subscribe((iotMeter: any) => {
-        console.log("iotMeter: ", iotMeter);
+        // console.log("iotMeter: ", iotMeter);
         const meter: Meter = {
           id: "",
           boothId: iotMeter.DATA_RESPONSE[0].BOOTH_ID,
@@ -654,7 +654,7 @@ export class MeterListComponent implements OnInit {
           lineActiveEnergy: ''
         }
         this.meterService.create(meter).then(res => {
-          console.log("create meter result: ", res);
+          // console.log("create meter result: ", res);
         });
       });
     }

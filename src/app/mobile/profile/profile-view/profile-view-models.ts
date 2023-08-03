@@ -29,7 +29,7 @@ export interface profileTopupData{
 
 
 export interface profileElectricData{
-    storeId:string;
+    boothId:string;
     date:string;
     calculateUnit:string;
     charge:string;

@@ -10,11 +10,11 @@
           <div class="dropdown float-end" ngbDropdown>
             <a
               class="text-body dropdown-toggle font-size-18"
-
               role="button"
               data-bs-toggle="dropdown"
               aria-haspopup="true"
-              ngbDropdownToggle>
+              ngbDropdownToggle
+            >
               <i class="mdi mdi-dots-vertical"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
@@ -28,15 +28,20 @@
                 src="assets/images/users/avatar-4.jpg"
                 alt=""
                 class="avatar-xl img-thumbnail rounded-circle mb-3"
-                />
-              <a class="dropdown-item"><i
-                  class="mdi mdi-wallet text-muted font-size-16 align-middle
-                  me-1"></i>
-                <span class="align-middle fs-1" key="t-balance">เงินคงเหลือ : <b>{{
-                    customer.currentMoney | number}}</b></span></a>
+              />
+              <a class="dropdown-item"
+                ><i
+                  class="mdi mdi-wallet text-muted font-size-16 align-middle me-1"
+                ></i>
+                <span class="align-middle fs-1" key="t-balance"
+                  >เงินคงเหลือ :
+                  <b>{{ customer.currentMoney | number }}</b></span
+                ></a
+              >
               <div
                 class="row"
-                *ngIf="customer.currentMoney <= customer.minimumMoney">
+                *ngIf="customer.currentMoney <= customer.minimumMoney"
+              >
                 <h6 class="text-danger">กรุณาชำระค่าไฟก่อนถูกระงับมิเตอร์</h6>
               </div>
             </div>
@@ -44,35 +49,35 @@
             <!-- <h4 class="text-primary mb-2">เพชรฤทธิ์ ศรีวงศ์</h4> -->
             <h4 class="text-primary mb-2">{{ userFullName }}</h4>
             <div class="text-center mb-2">
-              <a hidden
+              <a
+                hidden
                 class="btn btn-warning me-2 waves-effect waves-light btn-sm"
-                (click)="topupModal(topup)"><i class="mdi mdi-email-outline
-                  me-1"></i>เติมเงิน </a>
+                (click)="topupModal(topup)"
+                ><i class="mdi mdi-email-outline me-1"></i>เติมเงิน
+              </a>
               <!-- <a class="btn btn-danger waves-effect waves-light btn-sm" (click)="repairModal(repair)"><i
                                     class="mdi mdi-phone-outline me-1"></i>แจ้งไฟฟ้าขัดข้อง</a> -->
             </div>
           </div>
         </div>
         <hr class="my-4" />
-        <h4 class="card-title mb-4">ประวัติการใช้ไฟฟ้า</h4>
+        <h4 class="card-title mb-4">ยอดเงินคงเหลือ</h4>
         <div class="mt-3">
           <apx-chart
-            dir="ltr"
             class="apex-charts"
-            [chart]="topUpAndChargeBarChart.chart"
+            dir="ltr"
             [series]="topUpAndChargeBarChart.series"
-            [legend]="topUpAndChargeBarChart.legend"
-            [stroke]="topUpAndChargeBarChart.stroke"
-            [colors]="topUpAndChargeBarChart.colors"
-            [fill]="topUpAndChargeBarChart.fill"
-            [dataLabels]="topUpAndChargeBarChart.dataLabels"
-            [xaxis]="topUpAndChargeBarChart.xaxis"
-            [markers]="topUpAndChargeBarChart.markers"
+            [chart]="topUpAndChargeBarChart.chart"
             [plotOptions]="topUpAndChargeBarChart.plotOptions"
             [yaxis]="topUpAndChargeBarChart.yaxis"
-            [tooltip]="topUpAndChargeBarChart.tooltip"
-            [grid]="topUpAndChargeBarChart.grid"
-            [labels]="topUpAndChargeBarChart.labels">
+            [title]="topUpAndChargeBarChart.title"
+            [stroke]="topUpAndChargeBarChart.stroke"
+            [dataLabels]="topUpAndChargeBarChart.dataLabels"
+            [xaxis]="topUpAndChargeBarChart.xaxis"
+            [legend]="topUpAndChargeBarChart.legend"
+            [colors]="topUpAndChargeBarChart.colors"
+            [fill]="topUpAndChargeBarChart.fill"
+          >
           </apx-chart>
         </div>
       </div>
@@ -85,7 +90,8 @@
         ngbNav
         #nav="ngbNav"
         [activeId]="1"
-        class="nav nav-tabs nav-tabs-custom nav-justified">
+        class="nav nav-tabs nav-tabs-custom nav-justified"
+      >
         <li [ngbNavItem]="1">
           <a ngbNavLink>
             <i class="bx bxs-store font-size-20"></i>
@@ -101,16 +107,20 @@
                     <div class="dataTables_length" id="tickets-table_length">
                       <label class="d-inline-flex align-items-center">
                         Show
-                        <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize"
-                          class="form-control
-                          form-control-sm mx-2" class="form-control
-                          form-control-sm mx-2"[(ngModel)]="service.pageSize">
+                        <select
+                          name="tickets-table_length"
+                          aria-controls="tickets-table"
+                          name="pageSize"
+                          class="form-control form-control-sm mx-2"
+                          class="form-control form-control-sm mx-2"
+                          [(ngModel)]="service.pageSize"
+                        >
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
-                        </select> entries
+                        </select>
+                        entries
                       </label>
                     </div>
                   </div>
@@ -129,55 +139,70 @@
                         <th scope="col">วันสิ้นสุดสัญญา</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                    <tbody *ngFor="let table of tables$ | async; let i = index">
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.boothCode"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.boothCode"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.boothName"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.boothName"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.contractNo"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.contractNo"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.boothZone"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.boothZone"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.contractEndDate"
-                            [term]="service.searchTerm">
+                          <ngb-highlight
+                            [result]="table.contractEndDate"
+                            [term]="service.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <div class="row justify-content-md-between align-items-md-center
-                  mt-2">
+                <div
+                  class="row justify-content-md-between align-items-md-center mt-2"
+                >
                   <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
                       Showing
-                      {{service.startIndex}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
+                      {{ service.startIndex }} to {{ service.endIndex }} of
+                      {{ service.totalRecords }}
                       entries
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(total$ | async)!"
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination
+                        [collectionSize]="(total$ | async)!"
                         [(page)]="service.page"
-                        [pageSize]="service.pageSize">
+                        [pageSize]="service.pageSize"
+                      >
                       </ngb-pagination>
                     </div>
                   </div>
@@ -201,16 +226,20 @@
                     <div class="dataTables_length" id="tickets-table_length">
                       <label class="d-inline-flex align-items-center">
                         Show
-                        <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize"
-                          class="form-control
-                          form-control-sm mx-2" class="form-control
-                          form-control-sm mx-2"[(ngModel)]="services.pageSize">
+                        <select
+                          name="tickets-table_length"
+                          aria-controls="tickets-table"
+                          name="pageSize"
+                          class="form-control form-control-sm mx-2"
+                          class="form-control form-control-sm mx-2"
+                          [(ngModel)]="services.pageSize"
+                        >
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
-                        </select> entries
+                        </select>
+                        entries
                       </label>
                     </div>
                   </div>
@@ -228,66 +257,79 @@
                         <th scope="col">Meter State</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tablesMeter$ | async;let i=index">
+                    <tbody
+                      *ngFor="let table of tablesMeter$ | async; let i = index"
+                    >
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.boothId"
-                            [term]="services.searchTerm">
+                          <ngb-highlight
+                            [result]="table.boothId"
+                            [term]="services.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.deviceZone"
-                            [term]="services.searchTerm">
+                          <ngb-highlight
+                            [result]="table.deviceZone"
+                            [term]="services.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.deviceId"
-                            [term]="services.searchTerm">
+                          <ngb-highlight
+                            [result]="table.deviceId"
+                            [term]="services.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
                           <div
-                            class="form-check form-switch form-switch-lg
-                            mb-lg-3"
-                            dir="ltr">
+                            class="form-check form-switch form-switch-lg mb-lg-3"
+                            dir="ltr"
+                          >
                             <input
                               class="form-check-input"
                               type="checkbox"
                               id="SwitchCheckSizelg"
                               [checked]="table.meterState === '1'"
                               (change)="
-                              changMeterState(
-                              $event,
-                              table.boothId,
-                              table.id,
-                              table
-                              )
+                                changMeterState(
+                                  $event,
+                                  table.boothId,
+                                  table.id,
+                                  table
+                                )
                               "
-                              />
+                            />
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <div class="row justify-content-md-between align-items-md-center
-                  mt-2">
+                <div
+                  class="row justify-content-md-between align-items-md-center mt-2"
+                >
                   <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
                       Showing
-                      {{services.startIndex}} to
-                      {{services.endIndex}} of {{services.totalRecords}}
+                      {{ services.startIndex }} to {{ services.endIndex }} of
+                      {{ services.totalRecords }}
                       entries
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(totalMeter$ | async)!"
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination
+                        [collectionSize]="(totalMeter$ | async)!"
                         [(page)]="services.page"
-                        [pageSize]="services.pageSize">
+                        [pageSize]="services.pageSize"
+                      >
                       </ngb-pagination>
                     </div>
                   </div>
@@ -310,17 +352,20 @@
                     <div class="dataTables_length" id="tickets-table_length">
                       <label class="d-inline-flex align-items-center">
                         Show
-                        <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize"
-                          class="form-control
-                          form-control-sm mx-2" class="form-control
-                          form-control-sm
-                          mx-2"[(ngModel)]="serviceTopup.pageSize">
+                        <select
+                          name="tickets-table_length"
+                          aria-controls="tickets-table"
+                          name="pageSize"
+                          class="form-control form-control-sm mx-2"
+                          class="form-control form-control-sm mx-2"
+                          [(ngModel)]="serviceTopup.pageSize"
+                        >
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
-                        </select> entries
+                        </select>
+                        entries
                       </label>
                     </div>
                   </div>
@@ -338,48 +383,60 @@
                         <!-- <th scope="col">ใบเสร็จ</th> -->
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tablesTopup$ | async;let
-                      i=index">
+                    <tbody
+                      *ngFor="let table of tablesTopup$ | async; let i = index"
+                    >
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.createdAt"
-                            [term]="serviceTopup.searchTerm">
+                          <ngb-highlight
+                            [result]="table.createdAt"
+                            [term]="serviceTopup.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.topupMoney"
-                            [term]="serviceTopup.searchTerm">
+                          <ngb-highlight
+                            [result]="table.topupMoney"
+                            [term]="serviceTopup.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.statusName"
-                            [term]="serviceTopup.searchTerm">
+                          <ngb-highlight
+                            [result]="table.statusName"
+                            [term]="serviceTopup.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <div class="row justify-content-md-between
-                    align-items-md-center
-                    mt-2">
+                  <div
+                    class="row justify-content-md-between align-items-md-center mt-2"
+                  >
                     <div class="col-sm-12 col-md-5">
-                      <div class="dataTables_info mb-2"
-                        id="tickets-table_info" role="status"
-                        aria-live="polite">
+                      <div
+                        class="dataTables_info mb-2"
+                        id="tickets-table_info"
+                        role="status"
+                        aria-live="polite"
+                      >
                         Showing
-                        {{serviceTopup.startIndex}} to
-                        {{serviceTopup.endIndex}} of
-                        {{serviceTopup.totalRecords}}
+                        {{ serviceTopup.startIndex }} to
+                        {{ serviceTopup.endIndex }} of
+                        {{ serviceTopup.totalRecords }}
                         entries
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-5">
-                      <div class="text-md-right float-md-end
-                        pagination-rounded">
-                        <ngb-pagination [collectionSize]="(totalTopup$ |
-                          async)!"
+                      <div
+                        class="text-md-right float-md-end pagination-rounded"
+                      >
+                        <ngb-pagination
+                          [collectionSize]="(totalTopup$ | async)!"
                           [(page)]="serviceTopup.page"
-                          [pageSize]="serviceTopup.pageSize">
+                          [pageSize]="serviceTopup.pageSize"
+                        >
                         </ngb-pagination>
                       </div>
                     </div>
@@ -403,17 +460,20 @@
                     <div class="dataTables_length" id="tickets-table_length">
                       <label class="d-inline-flex align-items-center">
                         Show
-                        <select name="tickets-table_length"
-                          aria-controls="tickets-table" name="pageSize"
-                          class="form-control
-                          form-control-sm mx-2" class="form-control
-                          form-control-sm
-                          mx-2"[(ngModel)]="serviceElectric.pageSize">
+                        <select
+                          name="tickets-table_length"
+                          aria-controls="tickets-table"
+                          name="pageSize"
+                          class="form-control form-control-sm mx-2"
+                          class="form-control form-control-sm mx-2"
+                          [(ngModel)]="serviceElectric.pageSize"
+                        >
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="25">25</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
-                        </select> entries
+                        </select>
+                        entries
                       </label>
                     </div>
                   </div>
@@ -423,7 +483,8 @@
                 </div>
                 <div>
                   <table
-                    class="table table-nowrap table-hover mb-0 text-center">
+                    class="table table-nowrap table-hover mb-0 text-center"
+                  >
                     <thead>
                       <tr>
                         <th scope="col">Store ID</th>
@@ -432,57 +493,74 @@
                         <th scope="col">จำนวนเงิน</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let table of tablesElectric$ | async;let
-                      i=index">
+                    <tbody
+                      *ngFor="
+                        let table of tablesElectric$ | async;
+                        let i = index
+                      "
+                    >
                       <tr>
                         <td>
-                          <ngb-highlight [result]="table.storeId"
-                            [term]="serviceElectric.searchTerm">
+                          <ngb-highlight
+                            [result]="table.boothId"
+                            [term]="serviceElectric.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.date"
-                            [term]="serviceElectric.searchTerm">
+                          <ngb-highlight
+                            [result]="table.date"
+                            [term]="serviceElectric.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.calculateUnit"
-                            [term]="serviceElectric.searchTerm">
+                          <ngb-highlight
+                            [result]="table.calculateUnit"
+                            [term]="serviceElectric.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="table.charge"
-                            [term]="serviceElectric.searchTerm">
+                          <ngb-highlight
+                            [result]="table.charge"
+                            [term]="serviceElectric.searchTerm"
+                          >
                           </ngb-highlight>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <div class="row justify-content-md-between
-                  align-items-md-center
-                  mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2"
-                      id="tickets-table_info" role="status"
-                      aria-live="polite">
-                      Showing
-                      {{serviceElectric.startIndex}} to
-                      {{serviceElectric.endIndex}} of
-                      {{serviceElectric.totalRecords}}
-                      entries
+                  <div
+                    class="row justify-content-md-between align-items-md-center mt-2"
+                  >
+                    <div class="col-sm-12 col-md-5">
+                      <div
+                        class="dataTables_info mb-2"
+                        id="tickets-table_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Showing
+                        {{ serviceElectric.startIndex }} to
+                        {{ serviceElectric.endIndex }} of
+                        {{ serviceElectric.totalRecords }}
+                        entries
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-5">
+                      <div
+                        class="text-md-right float-md-end pagination-rounded"
+                      >
+                        <ngb-pagination
+                          [collectionSize]="(totalElectric$ | async)!"
+                          [(page)]="serviceElectric.page"
+                          [pageSize]="serviceElectric.pageSize"
+                        >
+                        </ngb-pagination>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end
-                      pagination-rounded">
-                      <ngb-pagination [collectionSize]="(totalElectric$ |
-                        async)!"
-                        [(page)]="serviceElectric.page"
-                        [pageSize]="serviceElectric.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -501,7 +579,8 @@
         type="button"
         class="btn-close"
         (click)="modal.dismiss('Cross click')"
-        aria-hidden="true"></button>
+        aria-hidden="true"
+      ></button>
     </div>
     <div class="modal-body">
       <div>
@@ -514,7 +593,7 @@
                   class="form-control"
                   id="floatingInputValue"
                   placeholder="ไฟดับ"
-                  />
+                />
                 <label for="floatingInputValue">หัวข้อ</label>
               </form>
             </div>
@@ -523,7 +602,8 @@
                 <select
                   class="form-select"
                   id="floatingSelect"
-                  aria-label="Floating label select example">
+                  aria-label="Floating label select example"
+                >
                   <option selected>เลือกรายการ</option>
                   <option value="1">ไฟดับ</option>
                   <option value="2">ไฟรั่ว</option>
@@ -540,7 +620,8 @@
                   class="form-control"
                   placeholder="รายละเอียด"
                   id="floatingTextarea"
-                  rows="10"></textarea>
+                  rows="10"
+                ></textarea>
                 <label for="floatingTextarea">รายละเอียด</label>
               </div>
             </div>
@@ -552,7 +633,8 @@
       <button
         type="button"
         class="btn btn-light"
-        (click)="modal.close('Close click')">
+        (click)="modal.close('Close click')"
+      >
         ปิด
       </button>
       <button type="button" class="btn btn-primary">ส่งข้อมูล</button>
@@ -567,7 +649,8 @@
         type="button"
         class="btn-close"
         (click)="modal.dismiss('Cross click')"
-        aria-hidden="true"></button>
+        aria-hidden="true"
+      ></button>
     </div>
     <div class="modal-body">
       <div>
@@ -584,7 +667,7 @@
                   id="floatingInputValue"
                   name="topupMoney"
                   [(ngModel)]="topupMoney"
-                  />
+                />
                 <!-- <label for="floatingInputValue">หัวข้อ</label> -->
               </form>
             </div>
@@ -592,31 +675,36 @@
               <button
                 type="button"
                 class="btn btn-primary btn-lg"
-                (click)="setTopupMoney(300)">
+                (click)="setTopupMoney(300)"
+              >
                 300
               </button>
               <button
                 type="button"
                 class="btn btn-primary btn-lg"
-                (click)="setTopupMoney(500)">
+                (click)="setTopupMoney(500)"
+              >
                 500
               </button>
               <button
                 type="button"
                 class="btn btn-primary btn-lg"
-                (click)="setTopupMoney(1000)">
+                (click)="setTopupMoney(1000)"
+              >
                 1,000
               </button>
               <button
                 type="button"
                 class="btn btn-primary btn-lg"
-                (click)="setTopupMoney(3000)">
+                (click)="setTopupMoney(3000)"
+              >
                 3,000
               </button>
               <button
                 type="button"
                 class="btn btn-primary btn-lg"
-                (click)="setTopupMoney(5000)">
+                (click)="setTopupMoney(5000)"
+              >
                 5,000
               </button>
             </div>
@@ -628,7 +716,8 @@
       <button
         type="button"
         class="btn btn-light"
-        (click)="modal.close('Close click')">
+        (click)="modal.close('Close click')"
+      >
         ยกเลิก
       </button>
       <button type="button" class="btn btn-primary" (click)="submitTopup()">

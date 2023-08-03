@@ -70,7 +70,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAll().subscribe((customers) => {
       this.customer = customers;
       this.service.customers = this.customer
-      console.log("customer list >>>>> ",this.customer);
+      // console.log("customer list >>>>> ",this.customer);
     });
     // this.shopService.getAll().subscribe((shops)=>{
     //     this.shopdata = shops;
@@ -105,7 +105,7 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText:'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("uid == ",uid);
+        // console.log("uid == ",uid);
         this.customerService.delete(uid).then(deletedcustomer => {
           Swal.fire({
             position: 'top-end',

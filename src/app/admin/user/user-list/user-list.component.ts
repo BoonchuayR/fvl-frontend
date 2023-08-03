@@ -34,9 +34,9 @@ export class UserListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.userService.getAll().subscribe((users) => {
-      console.log("users >>> ", users);
+      // console.log("users >>> ", users);
       this.userDataTableService.users  = users;
-      console.log("after set users >>> ");
+      // console.log("after set users >>> ");
     });
   }
 

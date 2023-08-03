@@ -5,5 +5,6 @@ export class Electricity {
   date?: string;
   priviousUnit?: number;
   calculateUnit?: number;
-  charge?: number
+  charge?: number;
+  balanceAmt?: number;
 }

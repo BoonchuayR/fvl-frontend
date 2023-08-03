@@ -31,7 +31,7 @@ export class TicketListComponent implements OnInit {
     this.ticketService.getAll().subscribe(tickets => {
       this.ticket = tickets;
       this.service.tickets = this.ticket;
-      console.log("ticket data == ",this.ticket)
+      // console.log("ticket data == ",this.ticket)
 
     })
   }
