@@ -3,17 +3,19 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
-import {routesConfig} from "./users/routes-config";
+import {userRoutes} from "./users/user.routes";
 import axios from "axios";
 import * as moment from "moment";
 import {getFirestore} from "firebase-admin/firestore";
+import {utilRoutes} from "./utils/utils.routes";
 
 admin.initializeApp();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({origin: true}));
-routesConfig(app);
+userRoutes(app);
+utilRoutes(app);
 
 
 const db = getFirestore();
