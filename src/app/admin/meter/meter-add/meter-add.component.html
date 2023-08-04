@@ -15,11 +15,7 @@
 <div class="row">
   <div class="">
     <div class="card card-green-style">
-      <form
-        class="needs-validation"
-        [formGroup]="validationform"
-        novalidate
-      >
+      <form class="needs-validation" [formGroup]="validationform" novalidate>
         <div class="p-3 px-4 bg-success">
           <div class="d-flex align-items-start">
             <!-- <div class="align-self-center me-3">
@@ -58,7 +54,6 @@
 
               <div class="row">
                 <div class="row mb-md-5">
-               
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="font-size-12 mb-3">
@@ -94,10 +89,15 @@
                           placeholder="Contract ID"
                           [ngClass]="{
                             'is-invalid': submit && formData.contractId.errors
-                          }" 
+                          }"
                         />
-                        <div *ngIf="submit && formData.contractId.errors" class="invalid-tooltip">
-                          <span *ngIf="formData.contractId.errors.required">กรุณาระบุเลขที่สัญญา</span>
+                        <div
+                          *ngIf="submit && formData.contractId.errors"
+                          class="invalid-tooltip"
+                        >
+                          <span *ngIf="formData.contractId.errors.required"
+                            >กรุณาระบุเลขที่สัญญา</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -109,7 +109,6 @@
                           formControlName="deviceZone"
                           type="text"
                           placeholder="Device Zone"
-                          
                         />
                       </div>
                     </div>
@@ -274,7 +273,9 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="font-size-12 mb-3">
-                        <label class="form-label">Meter State Previous Unit</label>
+                        <label class="form-label"
+                          >Meter State Previous Unit</label
+                        >
                         <input
                           class="form-control form-control-lg"
                           formControlName="meterStatePreviousUnit"
@@ -289,7 +290,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="font-size-12 mb-3">
-                        <label class="form-label">Meter State Calculate Unit</label>
+                        <label class="form-label"
+                          >Meter State Calculate Unit</label
+                        >
                         <input
                           class="form-control form-control-lg"
                           formControlName="meterStateCalculateUnit"

@@ -149,33 +149,32 @@ export class MeterAddComponent implements OnInit {
     }
 
     // Check Duplicate Meter
-    // const isDupMeter = await this.meterService.checkDupMeter(boothId)
-    // .then(res => res.json())
-    // .then(function(res) {
-    //   return res.isDup;
-    // });
-    const isDupMeter = false;
-    if (isDupMeter) {
-      Swal.fire({
-        position: "top-end",
-        icon: "warning",
-        title: `Booth ID [${this.validationform.get("boothId")?.value}] ซ้ำ ไม่สามารถบันทึกได้`,
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      return;
-    } else {
-      this.meterService.create(meter).then((meter) => {
+    this.meterService.checkDupMeter(boothId)
+    .subscribe((res: any) => {
+      console.log("res >>> ", res);
+      const isDupMeter = res.isDup;
+      if (isDupMeter) {
         Swal.fire({
           position: "top-end",
-          icon: "success",
-          title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+          icon: "warning",
+          title: `Booth ID [${this.validationform.get("boothId")?.value}] ซ้ำ ไม่สามารถบันทึกได้`,
           showConfirmButton: false,
           timer: 3000,
         });
-        this.router.navigate(["/meter-dashboard"]);
-      });
-    }
+        return;
+      } else {
+        this.meterService.create(meter).then((meter) => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "เพิ่มข้อมูลมิเตอร์เรียบร้อย",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.router.navigate(["/meter-dashboard"]);
+        });
+      }
+    });
   }
 
     /**

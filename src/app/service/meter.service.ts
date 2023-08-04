@@ -112,7 +112,8 @@ export class MeterService {
   }
 
   checkDupMeter(boothId: string) {
-    return fetch(`${CHECK_DUP_METER_URL}?boothId=${boothId}`);
+    return this.http.get(`${CHECK_DUP_METER_URL}?boothId=${boothId}`);
+    // return fetch(`${CHECK_DUP_METER_URL}?boothId=${boothId}`);
   }
   
   async getAllMeterFromAPI() {
