@@ -27,7 +27,7 @@ export class JwtInterceptor implements HttpInterceptor {
             // add authorization header with jwt token if available
             let currentUser = this.authenticationService.currentUser();
             if (currentUser && currentUser.stsTokenManager.accessToken) {
-                if (request.url !== "https://www.k-tech.co.th/foodvilla/meter/api/controller.php") {
+                if (request.url !== "https://foodvillath.com/meter/api/controller.php") {
                     request = request.clone({
                         setHeaders: {
                             Authorization: `Bearer ${currentUser.stsTokenManager.accessToken}`,
