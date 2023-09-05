@@ -52,6 +52,9 @@ export class CustomerListComponent implements OnInit {
   meterdata:any;
   meters:any;
   shops:any;
+  shopFindBoothId:any;
+  meterFindFromShop:any
+  boothIdString!:String;
   constructor(
     private modalService: NgbModal,
     private customerService:CustomerService, 
@@ -93,6 +96,7 @@ export class CustomerListComponent implements OnInit {
    * Confirm sweet alert
    * @param confirm modal content
    */
+
    confirm(uid:string) {
     Swal.fire({
       title: 'ลบข้อมูลลูกค้า',
@@ -115,6 +119,27 @@ export class CustomerListComponent implements OnInit {
             timer: 3000
           })
           
+        })
+
+        //Delete Meter By use boothId from ShopSevice
+        this.shopService.findByUID(uid).subscribe(shopDATA=>{
+          this.shopFindBoothId = shopDATA;
+          const boothId = this.shopFindBoothId.map((data:any)=>{
+            return data.boothIds;
+          })
+    
+          for(let i=0; i < boothId[0].length;i++){
+            const a = boothId.map((a:any)=>{
+              return a[i];
+            })
+            console.log(String(a));
+            this.meterService.findMeterByBooothId(String(a)).subscribe(data=>{
+              this.meterFindFromShop = data;
+              this.meterFindFromShop.forEach((data:any)=>{
+                this.meterService.delete(String(data.id));
+              })
+            })
+          }
         })
 
         // Remove user
