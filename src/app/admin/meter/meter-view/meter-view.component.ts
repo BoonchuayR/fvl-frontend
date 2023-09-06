@@ -37,6 +37,9 @@ export class MeterViewComponent implements OnInit {
 
   meterId: any;
   meter: any;
+  DayList:boolean=true;
+  MonthList:boolean=false;
+  YearList:boolean=false;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,6 +61,22 @@ export class MeterViewComponent implements OnInit {
 
   onBtnBackClicked(): void{
     this.router.navigate([`/meter-dashboard`]);
+  }
+
+  graphOfDay(){
+    this.DayList=true;
+    this.MonthList=false;
+    this.YearList=false;
+  }
+  graphOfMonth(){
+    this.DayList=false;
+    this.MonthList=true;
+    this.YearList=false;
+  }
+  graphOfYear(){
+    this.DayList=false;
+    this.MonthList=false;
+    this.YearList=true;
   }
 
   private fetchData() {
