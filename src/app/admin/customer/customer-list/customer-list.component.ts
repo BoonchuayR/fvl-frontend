@@ -159,12 +159,12 @@ export class CustomerListComponent implements OnInit {
           });
         // this.shopService.deleteByUID(uid);
 
-        this.topupService.findByuid(uid).subscribe((topup) => {
-          this.topupdata = topup;
-          this.topupdata.filter((tdata: any) => {
-            this.topupService.delete(tdata.id);
-          });
-        });
+        // this.topupService.findByuid(uid).subscribe((topup) => {
+        //   this.topupdata = topup;
+        //   this.topupdata.filter((tdata: any) => {
+        //     this.topupService.delete(tdata.id);
+        //   });
+        // });
       }
     });
   }
