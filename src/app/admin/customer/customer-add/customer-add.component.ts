@@ -227,11 +227,12 @@ export class CustomerAddComponent implements OnInit {
                       meters.forEach((meter: Meter) => {
                         meter.custName = customer.custName;
                         meter.shopName = shop.boothName;
+                        meter.uid = customer.uid;
                         this.meterService.update(meter).then(() => {});
                       })
                   })
                 });
-
+                
                 Swal.fire({
                   position: "top-end",
                   icon: "success",

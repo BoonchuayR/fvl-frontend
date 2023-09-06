@@ -651,7 +651,8 @@ export class MeterListComponent implements OnInit {
           updateStateAdminDatetime: iotMeter.DATA_RESPONSE[0].UPDATE_STATE_ADMIN_DATETIME,
           shopName: "",
           custName: "",
-          lineActiveEnergy: ''
+          lineActiveEnergy: '',
+          uid: ""
         }
         this.meterService.create(meter).then(res => {
           // console.log("create meter result: ", res);
