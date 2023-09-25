@@ -14,6 +14,7 @@ import { MeterService } from "src/app/service/meter.service";
 import { Meter } from "src/app/core/models/meter.model";
 import { Shop } from "src/app/core/models/shop.models";
 import { Customer } from "src/app/core/models/customer.models";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-customer-edit",
@@ -65,7 +66,7 @@ export class CustomerEditComponent implements OnInit {
     this.uId = this.route.snapshot.paramMap.get("id");
 
     // Set customer
-    this.customerService.get(this.uId).subscribe((cust) => {
+    this.customerService.get(this.uId).pipe(take(1)).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
       
@@ -81,7 +82,7 @@ export class CustomerEditComponent implements OnInit {
         this.createBoothOptions();
 
         // Set shops
-        this.shopService.findByUID(this.uId).subscribe(shops => {
+        this.shopService.findByUID(this.uId).pipe(take(1)).subscribe(shops => {
           this.shops = shops;
           this.setShopForms();
         });
