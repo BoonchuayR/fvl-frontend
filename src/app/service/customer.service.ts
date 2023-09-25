@@ -11,8 +11,8 @@ import {
   DocumentData,
   Firestore,
   setDoc,
-  Timestamp,
   updateDoc,
+
 } from "@angular/fire/firestore";
 
 interface Customers {
@@ -39,8 +39,6 @@ export class CustomerService {
   constructor(private firestore: Firestore) {
     this.customerCollection = collection(firestore, "customers");
     this.bootCodeCollection = collection(firestore, "options_boot_code");
-
-
   }
 
   create(customers: Customers) {
@@ -57,6 +55,7 @@ export class CustomerService {
       idField: "id",
     }) as Observable<Customers[]>;
   }
+
   getCode() {
     return collectionData(this.bootCodeCollection, {
       idField: "id",

@@ -8,6 +8,7 @@ import axios from "axios";
 import * as moment from "moment";
 import {getFirestore} from "firebase-admin/firestore";
 import {utilRoutes} from "./utils/utils.routes";
+import {customerRoutes} from "./customer/customer.routes";
 
 admin.initializeApp();
 
@@ -15,6 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors({origin: true}));
 userRoutes(app);
+customerRoutes(app);
 utilRoutes(app);
 
 

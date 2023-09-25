@@ -77,6 +77,7 @@ export class ShopService {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
   }
+  
   updatedeletedata(shop: Shop) {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
