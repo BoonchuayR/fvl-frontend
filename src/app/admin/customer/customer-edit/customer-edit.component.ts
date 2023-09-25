@@ -8,10 +8,13 @@ import {
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
-import { Select2Data } from "ng-select2-component";
+import { Select2Data, Select2Value } from "ng-select2-component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MeterService } from "src/app/service/meter.service";
 import { Meter } from "src/app/core/models/meter.model";
+import { Shop } from "src/app/core/models/shop.models";
+import { Customer } from "src/app/core/models/customer.models";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-customer-edit",
@@ -62,51 +65,35 @@ export class CustomerEditComponent implements OnInit {
     
     this.uId = this.route.snapshot.paramMap.get("id");
 
-
-    
     // Set customer
-    this.customerService.get(this.uId).subscribe((cust) => {
+    this.customerService.get(this.uId).pipe(take(1)).subscribe((cust) => {
       this.customer = cust;
       this.setCustomerForm();
-
-      // Set boothOptions
-      this.meterService.getAllMeters().then((meters: Meter[]) => {
-        this.meters = meters;
-        console.log("this.meters >>> ", this.meters);
-        this.createBoothOptions();
-      })
       
       // Set boothOptions
-      // this.meterService.getAllMeters().then((meters: Meter[]) => {
-      //   this.meters = meters.filter((meter: Meter) => {
-      //     if (meter.custName && meter.custName !== cust.custName) {
-      //       return false;
-      //     } else {
-      //       return true;
-      //     }
-      //   });
-      //   this.createBoothOptions();
+      this.meterService.getAllMeters().then((meters: Meter[]) => {
+        this.meters = meters.filter((meter: Meter) => {
+          if (meter.custName && meter.custName !== cust.custName) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        this.createBoothOptions();
 
-      //   // Set shops
-      //   this.shopService.findByUID(this.uId).subscribe(shops => {
-      //     this.shops = shops;
-      //     this.setShopForms();
-      //   });
-      // });
+        // Set shops
+        this.shopService.findByUID(this.uId).pipe(take(1)).subscribe(shops => {
+          this.shops = shops;
+          this.setShopForms();
+        });
+      });
     });
 
-    this.shopService.findByUID(this.uId).subscribe(shops => {
-      this.shops = shops;
-      console.log("this.shops >>> ", this.shops);
-      this.setShopForms();
-    });
-
+    
   }
 
   formSubmit() {
     const customer = { uid: this.customer.uid, ...this.validationform.value };
-
-    console.log("customer >>> ", customer);
 
     this.customerService
       .update(customer)
@@ -114,9 +101,8 @@ export class CustomerEditComponent implements OnInit {
         const shopItems: FormArray = this.itemShopForm.get(
           "items"
         ) as FormArray;
-        
         shopItems.value.forEach((shop: any) => {
-          console.log("shop => ", shop);
+          // console.log("shop => ", shop);
           this.shopService
             .update(shop)
             .then((res) => {
@@ -203,17 +189,13 @@ export class CustomerEditComponent implements OnInit {
         shopForm.get("contractEndDate")?.setValue(shop.contractEndDate);
         shopForm.get("contractNo")?.setValue(shop.contractNo);
         shopForm.get("custName")?.setValue(shop.custName);
-        shopForm.get("boothIds")?.setValue("D037");
+        shopForm.get("boothIds")?.setValue(shop.boothIds);
         // shopForm.get("boothIds")?.disable();
         control.push(shopForm);
         this.item_collapsed.push(true);
         // this.buildFormContents();
       }
     });
-  }
-
-  setBoothIds() {
-    const control = <FormArray>this.itemShopForm.controls["items"];
   }
 
   get email() {
