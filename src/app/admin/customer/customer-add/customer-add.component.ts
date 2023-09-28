@@ -11,7 +11,8 @@ import { User } from "src/app/core/models/user.models";
 import { Meter } from "src/app/core/models/meter.model";
 import { Shop } from "src/app/core/models/shop.models";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { UnsubscriptionError } from "rxjs";
+import { UnsubscriptionError, pipe } from "rxjs";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-customer-add",
@@ -232,61 +233,115 @@ export class CustomerAddComponent implements OnInit {
     this.checkDistinctBootId();
     if (this.bootIdError) {
       return;
-    } else if(this.bootIdError === false){
-      this.userProfileService.register(user).subscribe(
-        (creden: any) => {
-          const customer = {
-            uid: creden.uid,
-            email: email,
-            custCode: custCode,
-            custName: custName,
-            custPhone: custPhone,
-            custStartDate: custStartDate,
-            minimumMoney: minimumMoney,
-            currentMoney: 0,
-          };
+    } else if (this.bootIdError === false) {
+      // Add shops
+      shopItems.value.forEach((shop: any) => {
+        if (shop.boothIds != "" && shop.boothIds != null) {
+          this.userProfileService
+            .register(user)
+            .pipe(take(1))
+            .subscribe(
+              (creden: any) => {
+                const customer = {
+                  uid: creden.uid,
+                  email: email,
+                  custCode: custCode,
+                  custName: custName,
+                  custPhone: custPhone,
+                  custStartDate: custStartDate,
+                  minimumMoney: minimumMoney,
+                  currentMoney: 0,
+                };
 
-          // Add customer
-          this.addCustomer(customer).subscribe((cust) => {
-            // Add shops
-            shopItems.value.forEach((shop: any) => {
-              this.shopService
-                .create({
-                  ...shop,
-                  uid: customer.uid,
-                  custName: customer.custName,
-                  custPhone: customer.custPhone,
-                })
-                .then(() => {
-                  // Set custname and shopname to meter
-                  shop.boothIds.forEach((bootId: string) => {
-                    this.meterService
-                      .findMeterByBooothId(bootId)
-                      .subscribe((meters: Meter[]) => {
-                        meters.forEach((meter: Meter) => {
-                          meter.custName = customer.custName;
-                          meter.shopName = shop.boothName;
-                          meter.uid = customer.uid;
-                          this.meterService.update(meter).then(() => {});
+                this.addCustomer(customer)
+                  .pipe(take(1))
+                  .subscribe((cust) => {});
+                this.shopService
+                  .create({
+                    ...shop,
+                    uid: customer.uid,
+                    custName: customer.custName,
+                    custPhone: customer.custPhone,
+                  })
+                  .then(() => {
+                    // Set custname and shopname to meter
+                    shop.boothIds.forEach((bootId: string) => {
+                      this.meterService
+                        .findMeterByBooothId(bootId)
+                        .pipe(take(1))
+                        .subscribe((meters: Meter[]) => {
+                          meters.forEach((meter: Meter) => {
+                            meter.custName = customer.custName;
+                            meter.shopName = shop.boothName;
+                            meter.uid = customer.uid;
+                            this.meterService.update(meter).then(() => {});
+                          });
                         });
+                    });
+                    Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                      showConfirmButton: false,
+                      timer: 3000,
+                    });
+                    this.router.navigate(["/customer-list"]);
+                  });
+              },
+              (error) => {
+                console.log("error: ", error);
+              }
+            );
+          // console.log(shop);
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "คุณแน่ใจใช่ไหม? ว่าคุณต้องการไม่ระบุรหัสแผงค้า",
+            showConfirmButton: true,
+            // timer: 3000,
+            showCancelButton: true,
+            confirmButtonText: "แน่ใจ",
+            cancelButtonText: "กลับไปใส่รหัสแผงค้า",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              this.userProfileService
+                .register(user)
+                .pipe(take(1))
+                .subscribe(
+                  (creden: any) => {
+                    const customer = {
+                      uid: creden.uid,
+                      email: email,
+                      custCode: custCode,
+                      custName: custName,
+                      custPhone: custPhone,
+                      custStartDate: custStartDate,
+                      minimumMoney: minimumMoney,
+                      currentMoney: 0,
+                    };
+                    // Add customer
+                    this.addCustomer(customer)
+                      .pipe(take(1))
+                      .subscribe((cust) => {
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                          showConfirmButton: false,
+                          timer: 3000,
+                        });
+                        this.router.navigate(["/customer-list"]);
                       });
-                  });
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-                    showConfirmButton: false,
-                    timer: 3000,
-                  });
-                  this.router.navigate(["/customer-list"]);
-                });
-            });
+                  },
+                  (error) => {
+                    console.log("error: ", error);
+                  }
+                );
+            }
           });
-        },
-        (error) => {
-          console.log("error: ", error);
         }
-      );
+      });
     }
   }
   /**
