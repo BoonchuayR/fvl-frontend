@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
@@ -15,6 +10,9 @@ import { UserProfileService } from "src/app/core/services/user.service";
 import { User } from "src/app/core/models/user.models";
 import { Meter } from "src/app/core/models/meter.model";
 import { Shop } from "src/app/core/models/shop.models";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { UnsubscriptionError, pipe } from "rxjs";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-customer-add",
@@ -44,9 +42,11 @@ export class CustomerAddComponent implements OnInit {
   state: any;
   meters: Meter[] = [];
   boothOptions: Select2Data = [];
-  boothValues:Select2Value = "";
+  boothValues: Select2Value = "";
+  bootIdError: boolean = true;
 
   constructor(
+    private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
     private shopService: ShopService,
@@ -60,10 +60,8 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.meterService.getAllMeters().then((allMeters: Meter[]) => {
-      
-      this.meters = allMeters.filter(m => {
+      this.meters = allMeters.filter((m) => {
         if (m.custName) {
           return false;
         } else {
@@ -81,8 +79,8 @@ export class CustomerAddComponent implements OnInit {
     this.shopService.findByBoothCode("fvl023").subscribe((a) => {});
   }
 
-  update(even:any){
-
+  update(even: any) {
+    console.log(even.value);
   }
 
   createBoothOptions() {
@@ -103,10 +101,10 @@ export class CustomerAddComponent implements OnInit {
           data: { name: m.boothId },
           templateId: "template1",
           id: m.boothId,
-        }; 
+        };
       }),
     };
-
+    console.log("data >>", this.meters);
     this.boothOptions.push(data);
   }
 
@@ -159,7 +157,49 @@ export class CustomerAddComponent implements OnInit {
   get boothIds() {
     return this.validationform.get(["boothIds"]);
   }
-  
+  togetorBootId() {
+    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
+    var flags2 = [],
+      output1 = [],
+      l = shopItems.value.length,
+      i,
+      j: number;
+    for (i = 0; i < l; i++) {
+      for (j = 0; j < shopItems.value[i].boothIds.length; j++) {
+        output1.push([shopItems.value[i].boothIds[j]]);
+      }
+    }
+    return output1;
+  }
+
+  checkDistinctBootId() {
+    var flags: any[] = [],
+      output2 = [],
+      i;
+    var arrayOfBootId: any = this.togetorBootId();
+    for (i = 0; i < arrayOfBootId.length; i++) {
+      if (flags[arrayOfBootId[i]]) continue;
+      flags[arrayOfBootId[i]] = true;
+      output2.push(arrayOfBootId[i]);
+      console.log("flags", flags);
+      console.log("output2", output2);
+    }
+    console.log("arrayOfBootId", arrayOfBootId);
+    if (arrayOfBootId.length > output2.length) {
+      Swal.fire("แจ้งเตือน!", "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!", "warning").then(
+        (result) => {
+          if (result.isConfirmed) {
+            // window.location.reload();
+          }
+        }
+      );
+      this.bootIdError = true;
+    }
+    if (arrayOfBootId.length == output2.length) {
+      this.bootIdError = false;
+    }
+  }
+
   formSubmit() {
     // Add customer
     const {
@@ -187,69 +227,122 @@ export class CustomerAddComponent implements OnInit {
       phone: "",
       typeUser: "",
       uid: "",
-      role: "customer"
-    }
-    
-    this.userProfileService.register(user).subscribe(
-      (creden:any) => {
+      role: "customer",
+    };
+    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
+    this.checkDistinctBootId();
+    if (this.bootIdError) {
+      return;
+    } else if (this.bootIdError === false) {
+      // Add shops
+      shopItems.value.forEach((shop: any) => {
+        if (shop.boothIds != "" && shop.boothIds != null) {
+          this.userProfileService
+            .register(user)
+            .pipe(take(1))
+            .subscribe(
+              (creden: any) => {
+                const customer = {
+                  uid: creden.uid,
+                  email: email,
+                  custCode: custCode,
+                  custName: custName,
+                  custPhone: custPhone,
+                  custStartDate: custStartDate,
+                  minimumMoney: minimumMoney,
+                  currentMoney: 0,
+                };
 
-        const customer = {
-          uid: creden.uid,
-          email: email,
-          custCode: custCode,
-          custName: custName,
-          custPhone: custPhone,
-          custStartDate: custStartDate,
-          minimumMoney: minimumMoney,
-          currentMoney: 0,
-        };
-
-        // Add customer
-        this.addCustomer(customer).subscribe((cust) => {
-          // Add shops
-          const shopItems: FormArray = this.itemShopForm.get(
-            "items"
-          ) as FormArray;
-
-          shopItems.value.forEach((shop: any) => {
-            this.shopService
-              .create({
-                ...shop,
-                uid: customer.uid,
-                custName: customer.custName,
-                custPhone: customer.custPhone,
-              })
-              .then(() => {
-                
-                // Set custname and shopname to meter
-                shop.boothIds.forEach((bootId: string) => {
-                  this.meterService.findMeterByBooothId(bootId).subscribe((meters: Meter[]) => {
-                      meters.forEach((meter: Meter) => {
-                        meter.custName = customer.custName;
-                        meter.shopName = shop.boothName;
-                        meter.uid = customer.uid;
-                        this.meterService.update(meter).then(() => {});
-                      })
+                this.addCustomer(customer)
+                  .pipe(take(1))
+                  .subscribe((cust) => {});
+                this.shopService
+                  .create({
+                    ...shop,
+                    uid: customer.uid,
+                    custName: customer.custName,
+                    custPhone: customer.custPhone,
                   })
-                });
-                
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-                  showConfirmButton: false,
-                  timer: 3000,
-                });
-                this.router.navigate(["/customer-list"]);
-              });
+                  .then(() => {
+                    // Set custname and shopname to meter
+                    shop.boothIds.forEach((bootId: string) => {
+                      this.meterService
+                        .findMeterByBooothId(bootId)
+                        .pipe(take(1))
+                        .subscribe((meters: Meter[]) => {
+                          meters.forEach((meter: Meter) => {
+                            meter.custName = customer.custName;
+                            meter.shopName = shop.boothName;
+                            meter.uid = customer.uid;
+                            this.meterService.update(meter).then(() => {});
+                          });
+                        });
+                    });
+                    Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                      showConfirmButton: false,
+                      timer: 3000,
+                    });
+                    this.router.navigate(["/customer-list"]);
+                  });
+              },
+              (error) => {
+                console.log("error: ", error);
+              }
+            );
+          // console.log(shop);
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "คุณแน่ใจใช่ไหม? ว่าคุณต้องการไม่ระบุรหัสแผงค้า",
+            showConfirmButton: true,
+            // timer: 3000,
+            showCancelButton: true,
+            confirmButtonText: "แน่ใจ",
+            cancelButtonText: "กลับไปใส่รหัสแผงค้า",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              this.userProfileService
+                .register(user)
+                .pipe(take(1))
+                .subscribe(
+                  (creden: any) => {
+                    const customer = {
+                      uid: creden.uid,
+                      email: email,
+                      custCode: custCode,
+                      custName: custName,
+                      custPhone: custPhone,
+                      custStartDate: custStartDate,
+                      minimumMoney: minimumMoney,
+                      currentMoney: 0,
+                    };
+                    // Add customer
+                    this.addCustomer(customer)
+                      .pipe(take(1))
+                      .subscribe((cust) => {
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                          showConfirmButton: false,
+                          timer: 3000,
+                        });
+                        this.router.navigate(["/customer-list"]);
+                      });
+                  },
+                  (error) => {
+                    console.log("error: ", error);
+                  }
+                );
+            }
           });
-        });
-      },
-      (error) => {
-        console.log("error: ", error);
-      }
-    );
-    
+        }
+      });
+    }
   }
   /**
    * Confirm sweet alert
