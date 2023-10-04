@@ -1,102 +1,77 @@
 <!-- start page title -->
 <div class="row mb-3">
-  <div class="d-flex align-items-start">
-    <ol class="breadcrumb m-0">
-      <li class="breadcrumb-item">หน้าหลัก</li>
-      <li class="breadcrumb-item">มิเตอร์ไฟฟ้า</li>
-      <li class="breadcrumb-item active">เพิ่มมิเตอร์ไฟฟ้า</li>
-    </ol>
-  </div>
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item">มิเตอร์ไฟฟ้า</li>
+            <li class="breadcrumb-item active">เพิ่มมิเตอร์ไฟฟ้า</li>
+        </ol>
+    </div>
 </div>
 
 <!-- end page title -->
-
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p class="loader" style="font-size: 20px; color: white"></p>
+</ngx-spinner>
 <!-- Start row -->
 <div class="row">
-  <div class="">
-    <div class="card card-green-style">
-      <form class="needs-validation" [formGroup]="validationform" novalidate>
-        <div class="p-3 px-4 bg-success">
-          <div class="d-flex align-items-start">
-            <!-- <div class="align-self-center me-3">
+    <div class="">
+        <div class="card card-green-style">
+            <form class="needs-validation" [formGroup]="validationform" novalidate>
+                <div class="p-3 px-4 bg-success">
+                    <div class="d-flex align-items-start">
+                        <!-- <div class="align-self-center me-3">
                     <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
                   </div> -->
-            <div class="flex-1 align-self-center">
-              <h5 class="title-card font-size-16 mt-1 mb-0">
-                <a href="#" class="text-reset">เพิ่มมิเตอร์</a>
-              </h5>
-              <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
-            </div>
-            <div class="button-items">
-              <button
-                routerLink="/meter-dashboard"
-                routerLinkActive="active"
-                class="btn btn-outline-default btn-rounded float-right"
-              >
+                        <div class="flex-1 align-self-center">
+                            <h5 class="title-card font-size-16 mt-1 mb-0">
+                                <a href="#" class="text-reset">เพิ่มมิเตอร์</a>
+                            </h5>
+                            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+                        </div>
+                        <div class="button-items">
+                            <button routerLink="/meter-dashboard" routerLinkActive="active" class="btn btn-outline-default btn-rounded float-right">
                 <i class="bx bx-x"></i> ยกเลิก
               </button>
-              <button
-                class="btn btn-outline-success btn-rounded float-right"
-                (click)="addMeter()"
-              >
+                            <button class="btn btn-outline-success btn-rounded float-right" (click)="addMeter()">
                 <i class="bx bx bx-save"></i> บันทึก
               </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="position-relative">
-            <div class="card-body card-body-form">
-              <div class="row">
-                <h2 class="text-uppercase mb-5">เพิ่มมิเตอร์</h2>
-              </div>
-
-              <div class="row">
-                <div class="row mb-md-5">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">Booth ID</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="boothId"
-                          type="text"
-                          placeholder="Store ID"
-                        />
-                      </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">Device ID</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="deviceId"
-                          type="text"
-                          placeholder="Device ID"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="font-size-12 mb-3">
-                        <label class="form-label">Contract ID</label>
-                        <input
-                          class="form-control form-control-lg"
-                          formControlName="contractId"
-                          type="text"
-                          placeholder="Contract ID"
-                          [ngClass]="{
+                </div>
+
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card-body card-body-form">
+                            <div class="row">
+                                <h2 class="text-uppercase mb-5">เพิ่มมิเตอร์</h2>
+                            </div>
+
+                            <div class="row">
+                                <div class="row mb-md-5">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">Booth ID</label>
+                                                <input class="form-control form-control-lg" formControlName="boothId" type="text" placeholder="Store ID" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">Device ID</label>
+                                                <input class="form-control form-control-lg" formControlName="deviceId" type="text" placeholder="Device ID" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="font-size-12 mb-3">
+                                                <label class="form-label">Contract ID</label>
+                                                <input class="form-control form-control-lg" formControlName="contractId" type="text" placeholder="Contract ID" [ngClass]="{
                             'is-invalid': submit && formData.contractId.errors
-                          }"
-                        />
-                        <div
-                          *ngIf="submit && formData.contractId.errors"
-                          class="invalid-tooltip"
-                        >
-                          <span *ngIf="formData.contractId.errors.required"
-                            >กรุณาระบุเลขที่สัญญา</span
+                          }" />
+                                                <div *ngIf="submit && formData.contractId.errors" class="invalid-tooltip">
+                                                    <span *ngIf="formData.contractId.errors.required">กรุณาระบุเลขที่สัญญา</span
                           >
                         </div>
                       </div>

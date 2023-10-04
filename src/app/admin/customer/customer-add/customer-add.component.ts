@@ -13,6 +13,7 @@ import { Shop } from "src/app/core/models/shop.models";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UnsubscriptionError, pipe } from "rxjs";
 import { take } from "rxjs/operators";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-customer-add",
@@ -52,7 +53,8 @@ export class CustomerAddComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private userProfileService: UserProfileService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {
     this.itemShopForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -201,6 +203,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   formSubmit() {
+    this.spinner.show();
     // Add customer
     const {
       email,
@@ -285,6 +288,7 @@ export class CustomerAddComponent implements OnInit {
                       showConfirmButton: false,
                       timer: 3000,
                     });
+                    this.spinner.hide();
                     this.router.navigate(["/customer-list"]);
                   });
               },
@@ -331,6 +335,7 @@ export class CustomerAddComponent implements OnInit {
                           showConfirmButton: false,
                           timer: 3000,
                         });
+                        this.spinner.hide();
                         this.router.navigate(["/customer-list"]);
                       });
                   },

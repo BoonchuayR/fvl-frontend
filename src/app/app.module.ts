@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import {
   HttpClientModule,
@@ -22,6 +22,7 @@ import {
 import {NgxPrintModule} from 'ngx-print';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { LayoutsModule } from "./layouts/layouts.module";
 import { PagesModule } from "./pages/pages.module";
@@ -69,8 +70,9 @@ export function createTranslateLoader(http: HttpClient): any {
     provideFirestore(() => getFirestore()), //add++
     provideAuth(() => getAuth()),
     AngularFireModule.initializeApp(environment.firebase),
-    NgxPrintModule
-  ],
+    NgxPrintModule,
+    NgxSpinnerModule
+  ],schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

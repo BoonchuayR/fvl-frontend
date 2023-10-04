@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
 import {
   FormArrayName,
   FormBuilder,
@@ -37,7 +38,8 @@ export class MeterAddComponent implements OnInit {
     private router: Router,
     private meterService: MeterService,
     private iotService: IotService,
-    firestore: Firestore
+    firestore: Firestore,
+    private spinner: NgxSpinnerService
   ) {
     const cities = collection(firestore, 'cities');
     
@@ -140,7 +142,9 @@ export class MeterAddComponent implements OnInit {
    * Bootsrap validation form submit method
    */
   async addMeter() {
+    this.spinner.show();
     this.submit = true;
+    
     const boothId = this.validationform.get("boothId")?.value;
     
     const meter = {
@@ -154,6 +158,7 @@ export class MeterAddComponent implements OnInit {
       console.log("res >>> ", res);
       const isDupMeter = res.isDup;
       if (isDupMeter) {
+        this.spinner.hide();
         Swal.fire({
           position: "top-end",
           icon: "warning",
@@ -164,6 +169,7 @@ export class MeterAddComponent implements OnInit {
         return;
       } else {
         this.meterService.create(meter).then((meter) => {
+          this.spinner.hide();
           Swal.fire({
             position: "top-end",
             icon: "success",

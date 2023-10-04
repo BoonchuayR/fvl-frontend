@@ -16,6 +16,8 @@ import { Meter } from "src/app/core/models/meter.model";
 import { Shop } from "src/app/core/models/shop.models";
 import { Customer } from "src/app/core/models/customer.models";
 import { take } from "rxjs/operators";
+import { pipe } from "rxjs";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-customer-edit",
@@ -57,7 +59,8 @@ export class CustomerEditComponent implements OnInit {
     private shopService: ShopService,
     private meterService: MeterService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {
     this.itemShopForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -104,6 +107,7 @@ export class CustomerEditComponent implements OnInit {
   }
 
   formSubmit() {
+    this.spinner.show();
     const customer = { uid: this.customer.uid, ...this.validationform.value };
     this.checkDistinctBootId();
     if (this.bootIdError) {
@@ -118,24 +122,59 @@ export class CustomerEditComponent implements OnInit {
           shopItems.value.forEach((shop: any) => {
             // console.log("shop => ", shop);
             this.shopService
-              .update(shop)
-              .then((res) => {
-                // Update meter
-                // Set custname and shopname to meter
-                shop.boothIds.forEach((bootId: string) => {
-                  this.meterService
-                    .findMeterByBooothId(bootId)
-                    .subscribe((meters: Meter[]) => {
-                      meters.forEach((meter: Meter) => {
-                        meter.custName = customer.custName;
-                        meter.shopName = shop.boothName;
-                        this.meterService.update(meter).then(() => {});
+              .findByUID(shop.uid)
+              .pipe(take(1))
+              .subscribe((respo) => {
+                const data = respo;
+                console.log("data --->> : ",data)
+                if (data.length>0) {
+                  this.shopService
+                    .update(shop)
+                    .then((res) => {
+                      // Update meter
+                      // Set custname and shopname to meter
+                      shop.boothIds.forEach((bootId: string) => {
+                        this.meterService
+                          .findMeterByBooothId(bootId)
+                          .subscribe((meters: Meter[]) => {
+                            meters.forEach((meter: Meter) => {
+                              meter.custName = customer.custName;
+                              meter.shopName = shop.boothName;
+                              this.meterService.update(meter).then(() => {});
+                            });
+                          });
                       });
+                    })
+                    .catch((err) => {
+                      console.log("err: ", err);
                     });
-                });
-              })
-              .catch((err) => {
-                console.log("err: ", err);
+                }
+                if(data.length==0){
+                  console.log("eiei")
+                  this.shopService
+                  .create({
+                    ...shop,
+                    uid: customer.uid,
+                    custName: customer.custName,
+                    custPhone: customer.custPhone,
+                  })
+                  .then(() => {
+                    // Set custname and shopname to meter
+                    shop.boothIds.forEach((bootId: string) => {
+                      this.meterService
+                        .findMeterByBooothId(bootId)
+                        .pipe(take(1))
+                        .subscribe((meters: Meter[]) => {
+                          meters.forEach((meter: Meter) => {
+                            meter.custName = customer.custName;
+                            meter.shopName = shop.boothName;
+                            meter.uid = customer.uid;
+                            this.meterService.update(meter).then(() => {});
+                          });
+                        });
+                    });
+                  });
+                }
               });
           });
 
@@ -146,7 +185,7 @@ export class CustomerEditComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000,
           });
-
+          this.spinner.hide();
           this.router.navigate(["/customer-list"]);
         })
         .catch((err) => {

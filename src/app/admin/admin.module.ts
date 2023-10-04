@@ -60,6 +60,8 @@ import { UserSortableDirective } from "./user/user-list/user-sortable.directive"
 import { CustomerSortableDirective } from "./customer/customer-list/customer-sortable.directive";
 import { HttpClientModule } from "@angular/common/http";
 import { MeterSortableDirective } from "./meter/meter-list/meter-list-sortable.directive";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -124,6 +126,7 @@ import { MeterSortableDirective } from "./meter/meter-list/meter-list-sortable.d
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",
     }),
+    NgxSpinnerModule,
   ],
   providers:[DecimalPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
