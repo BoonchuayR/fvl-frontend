@@ -297,54 +297,67 @@ export class CustomerAddComponent implements OnInit {
               }
             );
           // console.log(shop);
-        } else {
+        } 
+        // else {
+        //   Swal.fire({
+        //     position: "center",
+        //     icon: "warning",
+        //     title: "คุณแน่ใจใช่ไหม? ว่าคุณต้องการไม่ระบุรหัสแผงค้า",
+        //     showConfirmButton: true,
+        //     // timer: 3000,
+        //     showCancelButton: true,
+        //     confirmButtonText: "แน่ใจ",
+        //     cancelButtonText: "กลับไปใส่รหัสแผงค้า",
+        //   }).then((res) => {
+        //     if (res.isConfirmed) {
+        //       this.spinner.show();
+        //       this.userProfileService
+        //         .register(user)
+        //         .pipe(take(1))
+        //         .subscribe(
+        //           (creden: any) => {
+        //             const customer = {
+        //               uid: creden.uid,
+        //               email: email,
+        //               custCode: custCode,
+        //               custName: custName,
+        //               custPhone: custPhone,
+        //               custStartDate: custStartDate,
+        //               minimumMoney: minimumMoney,
+        //               currentMoney: 0,
+        //             };
+        //             // Add customer
+        //             this.addCustomer(customer)
+        //               .pipe(take(1))
+        //               .subscribe((cust) => {
+        //                 Swal.fire({
+        //                   position: "top-end",
+        //                   icon: "success",
+        //                   title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+        //                   showConfirmButton: false,
+        //                   timer: 3000,
+        //                 });
+        //                 this.spinner.hide();
+        //                 this.router.navigate(["/customer-list"]);
+        //               });
+        //           },
+        //           (error) => {
+        //             console.log("error: ", error);
+        //           }
+        //         );
+        //     }
+        //   });
+        // }
+        else{
           Swal.fire({
             position: "center",
             icon: "warning",
-            title: "คุณแน่ใจใช่ไหม? ว่าคุณต้องการไม่ระบุรหัสแผงค้า",
+            title: "กรุณาระบุรหัสแผงค้า",
             showConfirmButton: true,
             // timer: 3000,
-            showCancelButton: true,
-            confirmButtonText: "แน่ใจ",
-            cancelButtonText: "กลับไปใส่รหัสแผงค้า",
-          }).then((res) => {
-            if (res.isConfirmed) {
-              this.spinner.show();
-              this.userProfileService
-                .register(user)
-                .pipe(take(1))
-                .subscribe(
-                  (creden: any) => {
-                    const customer = {
-                      uid: creden.uid,
-                      email: email,
-                      custCode: custCode,
-                      custName: custName,
-                      custPhone: custPhone,
-                      custStartDate: custStartDate,
-                      minimumMoney: minimumMoney,
-                      currentMoney: 0,
-                    };
-                    // Add customer
-                    this.addCustomer(customer)
-                      .pipe(take(1))
-                      .subscribe((cust) => {
-                        Swal.fire({
-                          position: "top-end",
-                          icon: "success",
-                          title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-                          showConfirmButton: false,
-                          timer: 3000,
-                        });
-                        this.spinner.hide();
-                        this.router.navigate(["/customer-list"]);
-                      });
-                  },
-                  (error) => {
-                    console.log("error: ", error);
-                  }
-                );
-            }
+            // showCancelButton: true,
+            // confirmButtonText: "แน่ใจ",
+            // cancelButtonText: "กลับไปใส่รหัสแผงค้า",
           });
         }
       });
