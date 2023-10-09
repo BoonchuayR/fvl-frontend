@@ -3,22 +3,21 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
-import {userRoutes} from "./users/user.routes";
+import { userRoutes } from "./users/user.routes";
 import axios from "axios";
 import * as moment from "moment";
-import {getFirestore} from "firebase-admin/firestore";
-import {utilRoutes} from "./utils/utils.routes";
-import {customerRoutes} from "./customer/customer.routes";
+import { getFirestore } from "firebase-admin/firestore";
+import { utilRoutes } from "./utils/utils.routes";
+import { customerRoutes } from "./customer/customer.routes";
 
 admin.initializeApp();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 userRoutes(app);
 customerRoutes(app);
 utilRoutes(app);
-
 
 const db = getFirestore();
 
@@ -28,7 +27,7 @@ export const api = functions.https.onRequest(app);
 // https://firebase.google.com/docs/functions/typescript
 
 export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
+  functions.logger.info("Hello logs!", { structuredData: true });
   response.send("Hello from Firebase!");
 });
 
@@ -63,9 +62,7 @@ export const recordElectricity = functions.pubsub
           "METER_STATE_PREVIOUS_UNIT",
           "METER_STATE_CALCULATE_UNIT",
         ],
-        BOOTH_ID: [
-          "*",
-        ],
+        BOOTH_ID: ["*"],
         LIMIT: {
           PAGE: 1,
           PAGE_SIZE: 7,
@@ -76,7 +73,7 @@ export const recordElectricity = functions.pubsub
         method: "post",
         url: "https://www.k-tech.co.th/foodvilla/meter/api/controller.php",
         data: bodyReq,
-      }).then(async (res) => {
+      }).then(async (res: any) => {
         const meterData = res.data.DATA_RESPONSE;
         console.log("meterData >>> ", meterData);
 
@@ -91,14 +88,18 @@ export const recordElectricity = functions.pubsub
             balanceAmt: 0,
           };
 
-          const shopSnapshot = await db.collection("shop")
-            .where("boothIds", "array-contains", meterData[i].BOOTH_ID).get();
+          const shopSnapshot = await db
+            .collection("shop")
+            .where("boothIds", "array-contains", meterData[i].BOOTH_ID)
+            .get();
 
           shopSnapshot.forEach(async (doc) => {
             console.log(doc.id, "=>", doc.data());
             const shop = doc.data();
-            const customerSnapshot = await db.collection("customers")
-              .where("uid", "==", shop.uid).get();
+            const customerSnapshot = await db
+              .collection("customers")
+              .where("uid", "==", shop.uid)
+              .get();
             customerSnapshot.forEach(async (cust) => {
               const customer = cust.data();
 
@@ -110,9 +111,11 @@ export const recordElectricity = functions.pubsub
               // Add electricity
               electricity.uid = customer.uid;
               electricity.balanceAmt = customer.currentMoney;
-              db.collection("electricity").add(electricity).then(() => {
-                // console.log("res: ", res);
-              });
+              db.collection("electricity")
+                .add(electricity)
+                .then(() => {
+                  // console.log("res: ", res);
+                });
             });
             // console.log(doc.id, '=>', doc.data());
           });
