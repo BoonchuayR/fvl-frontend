@@ -203,7 +203,6 @@ export class CustomerAddComponent implements OnInit {
   }
 
   formSubmit() {
-    this.spinner.show();
     // Add customer
     const {
       email,
@@ -240,6 +239,7 @@ export class CustomerAddComponent implements OnInit {
       // Add shops
       shopItems.value.forEach((shop: any) => {
         if (shop.boothIds != "" && shop.boothIds != null) {
+          this.spinner.show();
           this.userProfileService
             .register(user)
             .pipe(take(1))
@@ -309,6 +309,7 @@ export class CustomerAddComponent implements OnInit {
             cancelButtonText: "กลับไปใส่รหัสแผงค้า",
           }).then((res) => {
             if (res.isConfirmed) {
+              this.spinner.show();
               this.userProfileService
                 .register(user)
                 .pipe(take(1))
