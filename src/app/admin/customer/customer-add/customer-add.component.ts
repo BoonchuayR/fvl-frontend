@@ -173,7 +173,41 @@ export class CustomerAddComponent implements OnInit {
     }
     return output1;
   }
-
+  checkEmailDistinct() {
+    const {
+      email,
+      password,
+      custCode,
+      custName,
+      custPhone,
+      custStartDate,
+      minimumMoney,
+      boothName,
+      contractNo,
+      boothZone,
+      boothCate,
+      contractDate,
+      contractEndDate,
+      boothIds,
+    } = this.validationform.value;
+    this.customerService.getAll().subscribe((res) => {
+      const response = res;
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].email === email) {
+          Swal.fire("แจ้งเตือน!", "@EMAIL นีถูกใช้งานแล้ว", "warning").then(
+            (result) => {
+              if (result.isConfirmed) {
+                // window.location.reload();
+              }
+            }
+          );
+          console.log("อาหารร้านนี้ อร่อย! อย่างมากมายเลยทีเดียวเชียว");
+        }else{
+          this.formSubmit();
+        }
+      }
+    });
+  }
   checkDistinctBootId() {
     var flags: any[] = [],
       output2 = [],
@@ -188,13 +222,17 @@ export class CustomerAddComponent implements OnInit {
     }
     console.log("arrayOfBootId", arrayOfBootId);
     if (arrayOfBootId.length > output2.length) {
-      Swal.fire("แจ้งเตือน!", "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!", "warning").then(
-        (result) => {
-          if (result.isConfirmed) {
-            // window.location.reload();
-          }
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "แจ้งเตือน!",
+        text: "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!",
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // window.location.reload();
         }
-      );
+      });
       this.bootIdError = true;
     }
     if (arrayOfBootId.length == output2.length) {
@@ -312,15 +350,6 @@ export class CustomerAddComponent implements OnInit {
               },
               (error) => {
                 console.log("error: ", error);
-                if(error){
-                  this.loading = false;
-                  Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "@Email ถูกใช้งานแล้ว",
-                    showConfirmButton: true,
-                  });
-                }
               }
             );
         });
