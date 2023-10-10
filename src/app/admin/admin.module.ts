@@ -62,6 +62,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { MeterSortableDirective } from "./meter/meter-list/meter-list-sortable.directive";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgxLoadingModule } from "ngx-loading";
 
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
       apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",
     }),
     NgxSpinnerModule,
+    NgxLoadingModule.forRoot({}),
   ],
   providers:[DecimalPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

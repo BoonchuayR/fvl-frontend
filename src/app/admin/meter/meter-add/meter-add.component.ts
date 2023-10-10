@@ -32,7 +32,7 @@ export class MeterAddComponent implements OnInit {
   formsubmit!: boolean;
   validationform!: FormGroup;
   meter!: any;
-
+  public loading = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -142,7 +142,8 @@ export class MeterAddComponent implements OnInit {
    * Bootsrap validation form submit method
    */
   async addMeter() {
-    this.spinner.show();
+    // this.spinner.show();
+    this.loading = true;
     this.submit = true;
     
     const boothId = this.validationform.get("boothId")?.value;
@@ -158,7 +159,8 @@ export class MeterAddComponent implements OnInit {
       console.log("res >>> ", res);
       const isDupMeter = res.isDup;
       if (isDupMeter) {
-        this.spinner.hide();
+        // this.spinner.hide();
+        this.loading = false;
         Swal.fire({
           position: "top-end",
           icon: "warning",
@@ -169,7 +171,8 @@ export class MeterAddComponent implements OnInit {
         return;
       } else {
         this.meterService.create(meter).then((meter) => {
-          this.spinner.hide();
+          // this.spinner.hide();
+          this.loading = false;
           Swal.fire({
             position: "top-end",
             icon: "success",
