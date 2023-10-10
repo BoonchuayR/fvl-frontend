@@ -58,6 +58,7 @@ export class CustomerListComponent implements OnInit {
   shopFindBoothId: any;
   meterFindFromShop: any;
   boothIdString!: String;
+  public loading = false;
   constructor(
     private modalService: NgbModal,
     private customerService: CustomerService,
@@ -101,6 +102,7 @@ export class CustomerListComponent implements OnInit {
    */
 
   confirm(uid: string) {
+    
     Swal.fire({
       title: "ลบข้อมูลลูกค้า",
       text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
@@ -112,8 +114,10 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loading = true;
         // console.log("uid == ",uid);
         this.customerService.delete(uid).then((deletedcustomer) => {
+          this.loading = false;
           Swal.fire({
             position: "top-end",
             icon: "success",

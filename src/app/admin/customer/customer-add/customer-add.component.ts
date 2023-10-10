@@ -173,40 +173,25 @@ export class CustomerAddComponent implements OnInit {
     }
     return output1;
   }
-  checkEmailDistinct() {
-    const {
-      email,
-      password,
-      custCode,
-      custName,
-      custPhone,
-      custStartDate,
-      minimumMoney,
-      boothName,
-      contractNo,
-      boothZone,
-      boothCate,
-      contractDate,
-      contractEndDate,
-      boothIds,
-    } = this.validationform.value;
-    this.customerService.getAll().subscribe((res) => {
-      const response = res;
-      for (let i = 0; i < response.length; i++) {
-        if (response[i].email === email) {
-          Swal.fire("แจ้งเตือน!", "@EMAIL นีถูกใช้งานแล้ว", "warning").then(
-            (result) => {
-              if (result.isConfirmed) {
-                // window.location.reload();
+  checkEmailDistinct(email: any) {
+    this.customerService
+      .getAll()
+      .pipe(take(1))
+      .subscribe((res) => {
+        const response = res;
+        for (let i = 0; i < response.length; i++) {
+          if (response[i].email === email) {
+            Swal.fire("แจ้งเตือน!", "@EMAIL นีถูกใช้งานแล้ว", "warning").then(
+              (result) => {
+                if (result.isConfirmed) {
+                  // window.location.reload();
+                }
               }
-            }
-          );
-          console.log("อาหารร้านนี้ อร่อย! อย่างมากมายเลยทีเดียวเชียว");
-        }else{
-          this.formSubmit();
+            );
+            console.log("อาหารร้านนี้ อร่อย! อย่างมากมายเลยทีเดียวเชียว");
+          }
         }
-      }
-    });
+      });
   }
   checkDistinctBootId() {
     var flags: any[] = [],
@@ -217,10 +202,10 @@ export class CustomerAddComponent implements OnInit {
       if (flags[arrayOfBootId[i]]) continue;
       flags[arrayOfBootId[i]] = true;
       output2.push(arrayOfBootId[i]);
-      console.log("flags", flags);
-      console.log("output2", output2);
+      // console.log("flags", flags);
+      // console.log("output2", output2);
     }
-    console.log("arrayOfBootId", arrayOfBootId);
+    // console.log("arrayOfBootId", arrayOfBootId);
     if (arrayOfBootId.length > output2.length) {
       Swal.fire({
         position: "center",
@@ -258,7 +243,9 @@ export class CustomerAddComponent implements OnInit {
       contractEndDate,
       boothIds,
     } = this.validationform.value;
-
+    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
+    this.checkEmailDistinct(email);
+    this.checkDistinctBootId();
     const user: User = {
       id: "",
       displayName: email,
@@ -269,8 +256,7 @@ export class CustomerAddComponent implements OnInit {
       uid: "",
       role: "customer",
     };
-    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
-    this.checkDistinctBootId();
+
     if (this.bootIdError) {
       return;
     } else if (this.bootIdError === false) {
@@ -286,34 +272,34 @@ export class CustomerAddComponent implements OnInit {
           this.loading = false;
           break;
         }
-        if (shopItems.value[i].boothIds != 0) {
+        if (shopItems.value[i].boothIds.length != 0) {
           data.push(shopItems.value[i].boothIds);
         }
       }
       if (data.length == shopItems.value.length) {
-        // Add shops
-        shopItems.value.forEach((shop: any) => {
-          // this.spinner.show();
-          this.loading = true;
-          this.userProfileService
-            .register(user)
-            .pipe(take(1))
-            .subscribe(
-              (creden: any) => {
-                const customer = {
-                  uid: creden.uid,
-                  email: email,
-                  custCode: custCode,
-                  custName: custName,
-                  custPhone: custPhone,
-                  custStartDate: custStartDate,
-                  minimumMoney: minimumMoney,
-                  currentMoney: 0,
-                };
+        // this.spinner.show();
+        this.loading = true;
+        this.userProfileService
+          .register(user)
+          .pipe(take(1))
+          .subscribe(
+            (creden: any) => {
+              const customer = {
+                uid: creden.uid,
+                email: email,
+                custCode: custCode,
+                custName: custName,
+                custPhone: custPhone,
+                custStartDate: custStartDate,
+                minimumMoney: minimumMoney,
+                currentMoney: 0,
+              };
 
-                this.addCustomer(customer)
-                  .pipe(take(1))
-                  .subscribe((cust) => {});
+              this.addCustomer(customer)
+                .pipe(take(1))
+                .subscribe((cust) => {});
+              // Add shops
+              shopItems.value.forEach((shop: any) => {
                 this.shopService
                   .create({
                     ...shop,
@@ -332,27 +318,28 @@ export class CustomerAddComponent implements OnInit {
                             meter.custName = customer.custName;
                             meter.shopName = shop.boothName;
                             meter.uid = customer.uid;
-                            this.meterService.update(meter).then(() => {});
+                            this.meterService.update(meter).then(() => {
+                              Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                                showConfirmButton: false,
+                                timer: 3000,
+                              });
+                              // this.spinner.hide();
+                              this.loading = false;
+                              this.router.navigate(["/customer-list"]);
+                            });
                           });
                         });
                     });
-                    Swal.fire({
-                      position: "top-end",
-                      icon: "success",
-                      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-                      showConfirmButton: false,
-                      timer: 3000,
-                    });
-                    // this.spinner.hide();
-                    this.loading = false;
-                    this.router.navigate(["/customer-list"]);
                   });
-              },
-              (error) => {
-                console.log("error: ", error);
-              }
-            );
-        });
+              });
+            },
+            (error) => {
+              console.log("error", error);
+            }
+          );
       }
     }
   }
