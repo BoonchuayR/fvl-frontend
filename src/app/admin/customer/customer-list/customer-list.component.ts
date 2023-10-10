@@ -190,7 +190,7 @@ export class CustomerListComponent implements OnInit {
   updatecurrentMoney(topupAmt: any) {
     const topupMoney = topupAmt;
     const currntMoney = this.selectedCustomer.currentMoney;
-    const updateCurrentMoney = topupMoney + currntMoney;
+    const updateCurrentMoney = +topupMoney + +currntMoney;
 
     this.firestorets = new FirebaseTSFirestore();
     this.firestorets.update({
@@ -209,6 +209,14 @@ export class CustomerListComponent implements OnInit {
     topup.custName = this.selectedCustomer.custName;
     topup.topupMoney = topupMoney;
     topup.uid = this.selectedCustomer.uid;
-    this.topupService.create(topup).then((topup) => {});
+    this.topupService.create(topup).then((topup) => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "เติมเงินเรียบร้อย",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    });
   }
 }
