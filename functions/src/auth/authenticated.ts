@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import * as admin from "firebase-admin";
 
 /**
@@ -8,25 +8,25 @@ import * as admin from "firebase-admin";
  * @param {any} next next.
  */
 export async function isAuthenticated(req: Request, res: Response, next: any) {
-  const { authorization } = req.headers;
+  const {authorization} = req.headers;
 
   console.log("authorization >>> ", authorization);
 
   if (!authorization) {
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).send({message: "Unauthorized"});
   }
 
   console.log("headers have authorization");
 
   if (!authorization.startsWith("Bearer")) {
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).send({message: "Unauthorized"});
   }
 
   console.log("Start with Bearer");
 
   const split = authorization.split("Bearer ");
   if (split.length !== 2) {
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).send({message: "Unauthorized"});
   }
 
   const token = split[1];
@@ -45,6 +45,6 @@ export async function isAuthenticated(req: Request, res: Response, next: any) {
     return next();
   } catch (err: any) {
     console.error(`${err.code} -  ${err.message}`);
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).send({message: "Unauthorized"});
   }
 }

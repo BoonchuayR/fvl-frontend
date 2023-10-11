@@ -3,18 +3,18 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
-import { userRoutes } from "./users/user.routes";
+import {userRoutes} from "./users/user.routes";
 import axios from "axios";
 import * as moment from "moment";
-import { getFirestore } from "firebase-admin/firestore";
-import { utilRoutes } from "./utils/utils.routes";
-import { customerRoutes } from "./customer/customer.routes";
+import {getFirestore} from "firebase-admin/firestore";
+import {utilRoutes} from "./utils/utils.routes";
+import {customerRoutes} from "./customer/customer.routes";
 
 admin.initializeApp();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({ origin: true }));
+app.use(cors({origin: true}));
 userRoutes(app);
 customerRoutes(app);
 utilRoutes(app);
@@ -27,7 +27,7 @@ export const api = functions.https.onRequest(app);
 // https://firebase.google.com/docs/functions/typescript
 
 export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", { structuredData: true });
+  functions.logger.info("Hello logs!", {structuredData: true});
   response.send("Hello from Firebase!");
 });
 
