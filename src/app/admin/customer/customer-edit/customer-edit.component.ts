@@ -41,7 +41,7 @@ export class CustomerEditComponent implements OnInit {
     minimumMoney: ["", [Validators.required]],
     currentMoney: ["", [Validators.required]],
   });
-
+  public loading = false;
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
@@ -107,7 +107,8 @@ export class CustomerEditComponent implements OnInit {
   }
 
   formSubmit() {
-    this.spinner.show();
+    // this.spinner.show();
+
     const customer = { uid: this.customer.uid, ...this.validationform.value };
     this.checkDistinctBootId();
     if (this.bootIdError) {
@@ -119,74 +120,92 @@ export class CustomerEditComponent implements OnInit {
           const shopItems: FormArray = this.itemShopForm.get(
             "items"
           ) as FormArray;
-          shopItems.value.forEach((shop: any) => {
-            // console.log("shop => ", shop);
-            this.shopService
-              .findByUID(shop.uid)
-              .pipe(take(1))
-              .subscribe((respo) => {
-                const data = respo;
-                console.log("data --->> : ",data)
-                if (data.length>0) {
-                  this.shopService
-                    .update(shop)
-                    .then((res) => {
-                      // Update meter
-                      // Set custname and shopname to meter
-                      shop.boothIds.forEach((bootId: string) => {
-                        this.meterService
-                          .findMeterByBooothId(bootId)
-                          .subscribe((meters: Meter[]) => {
-                            meters.forEach((meter: Meter) => {
-                              meter.custName = customer.custName;
-                              meter.shopName = shop.boothName;
-                              this.meterService.update(meter).then(() => {});
-                            });
-                          });
-                      });
-                    })
-                    .catch((err) => {
-                      console.log("err: ", err);
-                    });
-                }
-                if(data.length==0){
-                  console.log("eiei")
-                  this.shopService
-                  .create({
-                    ...shop,
-                    uid: customer.uid,
-                    custName: customer.custName,
-                    custPhone: customer.custPhone,
-                  })
-                  .then(() => {
-                    // Set custname and shopname to meter
-                    shop.boothIds.forEach((bootId: string) => {
-                      this.meterService
-                        .findMeterByBooothId(bootId)
-                        .pipe(take(1))
-                        .subscribe((meters: Meter[]) => {
-                          meters.forEach((meter: Meter) => {
-                            meter.custName = customer.custName;
-                            meter.shopName = shop.boothName;
-                            meter.uid = customer.uid;
-                            this.meterService.update(meter).then(() => {});
-                          });
-                        });
-                    });
-                  });
-                }
+          var data = [];
+          for (let i = 0; i < shopItems.value.length; i++) {
+            if (shopItems.value[i].boothIds.length == 0) {
+              Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "กรุณาระบุรหัสแผงค้า",
+                showConfirmButton: true,
               });
-          });
+              this.loading = false;
+              break;
+            }
+            if (shopItems.value[i].boothIds != 0) {
+              data.push(shopItems.value[i].boothIds);
+            }
+          }
+          if (data.length == shopItems.value.length) {
+            shopItems.value.forEach((shop: any) => {
+              // console.log("shop => ", shop);
+              this.shopService
+                .findByUID(shop.uid)
+                .pipe(take(1))
+                .subscribe((respo) => {
+                  const data = respo;
+                  // console.log("data --->> : ",data)
+                  if (data.length > 0) {
+                    this.shopService
+                      .update(shop)
+                      .then((res) => {
+                        // Update meter
+                        // Set custname and shopname to meter
+                        shop.boothIds.forEach((bootId: string) => {
+                          this.meterService
+                            .findMeterByBooothId(bootId)
+                            .subscribe((meters: Meter[]) => {
+                              meters.forEach((meter: Meter) => {
+                                meter.custName = customer.custName;
+                                meter.shopName = shop.boothName;
+                                this.meterService.update(meter).then(() => {});
+                              });
+                            });
+                        });
+                      })
+                      .catch((err) => {
+                        console.log("err: ", err);
+                      });
+                  }
+                  if (data.length == 0) {
+                    this.shopService
+                      .create({
+                        ...shop,
+                        uid: customer.uid,
+                        custName: customer.custName,
+                        custPhone: customer.custPhone,
+                      })
+                      .then(() => {
+                        // Set custname and shopname to meter
+                        shop.boothIds.forEach((bootId: string) => {
+                          this.meterService
+                            .findMeterByBooothId(bootId)
+                            .pipe(take(1))
+                            .subscribe((meters: Meter[]) => {
+                              meters.forEach((meter: Meter) => {
+                                meter.custName = customer.custName;
+                                meter.shopName = shop.boothName;
+                                meter.uid = customer.uid;
+                                this.meterService.update(meter).then(() => {});
+                              });
+                            });
+                        });
+                      });
+                  }
+                });
+            });
 
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
-            showConfirmButton: false,
-            timer: 3000,
-          });
-          this.spinner.hide();
-          this.router.navigate(["/customer-list"]);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "แก้ไขข้อมูลลูกค้าเรียบร้อย",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            // this.spinner.hide();
+            this.loading = false;
+            this.router.navigate(["/customer-list"]);
+          }
         })
         .catch((err) => {
           console.log("err: ", err);
@@ -266,13 +285,14 @@ export class CustomerEditComponent implements OnInit {
       if (flags[arrayOfBootId[i]]) continue;
       flags[arrayOfBootId[i]] = true;
       output2.push(arrayOfBootId[i]);
-      console.log("flags", flags);
-      console.log("output2", output2);
+      // console.log("flags", flags);
+      // console.log("output2", output2);
     }
-    console.log("arrayOfBootId", arrayOfBootId);
+    // console.log("arrayOfBootId", arrayOfBootId);
     if (arrayOfBootId.length > output2.length) {
       Swal.fire("แจ้งเตือน!", "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!", "warning").then(
         (result) => {
+          // this.loading = false;
           if (result.isConfirmed) {
             // window.location.reload();
           }
@@ -282,6 +302,7 @@ export class CustomerEditComponent implements OnInit {
     }
     if (arrayOfBootId.length == output2.length) {
       this.bootIdError = false;
+      this.loading = true;
     }
   }
 

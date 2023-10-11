@@ -58,6 +58,7 @@ export class CustomerListComponent implements OnInit {
   shopFindBoothId: any;
   meterFindFromShop: any;
   boothIdString!: String;
+  public loading = false;
   constructor(
     private modalService: NgbModal,
     private customerService: CustomerService,
@@ -101,6 +102,7 @@ export class CustomerListComponent implements OnInit {
    */
 
   confirm(uid: string) {
+    
     Swal.fire({
       title: "ลบข้อมูลลูกค้า",
       text: "คุณต้องการลบลูกค้านี้ใช่หรือไม่?",
@@ -112,8 +114,10 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText: "ไม่, ยกเลิก!",
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loading = true;
         // console.log("uid == ",uid);
         this.customerService.delete(uid).then((deletedcustomer) => {
+          this.loading = false;
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -190,7 +194,7 @@ export class CustomerListComponent implements OnInit {
   updatecurrentMoney(topupAmt: any) {
     const topupMoney = topupAmt;
     const currntMoney = this.selectedCustomer.currentMoney;
-    const updateCurrentMoney = topupMoney + currntMoney;
+    const updateCurrentMoney = +topupMoney + +currntMoney;
 
     this.firestorets = new FirebaseTSFirestore();
     this.firestorets.update({
@@ -209,6 +213,14 @@ export class CustomerListComponent implements OnInit {
     topup.custName = this.selectedCustomer.custName;
     topup.topupMoney = topupMoney;
     topup.uid = this.selectedCustomer.uid;
-    this.topupService.create(topup).then((topup) => {});
+    this.topupService.create(topup).then((topup) => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "เติมเงินเรียบร้อย",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    });
   }
 }

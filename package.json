@@ -68,6 +68,7 @@
     "ngx-color-picker": "^11.0.0",
     "ngx-cookie-service": "^11.0.2",
     "ngx-dropzone": "^3.0.0",
+    "ngx-loading": "^13.0.1",
     "ngx-print": "^1.2.1",
     "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.3.0",

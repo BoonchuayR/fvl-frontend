@@ -32,7 +32,7 @@ export class CustomerAddComponent implements OnInit {
     minimumMoney: ["", [Validators.required]],
     currentMoney: ["", [Validators.required]],
   });
-
+  public loading = false;
   public itemShopForm: FormGroup;
   public item_collapsed: Array<any> = [];
   public keyActionItemCard: number = 0;
@@ -173,7 +173,26 @@ export class CustomerAddComponent implements OnInit {
     }
     return output1;
   }
-
+  checkEmailDistinct(email: any) {
+    this.customerService
+      .getAll()
+      .pipe(take(1))
+      .subscribe((res) => {
+        const response = res;
+        for (let i = 0; i < response.length; i++) {
+          if (response[i].email === email) {
+            Swal.fire("แจ้งเตือน!", "@EMAIL นีถูกใช้งานแล้ว", "warning").then(
+              (result) => {
+                if (result.isConfirmed) {
+                  // window.location.reload();
+                }
+              }
+            );
+            console.log("อาหารร้านนี้ อร่อย! อย่างมากมายเลยทีเดียวเชียว");
+          }
+        }
+      });
+  }
   checkDistinctBootId() {
     var flags: any[] = [],
       output2 = [],
@@ -183,18 +202,22 @@ export class CustomerAddComponent implements OnInit {
       if (flags[arrayOfBootId[i]]) continue;
       flags[arrayOfBootId[i]] = true;
       output2.push(arrayOfBootId[i]);
-      console.log("flags", flags);
-      console.log("output2", output2);
+      // console.log("flags", flags);
+      // console.log("output2", output2);
     }
-    console.log("arrayOfBootId", arrayOfBootId);
+    // console.log("arrayOfBootId", arrayOfBootId);
     if (arrayOfBootId.length > output2.length) {
-      Swal.fire("แจ้งเตือน!", "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!", "warning").then(
-        (result) => {
-          if (result.isConfirmed) {
-            // window.location.reload();
-          }
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "แจ้งเตือน!",
+        text: "คุณกรอกรหัสแผงร้านค้าซ้ำกัน!",
+        showConfirmButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // window.location.reload();
         }
-      );
+      });
       this.bootIdError = true;
     }
     if (arrayOfBootId.length == output2.length) {
@@ -220,7 +243,9 @@ export class CustomerAddComponent implements OnInit {
       contractEndDate,
       boothIds,
     } = this.validationform.value;
-
+    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
+    this.checkEmailDistinct(email);
+    this.checkDistinctBootId();
     const user: User = {
       id: "",
       displayName: email,
@@ -231,34 +256,50 @@ export class CustomerAddComponent implements OnInit {
       uid: "",
       role: "customer",
     };
-    const shopItems: FormArray = this.itemShopForm.get("items") as FormArray;
-    this.checkDistinctBootId();
+
     if (this.bootIdError) {
       return;
     } else if (this.bootIdError === false) {
-      // Add shops
-      shopItems.value.forEach((shop: any) => {
-        if (shop.boothIds != "" && shop.boothIds != null) {
-          this.spinner.show();
-          this.userProfileService
-            .register(user)
-            .pipe(take(1))
-            .subscribe(
-              (creden: any) => {
-                const customer = {
-                  uid: creden.uid,
-                  email: email,
-                  custCode: custCode,
-                  custName: custName,
-                  custPhone: custPhone,
-                  custStartDate: custStartDate,
-                  minimumMoney: minimumMoney,
-                  currentMoney: 0,
-                };
+      var data = [];
+      for (let i = 0; i < shopItems.value.length; i++) {
+        if (shopItems.value[i].boothIds.length == 0) {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "กรุณาระบุรหัสแผงค้า",
+            showConfirmButton: true,
+          });
+          this.loading = false;
+          break;
+        }
+        if (shopItems.value[i].boothIds.length != 0) {
+          data.push(shopItems.value[i].boothIds);
+        }
+      }
+      if (data.length == shopItems.value.length) {
+        // this.spinner.show();
+        this.loading = true;
+        this.userProfileService
+          .register(user)
+          .pipe(take(1))
+          .subscribe(
+            (creden: any) => {
+              const customer = {
+                uid: creden.uid,
+                email: email,
+                custCode: custCode,
+                custName: custName,
+                custPhone: custPhone,
+                custStartDate: custStartDate,
+                minimumMoney: minimumMoney,
+                currentMoney: 0,
+              };
 
-                this.addCustomer(customer)
-                  .pipe(take(1))
-                  .subscribe((cust) => {});
+              this.addCustomer(customer)
+                .pipe(take(1))
+                .subscribe((cust) => {});
+              // Add shops
+              shopItems.value.forEach((shop: any) => {
                 this.shopService
                   .create({
                     ...shop,
@@ -277,90 +318,29 @@ export class CustomerAddComponent implements OnInit {
                             meter.custName = customer.custName;
                             meter.shopName = shop.boothName;
                             meter.uid = customer.uid;
-                            this.meterService.update(meter).then(() => {});
+                            this.meterService.update(meter).then(() => {
+                              Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
+                                showConfirmButton: false,
+                                timer: 3000,
+                              });
+                              // this.spinner.hide();
+                              this.loading = false;
+                              this.router.navigate(["/customer-list"]);
+                            });
                           });
                         });
                     });
-                    Swal.fire({
-                      position: "top-end",
-                      icon: "success",
-                      title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-                      showConfirmButton: false,
-                      timer: 3000,
-                    });
-                    this.spinner.hide();
-                    this.router.navigate(["/customer-list"]);
                   });
-              },
-              (error) => {
-                console.log("error: ", error);
-              }
-            );
-          // console.log(shop);
-        } 
-        // else {
-        //   Swal.fire({
-        //     position: "center",
-        //     icon: "warning",
-        //     title: "คุณแน่ใจใช่ไหม? ว่าคุณต้องการไม่ระบุรหัสแผงค้า",
-        //     showConfirmButton: true,
-        //     // timer: 3000,
-        //     showCancelButton: true,
-        //     confirmButtonText: "แน่ใจ",
-        //     cancelButtonText: "กลับไปใส่รหัสแผงค้า",
-        //   }).then((res) => {
-        //     if (res.isConfirmed) {
-        //       this.spinner.show();
-        //       this.userProfileService
-        //         .register(user)
-        //         .pipe(take(1))
-        //         .subscribe(
-        //           (creden: any) => {
-        //             const customer = {
-        //               uid: creden.uid,
-        //               email: email,
-        //               custCode: custCode,
-        //               custName: custName,
-        //               custPhone: custPhone,
-        //               custStartDate: custStartDate,
-        //               minimumMoney: minimumMoney,
-        //               currentMoney: 0,
-        //             };
-        //             // Add customer
-        //             this.addCustomer(customer)
-        //               .pipe(take(1))
-        //               .subscribe((cust) => {
-        //                 Swal.fire({
-        //                   position: "top-end",
-        //                   icon: "success",
-        //                   title: "เพิ่มข้อมูลลูกค้าเรียบร้อย",
-        //                   showConfirmButton: false,
-        //                   timer: 3000,
-        //                 });
-        //                 this.spinner.hide();
-        //                 this.router.navigate(["/customer-list"]);
-        //               });
-        //           },
-        //           (error) => {
-        //             console.log("error: ", error);
-        //           }
-        //         );
-        //     }
-        //   });
-        // }
-        else{
-          Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "กรุณาระบุรหัสแผงค้า",
-            showConfirmButton: true,
-            // timer: 3000,
-            // showCancelButton: true,
-            // confirmButtonText: "แน่ใจ",
-            // cancelButtonText: "กลับไปใส่รหัสแผงค้า",
-          });
-        }
-      });
+              });
+            },
+            (error) => {
+              console.log("error", error);
+            }
+          );
+      }
     }
   }
   /**
