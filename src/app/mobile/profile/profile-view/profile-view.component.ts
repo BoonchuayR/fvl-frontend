@@ -42,6 +42,7 @@ import { ProfileViewTopupSortableDirective } from "./profile-view-topup-sortable
 import { ProfileViewElectricSortableDirective } from "./profile-view-electric-sortable.directive";
 import { ProfileElectricAdvancedServiceMD } from "./profile-electric-datatable.service";
 import { Electricity } from "src/app/core/models/electricity.model";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-profile-view",
@@ -87,26 +88,17 @@ export class ProfileViewComponent implements OnInit {
   breadCrumbItems!: Array<{}>;
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
-
   topUpAndChargeBarChart!: ChartType;
-
   topupMoney!: any;
-
   topup: any;
   topups!: any;
-
-  meters: any = [];
   allMeter!: any;
-
   shops: any = [];
   meterState: any;
-
   electricityList: any = [];
-
   printTopup = {};
   meterchart: any = [];
   currentchart: any = [];
-
   balancAmtItems: any[] = [];
 
   @ViewChild("content") content: any;
@@ -148,17 +140,17 @@ export class ProfileViewComponent implements OnInit {
     this.currentUser = this.authService.currentUser();
 
     // Get user data
-    this.userService.getUser(this.currentUser.uid).subscribe((user) => {});
+    this.userService.getUser(this.currentUser.uid).pipe(take(1)).subscribe((user) => {});
 
     // Get Balance Money
     this.customerService
-      .getCustomer(this.currentUser.uid)
+      .getCustomer(this.currentUser.uid).pipe(take(1))
       .subscribe((customer) => {
         this.customer = customer;
       });
 
     // Get topup transactions
-    this.topupService.getAll().subscribe((res) => {
+    this.topupService.getAll().pipe(take(1)).subscribe((res) => {
       this.topups = res.filter((r) => {
         return r.uid === this.currentUser.uid;
       });
@@ -171,14 +163,14 @@ export class ProfileViewComponent implements OnInit {
       // console.log("this.topups >>> ", this.topups)
       this.serviceTopup.profileTopups = this.topups;
       this.customerService
-        .getCustomer(this.currentUser.uid)
+        .getCustomer(this.currentUser.uid).pipe(take(1))
         .subscribe((meter) => {
           this.meterchart = meter;
           // console.log(this.meterchart);
         });
     });
 
-    this.electricityService.getAll().subscribe((items) => {
+    this.electricityService.getAll().pipe(take(1)).subscribe((items) => {
       const sortedItems = items.sort((a, b) => {
         if (a.date! > b.date!) {
           return -1;
@@ -192,8 +184,8 @@ export class ProfileViewComponent implements OnInit {
     });
 
     // Get shops of customer
-    this.shopService.getAll().subscribe((shops) => {
-      this.meterService.getAll().subscribe((allMeters) => {
+    this.shopService.getAll().pipe(take(1)).subscribe((shops) => {
+      this.meterService.getAll().pipe(take(1)).subscribe((allMeters) => {
         this.shops = shops.filter((s: any) => {
           return s.uid === this.currentUser.uid;
         });
@@ -202,18 +194,17 @@ export class ProfileViewComponent implements OnInit {
           return s.boothIds;
         });
         //  console.log("shopMeters >>>> ",this.shops);
-
         if (shopMeters && shopMeters[0] && shopMeters.length > 0) {
+          var getMeterMoreThanOne = []
           for (let i = 0; i < shopMeters.length; i++) {
-            this.meters = [];
             for (let j = 0; j < shopMeters[i].length; j++) {
               const filteredMeters: any = allMeters.filter((am) => {
                 return am.boothId === shopMeters[i][j];
               });
-
-              this.meters.push(...filteredMeters);
-              this.services.profileMeters = this.meters;
+              getMeterMoreThanOne.push(...filteredMeters)
+              
             }
+            this.services.profileMeters = getMeterMoreThanOne;
           }
         }
       });
@@ -221,7 +212,7 @@ export class ProfileViewComponent implements OnInit {
 
     // Get electricity of customer
     this.electricityService
-      .findByUID(this.currentUser.uid)
+      .findByUID(this.currentUser.uid).pipe(take(1))
       .subscribe((eltList) => {
         this.electricityList = eltList.sort((a, b) => {
           if (a.date! > b.date!) {
@@ -476,7 +467,7 @@ export class ProfileViewComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.iotService
-          .meterUpdateState(storeId, isChecked ? "1" : "2")
+          .meterUpdateState(storeId, isChecked ? "1" : "2").pipe(take(1))
           .subscribe((res) => {
             meter.meterState = isChecked ? "1" : "2";
             this.meterService
