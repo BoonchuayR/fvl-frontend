@@ -1,5 +1,15 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
-import { ChartType, DashboardUser ,DashboardShop} from "../dashboard/dashboard.model";
+import {
+  Component,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
+import {
+  ChartType,
+  DashboardUser,
+  DashboardShop,
+} from "../dashboard/dashboard.model";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
@@ -7,13 +17,15 @@ import { CustomerService } from "src/app/service/customer.service";
 import { ShopService } from "src/app/service/shop.service";
 import { MeterService } from "src/app/service/meter.service";
 import { AuthenticationService } from "src/app/core/services/auth.service";
-import { DashboardSortableDirective, SortEventDashboard } from "./dashboard-sortable.directive";
+import {
+  DashboardSortableDirective,
+  SortEventDashboard,
+} from "./dashboard-sortable.directive";
 import { Observable } from "rxjs/internal/Observable";
 import { DashboardAdvancedServiceMD } from "./dashboard-datatable.service";
 import { DashboardAdvancedService } from "./dashboardshop-datatable.service";
 import { DashboardShopSortableDirective } from "./dashboardshop-sortable.directive";
 import { take } from "rxjs/operators";
-
 
 @Component({
   selector: "app-dashboard",
@@ -27,7 +39,6 @@ import { take } from "rxjs/operators";
 export class DashboardComponent implements OnInit {
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-
 
   tableData!: DashboardUser[];
   hideme: boolean[] = [];
@@ -43,18 +54,15 @@ export class DashboardComponent implements OnInit {
   @ViewChildren(DashboardShopSortableDirective)
   headersshop!: QueryList<DashboardShopSortableDirective>;
 
-  
-
   emailSentBarChart!: ChartType;
   monthlyEarningChart!: ChartType;
   transactions: any;
   orders: any;
   users!: any;
   customers!: any;
-  displayUsers: any = [];
   shops!: any;
   meters!: any;
-  numberOfUsers!: number;
+  numberOfUsers: any;
   numberOfCustomers = 0;
   numberOfShops!: number;
   numberOfMeters!: number;
@@ -69,7 +77,7 @@ export class DashboardComponent implements OnInit {
     private authenService: AuthenticationService,
     public service: DashboardAdvancedServiceMD,
     public services: DashboardAdvancedService
-  ) {  
+  ) {
     this.tables$ = service.tables$;
     this.total$ = service.total$;
     this.tablesshop$ = services.tables$;
@@ -77,8 +85,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayUsers = [];
-    this.numberOfUsers = 0;
     //BreadCrumb
     this.breadCrumbItems = [
       { label: "หน้าหลัก" },
@@ -86,47 +92,42 @@ export class DashboardComponent implements OnInit {
     ];
 
     const currentUser = this.authenService.currentUser();
-   
+
     // Get all users show in dashboard
-    this.userService.getAll().pipe(take(1)).subscribe((allUsers) => {
+    this.userService.getAll().subscribe((allUsers) => {
       this.users = allUsers;
-      console.log(allUsers)
-      this.numberOfUsers += allUsers.length;
+      var data:any = [];
+      data = [
+        allUsers.map((u) => {
+            return {
+              typeUser: u.typeUser,
+              displayName: u.displayName,
+              email: u.email,
+              phone: u.phone,
+            };
+          })
+      ]
 
-      const tempUsers = allUsers.map(u => {
-        return {
-          typeUser: u.typeUser,
-          displayName: u.displayName,
-          email: u.email,
-          phone: u.phone
-        }
-      })
-    //   // console.log("tempUsers ",tempUsers);
-
-      this.displayUsers.push(...tempUsers)
-
-    //   // Get all customer show in dashboard
-      this.customerService.getAll().pipe(take(1)).subscribe((allCustomer) => {
+      //   // Get all customer show in dashboard
+      this.customerService.getAll().subscribe((allCustomer) => {
         this.customers = allCustomer;
-        this.numberOfUsers += allCustomer.length;
-        const userCustomers = allCustomer.map(cust => {
-          console.log(cust)
+        
+        const userCustomers = allCustomer.map((cust) => {
           return {
             typeUser: "ลูกค้า",
             displayName: cust.custName,
             email: cust.email,
-            phone: cust.custPhone
-          }
-        })
-        // console.log("userCustomer ",userCustomers);
-
-        this.displayUsers.push(...userCustomers)
-        this.service.dashboards =  this.displayUsers;
+            phone: cust.custPhone,
+          };
+        });
+        data[0].push(...userCustomers)
+        this.service.dashboards =  data[0];
+      this.numberOfUsers = data[0].length;
       });
     });
-
-     // Get all shops
-     this.shopService.getAll().subscribe((shops) => {
+   
+    // Get all shops
+    this.shopService.getAll().subscribe((shops) => {
       this.shops = shops;
       this.numberOfShops = shops.length;
       // console.log("shops ",shops);
@@ -142,9 +143,9 @@ export class DashboardComponent implements OnInit {
   }
   onSort({ column, direction }: SortEventDashboard) {
     // resetting other headers
-    this.headers.forEach(header => {
+    this.headers.forEach((header) => {
       if (header.sortableDashboard !== column) {
-        header.direction = '';
+        header.direction = "";
       }
     });
     this.service.sortColumn = column;
