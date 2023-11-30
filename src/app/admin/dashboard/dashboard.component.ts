@@ -12,6 +12,7 @@ import { Observable } from "rxjs/internal/Observable";
 import { DashboardAdvancedServiceMD } from "./dashboard-datatable.service";
 import { DashboardAdvancedService } from "./dashboardshop-datatable.service";
 import { DashboardShopSortableDirective } from "./dashboardshop-sortable.directive";
+import { take } from "rxjs/operators";
 
 
 @Component({
@@ -87,8 +88,9 @@ export class DashboardComponent implements OnInit {
     const currentUser = this.authenService.currentUser();
    
     // Get all users show in dashboard
-    this.userService.getAll().subscribe((allUsers) => {
+    this.userService.getAll().pipe(take(1)).subscribe((allUsers) => {
       this.users = allUsers;
+      console.log(allUsers)
       this.numberOfUsers += allUsers.length;
 
       const tempUsers = allUsers.map(u => {
@@ -107,8 +109,8 @@ export class DashboardComponent implements OnInit {
       this.customerService.getAll().subscribe((allCustomer) => {
         this.customers = allCustomer;
         this.numberOfUsers += allCustomer.length;
-  
         const userCustomers = allCustomer.map(cust => {
+          console.log(cust)
           return {
             typeUser: "ลูกค้า",
             displayName: cust.custName,
@@ -119,7 +121,7 @@ export class DashboardComponent implements OnInit {
         // console.log("userCustomer ",userCustomers);
 
         this.displayUsers.push(...userCustomers)
-        this.service.dashboards = userCustomers;
+        this.service.dashboards =  this.displayUsers;
       });
     });
 
