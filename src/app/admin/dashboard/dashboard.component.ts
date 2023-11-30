@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
       this.displayUsers.push(...tempUsers)
 
     //   // Get all customer show in dashboard
-      this.customerService.getAll().subscribe((allCustomer) => {
+      this.customerService.getAll().pipe(take(1)).subscribe((allCustomer) => {
         this.customers = allCustomer;
         this.numberOfUsers += allCustomer.length;
         const userCustomers = allCustomer.map(cust => {
