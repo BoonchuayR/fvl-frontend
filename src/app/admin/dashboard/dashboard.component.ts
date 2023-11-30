@@ -102,6 +102,7 @@ export class DashboardComponent implements OnInit {
     //   // console.log("tempUsers ",tempUsers);
 
       this.displayUsers.push(...tempUsers)
+      console.log("this.displayUsers >>> ", this.displayUsers);
 
     //   // Get all customer show in dashboard
       this.customerService.getAll().subscribe((allCustomer) => {
@@ -119,7 +120,7 @@ export class DashboardComponent implements OnInit {
         // console.log("userCustomer ",userCustomers);
 
         this.displayUsers.push(...userCustomers)
-        this.service.dashboards = userCustomers;
+        this.service.dashboards = this.displayUsers;
       });
     });
 
