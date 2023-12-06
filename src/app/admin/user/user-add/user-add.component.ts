@@ -56,7 +56,7 @@ export class UserAddComponent implements OnInit {
 
     let role = "service";
     if (typeUser === "ฝ่ายบัญชี") {
-      role = "account";
+      role = "admin";
     } else {
       role = "sale";
     }
