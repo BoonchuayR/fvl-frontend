@@ -189,6 +189,14 @@ export class CustomerAddComponent implements OnInit {
               }
             );
             console.log("อาหารร้านนี้ อร่อย! อย่างมากมายเลยทีเดียวเชียว");
+          }else if(email==null){
+            Swal.fire("แจ้งเตือน!", "กรุณาระบุ @EMAIL", "warning").then(
+              (result) => {
+                if (result.isConfirmed) {
+                  // window.location.reload();
+                }
+              }
+            );
           }
         }
       });
