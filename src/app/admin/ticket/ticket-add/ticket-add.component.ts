@@ -11,7 +11,7 @@ import { TicketService } from 'src/app/service/ticket.service';
 export class TicketAddComponent implements OnInit {
   submit!: boolean;
   validationform!: FormGroup;
-
+  model:any;
   constructor(private formBuilder: FormBuilder, private ticketService: TicketService) { }
 
   ngOnInit(): void {

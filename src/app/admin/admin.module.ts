@@ -14,6 +14,7 @@ import {
   NgbPopoverModule,
   NgbCollapseModule,
   NgbModule,
+  NgbDatepickerModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
 import { Select2Module } from 'ng-select2-component';
@@ -129,6 +130,7 @@ import { NgxLoadingModule } from "ngx-loading";
     }),
     NgxSpinnerModule,
     NgxLoadingModule.forRoot({}),
+    NgbDatepickerModule
   ],
   providers:[DecimalPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
