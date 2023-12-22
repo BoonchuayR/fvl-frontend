@@ -26,6 +26,8 @@ export class TicketAddComponent implements OnInit {
       STATUS: ['',[Validators.required]],
       DUE_DATE: ['',[Validators.required]],
       LOG: ['',[Validators.required]],
+      CONTRACT_NO: ['',[Validators.required]],
+      METER: ['',[Validators.required]],
     });
   }
 

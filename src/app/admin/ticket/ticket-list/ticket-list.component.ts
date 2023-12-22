@@ -35,6 +35,8 @@ export class TicketListComponent implements OnInit {
     TICKET_ID: "",
     DETAIL: "",
     OPENER_USER_ID: "",
+    CONTRACT_NO: "",
+    METER: "",
     id: "",
   };
 
@@ -54,14 +56,26 @@ export class TicketListComponent implements OnInit {
         return {
           CATEGORY: res.CATEGORY,
           STATUS: res.STATUS,
-          DUE_DATE: res.DUE_DATE.day +`.`+ res.DUE_DATE.month +`.`+ res.DUE_DATE.year,
-          CREATE_DATE: res.CREATE_DATE.day +`.`+ res.CREATE_DATE.month +`.`+ res.CREATE_DATE.year,
+          DUE_DATE:
+            res.DUE_DATE.day +
+            `.` +
+            res.DUE_DATE.month +
+            `.` +
+            res.DUE_DATE.year,
+          CREATE_DATE:
+            res.CREATE_DATE.day +
+            `.` +
+            res.CREATE_DATE.month +
+            `.` +
+            res.CREATE_DATE.year,
           LOG: res.LOG,
           HEADLINE: res.HEADLINE,
           CURRENT_HANDLER_USER_ID: res.CURRENT_HANDLER_USER_ID,
           TICKET_ID: res.TICKET_ID,
           DETAIL: res.DETAIL,
           OPENER_USER_ID: res.OPENER_USER_ID,
+          CONTRACT_NO: res.CONTRACT_NO,
+          METER: res.METER,
           id: res.id,
         };
       });
