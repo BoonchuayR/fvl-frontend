@@ -1,229 +1,259 @@
 <!-- start page title -->
 <div class="row mb-3">
-    <div class="d-flex align-items-start">
-        <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item">หน้าหลัก</li>
-            <li class="breadcrumb-item active">แจ้งซ่อม</li>
-        </ol>
-    </div>
+  <div class="d-flex align-items-start">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item">หน้าหลัก</li>
+      <li class="breadcrumb-item active">แจ้งซ่อม</li>
+    </ol>
+  </div>
 </div>
 
 <!-- end page title -->
 
 <!-- Start row -->
 <div class="row">
-    <div class>
-        <div class="card card-green-style">
-            <div class="p-3 px-4 bg-success">
-                <div class="d-flex align-items-start">
-                    <!-- <div class="align-self-center me-3">
+  <div class>
+    <div class="card card-green-style">
+      <div class="p-3 px-4 bg-success">
+        <div class="d-flex align-items-start">
+          <!-- <div class="align-self-center me-3">
                     <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
                   </div> -->
-                    <div class="flex-1 align-self-center">
-                        <h5 class="title-card font-size-16 mt-1 mb-0">
-                            <a href="#" class="text-reset">แจ้งซ่อม</a>
-                        </h5>
-                        <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+          <div class="flex-1 align-self-center">
+            <h5 class="title-card font-size-16 mt-1 mb-0">
+              <a href="#" class="text-reset">แจ้งซ่อม</a>
+            </h5>
+            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+          </div>
+
+          <div class="button-items">
+            <button
+              routerLink="/ticket-add"
+              routerLinkActive="active"
+              class="btn btn-outline-success btn-rounded float-right"
+            >
+              <i class="bx bx-user-plus"></i> เพิ่มรายการ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="row">
+          <div class="position-relative">
+            <div class="card">
+              <div class="card-body">
+                <div class>
+                  <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="dataTables_length" id="tickets-table_length">
+                        <label class="d-inline-flex align-items-center">
+                          Show
+                          <select
+                            name="tickets-table_length"
+                            aria-controls="tickets-table"
+                            name="pageSize"
+                            class="form-control form-control-sm mx-2"
+                            [(ngModel)]="service.pageSize"
+                          >
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select>
+                          entries
+                        </label>
+                      </div>
                     </div>
-
-                    <div class="button-items">
-                        <button routerLink="/ticket-add"
-                            routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded
-                            float-right">
-                            <i class="bx bx-user-plus"></i> เพิ่มรายการ
-                        </button>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                      <div
+                        id="tickets-table_filter"
+                        class="dataTables_filter text-md-end"
+                      >
+                        <label class="d-inline-flex align-items-center"
+                          >Search:
+                          <input
+                            type="text"
+                            name="searchTerm"
+                            class="form-control form-control-sm ms-2"
+                            aria-controls="tickets-table"
+                            [(ngModel)]="service.searchTerm"
+                        /></label>
+                      </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card-content">
-                <div class="row">
-                    <div class="position-relative">
-                        <div class="card">
-
-                            <div class="card-body">
-
-                                <div class>
-                                    <div class="row mb-md-2">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="dataTables_length"
-                                                id="tickets-table_length">
-                                                <label class="d-inline-flex
-                                                    align-items-center">
-                                                    Show
-                                                    <select
-                                                        name="tickets-table_length"
-                                                        aria-controls="tickets-table"
-                                                        name="pageSize"
-                                                        class="form-control
-                                                        form-control-sm mx-2"
-                                                        [(ngModel)]="service.pageSize">
-                                                        <option [ngValue]="10">10</option>
-                                                        <option [ngValue]="25">25</option>
-                                                        <option [ngValue]="50">50</option>
-                                                        <option [ngValue]="100">100</option>
-                                                    </select> entries
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- Search -->
-                                        <div class="col-sm-12 col-md-6">
-                                            <div id="tickets-table_filter"
-                                                class="dataTables_filter
-                                                text-md-end"><label
-                                                    class="d-inline-flex
-                                                    align-items-center">Search:
-                                                    <input type="text"
-                                                        name="searchTerm"
-                                                        class="form-control
-                                                        form-control-sm ms-2"
-                                                        aria-controls="tickets-table"
-                                                        [(ngModel)]="service.searchTerm"></label></div>
-                                        </div>
-                                        <!-- End search -->
-                                    </div>
-                                    <table id="basic-datatable"
-                                        class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
-                                        <thead>
-                                            <tr> <th
-                                                    sortableTicket="CREATE_DATE"
-                                                    (sort)="onSort($event)">วันที่</th>
-                                                <th sortableTicket="HEADLINE"
-                                                    (sort)="onSort($event)">เรื่องแจ้ง</th>
-                                                <th sortableTicket="DETAIL"
-                                                    (sort)="onSort($event)">รายละเอียด</th>
-                                                <th sortableTicket="CATEGORY"
-                                                    (sort)="onSort($event)">ประเภท</th>
-                                                <th sortableTicket="STATUS"
-                                                    (sort)="onSort($event)">สถานะ</th>
-                                                <th sortableTicket="DUE_DATE"
-                                                    (sort)="onSort($event)">กำหนดเสร็จ</th>
-                                                <th sortableTicket="DUE_DATE"
-                                                    (sort)="onSort($event)">สัญญาทั้งหมด</th>
-                                                <th sortableTicket="DUE_DATE"
-                                                    (sort)="onSort($event)">ใช้มิเตอร์</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody *ngFor="let table of tables$ |
-                                            async;let i=index">
-                                            <tr>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.CREATE_DATE"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.HEADLINE"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.DETAIL"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.CATEGORY"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.STATUS"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <ngb-highlight
-                                                        [result]="table.DUE_DATE"
-                                                        [term]="service.searchTerm">
-                                                    </ngb-highlight>
-                                                </td>
-                                                <td>
-                                                    <h4>รอการเพิ่มField ในFirebase</h4>
-                                                </td>
-                                                <td>
-                                                    <h4>รอการเพิ่มField ในFirebase</h4>
-                                                </td>
-                                                <td>
-                                                    <div class="button-items">
-                                                        <!-- <button type="button"
+                    <!-- End search -->
+                  </div>
+                  <table
+                    id="basic-datatable"
+                    class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline"
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          sortableTicket="CREATE_DATE"
+                          (sort)="onSort($event)"
+                        >
+                          วันที่
+                        </th>
+                        <th sortableTicket="HEADLINE" (sort)="onSort($event)">
+                          เรื่องแจ้ง
+                        </th>
+                        <th sortableTicket="DETAIL" (sort)="onSort($event)">
+                          รายละเอียด
+                        </th>
+                        <th sortableTicket="CATEGORY" (sort)="onSort($event)">
+                          ประเภท
+                        </th>
+                        <th sortableTicket="STATUS" (sort)="onSort($event)">
+                          สถานะ
+                        </th>
+                        <th sortableTicket="DUE_DATE" (sort)="onSort($event)">
+                          กำหนดเสร็จ
+                        </th>
+                        <th sortableTicket="DUE_DATE" (sort)="onSort($event)">
+                          สัญญาทั้งหมด
+                        </th>
+                        <th sortableTicket="DUE_DATE" (sort)="onSort($event)">
+                          ใช้มิเตอร์
+                        </th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async; let i = index">
+                      <tr>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.CREATE_DATE"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.HEADLINE"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.DETAIL"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.CATEGORY"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.STATUS"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.DUE_DATE"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.CONTRACT_NO"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="table.METER"
+                            [term]="service.searchTerm"
+                          >
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <div class="button-items">
+                            <!-- <button type="button"
                                                             class="btn btn-action"
                                                             routerLink="/ticket/ticket-view/"
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-show"></i>
                                                         </button> -->
-                                                        <!-- <button type="button"
+                            <!-- <button type="button"
                                                             class="btn btn-action"
                                                             routerLink="/ticket-edit/{{ticket.id}}" 
                                                             routerLinkActive="active">
                                                             <i class="bx bxs-pencil"></i>
                                                         </button> -->
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-action"
-                                                            routerLink="/ticket-view/{{ table.id }}"
-                                                            routerLinkActive="active">
-                                                            <i
-                                                                class="bx bxs-show"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn
-                                                            btn-action"
-                                                            id="sa-warning">
-                                                            <i class="bx
-                                                                bxs-trash"
-                                                                (click)="confirm(table.id)"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row justify-content-md-between
-                                    align-items-md-center
-                                    mt-2">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info mb-2"
-                                            id="tickets-table_info"
-                                            role="status"
-                                            aria-live="polite">
-                                            Showing
-                                            {{service.startIndex}} to
-                                            {{service.endIndex}} of
-                                            {{service.totalRecords}}
-                                            entries
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="text-md-right float-md-end
-                                            pagination-rounded">
-                                            <ngb-pagination
-                                                [collectionSize]="(total$ |
-                                                async)!"
-                                                [(page)]="service.page"
-                                                [pageSize]="service.pageSize">
-                                            </ngb-pagination>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <button
+                              type="button"
+                              class="btn btn-action"
+                              routerLink="/ticket-view/{{ table.id }}"
+                              routerLinkActive="active"
+                            >
+                              <i class="bx bxs-show"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-action"
+                              id="sa-warning"
+                            >
+                              <i
+                                class="bx bxs-trash"
+                                (click)="confirm(table.id)"
+                              ></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+                <div
+                  class="row justify-content-md-between align-items-md-center mt-2"
+                >
+                  <div class="col-sm-12 col-md-5">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing
+                      {{ service.startIndex }} to {{ service.endIndex }} of
+                      {{ service.totalRecords }}
+                      entries
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination
+                        [collectionSize]="(total$ | async)!"
+                        [(page)]="service.page"
+                        [pageSize]="service.pageSize"
+                      >
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- end row -->
-    <!--   
+  </div>
+  <!-- end row -->
+  <!--   
   <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
   <div class="preview-action" [class.show]="show_preview">
     <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
   </div> -->
+</div>
