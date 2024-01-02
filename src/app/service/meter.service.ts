@@ -129,6 +129,7 @@ export class MeterService {
     });
     return meters;
   }
+
   public fetchDayGraph() {
     const options = {
       headers: new HttpHeaders({
@@ -138,7 +139,7 @@ export class MeterService {
     const body = {
       CMD_TYPE: "METER_REPORT",
       USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      DEVICE_ID: ["1121 0010666"],
+      DEVICE_ID: ["1121 0010810"],
       REPORT_TYPE: ["DAILY"],
       CMD_PARAMS: [
         "LINE_VOLTAGE",

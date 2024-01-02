@@ -54,7 +54,7 @@ export class MeterViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-      this.fetchDay();
+    this.fetchDay();
     this.meterId = this.route.snapshot.params["id"];
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
@@ -74,12 +74,14 @@ export class MeterViewComponent implements OnInit {
     this.YearList = false;
     this.fetchDay();
   }
+
   graphOfMonth() {
     this.DayList = false;
     this.MonthList = true;
     this.YearList = false;
     this.fetchMonth();
   }
+
   graphOfYear() {
     this.DayList = false;
     this.MonthList = false;
@@ -121,7 +123,7 @@ export class MeterViewComponent implements OnInit {
   fetchDay() {
     this.spinner.show();
     this.meterService.fetchDayGraph().subscribe((res) => {
-      if(res){
+      if (res) {
         this.spinner.hide();
       }
       var data: any;
@@ -129,54 +131,45 @@ export class MeterViewComponent implements OnInit {
       data = res;
       this.dayList = data.DATA_RESPONSE[0].HOURLY_DATA;
       var days: any = [];
-      var cateDays:any = [];
+
+      var cateDays: any = [];
       for (let i = 0; i < 31; i++) {
-        if(this.dayList[i]){
-         days.push(this.dayList[i]); 
-         cateDays.push(days.length)
+        if (this.dayList[i]) {
+          days.push(this.dayList[i]);
+          cateDays.push(days.length);
         }
       }
-      var maxRate:any=[];
-      maxRate = days.sort((a:any,b:any)=>{
-        if(+a.ACTIVE_ENERGY>+b.ACTIVE_ENERGY){
-          return -1;
-        }
-        return 1;
-        })
-      console.log(maxRate);
+
       this.linewithDataChart.series = [
         {
           name: "Line Voltage",
-          data:
-            days.map((res:any)=>{
-              let num1 = +res.ACTIVE_ENERGY;
-              return num1.toFixed(0);
-            })
+          data: days.map((res: any) => {
+            console.log("res.ACTIVE_ENERGY >>> ", res.ACTIVE_ENERGY);
+            let num1 = +res.ACTIVE_ENERGY;
+            return num1;
+          }),
         },
       ];
       console.log(this.linewithDataChart.series);
       this.linewithDataChart.xaxis = {
         categories: cateDays,
         title: {
-          text: "Time",
+          text: "วันที่",
         },
       };
       this.linewithDataChart.yaxis = {
         title: {
-          text: "Volt",
+          text: "Active Energy",
         },
-        min: 0,
-        max: +maxRate[0].ACTIVE_ENERGY,
       };
-      console.log(this.linewithDataChart.yaxis)
+      console.log(this.linewithDataChart.yaxis);
     });
   }
-
 
   fetchMonth() {
     this.spinner.show();
     this.meterService.fetchMonthGraph().subscribe((resp) => {
-      if(resp){
+      if (resp) {
         this.spinner.hide();
       }
       var data: any;
@@ -184,32 +177,31 @@ export class MeterViewComponent implements OnInit {
       data = resp;
       this.monthList = data.DATA_RESPONSE[0].DATA;
       var month: any = [];
-      var cateMonth:any = [];
+      var cateMonth: any = [];
       for (let i = 0; i <= 12; i++) {
-        if(this.monthList[i]){
-          month.push(this.monthList[i]); 
-          cateMonth.push(month.length)
+        if (this.monthList[i]) {
+          month.push(this.monthList[i]);
+          cateMonth.push(month.length);
         }
       }
       console.log(month);
       console.log(cateMonth);
-      var maxRate:any=[];
-      maxRate = month.sort((a:any,b:any)=>{
-        if(+a.AVG_ACTIVE_ENERGY>+b.AVG_ACTIVE_ENERGY){
+      var maxRate: any = [];
+      maxRate = month.sort((a: any, b: any) => {
+        if (+a.AVG_ACTIVE_ENERGY > +b.AVG_ACTIVE_ENERGY) {
           return -1;
         }
         return 1;
-        })
+      });
       console.log(maxRate);
       this.linewithDataChart.series = [
         {
           name: "Line Voltage",
-          data:
-          month.map((res:any)=>{
+          data: month.map((res: any) => {
             let num1 = +res.AVG_ACTIVE_ENERGY;
-            num1.toFixed(0)
-              return num1.toFixed(0);
-            })
+            num1.toFixed(0);
+            return num1.toFixed(0);
+          }),
         },
       ];
       console.log(this.linewithDataChart.series);
@@ -219,7 +211,7 @@ export class MeterViewComponent implements OnInit {
           text: "Time",
         },
       };
-      console.log(this.linewithDataChart.xaxis)
+      console.log(this.linewithDataChart.xaxis);
       this.linewithDataChart.yaxis = {
         title: {
           text: "Volt",
@@ -227,13 +219,14 @@ export class MeterViewComponent implements OnInit {
         min: 0,
         max: +maxRate[0].AVG_ACTIVE_ENERGY,
       };
-      console.log(this.linewithDataChart.yaxis)
+      console.log(this.linewithDataChart.yaxis);
     });
   }
+
   fetchYear() {
     this.spinner.show();
     this.meterService.fetchYearGraph().subscribe((response) => {
-      if(response){
+      if (response) {
         this.spinner.hide();
       }
       var data: any;
@@ -241,46 +234,46 @@ export class MeterViewComponent implements OnInit {
       data = response;
       this.yearList = data.DATA_RESPONSE[0].DATA;
       var year: any = [];
-    var cateYear:any = [];
-    for (let i = 2000; i < 2050; i++) {
-      if(this.yearList[i]){
-        year.push(this.yearList[i]); 
-        cateYear.push(year.length)
+      var cateYear: any = [];
+      for (let i = 2000; i < 2050; i++) {
+        if (this.yearList[i]) {
+          year.push(this.yearList[i]);
+          cateYear.push(year.length);
+        }
       }
-    }
-    var maxRate:any=[];
-    maxRate = year.sort((a:any,b:any)=>{
-      if(+a.AVG_ACTIVE_ENERGY>+b.AVG_ACTIVE_ENERGY){
-        return -1;
-      }
-      return 1;
-      })
-    console.log(maxRate);
-    this.linewithDataChart.series = [
-      {
-        name: "Line Voltage",
-        data:
-        year.map((res:any)=>{
-          let num1 = +res.AVG_ACTIVE_ENERGY;
+      var maxRate: any = [];
+      maxRate = year.sort((a: any, b: any) => {
+        if (+a.AVG_ACTIVE_ENERGY > +b.AVG_ACTIVE_ENERGY) {
+          return -1;
+        }
+        return 1;
+      });
+      console.log(maxRate);
+      this.linewithDataChart.series = [
+        {
+          name: "Line Voltage",
+          data: year.map((res: any) => {
+            let num1 = +res.AVG_ACTIVE_ENERGY;
             return num1.toFixed(0);
-          })
-      },
-    ];
-    console.log(this.linewithDataChart.series);
-    this.linewithDataChart.xaxis = {
-      categories: cateYear,
-      title: {
-        text: "Time",
-      },
-    };
-    this.linewithDataChart.yaxis = {
-      title: {
-        text: "Volt",
-      },
-      min: 0,
-      max: +maxRate[0].AVG_ACTIVE_ENERGY,
-    };
-    console.log(this.linewithDataChart.yaxis)
+          }),
+        },
+      ];
+      console.log(this.linewithDataChart.series);
+      this.linewithDataChart.xaxis = {
+        categories: cateYear,
+        title: {
+          text: "Time",
+        },
+      };
+      this.linewithDataChart.yaxis = {
+        title: {
+          text: "Volt",
+        },
+        min: 0,
+        max: +maxRate[0].AVG_ACTIVE_ENERGY,
+      };
+      console.log(this.linewithDataChart.yaxis);
     });
   }
+
 }
