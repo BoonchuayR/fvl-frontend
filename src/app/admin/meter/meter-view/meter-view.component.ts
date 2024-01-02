@@ -5,6 +5,7 @@ import { MeterService } from "src/app/service/meter.service";
 import { ChartType } from "./dashboard.model";
 import { linewithDataChart } from "./data";
 import { pipe } from "rxjs";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-meter-view",
@@ -48,7 +49,8 @@ export class MeterViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private meterService: MeterService,
-    private iotService: IotService
+    private iotService: IotService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +119,11 @@ export class MeterViewComponent implements OnInit {
   }
 
   fetchDay() {
+    this.spinner.show();
     this.meterService.fetchDayGraph().subscribe((res) => {
+      if(res){
+        this.spinner.hide();
+      }
       var data: any;
       console.log(res);
       data = res;
@@ -143,7 +149,8 @@ export class MeterViewComponent implements OnInit {
           name: "Line Voltage",
           data:
             days.map((res:any)=>{
-              return res.ACTIVE_ENERGY;
+              let num1 = +res.ACTIVE_ENERGY;
+              return num1.toFixed(0);
             })
         },
       ];
@@ -167,7 +174,11 @@ export class MeterViewComponent implements OnInit {
 
 
   fetchMonth() {
+    this.spinner.show();
     this.meterService.fetchMonthGraph().subscribe((resp) => {
+      if(resp){
+        this.spinner.hide();
+      }
       var data: any;
       console.log(resp);
       data = resp;
@@ -195,7 +206,9 @@ export class MeterViewComponent implements OnInit {
           name: "Line Voltage",
           data:
           month.map((res:any)=>{
-              return res.AVG_ACTIVE_ENERGY;
+            let num1 = +res.AVG_ACTIVE_ENERGY;
+            num1.toFixed(0)
+              return num1.toFixed(0);
             })
         },
       ];
@@ -218,7 +231,11 @@ export class MeterViewComponent implements OnInit {
     });
   }
   fetchYear() {
+    this.spinner.show();
     this.meterService.fetchYearGraph().subscribe((response) => {
+      if(response){
+        this.spinner.hide();
+      }
       var data: any;
       console.log(response);
       data = response;
@@ -244,7 +261,8 @@ export class MeterViewComponent implements OnInit {
         name: "Line Voltage",
         data:
         year.map((res:any)=>{
-            return res.AVG_ACTIVE_ENERGY;
+          let num1 = +res.AVG_ACTIVE_ENERGY;
+            return num1.toFixed(0);
           })
       },
     ];
