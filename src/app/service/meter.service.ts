@@ -130,7 +130,7 @@ export class MeterService {
     return meters;
   }
 
-  public fetchDayGraph(deviceId:any) {
+  public fetchDayGraph(deviceId:any,start:any,end:any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -150,14 +150,14 @@ export class MeterService {
         "TIMESTAMP",
       ],
       REPORT_DATATIME: {
-        DATATIME_BEGIN: "2023-12-26 00:00:00",
-        DATATIME_END: "2023-12-27 00:00:00",
+        DATATIME_BEGIN: start,
+        DATATIME_END: end,
       },
     };
     return this.http.post(URL_GRAPH, body, options);
   }
 
-  public fetchMonthGraph(deviceId:any) {
+  public fetchMonthGraph(deviceId:any,start:any,end:any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -177,8 +177,8 @@ export class MeterService {
         "TIMESTAMP",
       ],
       REPORT_DATATIME: {
-        DATATIME_BEGIN: "2023-12-26 00:00:00",
-        DATATIME_END: "2023-12-27 00:00:00",
+        DATATIME_BEGIN: start,
+        DATATIME_END: end,
       },
     };
     return this.http.post(URL_GRAPH, body, options);
@@ -204,8 +204,8 @@ export class MeterService {
         "TIMESTAMP",
       ],
       REPORT_DATATIME: {
-        DATATIME_BEGIN: "2023-12-26 00:00:00",
-        DATATIME_END: "2023-12-27 00:00:00",
+        DATATIME_BEGIN: "2023-1-01 00:00:00",
+        DATATIME_END: "2035-12-31 00:00:00",
       },
     };
     return this.http.post(URL_GRAPH, body, options);

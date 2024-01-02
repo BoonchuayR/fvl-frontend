@@ -31,16 +31,23 @@
                         <div class="row">
                             <div class="col-3" *ngIf="MonthList">
                                 <h6>Select Month</h6>
-                                <input class="form-control" type="month" value="2021-03" id="example-month-input">
+                                <input class="form-control" type="month" value="2021-03" id="example-month-input" [(ngModel)]="getInputMonth">
+                            </div>
+                            <div class="col-3" *ngIf="MonthList">
+                                <br>
+                                <button type="button" class="btn btn-success" (click)="searchMonth()">Search</button>
                             </div>
                             <div class="col-3" *ngIf="DayList">
                                 <h6>Select Scope Date</h6>
-                                <input class="form-control flatpickr-input" type="text" mwlFlatpickr mode="range">
+                                <input class="form-control flatpickr-input" type="text" mwlFlatpickr mode="range" [(ngModel)]="getInputDay">
                             </div>
-                            <div class="col-3" *ngIf="YearList">
-
+                            <div class="col-3" *ngIf="DayList">
+                                <br>
+                                <button type="button" class="btn btn-success" (click)="searchDay()">Search</button>
                             </div>
-                            <div class="col-9 btn-right">
+                            <div class="col-6" *ngIf="YearList">
+                            </div>
+                            <div class="col-6 btn-right">
                                 <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfDay()">รายวัน</button>
                                 <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfMonth()">รายเดือน</button>
                                 <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfYear()">รายปี</button>

@@ -6,12 +6,14 @@ import { ChartType } from "./dashboard.model";
 import { linewithDataChart } from "./data";
 import { pipe } from "rxjs";
 import { NgxSpinnerService } from "ngx-spinner";
-
+import * as moment from "moment";
+import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: "app-meter-view",
   templateUrl: "./meter-view.component.html",
   styleUrls: ["./meter-view.component.scss"],
 })
+
 export class MeterViewComponent implements OnInit {
   linewithDataChart!: ChartType;
   dashedLineChart!: ChartType;
@@ -44,7 +46,8 @@ export class MeterViewComponent implements OnInit {
   dayList: any;
   monthList: any;
   yearList: any;
-  getDeviceID:any
+  getInputDay:any;
+  getInputMonth:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,7 +58,7 @@ export class MeterViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+    // let now = moment().format("DD.MM.YYYY");
     this.meterId = this.route.snapshot.params["id"];
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
@@ -63,7 +66,7 @@ export class MeterViewComponent implements OnInit {
       // this.fetchData();
       
     });
-this.fetchDay();
+  this.graphOfDay();
     this.linewithDataChart = linewithDataChart;
   }
 
@@ -71,18 +74,93 @@ this.fetchDay();
     this.router.navigate([`/meter-dashboard`]);
   }
 
+  searchDay(){
+    console.log(this.getInputDay)
+    var a:any,b:any;
+    a = this.getInputDay.slice(0,10);
+    b = this.getInputDay.slice(14,24);
+    this.fetchDay(a,b);
+  }
+  searchMonth(){
+    var a:any,b:any,c:any;
+    c = this.getInputMonth.slice(6,7);
+    if(c==="1"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+      console.log(a+"^"+b)
+    }
+    if(c==="2"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+28;
+    }
+    if(c==="3"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    if(c==="4"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+30;
+    }
+    if(c==="5"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    if(c==="6"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+30;
+    }
+    if(c==="7"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    if(c==="8"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    if(c==="9"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+30;
+    }
+    if(c==="10"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    if(c==="11"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+30;
+    }
+    if(c==="12"){
+      a = this.getInputMonth.slice(0,7)+"."+1;
+      b = this.getInputMonth.slice(0,7)+"."+31;
+    }
+    console.log(a,b)
+    this.fetchMonth(a,b);
+  }
+
   graphOfDay() {
+    var now:any,date:any;
+    now= moment().format("YYYY.MM.DD");
+    date = new NgbDate(
+      moment().year(),
+      moment().month() + 1,
+      moment().date()
+  );
+    var current = date.year+"-"+date.month+"-"+date.day+" to "+date.year+"-"+date.month+"-"+(Number(date.day+1));
+    this.getInputDay = current;
+    console.log(this.getInputDay)
     this.DayList = true;
     this.MonthList = false;
     this.YearList = false;
-    this.fetchDay();
+    this.searchDay();
   }
 
   graphOfMonth() {
+    var now = moment().format("YYYY.MM.DD");
+    this.getInputMonth = now;
     this.DayList = false;
     this.MonthList = true;
     this.YearList = false;
-    this.fetchMonth();
+    this.searchMonth();
   }
 
   graphOfYear() {
@@ -123,11 +201,11 @@ this.fetchDay();
     };
   }
 
-  fetchDay() {
+  fetchDay(start:any,end:any) {
     this.spinner.show();
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
-      this.meterService.fetchDayGraph(this.meter.deviceId).subscribe((res) => {
+      this.meterService.fetchDayGraph(this.meter.deviceId,start,end).subscribe((res) => {
       if (res) {
         this.spinner.hide();
       }
@@ -173,11 +251,11 @@ this.fetchDay();
     
   }
 
-  fetchMonth() {
+  fetchMonth(start:any,end:any) {
     this.spinner.show();
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
-      this.meterService.fetchMonthGraph(this.meter.deviceId).subscribe((resp) => {
+      this.meterService.fetchMonthGraph(this.meter.deviceId,start,end).subscribe((resp) => {
         if (resp) {
           this.spinner.hide();
         }
