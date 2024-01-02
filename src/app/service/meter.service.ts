@@ -130,7 +130,7 @@ export class MeterService {
     return meters;
   }
 
-  public fetchDayGraph() {
+  public fetchDayGraph(deviceId:any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -139,7 +139,7 @@ export class MeterService {
     const body = {
       CMD_TYPE: "METER_REPORT",
       USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      DEVICE_ID: ["1121 0010810"],
+      DEVICE_ID: [deviceId],
       REPORT_TYPE: ["DAILY"],
       CMD_PARAMS: [
         "LINE_VOLTAGE",
@@ -157,7 +157,7 @@ export class MeterService {
     return this.http.post(URL_GRAPH, body, options);
   }
 
-  public fetchMonthGraph() {
+  public fetchMonthGraph(deviceId:any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ export class MeterService {
     const body = {
       CMD_TYPE: "METER_REPORT",
       USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      DEVICE_ID: ["1121 0010666"],
+      DEVICE_ID: [deviceId],
       REPORT_TYPE: ["MONTHLY"],
       CMD_PARAMS: [
         "LINE_VOLTAGE",
@@ -184,7 +184,7 @@ export class MeterService {
     return this.http.post(URL_GRAPH, body, options);
   }
 
-  public fetchYearGraph() {
+  public fetchYearGraph(deviceId:any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -193,7 +193,7 @@ export class MeterService {
     const body = {
       CMD_TYPE: "METER_REPORT",
       USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      DEVICE_ID: ["1121 0010666"],
+      DEVICE_ID: [deviceId],
       REPORT_TYPE: ["YEARLY"],
       CMD_PARAMS: [
         "LINE_VOLTAGE",
