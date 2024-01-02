@@ -101,7 +101,6 @@
                         <th sortableTopup="statusName" (sort)="onSort($event)">
                           สถานะ
                         </th>
-                        <th>แอคชั่น</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -132,17 +131,6 @@
                             table.statusName
                           }}</span>
                         </td>
-                        <td>
-                          <div class="button-items">
-                            <button
-                              type="button"
-                              class="btn btn-warning w-md"
-                              (click)="topupModal(topup)"
-                            >
-                              รับเงิน
-                            </button>
-                          </div>
-                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -157,10 +145,9 @@
                       role="status"
                       aria-live="polite"
                     >
-                      Showing
-                      {{ service.startIndex }} to {{ service.endIndex }} of
-                      {{ service.totalRecords }}
-                      entries
+                      Showing {{ service.startIndex }} to
+                      {{ service.endIndex }} of
+                      {{ service.totalRecords }} entries
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">

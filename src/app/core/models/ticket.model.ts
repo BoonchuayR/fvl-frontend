@@ -9,5 +9,7 @@ export interface Ticket {
   TICKET_ID: string,
   DETAIL: string,
   OPENER_USER_ID: string,
+  CONTRACT_NO: string,
+  METER: string,
   id: string,
 }
