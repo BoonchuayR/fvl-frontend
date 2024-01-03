@@ -67,7 +67,7 @@ export class MeterViewComponent implements OnInit {
     this.meterId = this.route.snapshot.params["id"];
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
-      console.log("res meter >>>>", this.meter);
+      // console.log("res meter >>>>", this.meter);
       // this.fetchData();
     });
     this.graphOfDay();
@@ -79,7 +79,6 @@ export class MeterViewComponent implements OnInit {
   }
 
   searchDay() {
-    console.log(this.getInputDay);
     var a: any, b: any;
     a = this.getInputDay.slice(0, 10);
     b = this.getInputDay.slice(14, 24);
@@ -89,7 +88,6 @@ export class MeterViewComponent implements OnInit {
     var a: any, b: any, c: any,d:any,start:any,end:any;
     c = this.getInputMonth.slice(6, 7);
     d = this.getInputMonth.slice(0,4);
-    const date = new Date();
     const firstDay = getFirstDayOfMonth(d, c)+"";
     const lastDayCurrentMonth = getLastDayOfMonth(
       d,c
@@ -99,6 +97,11 @@ export class MeterViewComponent implements OnInit {
     a = d+"."+c+"."+start;
     b = d+"."+c+"."+end
     this.fetchMonth(a, b);
+    if(+c>=10){
+      this.getInputMonth = d+"-"+c;
+    }else{
+      this.getInputMonth = d+"-0"+c;
+    }
   }
 
   graphOfDay() {
@@ -118,7 +121,7 @@ export class MeterViewComponent implements OnInit {
       "-" +
       Number(date.day + 1);
     this.getInputDay = current;
-    console.log(this.getInputDay);
+    // console.log(this.getInputDay);
     this.DayList = true;
     this.MonthList = false;
     this.YearList = false;
@@ -183,7 +186,7 @@ export class MeterViewComponent implements OnInit {
             this.spinner.hide();
           }
           var data: any;
-          console.log(res);
+          // console.log(res);
           data = res;
           this.dayList = data.DATA_RESPONSE[0].HOURLY_DATA;
           var days: any = [];
@@ -198,15 +201,15 @@ export class MeterViewComponent implements OnInit {
 
           this.linewithDataChart.series = [
             {
-              name: "Line Voltage",
+              name: "Active Energy",
               data: days.map((res: any) => {
-                console.log("res.ACTIVE_ENERGY >>> ", res.ACTIVE_ENERGY);
+                // console.log("res.ACTIVE_ENERGY >>> ", res.ACTIVE_ENERGY);
                 let num1 = +res.ACTIVE_ENERGY;
                 return num1.toFixed(2);
               }),
             },
           ];
-          console.log(this.linewithDataChart.series);
+          // console.log(this.linewithDataChart.series);
           this.linewithDataChart.xaxis = {
             categories: cateDays,
             title: {
@@ -218,7 +221,7 @@ export class MeterViewComponent implements OnInit {
               text: "Active Energy",
             },
           };
-          console.log(this.linewithDataChart.yaxis);
+          // console.log(this.linewithDataChart.yaxis);
         });
     });
   }
@@ -234,7 +237,7 @@ export class MeterViewComponent implements OnInit {
             this.spinner.hide();
           }
           var data: any;
-          console.log(resp);
+          // console.log(resp);
           data = resp;
           this.monthList = data.DATA_RESPONSE[0].DATA;
           var month: any = [];
@@ -245,11 +248,11 @@ export class MeterViewComponent implements OnInit {
               cateMonth.push(month.length);
             }
           }
-          console.log(month);
-          console.log(cateMonth);
+          // console.log(month);
+          // console.log(cateMonth);
           this.linewithDataChart.series = [
             {
-              name: "Line Voltage",
+              name: "Active Energy",
               data: month.map((res: any) => {
                 let num1 = +res.AVG_ACTIVE_ENERGY;
                 num1.toFixed(0);
@@ -257,20 +260,20 @@ export class MeterViewComponent implements OnInit {
               }),
             },
           ];
-          console.log(this.linewithDataChart.series);
+          // console.log(this.linewithDataChart.series);
           this.linewithDataChart.xaxis = {
             categories: cateMonth,
             title: {
               text: "เดือน",
             },
           };
-          console.log(this.linewithDataChart.xaxis);
+          // console.log(this.linewithDataChart.xaxis);
           this.linewithDataChart.yaxis = {
             title: {
               text: "Active Energy",
             },
           };
-          console.log(this.linewithDataChart.yaxis);
+          // console.log(this.linewithDataChart.yaxis);
         });
     });
   }
@@ -286,7 +289,7 @@ export class MeterViewComponent implements OnInit {
             this.spinner.hide();
           }
           var data: any;
-          console.log(response);
+          // console.log(response);
           data = response;
           this.yearList = data.DATA_RESPONSE[0].DATA;
           var year: any = [];
@@ -299,14 +302,14 @@ export class MeterViewComponent implements OnInit {
           }
           this.linewithDataChart.series = [
             {
-              name: "Line Voltage",
+              name: "Active Energy",
               data: year.map((res: any) => {
                 let num1 = +res.AVG_ACTIVE_ENERGY;
                 return num1.toFixed(2);
               }),
             },
           ];
-          console.log(this.linewithDataChart.series);
+          // console.log(this.linewithDataChart.series);
           this.linewithDataChart.xaxis = {
             categories: cateYear,
             title: {
@@ -318,7 +321,7 @@ export class MeterViewComponent implements OnInit {
               text: "Active Energy",
             },
           };
-          console.log(this.linewithDataChart.yaxis);
+          // console.log(this.linewithDataChart.yaxis);
         });
     });
   }
