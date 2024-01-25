@@ -1,1 +1,136 @@
-<p>ticket-view works!</p>
+<!-- start page title -->
+<div class="row mb-3">
+    <div class="d-flex align-items-start">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">หน้าหลัก</li>
+            <li class="breadcrumb-item">แจ้งซ่อม</li>
+            <li class="breadcrumb-item active">ตรวจสอบรายการแจ้งซ่อม</li>
+        </ol>
+    </div>
+</div>
+
+<!-- end page title -->
+
+<!-- Start row -->
+<div class="row">
+    <div class="">
+        <div class="card card-green-style">
+            <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform" novalidate>
+                <div class="p-3 px-4 bg-success">
+                    <div class="d-flex align-items-start">
+                        <!-- <div class="align-self-center me-3">
+                        <img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle" alt="avatar" />
+                      </div> -->
+                        <div class="flex-1 align-self-center">
+                            <h5 class="title-card font-size-16 mt-1 mb-0">
+                                <a href="#" class="text-reset">เพิ่มรายการแจ้งซ่อม</a>
+                            </h5>
+                            <!-- <p class="text-muted mb-0 font-size-12">ร้านค้าพาร์ทเนอร์ทั้งหมด</p> -->
+                        </div>
+                        <div class="button-items">
+                            <button routerLink="/ticket-list" routerLinkActive="active" class="btn btn-outline-default btn-rounded float-right">
+                <i class="bx bx-x"></i> ยกเลิก
+              </button>
+                            <button class="btn btn-outline-success btn-rounded float-right" type="submit" (click)="formSubmit()" routerLink="/ticket-list" routerLinkActive="active">
+                <i class="bx bx bx-save"></i> บันทึก
+              </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="position-relative">
+                        <div class="card-body card-body-form">
+                            <div class="row">
+                                <h2 class="text-uppercase mb-5">เพิ่มรายการ</h2>
+                            </div>
+                            <div class="row">
+                                <div class="row mb-md-5">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">วันที่รับแจ้ง</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control form-control-lg" placeholder="yyyy-mm-dd" name="dp" formControlName="CREATE_DATE" ngbDatepicker #dp="ngbDatepicker" />
+                                                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button">
+                              <i class="far fa-calendar-alt"></i>
+                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">กำหนดเสร็จ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control form-control-lg" placeholder="yyyy-mm-dd" name="dp" formControlName="DUE_DATE" ngbDatepicker #d="ngbDatepicker" />
+                                                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">
+                              <i class="far fa-calendar-alt"></i>
+                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">ประเภท</label>
+                                                    <input class="form-control form-control-lg" formControlName="CATEGORY" type="text" placeholder="ประเภท" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">เรื่องรับแจ้ง</label>
+                                                    <input class="form-control form-control-lg" formControlName="HEADLINE" type="text" placeholder="เรื่องรับแจ้ง" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">รายละเอียด</label>
+                                                    <input class="form-control form-control-lg" formControlName="DETAIL" type="text" placeholder="รายละเอียด" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">สถานะ</label>
+                                                    <!-- <input class="form-control form-control-lg" formControlName="STATUS" type="text" placeholder="สถานะ" /> -->
+                                                    <select2 class formControlName="STATUS" placeholder="สถานะ" type="text" [data]="status" [multiple]="false" hideSelectedItems="true">
+                                                    </select2>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">เลขที่สัญญา</label>
+                                                    <input class="form-control form-control-lg" formControlName="CONTRACT_NO" type="text" placeholder="เลขที่สัญญา" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="font-size-12 mb-3">
+                                                    <label class="form-label">มิเตอร์</label>
+                                                    <input class="form-control form-control-lg" formControlName="METER" type="text" placeholder="สถานะ" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--   
+  <div class="preview-backdrop" (click)="onClosePreview()" *ngIf="show_preview"></div>
+  <div class="preview-action" [class.show]="show_preview">
+    <app-preview-qa [item]="item" (onClose)="onClose($event)" (onEdit)="onEditPreview($event)" (onDelete)="onDeleteItem($event)"></app-preview-qa>
+  </div> -->

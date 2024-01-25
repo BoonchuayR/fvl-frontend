@@ -4,8 +4,10 @@ import {
   addDoc, collection, collectionData, CollectionReference, deleteDoc,
   doc, docData, DocumentData, Firestore, Timestamp, updateDoc
 } from '@angular/fire/firestore'
+import { HttpClient } from '@angular/common/http';
 
-
+import { environment } from "src/environments/environment";
+import { map } from 'rxjs/operators';
 interface Tickets {
   CATEGORY: string;
   STATUS: string;
@@ -26,7 +28,7 @@ interface Tickets {
 export class TicketService {
   private ticketCollection: CollectionReference<DocumentData>;
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private _http: HttpClient) {
     this.ticketCollection = collection(firestore, 'tickets');
   }
 
@@ -49,6 +51,7 @@ export class TicketService {
     const ticketDocumentReference = doc(this.firestore, `tickets/${tickets.id}`);
     return updateDoc(ticketDocumentReference, { ...tickets });
   }
+
 
   delete(id: string) {
     const ticketDocumentReference = doc(this.firestore, `tickets/${id}`);

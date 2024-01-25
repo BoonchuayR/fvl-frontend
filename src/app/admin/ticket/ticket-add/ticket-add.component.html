@@ -97,7 +97,9 @@
                                             <div class="col-lg-6">
                                                 <div class="font-size-12 mb-3">
                                                     <label class="form-label">สถานะ</label>
-                                                    <input class="form-control form-control-lg" formControlName="STATUS" type="text" placeholder="สถานะ" />
+                                                    <!-- <input class="form-control form-control-lg" formControlName="STATUS" type="text" placeholder="สถานะ" /> -->
+                                                    <select2 class formControlName="STATUS" placeholder="สถานะ" type="text" [data]="status" [multiple]="false" hideSelectedItems="true">
+                                                    </select2>
                                                 </div>
                                             </div>
                                         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TicketService } from 'src/app/service/ticket.service';
+import { Select2Data } from 'ng-select2-component';
 
 @Component({
   selector: 'app-ticket-add',
@@ -12,6 +13,20 @@ export class TicketAddComponent implements OnInit {
   submit!: boolean;
   validationform!: FormGroup;
   model:any;
+  status:Select2Data=[
+    {
+      value: 'กำลังดำเนินการ',
+      label: 'กำลังดำเนินการ',
+      data: 'กำลังดำเนินการ',
+      id: 'กำลังดำเนินการ',
+    },
+    {
+      value: 'แก้ไขเสร็จเรียบร้อย',
+      label: 'แก้ไขเสร็จเรียบร้อย',
+      data: 'แก้ไขเสร็จเรียบร้อย',
+      id: 'แก้ไขเสร็จเรียบร้อย',
+    }
+  ]
   constructor(private formBuilder: FormBuilder, private ticketService: TicketService) { }
 
   ngOnInit(): void {
@@ -37,7 +52,7 @@ export class TicketAddComponent implements OnInit {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'เพิ่มข้อมูลผู้ใช้งานเรียบร้อย',
+        title: 'เพิ่มข้อมูลแจ้งซ่อมเรียบร้อย',
         showConfirmButton: false,
         timer: 3000
       })
