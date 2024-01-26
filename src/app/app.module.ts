@@ -23,7 +23,6 @@ import {NgxPrintModule} from 'ngx-print';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxSpinnerModule } from "ngx-spinner";
-
 import { LayoutsModule } from "./layouts/layouts.module";
 import { PagesModule } from "./pages/pages.module";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
@@ -33,6 +32,7 @@ import { Select2Module } from "ng-select2-component";
 import { AngularFireModule } from '@angular/fire/compat';
 // firebase
 import { provideFirestore, getFirestore } from "@angular/fire/firestore";
+import { FormsModule } from "@angular/forms";
 
 if (environment.defaultauth === "firebase") {
   initFirebaseBackend(environment.firebase);
@@ -46,6 +46,7 @@ export function createTranslateLoader(http: HttpClient): any {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    FormsModule,
     TranslateModule.forRoot({
       defaultLanguage: "en",
       loader: {
