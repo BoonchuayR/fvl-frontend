@@ -14,7 +14,7 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 3,
-        label: 'ผู้ใชังาน',
+        label: 'ผู้ดูแลระบบ',
         icon: 'bx bx-user',
         link: '/user-list',
     },
@@ -26,27 +26,27 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 5,
-        label: 'ร้านค้า',
-        icon: 'bx bxs-store',
-        link: '/shop-list',
-    },
-    {
-        id: 6,
-        label: 'มิเตอร์ไฟฟ้า',
+        label: 'มิเตอร์ไฟฟ้าร้านค้า',
         icon: 'bx bx-bulb',
         link: '/meter-dashboard',
     },
     {
+        id: 6,
+        label: 'บริการแจ้งซ่อม',
+        icon: 'bx bx-wrench',
+        link: '/ticket-list',
+    }, 
+    {
         id: 7,
-        label: 'เติมเงิน',
+        label: 'ชำระเงิน/เติมเงิน',
         icon: 'bx bx-money',
         link: '/topup-list',
     },
     {
         id: 8,
-        label: 'แจ้งซ่อม',
-        icon: 'bx bx-wrench',
-        link: '/ticket-list',
+        label: 'ร้านค้าฟู้ดวิลล่า ราชพฤกษ์',
+        icon: 'bx bxs-store',
+        link: '/shop-list',
     },
     // {
     //     id: 8,
