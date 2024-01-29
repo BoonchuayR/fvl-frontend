@@ -144,7 +144,7 @@ export class MeterListComponent implements OnInit {
     this.service.sortDirection = direction;
   }
 
-  changMeterState(event: any, boothId: any, id: any, meter: any) {
+  changMeterState(event: any, deviceId: any, id: any, meter: any) {
     const isChecked = event.target.checked;
     Swal.fire({
       title: `${isChecked ? "ยืนยันการเปิดมิเตอร์":"ยืนยันการปิดมิเตอร์"}`,
@@ -157,7 +157,7 @@ export class MeterListComponent implements OnInit {
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.iotService.meterUpdateState(boothId, isChecked ? "1" : "2").subscribe(() => {
+        this.iotService.meterUpdateState(deviceId, isChecked ? "1" : "2").subscribe(() => {
           meter.meterState = isChecked ? "1" : "2"
           this.meterService.update(meter).then(() => {
             // console.log("ตกลง")

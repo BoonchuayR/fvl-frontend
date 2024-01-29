@@ -61,17 +61,16 @@ export class IotService {
     return this.http.post(BASE_API, bodyReq);
   }
 
-  meterUpdateState(boothId: string, state: string) {
+  meterUpdateState(deviceId: string, state: string) {
 
     const bodyReq = {
-      CMD_TYPE: "METER_UPDATE", 
-      CMD_TOKEN: "KANT_IOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303", 
-      BOOTH_ID:[boothId],
-      CMD_PARAMS:[
+      CMD_TYPE: "METER_CONTROLLER", 
+      CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303", 
+      DEVICE_ID:deviceId,
+      DEVICE_CONTROL:
           {
-              "METER_STATE": state
+              "RELAY_STATE": state
           }
-      ]
     }
     return this.http.post(BASE_API, bodyReq);
   }
