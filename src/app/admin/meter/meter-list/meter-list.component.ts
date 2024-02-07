@@ -76,6 +76,7 @@ export class MeterListComponent implements OnInit {
     if(this.meterstate == 0){
       this.meterService.getAll()
       .subscribe(meters => {
+        console.log(meters)
         this.meters = meters;
         this.service.meters = this.meters;
         // this.meters = this.meters.map((meter: any) => {
@@ -157,8 +158,8 @@ export class MeterListComponent implements OnInit {
       cancelButtonText: 'ไม่, ยกเลิก!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.iotService.meterUpdateState(deviceId, isChecked ? "1" : "2").subscribe(() => {
-          meter.meterState = isChecked ? "1" : "2"
+        this.iotService.meterUpdateState(deviceId, isChecked ? "1" : "0").subscribe(() => {
+          meter.meterState = isChecked ? "1" : "0"
           this.meterService.update(meter).then(() => {
             // console.log("ตกลง")
           }).catch(() => {

@@ -23,9 +23,7 @@
                     </div>
 
                     <div class="button-items">
-                        <button routerLink="/meter-add"
-                            routerLinkActive="active"
-                            class="btn btn-outline-success btn-rounded
+                        <button routerLink="/meter-add" routerLinkActive="active" class="btn btn-outline-success btn-rounded
                             float-right">
                             <i class="bx bx-user-plus"></i> เพิ่มมิเตอร์
                         </button>
@@ -40,8 +38,7 @@
                                 <div class>
                                     <div class="row mb-md-2">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="dataTables_length"
-                                                id="tickets-table_length">
+                                            <div class="dataTables_length" id="tickets-table_length">
                                                 <label class="d-inline-flex
                                                     align-items-center">
                                                     Show
@@ -60,8 +57,7 @@
                                         </div>
                                         <!-- Search -->
                                         <div class="col text-end">
-                                            <span id="tickets-table_filter"
-                                                class="dataTables_filter
+                                            <span id="tickets-table_filter" class="dataTables_filter
                                                 text-md-end">
                                                 <label
                                                     class="d-inline-flex
@@ -74,9 +70,8 @@
                                                         [(ngModel)]="service.searchTerm">
                                                 </label>
                                             </span>
-                                            
-                                            <span class="dataTables_length"
-                                                id="tickets-table_length">
+
+                                            <span class="dataTables_length" id="tickets-table_length">
                                                 <label class="d-inline-flex
                                                     align-items-center">
                                                     State:
@@ -103,116 +98,77 @@
                                         <!-- End search -->
                                     </div>
                                     <div class="table-responsive">
-                                        <table id="basic-datatable"
-                                            class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                                        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
                                             <thead>
                                                 <tr>
 
-                                                    <th sortableMeter="boothId"
-                                                        (sort)="onSort($event)">รหัสแผงค้า
+                                                    <th sortableMeter="boothId" (sort)="onSort($event)">รหัสแผงค้า
                                                     </th>
-                                                    <th sortableMeter="custName"
-                                                        (sort)="onSort($event)">ชื่อลูกค้า
+                                                    <th sortableMeter="custName" (sort)="onSort($event)">ชื่อลูกค้า
                                                     </th>
-                                                    <th sortableMeter="shopName"
-                                                        (sort)="onSort($event)">ชื่อร้านค้า
+                                                    <th sortableMeter="shopName" (sort)="onSort($event)">ชื่อร้านค้า
                                                     </th>
-                                                    <th sortableMeter="deviceId"
-                                                        (sort)="onSort($event)">Device ID
+                                                    <th sortableMeter="deviceId" (sort)="onSort($event)">Device ID
                                                     </th>
-                                                    <th
-                                                        sortableMeter="deviceZone"
-                                                        (sort)="onSort($event)">Device Zone
+                                                    <th sortableMeter="deviceZone" (sort)="onSort($event)">Device Zone
                                                     </th>
-                                                    <th sortableMeter="serialNo"
-                                                        (sort)="onSort($event)">SerialNo.
+                                                    <th sortableMeter="serialNo" (sort)="onSort($event)">SerialNo.
                                                     </th>
-                                                    <th sortableMeter="lineVoltage"
-                                                        (sort)="onSort($event)">Line Voltage
+                                                    <th sortableMeter="lineVoltage" (sort)="onSort($event)">Line Voltage
                                                     </th>
                                                     <th>Meter State</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody
-                                                *ngFor="let table of tables$ |
+                                            <tbody *ngFor="let table of tables$ |
                                             async;let i=index">
                                                 <tr>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.boothId"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.boothId" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.custName"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.custName" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.shopName"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.shopName" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.deviceId"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.deviceId" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.deviceZone"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.deviceZone" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.serialNo"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.serialNo" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <ngb-highlight
-                                                            [result]="table.lineVoltage"
-                                                            [term]="service.searchTerm">
+                                                        <ngb-highlight [result]="table.lineVoltage" [term]="service.searchTerm">
                                                         </ngb-highlight>
                                                     </td>
                                                     <td>
-                                                        <div
-                                                            class="form-check
+                                                        <div class="form-check
                                                                 form-switch
                                                                 form-switch-lg
-                                                                mb-lg-3"
-                                                            dir="ltr">
-                                                            <input
-                                                                class="form-check-input"
-                                                                type="checkbox"
-                                                                id="SwitchCheckSizelg"
-                                                                [checked]="table.meterState === '1'"
-                                                                (change)="changMeterState($event,table.deviceId,table.id,table)" />
+                                                                mb-lg-3" dir="ltr">
+                                                            <input class="form-check-input" type="checkbox" id="SwitchCheckSizelg" [checked]="table.meterState === '1'?true:false" (change)="changMeterState($event,table.deviceId,table.id,table)" />
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div
-                                                            class="button-items">
-                                                            <button
-                                                                type="button"
-                                                                class="btn
-                                                            btn-action"
-                                                                routerLink="/meter-view/{{
-                                                            table.id }}"
-                                                                routerLinkActive="active">
+                                                        <div class="button-items">
+                                                            <button type="button" class="btn
+                                                            btn-action" routerLink="/meter-view/{{
+                                                            table.id }}" routerLinkActive="active">
                                                                 <i class="bx
                                                                 bxs-show"></i>
                                                             </button>
-                                                            <button
-                                                                type="button"
-                                                                class="btn
-                                                            btn-action"
-                                                                id="sa-warning">
+                                                            <button type="button" class="btn
+                                                            btn-action" id="sa-warning">
                                                                 <i
                                                                     class="bx
                                                                 bxs-trash"
@@ -231,25 +187,15 @@
                                     align-items-md-center
                                     mt-2">
                                     <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info mb-2"
-                                            id="tickets-table_info"
-                                            role="status"
-                                            aria-live="polite">
-                                            Showing
-                                            {{service.startIndex}} to
-                                            {{service.endIndex}} of
-                                            {{service.totalRecords}}
-                                            entries
+                                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                                            Showing {{service.startIndex}} to {{service.endIndex}} of {{service.totalRecords}} entries
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-5">
                                         <div class="text-md-right float-md-end
                                             pagination-rounded">
-                                            <ngb-pagination
-                                                [collectionSize]="(total$ |
-                                                async)!"
-                                                [(page)]="service.page"
-                                                [pageSize]="service.pageSize">
+                                            <ngb-pagination [collectionSize]="(total$ |
+                                                async)!" [(page)]="service.page" [pageSize]="service.pageSize">
                                             </ngb-pagination>
                                         </div>
                                     </div>
@@ -274,8 +220,7 @@
                             <p class="card-title-desc">ชำระเงินตามยอดได้ที่ จุดรับชำระเงินค่าไฟของโครงการ
                             </p>
                             <form class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInputValue"
-                                    placeholder="ระบุจำนวนเงิน">
+                                <input type="text" class="form-control" id="floatingInputValue" placeholder="ระบุจำนวนเงิน">
                             </form>
                         </div>
                         <div class="button-items text-center mb-1">
