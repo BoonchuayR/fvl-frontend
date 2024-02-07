@@ -76,7 +76,7 @@ export class MeterListComponent implements OnInit {
     if(this.meterstate == 0){
       this.meterService.getAll()
       .subscribe(meters => {
-        console.log(meters)
+        // console.log(meters)
         this.meters = meters;
         this.service.meters = this.meters;
         // this.meters = this.meters.map((meter: any) => {
