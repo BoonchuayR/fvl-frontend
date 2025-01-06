@@ -8,6 +8,7 @@
         </ol>
     </div>
 </div>
+
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
     <p class="loader" style="font-size: 20px; color: white"></p>
 </ngx-spinner>
@@ -31,7 +32,8 @@
                         <div class="row">
                             <div class="col-3" *ngIf="MonthList">
                                 <h6>Select Month</h6>
-                                <input class="form-control" type="month" value="2021-03" id="example-month-input" [(ngModel)]="getInputMonth">
+                                <input class="form-control" type="month" value="2021-03" id="example-month-input"
+                                    [(ngModel)]="getInputMonth">
                             </div>
                             <div class="col-3" *ngIf="MonthList">
                                 <br>
@@ -39,7 +41,8 @@
                             </div>
                             <div class="col-3" *ngIf="DayList">
                                 <h6>Select Scope Date</h6>
-                                <input class="form-control flatpickr-input" type="text" mwlFlatpickr mode="range" [(ngModel)]="getInputDay">
+                                <input class="form-control flatpickr-input" type="text" mwlFlatpickr mode="range"
+                                    [(ngModel)]="getInputDay">
                             </div>
                             <div class="col-3" *ngIf="DayList">
                                 <br>
@@ -48,9 +51,15 @@
                             <div class="col-6" *ngIf="YearList">
                             </div>
                             <div class="col-6 btn-right">
-                                <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfDay()">รายวัน</button>
-                                <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfMonth()">รายเดือน</button>
-                                <button type="button" class="btn btn-outline-success outline-success btn-rounded float-right m-1" style="font-weight: bold;" (click)="graphOfYear()">รายปี</button>
+                                <button type="button"
+                                    class="btn btn-outline-success outline-success btn-rounded float-right m-1"
+                                    style="font-weight: bold;" (click)="graphOfDay()">รายวัน</button>
+                                <button type="button"
+                                    class="btn btn-outline-success outline-success btn-rounded float-right m-1"
+                                    style="font-weight: bold;" (click)="graphOfMonth()">รายเดือน</button>
+                                <button type="button"
+                                    class="btn btn-outline-success outline-success btn-rounded float-right m-1"
+                                    style="font-weight: bold;" (click)="graphOfYear()">รายปี</button>
                             </div>
                         </div>
 
@@ -75,26 +84,49 @@
                             </h2>
                             <h3 class="text-muted">รับค่าที่ส่งจาก API</h3>
                             <div *ngIf="DayList">
-                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series" [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors" [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels" [responsive]="linewithDataChart.responsive"
-                                    [legend]="linewithDataChart.legend" [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis" [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
+                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series"
+                                    [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors"
+                                    [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels"
+                                    [responsive]="linewithDataChart.responsive" [legend]="linewithDataChart.legend"
+                                    [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis"
+                                    [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
                                 </apx-chart>
                             </div>
+                            <!-- <div *ngIf="DayList" id="chart">
+                                <apx-chart
+                                  [series]="chartOptions.series"
+                                  [chart]="chartOptions.chart"
+                                  [xaxis]="chartOptions.xaxis"
+                                  [legend]="chartOptions.legend"
+                                  [fill]="chartOptions.fill"
+                                  [plotOptions]="chartOptions.plotOptions"
+                                  [responsive]="chartOptions.responsive">
+                                </apx-chart>
+                              </div> -->
                             <div *ngIf="MonthList">
-                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series" [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors" [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels" [responsive]="linewithDataChart.responsive"
-                                    [legend]="linewithDataChart.legend" [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis" [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
+                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series"
+                                    [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors"
+                                    [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels"
+                                    [responsive]="linewithDataChart.responsive" [legend]="linewithDataChart.legend"
+                                    [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis"
+                                    [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
                                 </apx-chart>
                             </div>
                             <div *ngIf="YearList">
-                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series" [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors" [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels" [responsive]="linewithDataChart.responsive"
-                                    [legend]="linewithDataChart.legend" [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis" [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
+                                <apx-chart class="apex-charts" dir="ltr" [series]="linewithDataChart.series"
+                                    [chart]="linewithDataChart.chart" [colors]="linewithDataChart.colors"
+                                    [stroke]="linewithDataChart.stroke" [dataLabels]="linewithDataChart.dataLabels"
+                                    [responsive]="linewithDataChart.responsive" [legend]="linewithDataChart.legend"
+                                    [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis"
+                                    [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
                                 </apx-chart>
                             </div>
 
                         </div>
                         <div class="button-items text-center">
                             <button type="button" class="btn btn-primary btn-lg" (click)="onBtnBackClicked()">
-                ย้อนกลับ
-              </button>
+                                ย้อนกลับ
+                            </button>
                         </div>
                     </div>
                 </div>
