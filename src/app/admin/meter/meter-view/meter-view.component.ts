@@ -105,18 +105,20 @@ export class MeterViewComponent implements OnInit {
     var now: any, date: any;
     now = moment().format('YYYY.MM.DD');
     date = new NgbDate(moment().year(), moment().month() + 1, moment().date());
+
     var current =
       date.year +
       '-' +
-      date.month +
+      (date.month + '').padStart(2, '0') +
       '-' +
-      date.day +
+      (date.day + '').padStart(2, '0') +
       ' to ' +
       date.year +
       '-' +
-      date.month +
+      (date.month + '').padStart(2, '0') +
       '-' +
-      Number(date.day + 1);
+      (Number(date.day + 1) + '').padStart(2, '0');
+
     this.getInputDay = current;
     this.DayList = true;
     this.MonthList = false;
@@ -232,6 +234,7 @@ export class MeterViewComponent implements OnInit {
           if (data.DATA_RESPONSE && data.DATA_RESPONSE[0]) {
             var ACTIVE_ENERGY: any = [];
             var DELTA_UNIT: any = [];
+            var categories: any = [];
             var hourlyData = data.DATA_RESPONSE[0].HOURLY_DATA;
 
             // วนลูปผ่าน key ของ HOURLY_DATA object
@@ -242,14 +245,15 @@ export class MeterViewComponent implements OnInit {
                 // กรองเฉพาะ key ที่เป็นเลขคู่ (เวลาเลขคู่)
                 if (parseInt(key) % 2 === 0) {
                   ACTIVE_ENERGY.push(entry.ACTIVE_ENERGY);
-                  DELTA_UNIT.push(entry.DELTA_UNIT);
+                  DELTA_UNIT.push(entry.DELTA_UNIT || 0);
+                  categories.push(this.formatTime(+key));
                 }
               }
             }
 
             // แสดงค่าใน console (สำหรับตรวจสอบ)
-            console.log(ACTIVE_ENERGY);
-            console.log(DELTA_UNIT);
+            console.log('ACTIVE_ENERGY >>> ', ACTIVE_ENERGY);
+            console.log('DELTA_UNIT >>> ', DELTA_UNIT);
           }
 
           this.linewithDataChart = {
@@ -305,20 +309,7 @@ export class MeterViewComponent implements OnInit {
             },
             xaxis: {
               type: 'category',
-              categories: [
-                '01:00',
-                '03:00',
-                '05:00',
-                '07:00',
-                '09:00',
-                '11:00',
-                '13:00',
-                '15:00',
-                '17:00',
-                '19:00',
-                '21:00',
-                '23:00',
-              ],
+              categories: categories,
               title: {
                 text: 'Time (Every 2 Hours)', // เพิ่ม title ให้ชัดเจนขึ้น
               },
@@ -434,5 +425,18 @@ export class MeterViewComponent implements OnInit {
           // console.log(this.linewithDataChart.yaxis);
         });
     });
+  }
+
+  formatTime(input: number): string {
+    // Ensure the number is a valid hour (0-23)
+    if (input < 0 || input > 23) {
+      throw new Error('Input must be between 0 and 23.');
+    }
+
+    // Pad the hour with a leading zero if necessary
+    const hours = input.toString().padStart(2, '0');
+
+    // Return the formatted time
+    return `${hours}:00`;
   }
 }
