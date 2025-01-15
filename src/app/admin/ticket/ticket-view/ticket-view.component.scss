@@ -1,0 +1,19 @@
+::ng-deep
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  padding: 0.25rem 0.5rem !important;
+  line-height: normal !important;
+}
+
+::ng-deep .select2-container .select2-selection--single {
+  padding: 0.25rem 0.5rem !important;
+  line-height: normal !important;
+  height: auto !important;
+  border-radius: 4rem;
+}
+
+::ng-deep .select2-container--default .select2-selection--single {
+  border: 1px solid #ced4da !important;
+  border-radius: 0.4rem !important;
+}
