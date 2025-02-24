@@ -4,7 +4,10 @@ import { Observable } from "rxjs";
 import { UserService } from "src/app/service/user.service";
 import Swal from "sweetalert2";
 import { UserDataTableService } from "./user-datatable.service";
-import { UserSortableDirective, SortEventUser } from "./user-sortable.directive";
+import {
+  UserSortableDirective,
+  SortEventUser,
+} from "./user-sortable.directive";
 import { User } from "src/app/core/models/user.models";
 import { userData } from "./user-data";
 import { UserProfileService } from "src/app/core/services/user.service";
@@ -13,46 +16,46 @@ import { UserProfileService } from "src/app/core/services/user.service";
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
-  providers: [UserDataTableService, DecimalPipe]
+  providers: [UserDataTableService, DecimalPipe],
 })
 export class UserListComponent implements OnInit {
-
   tableData!: User[];
   hideme: boolean[] = [];
   tables$: Observable<User[]>;
   total$: Observable<number>;
   @ViewChildren(UserSortableDirective)
   headers!: QueryList<UserSortableDirective>;
-  
+
   user!: any;
-  listname!:string;
+  listname!: string;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private userProfileService: UserProfileService,
-    public userDataTableService: UserDataTableService) {
-      this.tables$ = userDataTableService.tables$;
-      this.total$ = userDataTableService.total$;
+    public userDataTableService: UserDataTableService
+  ) {
+    this.tables$ = userDataTableService.tables$;
+    this.total$ = userDataTableService.total$;
   }
 
   async ngOnInit(): Promise<void> {
     this.userService.getAll().subscribe((users) => {
       // console.log("users >>> ", users);
-      this.userDataTableService.users  = users;
+      this.userDataTableService.users = users;
       // console.log("after set users >>> ");
     });
   }
 
   // async logJSONData() {
-  //   const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+  //   const response = await fetch("https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/users");
   //   const jsonData = await response.json();
   // }
 
   onSort({ column, direction }: SortEventUser) {
     // resetting other headers
-    this.headers.forEach(header => {
+    this.headers.forEach((header) => {
       if (header.sortableUser !== column) {
-        header.direction = '';
+        header.direction = "";
       }
     });
     this.userDataTableService.sortColumn = column;
@@ -77,8 +80,7 @@ export class UserListComponent implements OnInit {
         // Remove user
         this.userProfileService.remove(id).subscribe((result) => {});
 
-        this.userService.delete(id).then((deleteduser) => {
-        });
+        this.userService.delete(id).then((deleteduser) => {});
         Swal.fire({
           position: "top-end",
           icon: "success",

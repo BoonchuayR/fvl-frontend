@@ -26,20 +26,25 @@ export interface ProfileUser {
   typeUser?: string;
 }
 
-const BASE_API_URL = "https://us-central1-fvl-app.cloudfunctions.net/api";
-const GET_ROLE_URL = "https://us-central1-fvl-app.cloudfunctions.net/api/getRole";
+const BASE_API_URL =
+  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api";
+const GET_ROLE_URL =
+  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/getRole";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
-  
   get(userId: string) {
     throw new Error("Method not implemented.");
   }
   private userCollection: CollectionReference<DocumentData>;
 
-  constructor(private firestore: Firestore, private authService: AuthService, private _http: HttpClient) {
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+    private _http: HttpClient
+  ) {
     this.userCollection = collection(firestore, "user");
   }
 
@@ -97,16 +102,20 @@ export class UserService {
   }
 
   async getAllFromAPI() {
-    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/users");
+    const response = await fetch(
+      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/users"
+    );
     const users = await response.json();
     return users.data;
   }
 
   getUserById(uid: string) {
-    return this._http.get<{ user: User }>(`${environment.apiUrl}/users/${uid}`).pipe(map(result => {
-      return result.user;
-    }));
+    return this._http
+      .get<{ user: User }>(`${environment.apiUrl}/users/${uid}`)
+      .pipe(
+        map((result) => {
+          return result.user;
+        })
+      );
   }
-
-
 }

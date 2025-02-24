@@ -18,15 +18,14 @@ import {
 } from "@angular/fire/firestore";
 import { topupData } from "../admin/topup/topup-list/topup-data";
 
-
 interface Topup {
-  uid: string,
-  statusName: string,
-  custName: string,
-  status: string,
-  createdAt: string,
-  topupMoney: string,
-  id:string,
+  uid: string;
+  statusName: string;
+  custName: string;
+  status: string;
+  createdAt: string;
+  topupMoney: string;
+  id: string;
 }
 
 @Injectable({
@@ -36,7 +35,7 @@ export class TopupService {
   private topupCollection: CollectionReference<DocumentData>;
 
   constructor(private firestore: Firestore) {
-    this.topupCollection = collection(firestore,"topup");
+    this.topupCollection = collection(firestore, "topup");
   }
 
   create(topup: Topup) {
@@ -70,7 +69,9 @@ export class TopupService {
     return deleteDoc(topupDocumentReference);
   }
   async getAllTopupFromAPI() {
-    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/Topups");
+    const response = await fetch(
+      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/Topups"
+    );
     const users = await response.json();
     return users.data;
   }

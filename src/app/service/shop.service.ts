@@ -16,7 +16,7 @@ import {
   where,
 } from "@angular/fire/firestore";
 
- interface Shop {
+interface Shop {
   id: string;
   boothCode: string;
   contractNo: string;
@@ -31,7 +31,7 @@ import {
   custPhone: string;
 }
 
-@Injectable({ 
+@Injectable({
   providedIn: "root",
 })
 export class ShopService {
@@ -56,9 +56,9 @@ export class ShopService {
       boothCate: "",
       contractDate: "",
       contractEndDate: "",
-      boothIds: ["A003","A004"],
-      uid: ""
-    }
+      boothIds: ["A003", "A004"],
+      uid: "",
+    };
     return addDoc(this.shopCollection, body);
   }
 
@@ -77,7 +77,7 @@ export class ShopService {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
   }
-  
+
   updatedeletedata(shop: Shop) {
     const shopDocumentReference = doc(this.firestore, `shop/${shop.id}`);
     return updateDoc(shopDocumentReference, { ...shop });
@@ -89,7 +89,10 @@ export class ShopService {
   }
 
   findByStoreId(storeId: string) {
-    const q = query(this.shopCollection, where("storeId", "array-contains", storeId));
+    const q = query(
+      this.shopCollection,
+      where("storeId", "array-contains", storeId)
+    );
     return collectionData(q, {
       idField: "id",
     }) as Observable<Shop[]>;
@@ -108,16 +111,18 @@ export class ShopService {
       idField: "id",
     }) as Observable<Shop[]>;
   }
-  
+
   findByBoothCode(boothCode: string) {
     const q = query(this.shopCollection, where("boothCode", "==", boothCode));
     return collectionData(q, {
       idField: "id",
     }) as Observable<Shop[]>;
   }
-  
+
   async getAllShopFromAPI() {
-    const response = await fetch("https://us-central1-fvl-app.cloudfunctions.net/api/shops");
+    const response = await fetch(
+      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/shops"
+    );
     const users = await response.json();
     return users.data;
   }

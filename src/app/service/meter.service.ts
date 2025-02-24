@@ -21,7 +21,7 @@ import { Meter } from "../core/models/meter.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 const CHECK_DUP_METER_URL =
-  "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
+  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/checkDupMeter";
 const URL_GRAPH = `https://meter.foodvillath.com/api/controller.php`;
 @Injectable({
   providedIn: "root",
@@ -113,7 +113,7 @@ export class MeterService {
 
   async getAllMeterFromAPI() {
     const response = await fetch(
-      "https://us-central1-fvl-app.cloudfunctions.net/api/meters"
+      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/meters"
     );
     const users = await response.json();
     return users.data;
@@ -130,7 +130,7 @@ export class MeterService {
     return meters;
   }
 
-  public fetchDayGraph(deviceId:any,start:any,end:any) {
+  public fetchDayGraph(deviceId: any, start: any, end: any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export class MeterService {
     return this.http.post(URL_GRAPH, body, options);
   }
 
-  public fetchMonthGraph(deviceId:any,start:any,end:any) {
+  public fetchMonthGraph(deviceId: any, start: any, end: any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -184,7 +184,7 @@ export class MeterService {
     return this.http.post(URL_GRAPH, body, options);
   }
 
-  public fetchYearGraph(deviceId:any) {
+  public fetchYearGraph(deviceId: any) {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",

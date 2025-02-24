@@ -4,12 +4,12 @@
 
 export const environment = {
   firebase: {
-    projectId: 'fvl-app',
-    appId: '1:384786685934:web:00b416e2fd8b6ece3d38ff',
-    storageBucket: 'fvl-app.appspot.com',
-    apiKey: 'AIzaSyDQIPFCxtnVhfs5ADqJX6r7msaCNFn8lJs',
-    authDomain: 'fvl-app.firebaseapp.com',
-    messagingSenderId: '384786685934',
+    projectId: "fvl-app",
+    appId: "1:384786685934:web:00b416e2fd8b6ece3d38ff",
+    storageBucket: "fvl-app.appspot.com",
+    apiKey: "AIzaSyDQIPFCxtnVhfs5ADqJX6r7msaCNFn8lJs",
+    authDomain: "fvl-app.firebaseapp.com",
+    messagingSenderId: "384786685934",
   },
   production: true,
   // defaultauth: "fakebackend",
@@ -24,7 +24,7 @@ export const environment = {
     appId: "",
     measurementId: "",
   },
-  apiUrl: "https://us-central1-fvl-app.cloudfunctions.net/api"
+  apiUrl: "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api",
 };
 
 /*

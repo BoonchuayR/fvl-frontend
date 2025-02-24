@@ -9,8 +9,8 @@ import { AuthenticationService } from "src/app/core/services/auth.service";
 import { CustomerService } from "src/app/service/customer.service";
 import { UserService } from "src/app/service/user.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap";
-import { alertData } from './data';
-import { AlertColor } from "src/app/pages/advanced/notification/notification.model";;
+import { alertData } from "./data";
+import { AlertColor } from "src/app/pages/advanced/notification/notification.model";
 
 @Component({
   selector: "app-login",
@@ -18,8 +18,7 @@ import { AlertColor } from "src/app/pages/advanced/notification/notification.mod
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-
-  @ViewChild('staticAlert', { static: false }) staticAlert?: NgbAlert;
+  @ViewChild("staticAlert", { static: false }) staticAlert?: NgbAlert;
 
   alertData: AlertColor[] = [];
 
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
   });
 
   submit!: boolean;
-  incorrectEmailOrPass!: boolean
+  incorrectEmailOrPass!: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,21 +46,21 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.staticAlert?.close(), 20000);
     /***
-     * Data Get 
-    */
+     * Data Get
+     */
     this._fetchData();
   }
 
   /***
- * Notification Data Get
- */
+   * Notification Data Get
+   */
   private _fetchData() {
     this.alertData = alertData;
   }
 
   closeToast() {
     this.show = false;
-    setTimeout(() => this.show = true, 8000);
+    setTimeout(() => (this.show = true), 8000);
   }
 
   closeTranslucentToast() {
@@ -79,7 +78,6 @@ export class LoginComponent implements OnInit {
     alertData.splice(alertData.indexOf(alert), 1);
   }
 
-
   get email() {
     return this.loginForm.get("email");
   }
@@ -89,7 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-
+    console.log("onSubmit >>> ");
     this.submit = true;
     const { email, password } = this.loginForm.value;
 
@@ -100,30 +98,37 @@ export class LoginComponent implements OnInit {
     this.authenticationService
       .login(email, password)
       .then(async (user) => {
+        console.log("logged in >>>> ");
         this.incorrectEmailOrPass = false;
-        this.userService.getUserById(user.uid).subscribe((user:any) => {
-          if(user.email === "sa@mail.com") {
-            this.router.navigate(["/"]);
-          } else {
-            const role = user.role;
-            if (role === 'customer') {
-              this.router.navigate(["/mobile/profile-view"]) 
-            } else if (role === 'sale') {
-              this.router.navigate(["/ticket-list"]);
-            } else if (role === 'account') {
-              this.router.navigate(["/"]);
-            } else if (role === 'service') {
-              this.router.navigate(["/ticket-list"]);
-            } else if (role === 'admin'){
+        if (user.email === "sa@mail.com") {
+          this.router.navigate(["/"]);
+        }
+        this.userService.getUserById(user.uid).subscribe(
+          (user: any) => {
+            if (user.email === "sa@mail.com") {
               this.router.navigate(["/"]);
             } else {
-              throw new Error('Something bad happened');
+              const role = user.role;
+              if (role === "customer") {
+                this.router.navigate(["/mobile/profile-view"]);
+              } else if (role === "sale") {
+                this.router.navigate(["/ticket-list"]);
+              } else if (role === "account") {
+                this.router.navigate(["/"]);
+              } else if (role === "service") {
+                this.router.navigate(["/ticket-list"]);
+              } else if (role === "admin") {
+                this.router.navigate(["/"]);
+              } else {
+                throw new Error("Something bad happened");
+              }
             }
+          },
+          (err) => {
+            console.log(err);
+            this.incorrectEmailOrPass = true;
           }
-        }, err=> {
-          console.log(err);
-          this.incorrectEmailOrPass = true;
-        })        
+        );
       })
       .catch((err) => {
         console.log("err: ", err);
@@ -132,11 +137,9 @@ export class LoginComponent implements OnInit {
   }
 
   /**
- * Returns form
- */
+   * Returns form
+   */
   get form() {
     return this.loginForm.controls;
   }
-
-  
 }
