@@ -24,7 +24,7 @@ export const environment = {
     appId: "",
     measurementId: "",
   },
-  apiUrl: "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api",
+  apiUrl: "https://us-central1-fvl-app.cloudfunctions.net/api",
 };
 
 /*

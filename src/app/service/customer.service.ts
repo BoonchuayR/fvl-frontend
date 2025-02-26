@@ -86,7 +86,7 @@ export class CustomerService {
 
   async getAllCustomerFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/customers"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/customers"
     );
     const users = await response.json();
     return users.data;

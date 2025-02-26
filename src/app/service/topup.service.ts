@@ -70,7 +70,7 @@ export class TopupService {
   }
   async getAllTopupFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/Topups"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/Topups"
     );
     const users = await response.json();
     return users.data;

@@ -21,7 +21,7 @@ import { Meter } from "../core/models/meter.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 const CHECK_DUP_METER_URL =
-  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/checkDupMeter";
+  "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
 const URL_GRAPH = `https://meter.foodvillath.com/api/controller.php`;
 @Injectable({
   providedIn: "root",
@@ -113,7 +113,7 @@ export class MeterService {
 
   async getAllMeterFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/meters"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/meters"
     );
     const users = await response.json();
     return users.data;

@@ -69,7 +69,7 @@ export class TicketService {
   }
   async getAllTicketFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/service"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/service"
     );
     const users = await response.json();
     return users.data;

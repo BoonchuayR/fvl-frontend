@@ -26,10 +26,9 @@ export interface ProfileUser {
   typeUser?: string;
 }
 
-const BASE_API_URL =
-  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api";
+const BASE_API_URL = "https://us-central1-fvl-app.cloudfunctions.net/api";
 const GET_ROLE_URL =
-  "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/getRole";
+  "https://us-central1-fvl-app.cloudfunctions.net/api/getRole";
 
 @Injectable({
   providedIn: "root",
@@ -103,7 +102,7 @@ export class UserService {
 
   async getAllFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/users"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/users"
     );
     const users = await response.json();
     return users.data;

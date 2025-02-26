@@ -121,7 +121,7 @@ export class ShopService {
 
   async getAllShopFromAPI() {
     const response = await fetch(
-      "https://us-central1-foodvilla-1fe60.cloudfunctions.net/api/shops"
+      "https://us-central1-fvl-app.cloudfunctions.net/api/shops"
     );
     const users = await response.json();
     return users.data;
