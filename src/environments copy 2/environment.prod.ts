@@ -11,7 +11,7 @@ export const environment = {
     authDomain: "fvl-app.firebaseapp.com",
     messagingSenderId: "384786685934",
   },
-  production: false,
+  production: true,
   // defaultauth: "fakebackend",
   defaultauth: "firebase",
   firebaseConfig: {

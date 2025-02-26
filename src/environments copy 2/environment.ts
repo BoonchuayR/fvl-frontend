@@ -4,12 +4,12 @@
 
 export const environment = {
   firebase: {
-    projectId: "fvl-app",
-    appId: "1:384786685934:web:00b416e2fd8b6ece3d38ff",
-    storageBucket: "fvl-app.appspot.com",
-    apiKey: "AIzaSyDQIPFCxtnVhfs5ADqJX6r7msaCNFn8lJs",
-    authDomain: "fvl-app.firebaseapp.com",
-    messagingSenderId: "384786685934",
+    projectId: "foodvilla-1fe60",
+    appId: "1:428569454146:web:a4fdd59b8ff3411ac6afdb",
+    storageBucket: "foodvilla-1fe60.firebasestorage.app",
+    apiKey: "AIzaSyA1xF4sfiDPLIO47g94Bf3JImYYVCtUPAk",
+    authDomain: "foodvilla-1fe60.firebaseapp.com",
+    messagingSenderId: "G-5QB12K6DBH",
   },
   production: false,
   // defaultauth: "fakebackend",
