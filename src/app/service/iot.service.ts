@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-const BASE_API = "https://meter.foodvillath.com/api/controller.php";
+const BASE_API = "https://kantit.com/meter/api/controller.php";
 
 @Injectable({
   providedIn: "root",
@@ -41,7 +41,7 @@ export class IotService {
         "METER_STATE_ADMIN",
         "UPDATE_STATE_ADMIN_DATETIME",
         "METER_STATE_PREVIOUS_UNIT",
-        "METER_STATE_CALCULATE_UNIT"
+        "METER_STATE_CALCULATE_UNIT",
       ],
       BOOTH_ID: [bootId],
     };
@@ -62,33 +62,26 @@ export class IotService {
   }
 
   meterUpdateState(deviceId: string, state: string) {
-
     const bodyReq = {
-      CMD_TYPE: "METER_CONTROLLER", 
-      CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303", 
-      DEVICE_ID:deviceId,
-      DEVICE_CONTROL:
-          {
-              "RELAY_STATE": state
-          }
-    }
+      CMD_TYPE: "METER_CONTROLLER",
+      CMD_TOKEN: "FVIOT_ADMIN_a7e1b49f6dbdd1579de1929af0d7c303",
+      DEVICE_ID: deviceId,
+      DEVICE_CONTROL: {
+        RELAY_STATE: state,
+      },
+    };
     return this.http.post(BASE_API, bodyReq);
   }
 
   meterReport(storeId: string): any {
-
     const bodyReq = {
       CMD_TYPE: "METER_REPORT",
       USER_TOKEN: "a7e1b49f6dbdd1579de1929af0d7c303",
-      STORE_ID: [
-        storeId
-      ],
-      REPORT_TYPE: [
-        "DAILY"
-      ],
+      STORE_ID: [storeId],
+      REPORT_TYPE: ["DAILY"],
       REPORT_DATATIME: {
         DATATIME_BEGIN: "2022-01-01 00:00:00",
-        DATATIME_END: "2022-12-31 23:59:59"
+        DATATIME_END: "2022-12-31 23:59:59",
       },
       CMD_PARAMS: [
         "LINE_VOLTAGE",
@@ -96,9 +89,9 @@ export class IotService {
         "LINE_CURRENT",
         "ACTIVE_POWER",
         "ACTIVE_ENERGY",
-        "TIMESTAMP"
-      ]
-    }
+        "TIMESTAMP",
+      ],
+    };
 
     return this.http.post(BASE_API, bodyReq);
   }

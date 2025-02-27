@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-const base_meter_api_url =
-  "https://www.k-tech.co.th/foodvilla/meter/api/controller.php";
+const base_meter_api_url = "https://kantit.com/meter/api/controller.php";
 
 @Injectable({
   providedIn: "root",

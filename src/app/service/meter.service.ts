@@ -22,7 +22,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 const CHECK_DUP_METER_URL =
   "https://us-central1-fvl-app.cloudfunctions.net/api/checkDupMeter";
-const URL_GRAPH = `https://meter.foodvillath.com/api/controller.php`;
+const URL_GRAPH = `https://kantit.com/meter/api/controller.php`;
 @Injectable({
   providedIn: "root",
 })

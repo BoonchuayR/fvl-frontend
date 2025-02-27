@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IotService } from 'src/app/service/iot.service';
-import { MeterService } from 'src/app/service/meter.service';
-import { ChartType } from './dashboard.model';
-import { linewithDataChart } from './data';
-import { NgxSpinnerService } from 'ngx-spinner';
-import * as moment from 'moment';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { IotService } from "src/app/service/iot.service";
+import { MeterService } from "src/app/service/meter.service";
+import { ChartType } from "./dashboard.model";
+import { linewithDataChart } from "./data";
+import { NgxSpinnerService } from "ngx-spinner";
+import * as moment from "moment";
+import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
 function getFirstDayOfMonth(year: any, month: any) {
   return new Date(year, month, 1);
 }
@@ -14,9 +14,9 @@ function getLastDayOfMonth(year: any, month: any) {
   return new Date(year, month + 1, 0);
 }
 @Component({
-  selector: 'app-meter-view',
-  templateUrl: './meter-view.component.html',
-  styleUrls: ['./meter-view.component.scss'],
+  selector: "app-meter-view",
+  templateUrl: "./meter-view.component.html",
+  styleUrls: ["./meter-view.component.scss"],
 })
 export class MeterViewComponent implements OnInit {
   linewithDataChart!: ChartType;
@@ -52,6 +52,7 @@ export class MeterViewComponent implements OnInit {
   yearList: any;
   getInputDay: any;
   getInputMonth: any;
+  boothId: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -62,10 +63,11 @@ export class MeterViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.meterId = this.route.snapshot.params['id'];
+    this.meterId = this.route.snapshot.params["id"];
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
-      // console.log("res meter >>>>", this.meter);
+      console.log("res meter >>>>", this.meter);
+      this.boothId = this.meter.boothId;
       // this.fetchData();
     });
     this.graphOfDay();
@@ -87,37 +89,37 @@ export class MeterViewComponent implements OnInit {
     var a: any, b: any, c: any, d: any, start: any, end: any;
     c = this.getInputMonth.slice(6, 7);
     d = this.getInputMonth.slice(0, 4);
-    const firstDay = getFirstDayOfMonth(d, c) + '';
-    const lastDayCurrentMonth = getLastDayOfMonth(d, c) + '';
+    const firstDay = getFirstDayOfMonth(d, c) + "";
+    const lastDayCurrentMonth = getLastDayOfMonth(d, c) + "";
     start = firstDay.slice(9, 10);
     end = lastDayCurrentMonth.slice(8, 10);
-    a = d + '.' + c + '.' + start;
-    b = d + '.' + c + '.' + end;
+    a = d + "." + c + "." + start;
+    b = d + "." + c + "." + end;
     this.fetchMonth(a, b);
     if (+c >= 10) {
-      this.getInputMonth = d + '-' + c;
+      this.getInputMonth = d + "-" + c;
     } else {
-      this.getInputMonth = d + '-0' + c;
+      this.getInputMonth = d + "-0" + c;
     }
   }
 
   graphOfDay() {
     var now: any, date: any;
-    now = moment().format('YYYY.MM.DD');
+    now = moment().format("YYYY.MM.DD");
     date = new NgbDate(moment().year(), moment().month() + 1, moment().date());
 
     var current =
       date.year +
-      '-' +
-      (date.month + '').padStart(2, '0') +
-      '-' +
-      (date.day + '').padStart(2, '0') +
-      ' to ' +
+      "-" +
+      (date.month + "").padStart(2, "0") +
+      "-" +
+      (date.day + "").padStart(2, "0") +
+      " to " +
       date.year +
-      '-' +
-      (date.month + '').padStart(2, '0') +
-      '-' +
-      (Number(date.day + 1) + '').padStart(2, '0');
+      "-" +
+      (date.month + "").padStart(2, "0") +
+      "-" +
+      (Number(date.day + 1) + "").padStart(2, "0");
 
     this.getInputDay = current;
     this.DayList = true;
@@ -127,7 +129,7 @@ export class MeterViewComponent implements OnInit {
   }
 
   graphOfMonth() {
-    var now = moment().format('YYYY.MM.DD');
+    var now = moment().format("YYYY.MM.DD");
     this.getInputMonth = now;
     this.DayList = false;
     this.MonthList = true;
@@ -147,7 +149,7 @@ export class MeterViewComponent implements OnInit {
       const meterData = res.DATA;
       this.linewithDataChart.series = [
         {
-          name: 'Line Voltage',
+          name: "Line Voltage",
           data: meterData.map((m: any) => {
             return m.LINE_VOLTAGE;
           }),
@@ -159,14 +161,14 @@ export class MeterViewComponent implements OnInit {
           return m.TIMESTAMP;
         }),
         title: {
-          text: 'Time',
+          text: "Time",
         },
       };
     });
 
     this.linewithDataChart.yaxis = {
       title: {
-        text: 'Volt',
+        text: "Volt",
       },
       min: 190,
       max: 240,
@@ -174,8 +176,8 @@ export class MeterViewComponent implements OnInit {
   }
 
   fetchDay(startDate: any, endDate: any) {
-    console.log('start date >>> ', startDate);
-    console.log('endDate date >>> ', endDate);
+    console.log("start date >>> ", startDate);
+    console.log("endDate date >>> ", endDate);
     this.spinner.show();
     this.meterService.get(this.meterId).subscribe((meter) => {
       this.meter = meter;
@@ -252,23 +254,23 @@ export class MeterViewComponent implements OnInit {
             }
 
             // แสดงค่าใน console (สำหรับตรวจสอบ)
-            console.log('ACTIVE_ENERGY >>> ', ACTIVE_ENERGY);
-            console.log('DELTA_UNIT >>> ', DELTA_UNIT);
+            console.log("ACTIVE_ENERGY >>> ", ACTIVE_ENERGY);
+            console.log("DELTA_UNIT >>> ", DELTA_UNIT);
           }
 
           this.linewithDataChart = {
             series: [
               {
-                name: 'ACTIVE_ENERGY',
+                name: "ACTIVE_ENERGY",
                 data: ACTIVE_ENERGY,
               },
               {
-                name: 'DELTA_UNIT',
+                name: "DELTA_UNIT",
                 data: DELTA_UNIT,
               },
             ],
             chart: {
-              type: 'bar',
+              type: "bar",
               height: 350,
               stacked: true,
               toolbar: {
@@ -283,7 +285,7 @@ export class MeterViewComponent implements OnInit {
                 breakpoint: 480,
                 options: {
                   legend: {
-                    position: 'bottom',
+                    position: "bottom",
                     offsetX: -10,
                     offsetY: 0,
                   },
@@ -294,13 +296,13 @@ export class MeterViewComponent implements OnInit {
               bar: {
                 horizontal: false,
                 borderRadius: 10,
-                borderRadiusApplication: 'end',
-                borderRadiusWhenStacked: 'last',
+                borderRadiusApplication: "end",
+                borderRadiusWhenStacked: "last",
                 dataLabels: {
                   total: {
                     enabled: true,
                     style: {
-                      fontSize: '13px',
+                      fontSize: "13px",
                       fontWeight: 900,
                     },
                   },
@@ -308,14 +310,14 @@ export class MeterViewComponent implements OnInit {
               },
             },
             xaxis: {
-              type: 'category',
+              type: "category",
               categories: categories,
               title: {
-                text: 'Time (Every 2 Hours)', // เพิ่ม title ให้ชัดเจนขึ้น
+                text: "Time (Every 2 Hours)", // เพิ่ม title ให้ชัดเจนขึ้น
               },
             },
             legend: {
-              position: 'right',
+              position: "right",
               offsetY: 40,
             },
             fill: {
@@ -353,7 +355,7 @@ export class MeterViewComponent implements OnInit {
           // console.log(cateMonth);
           this.linewithDataChart.series = [
             {
-              name: 'Active Energy',
+              name: "Active Energy",
               data: month.map((res: any) => {
                 let num1 = +res.AVG_ACTIVE_ENERGY;
                 num1.toFixed(0);
@@ -365,13 +367,13 @@ export class MeterViewComponent implements OnInit {
           this.linewithDataChart.xaxis = {
             categories: cateMonth,
             title: {
-              text: 'เดือน',
+              text: "เดือน",
             },
           };
           // console.log(this.linewithDataChart.xaxis);
           this.linewithDataChart.yaxis = {
             title: {
-              text: 'Active Energy',
+              text: "Active Energy",
             },
           };
           // console.log(this.linewithDataChart.yaxis);
@@ -403,7 +405,7 @@ export class MeterViewComponent implements OnInit {
           }
           this.linewithDataChart.series = [
             {
-              name: 'Active Energy',
+              name: "Active Energy",
               data: year.map((res: any) => {
                 let num1 = +res.AVG_ACTIVE_ENERGY;
                 return num1.toFixed(2);
@@ -414,12 +416,12 @@ export class MeterViewComponent implements OnInit {
           this.linewithDataChart.xaxis = {
             categories: cateYear,
             title: {
-              text: 'ปี',
+              text: "ปี",
             },
           };
           this.linewithDataChart.yaxis = {
             title: {
-              text: 'Active Energy',
+              text: "Active Energy",
             },
           };
           // console.log(this.linewithDataChart.yaxis);
@@ -430,11 +432,11 @@ export class MeterViewComponent implements OnInit {
   formatTime(input: number): string {
     // Ensure the number is a valid hour (0-23)
     if (input < 0 || input > 23) {
-      throw new Error('Input must be between 0 and 23.');
+      throw new Error("Input must be between 0 and 23.");
     }
 
     // Pad the hour with a leading zero if necessary
-    const hours = input.toString().padStart(2, '0');
+    const hours = input.toString().padStart(2, "0");
 
     // Return the formatted time
     return `${hours}:00`;
