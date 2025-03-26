@@ -4,4 +4,6 @@ $ ng serve
 
 # Deploy
 
-firebase deploy --only hosting
+$ ng build
+$ firebase login
+$ firebase deploy --only hosting

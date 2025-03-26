@@ -13,6 +13,12 @@ function getFirstDayOfMonth(year: any, month: any) {
 function getLastDayOfMonth(year: any, month: any) {
   return new Date(year, month + 1, 0);
 }
+function getFirstDayOfYear(year: any) {
+  return moment(`${year}-01-01`).format("YYYY-MM-DD");
+}
+function getLastDayOfYear(year: any) {
+  return moment(`${year}-12-31`).format("YYYY-MM-DD");
+}
 @Component({
   selector: "app-meter-view",
   templateUrl: "./meter-view.component.html",
@@ -93,8 +99,8 @@ export class MeterViewComponent implements OnInit {
     const lastDayCurrentMonth = getLastDayOfMonth(d, c) + "";
     start = firstDay.slice(9, 10);
     end = lastDayCurrentMonth.slice(8, 10);
-    a = d + "." + c + "." + start;
-    b = d + "." + c + "." + end;
+    a = getFirstDayOfYear(moment().year());
+    b = getLastDayOfYear(moment().year());
     this.fetchMonth(a, b);
     if (+c >= 10) {
       this.getInputMonth = d + "-" + c;
@@ -245,11 +251,14 @@ export class MeterViewComponent implements OnInit {
                 let entry = hourlyData[key];
 
                 // กรองเฉพาะ key ที่เป็นเลขคู่ (เวลาเลขคู่)
-                if (parseInt(key) % 2 === 0) {
-                  ACTIVE_ENERGY.push(entry.ACTIVE_ENERGY);
-                  DELTA_UNIT.push(entry.DELTA_UNIT || 0);
-                  categories.push(this.formatTime(+key));
-                }
+                ACTIVE_ENERGY.push(entry.ACTIVE_ENERGY || 0);
+                DELTA_UNIT.push(entry.DELTA_UNIT || 0);
+                categories.push(this.formatTime(+key));
+                // if (parseInt(key) % 2 === 0) {
+                //   ACTIVE_ENERGY.push(entry.ACTIVE_ENERGY);
+                //   DELTA_UNIT.push(entry.DELTA_UNIT || 0);
+                //   categories.push(this.formatTime(+key));
+                // }
               }
             }
 
@@ -391,8 +400,8 @@ export class MeterViewComponent implements OnInit {
           if (response) {
             this.spinner.hide();
           }
+
           var data: any;
-          // console.log(response);
           data = response;
           this.yearList = data.DATA_RESPONSE[0].DATA;
           var year: any = [];
@@ -400,9 +409,10 @@ export class MeterViewComponent implements OnInit {
           for (let i = 2000; i < 2050; i++) {
             if (this.yearList[i]) {
               year.push(this.yearList[i]);
-              cateYear.push(year.length);
+              cateYear.push(i);
             }
           }
+
           this.linewithDataChart.series = [
             {
               name: "Active Energy",
@@ -412,7 +422,7 @@ export class MeterViewComponent implements OnInit {
               }),
             },
           ];
-          // console.log(this.linewithDataChart.series);
+
           this.linewithDataChart.xaxis = {
             categories: cateYear,
             title: {

@@ -204,8 +204,8 @@ export class MeterService {
         "TIMESTAMP",
       ],
       REPORT_DATATIME: {
-        DATATIME_BEGIN: "2023-1-01 00:00:00",
-        DATATIME_END: "2035-12-31 00:00:00",
+        DATATIME_BEGIN: "2000-01-01 00:00:00",
+        DATATIME_END: "2050-12-31 00:00:00",
       },
     };
     return this.http.post(URL_GRAPH, body, options);
